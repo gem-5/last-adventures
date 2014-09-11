@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package quintessence;
+package lastadventures;
 
 import java.net.URL;
 import java.util.ResourceBundle;

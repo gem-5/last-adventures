@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package quintessence;
+package lastadventures;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Jack
  */
-public class Quintessence extends Application {
+public class LastAdventures extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
