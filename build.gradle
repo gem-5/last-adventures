@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'com.google.code.gson:gson:2.3'
+	testCompile 'junit:junit:4.+'
+}
+
+version = '1.0'
+mainClassName = "edu.gatech.gem5.game.LastAdventures"
+
+jar {
+	baseName = 'last-adventures'
+	version = version
+	manifest {
+		attributes 'Implementation-Title': 'Last Adventures',
+				   'Implementation-Version': version,
+				   'Main-Class': mainClassName
+	}
+	// package runtime dependencies in the jar
+	from configurations.runtime.collect {
+		it.isDirectory() ? it : zipTree(it)
+	}
+}
