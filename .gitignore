@@ -1,0 +1,7 @@
+# ignore gradle and build files
+build/*
+.gradle/*
+
+# ignore auto-generated junk
+*.swp
+*.class
