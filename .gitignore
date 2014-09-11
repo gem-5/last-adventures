@@ -5,3 +5,6 @@ build/*
 # ignore auto-generated junk
 *.swp
 *.class
+
+# ignore netbeans stuff?
+/nbproject/private/
