@@ -20,6 +20,7 @@ public class LastAdventures extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        System.out.println("Got here at least before Exceptions");
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
