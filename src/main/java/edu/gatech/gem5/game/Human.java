@@ -13,13 +13,13 @@ public class Human {
     private Ship ship;
 
 
-    public Player(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship) {
+    public Human(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship) {
         this.name = name;
         this.pilot = pilot;
         this.fighter = fighter;
         this.trader = trader;
         this.engineer = engineer;
-        this.investory = investor;
+        this.investor = investor;
         this.ship = ship;
 
     }

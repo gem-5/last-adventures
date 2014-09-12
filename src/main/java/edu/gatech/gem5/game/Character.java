@@ -9,14 +9,15 @@ public class Character extends Human {
         return "*PLAYER CHARACTER*\n" + super.toString();
     }
 
-    public static Character createCharacterFromStrings(String nameString, String pilotString, String traderString, String engineerString, String investorString, String shipString) {
-        pilot = Integer.parseInt(pilotString);
-        trader = Integer.parseInt(traderString);
-        engineer = Integer.parseInt(engineerString);
-        investor = Integer.parseInt(investorString);
+    public static Character createCharacterFromStrings(String nameString, String pilotString, String fighterString, String traderString, String engineerString, String investorString, String shipString) {
+        int pilot = Integer.parseInt(pilotString);
+        int fighter = Integer.parseInt(fighterString);
+        int trader = Integer.parseInt(traderString);
+        int engineer = Integer.parseInt(engineerString);
+        int investor = Integer.parseInt(investorString);
         // Implement this with a Ship constructor once Ship class is created.
-        ship = null;
+        Ship ship = null;
 
-        return new Character(nameString, pilot, fighter, trader, engineer, investor)
+        return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);
     }
 }
