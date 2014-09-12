@@ -1,3 +1,6 @@
+/nbproject/private/
+/build/
+/dist/
 # ignore gradle and build files
 build/*
 .gradle/*
