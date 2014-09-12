@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package edu.gatech.gem5.game;
+package main.java;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +26,7 @@ public class LastAdventures extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(
-            getClass().getResource("/FXMLDocument.fxml")
+            getClass().getResource("/main/resources/FXMLDocument.fxml")
             // add resource bundle or something...
         );
         
