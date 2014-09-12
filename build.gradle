@@ -1,7 +1,6 @@
-defaultTasks 'jar'
+defaultTasks 'run'
 
 apply plugin: 'java'
-apply plugin: 'application'
 
 repositories {
 	mavenCentral()
@@ -13,7 +12,6 @@ dependencies {
 }
 
 version = '1.0'
-mainClassName = "edu.gatech.gem5.game.LastAdventures"
 
 jar {
 	baseName = 'last-adventures'
@@ -21,10 +19,16 @@ jar {
 	manifest {
 		attributes 'Implementation-Title': 'Last Adventures',
 				   'Implementation-Version': version,
-				   'Main-Class': mainClassName
+				   'Main-Class': "edu.gatech.gem5.game.LastAdventures"
 	}
 	// package runtime dependencies in the jar
 	from configurations.runtime.collect {
 		it.isDirectory() ? it : zipTree(it)
 	}
+}
+
+task run(type:JavaExec, dependsOn: [build]) {
+	main = "edu.gatech.gem5.game.LastAdventures"
+	classpath =
+		files("${libsDir}${File.separator}${archivesBaseName}-${version}.jar")
 }

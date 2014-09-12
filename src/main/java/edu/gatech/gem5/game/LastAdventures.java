@@ -15,6 +15,8 @@ import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.text.Font;
+import java.net.URI;
 
 /**
  *
@@ -26,17 +28,18 @@ public class LastAdventures extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(
-            getClass().getResource("/main/resources/FXMLDocument.fxml")
+            getClass().getResource("/Title.fxml")
             // add resource bundle or something...
         );
-        
+
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("title.css");
         
         stage.setScene(scene);
         stage.show();
 
         letterbox(scene, (Pane) root);
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
     }
 
     /**
