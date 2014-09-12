@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package main.java;
+package edu.gatech.gem5.game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
