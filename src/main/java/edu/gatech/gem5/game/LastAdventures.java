@@ -26,7 +26,7 @@ import java.net.URI;
 public class LastAdventures extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception {       
         Parent root = FXMLLoader.load(
             getClass().getResource("/Title.fxml")
             // add resource bundle or something...
@@ -34,9 +34,11 @@ public class LastAdventures extends Application {
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("title.css");
-        
+                
+
         stage.setScene(scene);
         stage.show();
+        
 
         letterbox(scene, (Pane) root);
         //stage.setFullScreen(true);
