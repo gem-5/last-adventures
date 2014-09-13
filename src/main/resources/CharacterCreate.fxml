@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -7,8 +10,64 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller=".CharacterCreateController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.gem5.game.controllers.CharacterCreateController">
     <stylesheets>
-        <URL value="@charactercreate.css"/>
+        <URL value="@charactercreate.css" />
     </stylesheets>
+   <children>
+      <TextField layoutX="441.0" layoutY="180.0" opacity="0.8" prefHeight="24.0" prefWidth="128.0">
+         <effect>
+            <Glow level="0.29" />
+         </effect>
+      </TextField>
+      <Slider layoutX="441.0" layoutY="213.0" majorTickUnit="20.0" minorTickCount="1" opacity="0.8" prefHeight="13.0" prefWidth="128.0" showTickMarks="true" snapToTicks="true">
+         <effect>
+            <Glow level="0.29" />
+         </effect>
+      </Slider>
+      <Slider layoutX="441.0" layoutY="234.0" majorTickUnit="20.0" minorTickCount="1" opacity="0.8" prefHeight="13.0" prefWidth="128.0" showTickMarks="true" snapToTicks="true">
+         <effect>
+            <Glow level="0.29" />
+         </effect>
+      </Slider>
+      <Slider layoutX="441.0" layoutY="253.0" majorTickUnit="20.0" minorTickCount="1" opacity="0.8" prefHeight="13.0" prefWidth="128.0" showTickMarks="true" snapToTicks="true">
+         <effect>
+            <Glow level="0.29" />
+         </effect>
+      </Slider>
+      <Slider layoutX="441.0" layoutY="272.0" majorTickUnit="20.0" minorTickCount="1" opacity="0.8" prefHeight="13.0" prefWidth="128.0" showTickMarks="true" snapToTicks="true">
+         <effect>
+            <Glow level="0.29" />
+         </effect>
+      </Slider>
+      <Slider layoutX="441.0" layoutY="292.0" majorTickUnit="20.0" minorTickCount="1" opacity="0.8" prefHeight="13.0" prefWidth="128.0" showTickMarks="true" snapToTicks="true">
+         <effect>
+            <Glow level="0.29" />
+         </effect>
+      </Slider>
+      <Button cancelButton="true" layoutX="519.0" layoutY="339.0" mnemonicParsing="false" opacity="0.8" text="Cancel">
+         <effect>
+            <Glow level="0.29" />
+         </effect>
+      </Button>
+      <Button layoutX="469.0" layoutY="339.0" mnemonicParsing="false" opacity="0.8" text="Reset">
+         <effect>
+            <Glow level="0.29" />
+         </effect>
+      </Button>
+      <PieChart layoutX="370.0" layoutY="21.0" prefHeight="127.0" prefWidth="190.0" title="SP Graph" />
+      <Button layoutX="407.0" layoutY="339.0" mnemonicParsing="false" opacity="0.8" text="Confirm">
+         <effect>
+            <Glow level="0.29" />
+         </effect>
+      </Button>
+      <Text layoutX="398.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <Text layoutX="396.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pilot" />
+      <Text layoutX="396.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fighter" />
+      <Text layoutX="396.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trader" />
+      <Text layoutX="396.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Engineer" />
+      <Text layoutX="396.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Investor" />
+      <Text layoutX="417.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SP Remaining:" />
+      <Text layoutX="544.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+   </children>
 </AnchorPane>
