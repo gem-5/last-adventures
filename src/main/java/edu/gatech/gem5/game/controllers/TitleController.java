@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
 /**
@@ -24,13 +25,26 @@ import javafx.scene.layout.Pane;
  */
 public class TitleController implements Initializable {
 
-	@FXML
-	Parent root;
+    @FXML
+    Parent root;
     
     @FXML
-    private void handleNewButtonAction(ActionEvent event) throws Exception {
+    private void changeScenes(ActionEvent event) throws Exception {
+        //gets this scene's stage
+        
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		Parent root = FXMLLoader.load(getClass().getResource("/create.fxml"));
+	String id = ((Button)(event.getSource())).idProperty().get();
+        //loads the create FXML file into root
+        if (id.equals("new")) {
+            root = FXMLLoader.load(getClass().getResource("/create.fxml"));
+        } else if (id.equals("continue")) {
+            //TODO
+            root = FXMLLoader.load(getClass().getResource("/title.fxml"));
+        } else if (id.equals("load")) {
+            //TODO
+            root = FXMLLoader.load(getClass().getResource("/title.fxml"));
+        }
+        //sets the stage to root scene
         stage.setScene(new Scene((Pane) root));
     }
     

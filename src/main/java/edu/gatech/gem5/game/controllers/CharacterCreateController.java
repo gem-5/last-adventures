@@ -8,7 +8,16 @@ package edu.gatech.gem5.game.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -16,7 +25,20 @@ import javafx.fxml.Initializable;
  * @author James
  */
 public class CharacterCreateController implements Initializable {
+    Parent root;
 
+    @FXML
+    public void changeScenes(ActionEvent event) throws Exception {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        String id = ((Button)(event.getSource())).idProperty().get();
+        if(id.equals("confirm")) {
+            root = FXMLLoader.load(getClass().getResource("/create.fxml"));
+        } else if (id.equals("back")) {
+            root = FXMLLoader.load(getClass().getResource("/title.fxml"));
+        }
+        
+        stage.setScene(new Scene((Pane) root));
+    }
     /**
      * Initializes the controller class.
      */
@@ -24,5 +46,7 @@ public class CharacterCreateController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    
     
 }

@@ -130,11 +130,13 @@
             />
 
             <Button 
+                id="back"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="7"
                 cancelButton="true"
                 mnemonicParsing="false"
                 text="Back"
+                onAction="#changeScenes" 
             >
             </Button>
             <Button
