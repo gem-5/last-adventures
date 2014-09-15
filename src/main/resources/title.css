@@ -31,6 +31,6 @@
 	-fx-cursor: hand;
 }
 
-.button:armed {
+.button:armed, .button:hover {
     -fx-opacity: 1.0;
 }
