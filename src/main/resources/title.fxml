@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -11,7 +12,7 @@
     prefHeight="720"
     prefWidth="1280"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="edu.gatech.gem5.game.TitleController"
+    fx:controller="edu.gatech.gem5.game.controllers.TitleController"
 >
     <children>
 
@@ -27,6 +28,7 @@
             <Button text="New"
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="1"
+				onAction="#handleNewButtonAction"
             />
             <Button text="Continue"
                 GridPane.columnIndex="0"
@@ -39,4 +41,7 @@
         </GridPane>
 
     </children>
+	<stylesheets>
+		<URL value="@title.css" />
+	</stylesheets>
 </AnchorPane>

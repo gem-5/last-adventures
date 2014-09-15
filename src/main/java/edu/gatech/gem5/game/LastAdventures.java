@@ -1,46 +1,51 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package edu.gatech.gem5.game;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.text.Font;
+import javafx.fxml.FXMLLoader;
 import java.net.URI;
 
 /**
  *
  * @author Jack
  * @author Creston
+ * @author James Park
  */
 public class LastAdventures extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {       
-        Parent root = FXMLLoader.load(
-            getClass().getResource("/Title.fxml")
-            // add resource bundle or something...
-        );
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("title.css");
-                
+		Parent root = FXMLLoader.load(getClass().getResource("/title.fxml"));
+		Scene scene = new Scene(root);
 
-        stage.setScene(scene);
+
+		// Listen for moments when the scene changes on the stage, then
+		// re-attach the size change listeners new the new scene
+		stage.sceneProperty().addListener(new ChangeListener<Scene>() {
+			public void changed(
+				ObservableValue<? extends Scene> observable,
+				Scene oldValue,
+				Scene newValue
+			) {
+				Pane root = (Pane) newValue.getRoot();
+				letterbox(newValue, root);
+			}
+		});
+
+		// For some reason you have to show the stage before letterboxing it
+		// for the scene change listener to work.
         stage.show();
-        
+        stage.setScene(scene);
 
-        letterbox(scene, (Pane) root);
         //stage.setFullScreen(true);
     }
 
@@ -131,5 +136,5 @@ public class LastAdventures extends Application {
         }
 
     }
-    
+
 }
