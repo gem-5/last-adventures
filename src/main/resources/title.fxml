@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane
+    id="AnchorPane"
+    prefHeight="720"
+    prefWidth="1280"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="edu.gatech.gem5.game.controllers.TitleController"
+>
+    <children>
+
+        <Label
+            layoutX="700"
+            layoutY="100"
+            fx:id="title"
+            text="Last Adventures"
+        />
+
+        <GridPane layoutX="700" layoutY="250">
+            <vgap>10.0</vgap>
+            <Button text="New"
+                GridPane.columnIndex="0"
+                GridPane.rowIndex="1"
+				onAction="#handleNewButtonAction"
+            />
+            <Button text="Continue"
+                GridPane.columnIndex="0"
+                GridPane.rowIndex="2"
+            />
+            <Button text="Load"
+                GridPane.columnIndex="0"
+                GridPane.rowIndex="3"
+            />
+        </GridPane>
+
+    </children>
+	<stylesheets>
+		<URL value="@title.css" />
+	</stylesheets>
+</AnchorPane>
