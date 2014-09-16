@@ -10,12 +10,12 @@ package edu.gatech.gem5.game;
  *
  * @author Jack
  */
-public class System {
+public class SolarSystem {
     private final String name;
     private final int xCoordinate;
     private final int yCoordinate;
     
-    public System (String name, int x, int y) {
+    public SolarSystem (String name, int x, int y) {
         this.name = name;
         this.xCoordinate = x;
         this.yCoordinate = y;

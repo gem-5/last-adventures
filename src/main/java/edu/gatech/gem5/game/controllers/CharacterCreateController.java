@@ -7,6 +7,7 @@ package edu.gatech.gem5.game.controllers;
  */
 
 import edu.gatech.gem5.game.Character;
+import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Ship;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -77,7 +78,11 @@ public class CharacterCreateController implements Initializable {
                     (int)engineerSlider.getValue(),
                     (int)traderSlider.getValue(),
                     (int)investorSlider.getValue(), (Ship)null);
-            
+            LastAdventures.getCurrentSaveFile().addCharacter(player);
+            //this is to print out the character once it is made
+            System.out.println(LastAdventures.getCurrentSaveFile());
+            //go to next scene once it is implemented (make this scene
+            //print out the character's stats for now
             root = FXMLLoader.load(getClass().getResource("/create.fxml"));
         } else if (id.equals("back")) {
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));

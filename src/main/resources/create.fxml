@@ -188,10 +188,12 @@
             >
             </Button>
             <Button
+                fx:id="confirm"
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="7"
                 mnemonicParsing="false"
                 text="Confirm"
+                onAction="#changeScenes"
             >
             </Button>
         </GridPane>

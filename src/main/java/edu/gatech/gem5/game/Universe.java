@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Jack
  */
 public class Universe {
-    private final ArrayList<System> universe;
+    private final ArrayList<SolarSystem> universe;
     //size on screen in pixels
     private int length;
     private int width;
@@ -153,7 +153,7 @@ public class Universe {
         
         this.universe = new ArrayList<>();
         for (int i = 0; i < 120; i++) {
-            universe.add(new System(names[i], locations.get(i).xCoordinate, 
+            universe.add(new SolarSystem(names[i], locations.get(i).xCoordinate, 
                     locations.get(i).yCoordinate));
         }
         
@@ -167,7 +167,7 @@ public class Universe {
     /**
      * @return the list of systems in the universe
      */
-    public ArrayList<System> getUniverse() {
+    public ArrayList<SolarSystem> getUniverse() {
         return universe;
     }
 
