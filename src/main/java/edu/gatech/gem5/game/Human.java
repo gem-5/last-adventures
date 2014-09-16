@@ -1,3 +1,4 @@
+package edu.gatech.gem5.game;
 
 public class Human {
 

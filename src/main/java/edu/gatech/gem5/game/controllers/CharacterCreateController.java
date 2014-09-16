@@ -6,6 +6,8 @@ package edu.gatech.gem5.game.controllers;
  * and open the template in the editor.
  */
 
+import edu.gatech.gem5.game.Character;
+import edu.gatech.gem5.game.Ship;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -21,7 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.input.MouseButton;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -56,6 +58,8 @@ public class CharacterCreateController implements Initializable {
     Label investorValue;
     @FXML
     Label remainingValue;
+    @FXML 
+    TextField name;
     
     /**
      *
@@ -67,6 +71,13 @@ public class CharacterCreateController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button)(event.getSource())).idProperty().get();
         if(id.equals("confirm")) {
+            Character player = new Character( name.getText(),
+                    (int)pilotSlider.getValue(),
+                    (int)fighterSlider.getValue(),
+                    (int)engineerSlider.getValue(),
+                    (int)traderSlider.getValue(),
+                    (int)investorSlider.getValue(), (Ship)null);
+            
             root = FXMLLoader.load(getClass().getResource("/create.fxml"));
         } else if (id.equals("back")) {
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));

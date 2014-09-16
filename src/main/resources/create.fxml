@@ -30,6 +30,7 @@
                 text="Name"
             />
             <TextField
+                fx:id="name"
                 GridPane.columnIndex="1"
                 GridPane.columnSpan="2"
                 GridPane.rowIndex="0"

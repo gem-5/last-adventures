@@ -36,7 +36,7 @@ public class TitleController implements Initializable {
 	String id = ((Button)(event.getSource())).idProperty().get();
         //loads the create FXML file into root
         if (id.equals("new")) {
-            root = FXMLLoader.load(getClass().getResource("/create.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/create.fxml"));                     
         } else if (id.equals("continue")) {
             //TODO
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));
