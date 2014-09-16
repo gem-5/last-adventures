@@ -1,3 +1,4 @@
+package edu.gatech.gem5.game;
 
 public class Character extends Human {
 
@@ -16,7 +17,8 @@ public class Character extends Human {
         int engineer = Integer.parseInt(engineerString);
         int investor = Integer.parseInt(investorString);
         // Implement this with a Ship constructor once Ship class is created.
-        Ship ship = null;
+        // Ship ship = null;
+        Ship ship = new Gnat();
 
         return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);
     }
