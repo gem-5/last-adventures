@@ -1,17 +1,18 @@
 package edu.gatech.gem5.game;
 
+import java.net.URI;
+import java.util.LinkedList;
 import javafx.application.Application;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.Group;
-import javafx.scene.layout.Pane;
-import javafx.scene.transform.Scale;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
-import java.net.URI;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.transform.Scale;
+import javafx.stage.Stage;
 
 /**
  *
@@ -21,6 +22,14 @@ import java.net.URI;
  */
 public class LastAdventures extends Application {
 
+    private static LinkedList<SaveFile> saveFiles;
+    private static Integer currentFile;
+
+    public LastAdventures () {
+        saveFiles = new LinkedList<>();
+        currentFile = 0;
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {       
 
@@ -55,7 +64,20 @@ public class LastAdventures extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    
+    public static void createNewSaveFile() {
+        //puts a new save file in the table at the next "index"
+        saveFiles.add(new SaveFile());
+        currentFile = saveFiles.size() - 1;
+    }
 
+    /**
+     * @return the currentFile
+     */
+    public static SaveFile getCurrentSaveFile() {
+        return saveFiles.get(currentFile);
+    }
+    
     private void letterbox(final Scene scene, final Pane contentPane) {
         final double initWidth  = scene.getWidth();
         final double initHeight = scene.getHeight();

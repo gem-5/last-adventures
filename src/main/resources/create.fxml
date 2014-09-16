@@ -21,7 +21,7 @@
         <URL value="@create.css" />
     </stylesheets>
     <children>
-         <GridPane layoutX="50" layoutY="50">
+        <GridPane layoutX="50" layoutY="50">
             <vgap>10.0</vgap>
             <hgap>10.0</hgap>
             <Label
@@ -30,7 +30,9 @@
                 text="Name"
             />
             <TextField
+                fx:id="name"
                 GridPane.columnIndex="1"
+                GridPane.columnSpan="2"
                 GridPane.rowIndex="0"
                 prefHeight="24.0"
                 prefWidth="270.0"
@@ -41,76 +43,121 @@
                 GridPane.rowIndex="1"
                 text="Pilot"
             />
-            <Slider
+            <Label
+                fx:id="pilotValue"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="1"
-                majorTickUnit="20.0"
-                minorTickCount="1"
+                text="1"
+            />
+            <Slider
+                fx:id="pilotSlider"
+                GridPane.columnIndex="2"
+                GridPane.rowIndex="1"
+                min="1"
+                max="21"
+                majorTickUnit="1"
+                minorTickCount="0"
+                opacity="0.8"
                 prefHeight="13.0"
                 prefWidth="128.0"
                 showTickMarks="true"
-                snapToTicks="true">
-            </Slider>
+                snapToTicks="true"
+                
+            />
             <Label 
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="2"
                 text="Fighter"
             />
-            <Slider
+            <Label
+                fx:id="fighterValue"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="2"
-                majorTickUnit="20.0"
-                minorTickCount="1"
+                text="1"
+            />
+            <Slider
+                fx:id="fighterSlider"
+                GridPane.columnIndex="2"
+                GridPane.rowIndex="2"
+                min="1"
+                max="21"
+                majorTickUnit="1"
+                minorTickCount="0"
+                opacity="0.8"
                 prefHeight="13.0"
                 prefWidth="128.0"
                 showTickMarks="true"
                 snapToTicks="true"
-            >
-            </Slider>
+            />
             <Label 
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="3"
                 text="Trader"
             />
-            <Slider
+            <Label
+                fx:id="traderValue"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="3"
-                majorTickUnit="20.0"
-                minorTickCount="1"
+                text="1"
+            />
+            <Slider
+                fx:id="traderSlider"
+                GridPane.columnIndex="2"
+                GridPane.rowIndex="3"
+                min="1"
+                max="21"
+                majorTickUnit="1"
+                minorTickCount="0"
                 opacity="0.8"
                 prefHeight="13.0"
                 prefWidth="128.0"
                 showTickMarks="true"
                 snapToTicks="true"
-            >
-            </Slider>
+            />
             <Label
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="4"
                 text="Engineer"
             />
-            <Slider 
+            <Label
+                fx:id="engineerValue"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="4"
-                majorTickUnit="20.0"
-                minorTickCount="1"
+                text="1"
+            />
+            <Slider
+                fx:id="engineerSlider"
+                GridPane.columnIndex="2"
+                GridPane.rowIndex="4"
+                min="1"
+                max="21"
+                majorTickUnit="1"
+                minorTickCount="0"
                 opacity="0.8"
                 prefHeight="13.0"
                 prefWidth="128.0"
                 showTickMarks="true"
                 snapToTicks="true"
-            >
-            </Slider>
+            />
             <Label
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="5"
                 text="Investor"
             />
-            <Slider 
+            <Label
+                fx:id="investorValue"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="5"
-                majorTickUnit="20.0"
-                minorTickCount="1"
+                text="1"
+            />
+            <Slider
+                fx:id="investorSlider"
+                GridPane.columnIndex="2"
+                GridPane.rowIndex="5"
+                min="1"
+                max="21"
+                majorTickUnit="1"
+                minorTickCount="0"
                 opacity="0.8"
                 prefHeight="13.0"
                 prefWidth="128.0"
@@ -124,24 +171,29 @@
                 text="SP Remaining:"
             />
             <Label
+                fx:id="remainingValue"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="6"
-                text="0"
+                text="20"
             />
 
             <Button 
+                id="back"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="7"
                 cancelButton="true"
                 mnemonicParsing="false"
                 text="Back"
+                onAction="#changeScenes" 
             >
             </Button>
             <Button
+                fx:id="confirm"
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="7"
                 mnemonicParsing="false"
                 text="Confirm"
+                onAction="#changeScenes"
             >
             </Button>
         </GridPane>
