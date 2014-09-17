@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Jack
+ * @autor James
  */
 public class Universe {
     private final ArrayList<SolarSystem> universe;
@@ -35,7 +36,7 @@ public class Universe {
     "Castor",		// A Greek demi-god
     "Cestus",
     "Cheron",		
-    "Courteney",	// After Courteney Cox…
+    "Courteney",	// After Courteney Cox??
     "Daled",
     "Damast",
     "Davlos",
