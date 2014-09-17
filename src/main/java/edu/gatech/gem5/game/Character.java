@@ -18,7 +18,7 @@ public class Character extends Human {
         int investor = Integer.parseInt(investorString);
         // Implement this with a Ship constructor once Ship class is created.
         // Ship ship = null;
-        Ship ship = new Gnat();
+        Ship ship = new Vagabond();
 
         return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);
     }
