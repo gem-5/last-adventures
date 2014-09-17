@@ -28,6 +28,10 @@ public class SaveFile {
         this.universe = universe;
     }
     
+    public Character getCharacter() {
+        return player;
+    }
+    
     @Override
     public String toString() {
         return String.format("Player:%n%1s\nPilot: %d%nFighter: %d%nEngineer: "+
