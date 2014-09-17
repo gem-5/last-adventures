@@ -72,7 +72,7 @@ public class Human {
         return this.ship;
     }
     /**
-     * @param The new ship for the Human
+     * @param ship The new ship for the Human
      */
     public void setShip(Ship ship) {
         this.ship = ship;
