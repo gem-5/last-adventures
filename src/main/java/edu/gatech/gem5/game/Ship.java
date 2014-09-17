@@ -18,16 +18,13 @@ public class Ship{
     private int fuelCost;
     private int price;
     private int bounty;
-    private int occurrence;
+    // private int occurrence;
     private int hullStrength;
-
-    // Not super sure what these three mean
-    private int police;
-    private int pirate;
-    private int trader;
-
-    private int repairCost;
-    private int size;
+    private String manufacturer;
+    private double valueFactor;
+    private double attackFactor;
+    private double bestFactor;
+    private double balance;
 
     // // Lists for storing cargo & ship upgrades, limited by ship parameters
     // private List<Cargo>  cargoList;
@@ -37,8 +34,7 @@ public class Ship{
 
     protected Ship(String name, int cargo, int weaponSlots, int shieldSlots, int gadgetSlots,
                    int crew, int fuelMax, int minTechLevel, int fuelCost, int price, int bounty,
-                   int occurrence, int hullStrength, int police, int pirate, int trader,
-                   int repairCost, int size) {
+                   int hullStrength, String manufacturer) {
         this.name = name;
         this.cargoBay = cargo;
         this.weaponSlots = weaponSlots;
@@ -51,13 +47,17 @@ public class Ship{
         this.fuelCost = fuelCost;
         this.price = price;
         this.bounty = bounty;
-        this.occurrence = occurrence;
+        // this.occurrence = occurrence;
         this.hullStrength = hullStrength;
-        this.police = police;
-        this.pirate = pirate;
-        this.trader = trader;
-        this.repairCost = repairCost;
-        this.size = size;
+        // this.police = police;
+        // this.pirate = pirate;
+        // this.trader = trader;
+        // this.repairCost = repairCost;
+        // this.size = size;
+        this.manufacturer = manufacturer;
+        this.valueFactor = price / (100.0 * cargo + 5 * gadgetSlots * fuelCost + crew * 1000);
+        this.attackFactor = price / (100.0 * weaponSlots + 1000.0 * gadgetSlots + hullStrength * 10 + crew * 1000);
+        this.bestFactor = Math.min(this.attackFactor, this.valueFactor);
 
         // this.cargoList = new ArrayList<>(cargoBay);
         // this.weaponList = new ArrayList<>(weaponSlots);
