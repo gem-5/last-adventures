@@ -81,9 +81,7 @@ public class CharacterCreateController implements Initializable {
             LastAdventures.getCurrentSaveFile().addCharacter(player);
             //this is to print out the character once it is made
             System.out.println(LastAdventures.getCurrentSaveFile());
-            //go to next scene once it is implemented (make this scene
-            //print out the character's stats for now
-            root = FXMLLoader.load(getClass().getResource("/create.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/status.fxml"));
         } else if (id.equals("back")) {
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));
         }

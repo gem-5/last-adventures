@@ -1,0 +1,16 @@
+@font-face {
+	/* This only seems to work when running a jar. */
+	font-family: "Didact Gothic";
+	src: url("font/DidactGothic.ttf");
+}
+
+.root {
+    -fx-background-image: url("img/star_tile.png");
+    -fx-background-repeat: repeat;
+    -fx-font-family: "Didact Gothic";
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 30;
+}
