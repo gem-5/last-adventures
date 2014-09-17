@@ -7,6 +7,7 @@
 package edu.gatech.gem5.game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Universe {
     //size on screen in pixels
     private int length;
     private int width;
+    private int numberOfPlanets;
     //temporary list of names for systems
     private static String[] names = {
     "Acamar",
@@ -144,24 +146,50 @@ public class Universe {
     ArrayList<Point> locations;
     
 
-    public Universe(int length, int width) {
+    public Universe(int length, int width, int num, int min, int max) {
         this.length = length;
         this.width = width;
-        
+        this.numberOfPlanets = num;
         //places systems appropriate distance from each other
-        this.locations = layoutUniverse(locations);
+        this.locations = layoutUniverse(min, max);
         
         this.universe = new ArrayList<>();
-        for (int i = 0; i < 120; i++) {
+        for (int i = 0; i < numberOfPlanets; i++) {
             universe.add(new SolarSystem(names[i], locations.get(i).xCoordinate, 
                     locations.get(i).yCoordinate));
         }
         
     }
     
-    private ArrayList<Point> layoutUniverse(ArrayList<Point> locs) {
+    private ArrayList<Point> layoutUniverse(int min, int max) {
+        Random random = new Random();
+        Point[][] field = new Point[length][width];
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < width; j++) {
+                field[i][j] = new Point(i,j);
+            }
+        }
         
-        return locs;
+        ArrayList<Point> locations = new ArrayList<>();
+        Point current = field[random.nextInt(length)][random.nextInt(width)];
+        locations.add(current);
+        
+        for (int n = 0; n < numberOfPlanets -1; n++) {
+            current.state = 2;
+            //declare i and j before loop
+            //change <= current.xCoo to <=....
+            for (int i = current.xCoordinate - min; i <= current.xCoordinate + min; i++) {
+                for (int j = current.yCoordinate - min; j <= current.yCoordinate + min; j++) {
+                    field[i][j].state = 2;
+                }
+            }
+            for (int i = current.xCoordinate + min + 1; i <= current.xCoordinate + max; i++) {
+                for (int j = current.yCoordinate + min + 1; j <= current.yCoordinate + max; j++) {
+                    field[i][j].state = 1;
+                }
+            }
+        }
+        return locations;
     }
 
     /**
@@ -186,12 +214,19 @@ public class Universe {
     }
     
     private class Point {
+        //location
         private int xCoordinate;
         private int yCoordinate;
+        /*state = 0 is open
+          state = 1 is primed
+          state = anything else is locked
+        */
+        private int state;
         
         public Point (int x, int y) {
             this.xCoordinate = x;
             this.yCoordinate = y;
+            this.state = 0;
         }
     }
 }
