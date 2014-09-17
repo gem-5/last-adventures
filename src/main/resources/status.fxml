@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane
+    xmlns:fx="http://javafx.com/fxml/1"
+    id="AnchorPane"
+    prefHeight="720"
+    prefWidth="1280"
+    fx:controller="edu.gatech.gem5.game.controllers.CharacterStatusController"
+>
+    <children>
+        <GridPane layoutX="50" layoutY="50">
+            <vgap>10.0</vgap>
+            <hgap>10.0</hgap>
+            <Label
+                fx:id="playerName"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="1"
+                text="1"
+            />
+            <Label
+                fx:id="pilotValue"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="2"
+                text="1"
+            />
+            <Label
+                fx:id="fighterValue"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="3"
+                text="1"
+            />
+            <Label
+                fx:id="traderValue"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="4"
+                text="1"
+            />
+            <Label
+                fx:id="engineerValue"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="5"
+                text="1"
+            />
+            <Label
+                fx:id="investorValue"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="6"
+                text="1"
+            />
+        </GridPane>
+    </children>
+    <stylesheets>
+        <URL value="@status.css"/>
+    </stylesheets>
+</AnchorPane>

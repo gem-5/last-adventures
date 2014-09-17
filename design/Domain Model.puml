@@ -1,0 +1,53 @@
+@startuml
+hide empty member
+scale 900 width
+class Game <<Cooridinator>>
+class Turn <<Service Provider>>
+class Player <<Controller>>
+class Character <<Information Holder>>
+class Universe <<Structurer>>
+class System <<Structurer>>
+class Planet <<Information Holder>>
+class Ship <<Structurer>>
+class Upgrades <<Information Holder>>
+class Company <<Structurer>>
+class Stock <<Information Holder>>
+class Good <<Information Holder>>
+class Transaction <<Service Provider>>
+class Police <<Information Holder>>
+class Pirate <<Information Holder>>
+class Trader <<Information Holder>>
+class Approach <<Coordinator>>
+class Encounter <<Service Provider>>
+class Bank <<Interfacer>>
+class Market <<Interfacer>>
+class Shipyard <<Interfacer>>
+
+Game --> Character : creates
+Game --> Turn : alternates
+Game --> Approach : alternates
+Player --> Character : controls
+Character --> Ship : access to
+Turn --> Universe : updates
+Universe --> System : contains
+System --> Planet : contains
+Planet --> Company : contains
+Company --> Stock : owns
+Company --> Good : owns
+Company --> Ship : owns
+Transaction --> Character : exchanges info
+Transaction --> Market : exchanges info
+Transaction --> Shipyard : exchanges info
+Transaction --> Bank :exchagnes info
+Ship --> Upgrades : applies
+Approach --> Encounter : initiates
+Encounter --> Character : includes
+Encounter --> Police : includes
+Encounter --> Pirate : includes
+Encounter --> Trader : includes
+Bank --> Player : displays to
+Market --> Player : displays to
+Shipyard --> Player : displays to
+Market --> Company : gets info
+Shipyard --> Company : gets info
+@enduml
