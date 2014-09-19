@@ -1,5 +1,8 @@
 package edu.gatech.gem5.game;
-
+/**
+ * Super class for Ships in Last Adventures
+ * @author Sam Blumenthal
+ */
 public class Ship{
 
     // List of all parameters given by the table in Project Description

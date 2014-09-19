@@ -1,5 +1,9 @@
 package edu.gatech.gem5.game;
 
+/**
+ * Class for Gnat ship in Last Adventures
+ * @author Sam Blumenthal
+ */
 public class Gnat extends Ship {
 
     public Gnat() {
