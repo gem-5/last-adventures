@@ -24,23 +24,23 @@ class Market <<Interfacer>>
 class Shipyard <<Interfacer>>
 
 Game --> Character : creates
-Game --> Turn : alternates
-Game --> Approach : alternates
+Game --> "*" Turn : alternates
+Game --> "*" Approach : alternates
 Player --> Character : controls
 Character --> Ship : access to
 Turn --> Universe : updates
-Universe --> System : contains
-System --> Planet : contains
-Planet --> Company : contains
+Universe --> "120" System : contains
+System --> "2..4" Planet : contains
+Planet --> "*" Company : contains
 Company --> Stock : owns
-Company --> Good : owns
-Company --> Ship : owns
+Company --> "*" Good : owns
+Company --> "*" Ship : owns
 Transaction --> Character : exchanges info
 Transaction --> Market : exchanges info
 Transaction --> Shipyard : exchanges info
 Transaction --> Bank :exchagnes info
-Ship --> Upgrades : applies
-Approach --> Encounter : initiates
+Ship --> "*" Upgrades : applies
+Approach --> "0..20" Encounter : initiates
 Encounter --> Character : includes
 Encounter --> Police : includes
 Encounter --> Pirate : includes
@@ -48,6 +48,6 @@ Encounter --> Trader : includes
 Bank --> Player : displays to
 Market --> Player : displays to
 Shipyard --> Player : displays to
-Market --> Company : gets info
-Shipyard --> Company : gets info
+Market --> "*" Company : gets info
+Shipyard --> "*" Company : gets info
 @enduml
