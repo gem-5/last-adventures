@@ -20,10 +20,9 @@ public class Character extends Human {
  * @param traderString the trader skill of the character
  * @param engineerString the engineer skill of the character
  * @param investorString the investor skill of the character
- * @param shipString the name of the character's ship
  * @return A new Character created from the given parameters.
  */
-    public static Character createCharacterFromStrings(String nameString, String pilotString, String fighterString, String traderString, String engineerString, String investorString, String shipString) {
+    public static Character createCharacterFromStrings(String nameString, String pilotString, String fighterString, String traderString, String engineerString, String investorString) {
         int pilot = Integer.parseInt(pilotString);
         int fighter = Integer.parseInt(fighterString);
         int trader = Integer.parseInt(traderString);

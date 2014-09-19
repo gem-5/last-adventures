@@ -6,31 +6,30 @@ package edu.gatech.gem5.game;
 public class Ship{
 
     // List of all parameters given by the table in Project Description
-    private String name;
-    private int cargoBay;
-    private int weaponSlots;
-    private int shieldSlots;
-    private int gadgetSlots;
-    private int crew;
-    private int fuelMax;
-    private int currentFuel;
-    private int minTechLevel;
-    private int fuelCost;
-    private int price;
-    private int bounty;
-    // private int occurrence;
-    private int hullStrength;
-    private String manufacturer;
-    private double valueFactor;
-    private double attackFactor;
-    private double bestFactor;
-    private double balance;
+    protected String name;
+    protected int cargoBay;
+    protected int weaponSlots;
+    protected int shieldSlots;
+    protected int gadgetSlots;
+    protected int crew;
+    protected int fuelMax;
+    protected int currentFuel;
+    protected int minTechLevel;
+    protected int fuelCost;
+    protected int price;
+    protected int bounty;
+    protected int hullStrength;
+    protected String manufacturer;
+    protected double valueFactor;
+    protected double attackFactor;
+    protected double bestFactor;
+    protected double balance;
 
     // // Lists for storing cargo & ship upgrades, limited by ship parameters
-    // private List<Cargo>  cargoList;
-    // private List<Weapon> weaponList;
-    // private List<Shield> shieldList;
-    // private List<Gadget> gadgetList;
+    // protected List<Cargo>  cargoList;
+    // protected List<Weapon> weaponList;
+    // protected List<Shield> shieldList;
+    // protected List<Gadget> gadgetList;
 
     protected Ship(String name, int cargo, int weaponSlots, int shieldSlots, int gadgetSlots,
                    int crew, int fuelMax, int minTechLevel, int fuelCost, int price, int bounty,
@@ -47,13 +46,7 @@ public class Ship{
         this.fuelCost = fuelCost;
         this.price = price;
         this.bounty = bounty;
-        // this.occurrence = occurrence;
         this.hullStrength = hullStrength;
-        // this.police = police;
-        // this.pirate = pirate;
-        // this.trader = trader;
-        // this.repairCost = repairCost;
-        // this.size = size;
         this.manufacturer = manufacturer;
         this.valueFactor = price / (100.0 * cargo + 5 * gadgetSlots * fuelCost + crew * 1000);
         this.attackFactor = price / (100.0 * weaponSlots + 1000.0 * gadgetSlots + hullStrength * 10 + crew * 1000);
