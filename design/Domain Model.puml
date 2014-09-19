@@ -4,21 +4,49 @@ scale 900 width
 class Game <<Cooridinator>>
 class Turn <<Service Provider>>
 class Player <<Controller>>
-class Character <<Information Holder>>
+class Character <<Information Holder>> {
+name
+skills
+}
 class Universe <<Structurer>>
 class System <<Structurer>>
-class Planet <<Information Holder>>
-class Ship <<Structurer>>
+class Planet <<Information Holder>> {
+tech level
+resources
+}
+class Ship <<Structurer>> {
+model
+fuel
+cargo
+}
 class Upgrades <<Information Holder>>
 class Company <<Structurer>>
-class Stock <<Information Holder>>
-class Good <<Information Holder>>
-class Transaction <<Service Provider>>
-class Police <<Information Holder>>
-class Pirate <<Information Holder>>
-class Trader <<Information Holder>>
+class Stock <<Information Holder>> {
+symbol
+price
+}
+class Good <<Information Holder>> {
+type
+}
+class Transaction <<Service Provider>> {
+participants
+}
+class Police <<Information Holder>> {
+skills
+ship
+}
+class Pirate <<Information Holder>> {
+skills
+ship
+}
+class Trader <<Information Holder>> {
+skills
+ship
+}
 class Approach <<Coordinator>>
-class Encounter <<Service Provider>>
+class Encounter <<Service Provider>> {
+combatants
+}
 class Bank <<Interfacer>>
 class Market <<Interfacer>>
 class Shipyard <<Interfacer>>
