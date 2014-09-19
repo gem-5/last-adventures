@@ -31,14 +31,19 @@ public class SolarSystem {
     /**
      * @return the xCoordinate of the system in its universe
      */
-    public int getxCoordinate() {
+    public int getXCoordinate() {
         return xCoordinate;
     }
 
     /**
      * @return the yCoordinate of the system in its universe
      */
-    public int getyCoordinate() {
+    public int getYCoordinate() {
         return yCoordinate;
+    }
+    
+    @Override
+    public String toString() {
+        return getName() + " (" + getXCoordinate() + ", " + getYCoordinate() +")";
     }
 }

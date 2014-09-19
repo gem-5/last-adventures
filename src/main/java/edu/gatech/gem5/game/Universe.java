@@ -7,7 +7,11 @@
 package edu.gatech.gem5.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *
@@ -17,7 +21,7 @@ public class Universe {
     private final ArrayList<SolarSystem> universe;
     //size on screen in pixels
     private int length;
-    private int width;
+    private int height;
     private int numberOfPlanets;
     //temporary list of names for systems
     private static String[] names = {
@@ -146,15 +150,15 @@ public class Universe {
     ArrayList<Point> locations;
     
 
-    public Universe(int length, int width, int num, int min, int max) {
+    public Universe(int height, int length, int num, int min, int max) {
         this.length = length;
-        this.width = width;
+        this.height = height;
         this.numberOfPlanets = num;
         //places systems appropriate distance from each other
         this.locations = layoutUniverse(min, max);
         
         this.universe = new ArrayList<>();
-        for (int i = 0; i < numberOfPlanets; i++) {
+        for (int i = 0; i < locations.size(); i++) {
             universe.add(new SolarSystem(names[i], locations.get(i).xCoordinate, 
                     locations.get(i).yCoordinate));
         }
@@ -163,31 +167,45 @@ public class Universe {
     
     private ArrayList<Point> layoutUniverse(int min, int max) {
         Random random = new Random();
-        Point[][] field = new Point[length][width];
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < width; j++) {
-                field[i][j] = new Point(i,j);
-            }
-        }
-        
         ArrayList<Point> locations = new ArrayList<>();
-        Point current = field[random.nextInt(length)][random.nextInt(width)];
+        HashMap<String, Point> primed = new HashMap<>();
+        HashSet<String> locked = new HashSet<>();
+        Point current = new Point(random.nextInt(length), random.nextInt(height));
         locations.add(current);
+        System.out.println("First: " + current);
         
         for (int n = 0; n < numberOfPlanets -1; n++) {
-            current.state = 2;
-            //declare i and j before loop
-            //change <= current.xCoo to <=....
-            for (int i = current.xCoordinate - min; i <= current.xCoordinate + min; i++) {
+            
+            locked.add(current.toString());
+            for(int i = current.xCoordinate - min; i <= current.xCoordinate + min; i++) {
                 for (int j = current.yCoordinate - min; j <= current.yCoordinate + min; j++) {
-                    field[i][j].state = 2;
+                    locked.add(new Point(i,j).toString());
+                    primed.remove(new Point(i,j).toString());
                 }
             }
-            for (int i = current.xCoordinate + min + 1; i <= current.xCoordinate + max; i++) {
-                for (int j = current.yCoordinate + min + 1; j <= current.yCoordinate + max; j++) {
-                    field[i][j].state = 1;
+            //prime from -max to + max on both dims
+            for (int i = current.xCoordinate - max; i <= current.xCoordinate + max; i++) {
+                for (int j = current.yCoordinate - max; j <= current.yCoordinate + max; j++) {
+                    Point prime = new Point(i,j);
+                    //don't prime if it's already locked
+                    if(!locked.contains(prime.toString())) {
+                        
+                        //don't prime if outside of length/height or outside of 0
+                        //don't prime if inside of current+min
+                        if((prime.xCoordinate >= 0 && prime.yCoordinate >= 0) && 
+                           (prime.xCoordinate < length && prime.yCoordinate < height)) {
+
+                            primed.put(prime.toString(),prime);
+                        }
+                    }
                 }
             }
+            if(primed.isEmpty()) {
+                System.out.println("We've reached capacity! " + n + "/" + names.length +" planets placed");
+                break;
+            }
+            current = primed.remove((String) primed.keySet().toArray()[random.nextInt(primed.size())]);
+            locations.add(current);
         }
         return locations;
     }
@@ -205,30 +223,56 @@ public class Universe {
     public int getLength() {
         return length;
     }
-
+   
+    @Override
+    public String toString() {
+        String result = "";
+        String[][] fi = new String[length][height];
+        for (int r = 0; r < length; r++) {
+            for (int c = 0; c< height; c++) {
+                fi[r][c] = ".";
+            }
+        }
+        for (int i = 0; i < universe.size(); i++) {
+            fi[universe.get(i).getXCoordinate()][universe.get(i).getYCoordinate()] = "x";
+        }
+         for (int r = 0; r < length; r++) {
+            for (int c = 0; c< height; c++) {
+                result += fi[r][c];
+            }
+            result += "\n";
+        }
+        return result;
+    }
+    
+    public static void main(String[] args) {
+        Universe uni = new Universe(100, 150, Universe.names.length, 4, 13);
+        System.out.println(uni);
+    }
+    
     /**
      * @return the width
      */
     public int getWidth() {
-        return width;
+        return height;
     }
     
     private class Point {
         //location
         private int xCoordinate;
         private int yCoordinate;
-        /*state = 0 is open
-          state = 1 is primed
-          state = anything else is locked
-        */
-        private int state;
         
         public Point (int x, int y) {
             this.xCoordinate = x;
             this.yCoordinate = y;
-            this.state = 0;
+        }
+        
+        public String toString() {
+            return "(" + xCoordinate + ", " + yCoordinate + ")";
         }
     }
+    
+   
 }
 
 
