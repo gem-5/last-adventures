@@ -5,7 +5,6 @@ package edu.gatech.gem5.game.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Ship;
@@ -27,10 +26,11 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author James
+ * @author James Jong Han Park
  * @author Jack
  */
 public class CharacterCreateController implements Initializable {
+
     Parent root;
     @FXML
     Button pilotInc;
@@ -64,9 +64,9 @@ public class CharacterCreateController implements Initializable {
     Label investorValue;
     @FXML
     Label remainingValue;
-    @FXML 
+    @FXML
     TextField name;
-    
+
     /**
      *
      * @param event a button press
@@ -75,14 +75,14 @@ public class CharacterCreateController implements Initializable {
     @FXML
     public void changeScenes(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        String id = ((Button)(event.getSource())).idProperty().get();
-        if(id.equals("confirm")) {
-            Character player = new Character( name.getText(),
+        String id = ((Button) (event.getSource())).idProperty().get();
+        if (id.equals("confirm")) {
+            Character player = new Character(name.getText(),
                     Integer.parseInt(pilotValue.getText()),
                     Integer.parseInt(fighterValue.getText()),
                     Integer.parseInt(traderValue.getText()),
                     Integer.parseInt(engineerValue.getText()),
-                    Integer.parseInt(investorValue.getText()), (Ship)null);
+                    Integer.parseInt(investorValue.getText()), (Ship) null);
             LastAdventures.getCurrentSaveFile().addCharacter(player);
             //this is to print out the character once it is made
             System.out.println(LastAdventures.getCurrentSaveFile());
@@ -90,10 +90,10 @@ public class CharacterCreateController implements Initializable {
         } else if (id.equals("back")) {
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));
         }
-        
+
         stage.setScene(new Scene((Pane) root));
     }
-    
+
     /**
      *
      * @param event a incrementor button press
@@ -101,54 +101,54 @@ public class CharacterCreateController implements Initializable {
      */
     @FXML
     public void increment(ActionEvent event) throws Exception {
-        Button name =  (Button) event.getSource();
-        if(Integer.parseInt(remainingValue.getText()) != 0) {
-            if(name == pilotInc) {
+        Button buttonName = (Button) event.getSource();
+        if (Integer.parseInt(remainingValue.getText()) != 0) {
+            if (buttonName == pilotInc) {
                 pilotValue.setText("" + (Integer.parseInt(pilotValue.getText()) + 1));
-            } else if(name == fighterInc) {
+            } else if (buttonName == fighterInc) {
                 fighterValue.setText("" + (Integer.parseInt(fighterValue.getText()) + 1));
-            } else if(name == traderInc) {
+            } else if (buttonName == traderInc) {
                 traderValue.setText("" + (Integer.parseInt(traderValue.getText()) + 1));
-            } else if(name == engineerInc) {
+            } else if (buttonName == engineerInc) {
                 engineerValue.setText("" + (Integer.parseInt(engineerValue.getText()) + 1));
-            } else if(name == investorInc) {
+            } else if (buttonName == investorInc) {
                 investorValue.setText("" + (Integer.parseInt(investorValue.getText()) + 1));
             }
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) -1));
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) - 1));
         }
     }
-    
-     /**
+
+    /**
      *
      * @param event a decrementor button press
      * @throws Exception
      */
     @FXML
     public void decrement(ActionEvent event) throws Exception {
-        Button name =  (Button) event.getSource();
-        if(name == pilotDec && Integer.parseInt(pilotValue.getText()) != 1) {
+        Button buttonName = (Button) event.getSource();
+        if (buttonName == pilotDec && Integer.parseInt(pilotValue.getText()) != 1) {
             pilotValue.setText("" + (Integer.parseInt(pilotValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
-        } else if(name == fighterDec && Integer.parseInt(fighterValue.getText()) != 1) {
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
+        } else if (buttonName == fighterDec && Integer.parseInt(fighterValue.getText()) != 1) {
             fighterValue.setText("" + (Integer.parseInt(fighterValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
-        } else if(name == traderDec && Integer.parseInt(traderValue.getText()) != 1) {
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
+        } else if (buttonName == traderDec && Integer.parseInt(traderValue.getText()) != 1) {
             traderValue.setText("" + (Integer.parseInt(traderValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
-        } else if(name == engineerDec && Integer.parseInt(engineerValue.getText()) != 1) {
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
+        } else if (buttonName == engineerDec && Integer.parseInt(engineerValue.getText()) != 1) {
             engineerValue.setText("" + (Integer.parseInt(engineerValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
-        } else if(name == investorDec && Integer.parseInt(investorValue.getText()) != 1) {
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
+        } else if (buttonName == investorDec && Integer.parseInt(investorValue.getText()) != 1) {
             investorValue.setText("" + (Integer.parseInt(investorValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
         }
     }
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-   }     
+
+    }
 }
