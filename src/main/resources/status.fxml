@@ -54,6 +54,16 @@
                 GridPane.rowIndex="6"
                 text="1"
             />
+            <Button 
+                id="back"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="7"
+                cancelButton="true"
+                mnemonicParsing="false"
+                text="Back"
+                onAction="#changeScenes" 
+            >
+            </Button>
         </GridPane>
     </children>
     <stylesheets>
