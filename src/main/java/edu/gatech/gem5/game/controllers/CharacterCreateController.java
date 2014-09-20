@@ -11,10 +11,7 @@ import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Ship;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,9 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -38,15 +33,25 @@ import javafx.stage.Stage;
 public class CharacterCreateController implements Initializable {
     Parent root;
     @FXML
-    Slider pilotSlider;
+    Button pilotInc;
     @FXML
-    Slider fighterSlider;
+    Button fighterInc;
     @FXML
-    Slider traderSlider;
+    Button traderInc;
     @FXML
-    Slider engineerSlider;
+    Button engineerInc;
     @FXML
-    Slider investorSlider;
+    Button investorInc;
+    @FXML
+    Button pilotDec;
+    @FXML
+    Button fighterDec;
+    @FXML
+    Button traderDec;
+    @FXML
+    Button engineerDec;
+    @FXML
+    Button investorDec;
     @FXML
     Label pilotValue;
     @FXML
@@ -73,11 +78,11 @@ public class CharacterCreateController implements Initializable {
         String id = ((Button)(event.getSource())).idProperty().get();
         if(id.equals("confirm")) {
             Character player = new Character( name.getText(),
-                    (int)pilotSlider.getValue(),
-                    (int)fighterSlider.getValue(),
-                    (int)engineerSlider.getValue(),
-                    (int)traderSlider.getValue(),
-                    (int)investorSlider.getValue(), (Ship)null);
+                    Integer.parseInt(pilotValue.getText()),
+                    Integer.parseInt(fighterValue.getText()),
+                    Integer.parseInt(traderValue.getText()),
+                    Integer.parseInt(engineerValue.getText()),
+                    Integer.parseInt(investorValue.getText()), (Ship)null);
             LastAdventures.getCurrentSaveFile().addCharacter(player);
             //this is to print out the character once it is made
             System.out.println(LastAdventures.getCurrentSaveFile());
@@ -88,137 +93,62 @@ public class CharacterCreateController implements Initializable {
         
         stage.setScene(new Scene((Pane) root));
     }
+    
+    /**
+     *
+     * @param event a incrementor button press
+     * @throws Exception
+     */
+    @FXML
+    public void increment(ActionEvent event) throws Exception {
+        Button name =  (Button) event.getSource();
+        if(Integer.parseInt(remainingValue.getText()) != 0) {
+            if(name == pilotInc) {
+                pilotValue.setText("" + (Integer.parseInt(pilotValue.getText()) + 1));
+            } else if(name == fighterInc) {
+                fighterValue.setText("" + (Integer.parseInt(fighterValue.getText()) + 1));
+            } else if(name == traderInc) {
+                traderValue.setText("" + (Integer.parseInt(traderValue.getText()) + 1));
+            } else if(name == engineerInc) {
+                engineerValue.setText("" + (Integer.parseInt(engineerValue.getText()) + 1));
+            } else if(name == investorInc) {
+                investorValue.setText("" + (Integer.parseInt(investorValue.getText()) + 1));
+            }
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) -1));
+        }
+    }
+    
+     /**
+     *
+     * @param event a decrementor button press
+     * @throws Exception
+     */
+    @FXML
+    public void decrement(ActionEvent event) throws Exception {
+        Button name =  (Button) event.getSource();
+        if(name == pilotDec && Integer.parseInt(pilotValue.getText()) != 1) {
+            pilotValue.setText("" + (Integer.parseInt(pilotValue.getText()) - 1));
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
+        } else if(name == fighterDec && Integer.parseInt(fighterValue.getText()) != 1) {
+            fighterValue.setText("" + (Integer.parseInt(fighterValue.getText()) - 1));
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
+        } else if(name == traderDec && Integer.parseInt(traderValue.getText()) != 1) {
+            traderValue.setText("" + (Integer.parseInt(traderValue.getText()) - 1));
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
+        } else if(name == engineerDec && Integer.parseInt(engineerValue.getText()) != 1) {
+            engineerValue.setText("" + (Integer.parseInt(engineerValue.getText()) - 1));
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
+        } else if(name == investorDec && Integer.parseInt(investorValue.getText()) != 1) {
+            investorValue.setText("" + (Integer.parseInt(investorValue.getText()) - 1));
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) +1)); 
+        }
+    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO implement anonymous changelistener<Number> and 
-        // EventHandler<MouseEvent> as concrete classes
-        pilotSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
-
-                    pilotValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        pilotSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(pilotValue.getText());
-                int badNumber = (int) pilotSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    pilotSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
-        fighterSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
-
-                    fighterValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        fighterSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(fighterValue.getText());
-                int badNumber = (int) fighterSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    fighterSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
-        traderSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
-
-                    traderValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        traderSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(traderValue.getText());
-                int badNumber = (int) traderSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    traderSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
-        engineerSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
-
-                    engineerValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        engineerSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(engineerValue.getText());
-                int badNumber = (int) engineerSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    engineerSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
-        investorSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
-
-                    investorValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        investorSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(investorValue.getText());
-                int badNumber = (int) investorSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    investorSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
+        
    }     
 }
