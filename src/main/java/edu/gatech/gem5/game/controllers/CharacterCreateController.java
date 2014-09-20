@@ -67,8 +67,23 @@ public class CharacterCreateController implements Initializable {
     @FXML
     TextField name;
 
+    @FXML
+    Label pilot;
+    @FXML
+    Label fighter;
+    @FXML
+    Label trader;
+    @FXML
+    Label engineer;
+    @FXML
+    Label investor;
+    @FXML
+    Button confirm;
+    @FXML
+    Label remaining;
+
     private Button[] incButtons, decButtons;
-    private Label[] values;
+    private Label[] values, skillNames;
 
     /**
      *
@@ -147,5 +162,26 @@ public class CharacterCreateController implements Initializable {
         values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
         incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
         decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
+
+        skillNames = new Label[]{pilot, fighter, trader, engineer, investor, remaining};
+
+        // Hide labels and buttons (used for animation)
+        for (int x = 0; x < values.length; x++) {
+            skillNames[x].setTranslateX(-300);
+            values[x].setOpacity(0);
+        }
+        remainingValue.setTranslateX(-300);
+        remaining.setTranslateX(-300);
+
+        // Apply transition animation
+        for (int x = 0; x < skillNames.length; x++) {
+            new TranslateHandler(skillNames[x], x / 5.0, 1, 0, 0, -300, 0);
+        }
+        new TranslateHandler(remainingValue, skillNames.length / 5.0, 1, 0, 0, -300, 0);
+
+        // Apply fade-in animation
+        for (int x = 0; x < values.length; x++) {
+            new FadeHandler(values[x], skillNames.length / 5.0 + 1.1);
+        }
     }
 }

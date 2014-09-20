@@ -39,6 +39,7 @@
             >
             </TextField>
             <Label
+                fx:id="pilot"
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="1"
                 text="Pilot"
@@ -65,7 +66,8 @@
                 text="+"
                 onAction="#increment"
             />
-            <Label 
+            <Label
+                fx:id="fighter" 
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="2"
                 text="Fighter"
@@ -92,7 +94,8 @@
                 text="+"
                 onAction="#increment"
             />
-            <Label 
+            <Label
+                fx:id="trader"
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="3"
                 text="Trader"
@@ -120,6 +123,7 @@
                 onAction="#increment"
             />
             <Label
+                fx:id="engineer"
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="4"
                 text="Engineer"
@@ -147,6 +151,7 @@
                 onAction="#increment"
             />
             <Label
+                fx:id="investor"
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="5"
                 text="Investor"
@@ -174,6 +179,7 @@
                 onAction="#increment"
             />
             <Label
+                fx:id="remaining"
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="6"
                 text="SP Remaining:"
