@@ -8,7 +8,6 @@ package edu.gatech.gem5.game.controllers;
 import edu.gatech.gem5.game.LastAdventures;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,7 +22,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  *
@@ -85,13 +83,6 @@ public class TitleController implements Initializable {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 new FadeHandler(gridPane);
-                TranslateTransition translateTransition;
-                translateTransition = new TranslateTransition(Duration.seconds(10), gridPane);
-                translateTransition.setDelay(Duration.seconds(0));
-                translateTransition.setToX(20);
-                translateTransition.setToY(20);
-                translateTransition.play();
-
             }
         });
 
