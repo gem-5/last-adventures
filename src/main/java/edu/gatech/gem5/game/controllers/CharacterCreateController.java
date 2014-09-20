@@ -67,6 +67,9 @@ public class CharacterCreateController implements Initializable {
     @FXML
     TextField name;
 
+    private Button[] incButtons, decButtons;
+    private Label[] values;
+
     /**
      *
      * @param event a button press
@@ -102,20 +105,17 @@ public class CharacterCreateController implements Initializable {
     @FXML
     public void increment(ActionEvent event) throws Exception {
         Button buttonName = (Button) event.getSource();
+
         if (Integer.parseInt(remainingValue.getText()) != 0) {
-            if (buttonName == pilotInc) {
-                pilotValue.setText("" + (Integer.parseInt(pilotValue.getText()) + 1));
-            } else if (buttonName == fighterInc) {
-                fighterValue.setText("" + (Integer.parseInt(fighterValue.getText()) + 1));
-            } else if (buttonName == traderInc) {
-                traderValue.setText("" + (Integer.parseInt(traderValue.getText()) + 1));
-            } else if (buttonName == engineerInc) {
-                engineerValue.setText("" + (Integer.parseInt(engineerValue.getText()) + 1));
-            } else if (buttonName == investorInc) {
-                investorValue.setText("" + (Integer.parseInt(investorValue.getText()) + 1));
+
+            for (int count = 0; count < incButtons.length; count++) {
+                if (incButtons[count] == buttonName) {
+                    values[count].setText("" + (Integer.parseInt(values[count].getText()) + 1));
+                }
             }
             remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) - 1));
         }
+
     }
 
     /**
@@ -126,21 +126,11 @@ public class CharacterCreateController implements Initializable {
     @FXML
     public void decrement(ActionEvent event) throws Exception {
         Button buttonName = (Button) event.getSource();
-        if (buttonName == pilotDec && Integer.parseInt(pilotValue.getText()) != 1) {
-            pilotValue.setText("" + (Integer.parseInt(pilotValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
-        } else if (buttonName == fighterDec && Integer.parseInt(fighterValue.getText()) != 1) {
-            fighterValue.setText("" + (Integer.parseInt(fighterValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
-        } else if (buttonName == traderDec && Integer.parseInt(traderValue.getText()) != 1) {
-            traderValue.setText("" + (Integer.parseInt(traderValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
-        } else if (buttonName == engineerDec && Integer.parseInt(engineerValue.getText()) != 1) {
-            engineerValue.setText("" + (Integer.parseInt(engineerValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
-        } else if (buttonName == investorDec && Integer.parseInt(investorValue.getText()) != 1) {
-            investorValue.setText("" + (Integer.parseInt(investorValue.getText()) - 1));
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
+
+        for (int count = 0; count < decButtons.length; count++) {
+            if (decButtons[count] == buttonName) {
+                values[count].setText("" + (Integer.parseInt(values[count].getText()) - 1));
+            }
         }
     }
 
@@ -150,5 +140,12 @@ public class CharacterCreateController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        // Note: Make sure that values, incButtons, and decButtons' objects allign in order together.
+        // Ex. values[0] = pilotValue, incButtons[0] = pillotInc, decbuttons[0] = pilotDec
+        // ... values[3] = engineerValue, incButtons[3] = engineerInc, decbuttons[3] = engineerDec
+        values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
+        incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
+        decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
+        
     }
 }
