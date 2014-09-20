@@ -74,6 +74,9 @@ public class TitleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        gridPane.setOpacity(0);
+        
         // Adds fade-in animation when mouse enters the screen.
         defaultScene.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
