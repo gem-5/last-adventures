@@ -33,19 +33,19 @@ public class FadeHandler {
      * @param delay The delay before playing the animation in seconds
      */
     public FadeHandler(Node object, double delay) {
-        this(object, 0.5, delay, 0, 1);
+        this(object, delay, 0.5, 0, 1);
     }
 
     /**
      * Customizable constructor for fade animation.
      *
      * @param object Object to apply fade animation
-     * @param duration The duration of the fade animation in seconds
      * @param delay The delay before playing the animation in seconds
+     * @param duration The duration of the fade animation in seconds
      * @param fromValue 0.0 means transparent & 1.0 means opaque
      * @param toValue 0.0 means transparent & 1.0 means opaque
      */
-    public FadeHandler(Node object, double duration, double delay, double fromValue, double toValue) {
+    public FadeHandler(Node object, double delay, double duration, double fromValue, double toValue) {
 
         fadeTransition = new FadeTransition(Duration.seconds(duration), object);
         fadeTransition.setDelay(Duration.seconds(delay));
