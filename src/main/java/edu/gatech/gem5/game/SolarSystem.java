@@ -6,6 +6,8 @@
 
 package edu.gatech.gem5.game;
 
+import java.util.Random;
+
 /**
  *
  * @author Jack
@@ -14,11 +16,16 @@ public class SolarSystem {
     private final String name;
     private final int xCoordinate;
     private final int yCoordinate;
+    private int techLevel;
+    private final int resource;
     
     public SolarSystem (String name, int x, int y) {
         this.name = name;
         this.xCoordinate = x;
         this.yCoordinate = y;
+        techLevel = new Random().nextInt(8);
+        resource = new Random().nextInt(13);
+        
     }
 
     /**
