@@ -65,7 +65,7 @@ public class CharacterCreateController implements Initializable {
     /**
      *
      * @param event a button press
-     * @throws Exception
+     * @throws Exception if something happens
      */
     @FXML
     public void changeScenes(ActionEvent event) throws Exception {

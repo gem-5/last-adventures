@@ -34,6 +34,13 @@ public class Ship{
     // private List<Weapon> weaponList;
     // private List<Shield> shieldList;
     // private List<Gadget> gadgetList;
+    
+    /**
+     * A no-arg constructor for initializing a ship using the GSON library.
+     */
+    public Ship() {
+        // no arg constructor
+    }
 
     protected Ship(String name, int cargo, int weaponSlots, int shieldSlots, int gadgetSlots,
                    int crew, int fuelMax, int minTechLevel, int fuelCost, int price, int bounty,
@@ -63,5 +70,14 @@ public class Ship{
         // this.weaponList = new ArrayList<>(weaponSlots);
         // this.shieldList = new ArrayList<>(shieldSlots);
         // this.gadgetList = new ArrayList<>(gadgetSlots);
+    }
+
+    /**
+     * Return the name of this ship.
+     *
+     * @return The name of this ship.
+     */
+    public String getName() {
+        return this.name;
     }
 }

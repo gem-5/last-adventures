@@ -1,0 +1,31 @@
+{
+	"cargo_bays" : {
+		"name" : "Extra Cargo Bays",
+		"description" : "Adds 5 additional cargo bays.",
+		"bonus" : {"cargo" : 5}
+	},
+
+	"nav_system" : {
+		"name" : "Navigation System",
+		"description" : "Enhances piloting skills.",
+		"bonus" : {"piloting" : 1.25}
+	},
+
+	"auto_repair" : {
+		"name" : "Auto Repair System",
+		"description" : "Increases engineering performance.",
+		"bonus" : {"engineering" : 1.25}
+	}, 
+
+	"targeting" : {
+		"name" : "Targeting System",
+		"description" : "Improves combat abilities.",
+		"bonus" : {"fighting" : 1.25}
+	},
+
+	"coalking" : {
+		"name" : "Cloaking Device",
+		"description" : "Decreases chance to be seen by pirates and police."
+		"bonus" : {"stealth" : 1.25}
+	}
+}

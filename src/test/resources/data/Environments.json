@@ -1,0 +1,105 @@
+{
+    "nothing" : {
+        "name" : "Nothing",
+        "supply" : {},
+        "demand" : {},
+        "occurrence" : 0.30769231,
+        "wealth" : 1.0
+    },
+
+    "mineral_poor" : {
+        "name" : "Mineral Poor",
+        "supply" : {},
+        "demand" : {"ore" : 2.0},
+        "occurrence" : 0.07692308,
+        "wealth" : 0.75
+    },
+
+    "mineral_rich" : {
+        "name" : "Mineral Rich",
+        "supply" : {"ore" : 0.5},
+        "demand" : {},
+        "occurrence" : 0.07692308,
+        "wealth" : 1.5
+    },
+
+    "desert" : {
+        "name" : "Desert",
+        "supply" : {},
+        "demand" : {"water" : 2.0},
+        "occurrence" : 0.07692308,
+        "wealth" : 0.75
+    },
+
+    "sweet_water" : {
+        "name" : "Sweet Water",
+        "supply" : {"water" : 0.5},
+        "demand" : {},
+        "occurrence" : 0.07692308,
+        "wealth" : 1.5
+    },
+
+    "poor_soil" : {
+        "name" : "Poor Soil",
+        "supply" : {},
+        "demand" : {"food" : 2.0},
+        "occurrence" : 0.07692308,
+        "wealth" : 0.75
+    },
+
+    "rich_soil" : {
+        "name" : "Rich Soil",
+        "supply" : {"food" : 0.5},
+        "demand" : {},
+        "occurrence" : 0.07692308,
+        "wealth" : 1.5
+    },
+
+    "lifeless" : {
+        "name" : "Lifeless",
+        "supply" : {},
+        "demand" : {"furs" : 2.0},
+        "occurrence" : 0.03846154,
+        "wealth" : 0.75
+    },
+
+    "rich_fauna" : {
+        "name" : "Rich Fauna",
+        "supply" : {"furs" : 0.5},
+        "demand" : {},
+        "occurrence" : 0.03846154,
+        "wealth" : 1.5
+    },
+
+    "weird_mushrooms" : {
+        "name" : "Weird Mushrooms",
+        "supply" : {"drugs" : 0.5},
+        "demand" : {},
+        "occurrence" : 0.03846154,
+        "wealth" : 1.5
+    },
+
+    "special_herbs" : {
+        "name" : "Special Herbs",
+        "supply" : {"medicine" : 0.5},
+        "demand" : {},
+        "occurrence" : 0.03846154,
+        "wealth" : 1.5
+    },
+
+    "artistic" : {
+        "name" : "Artistic",
+        "supply" : {},
+        "demand" : {"games" : 2.0},
+        "occurrence" : 0.03846154,
+        "wealth" : 1.5
+    },
+
+    "warlike" : {
+        "name" : "Warlike",
+        "supply" : {},
+        "demand" : {"firearms" : 1.5},
+        "occurrence" : 0.03846154,
+        "wealth" : 0.75
+    }
+}

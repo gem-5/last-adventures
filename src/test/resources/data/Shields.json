@@ -1,0 +1,66 @@
+{
+	"kinetic_stabilizers" : {
+		"name" : "Kinetic Stabilizers",
+		"description" : "",
+		"price" : 1000,
+		"factor" : 1,
+		"integrity" : 100
+	},
+
+	"thick_hulls" : {
+		"name" : "Thick Hulls",
+		"description" : "",
+		"price" : 3000,
+		"factor" : 1,
+		"integrity" : 125
+	},
+
+	"particle_field" : {
+		"name" : "Particle Field",
+		"description" : "",
+		"price" : 5000,
+		"factor" : 0.7,
+		"integrity" : 150
+	},
+
+
+	"magnetic_field" : {
+		"name" : "Magnetic Field",
+		"description" : "",
+		"price" : 10000,
+		"factor" : 0.7,
+		"integrity" : 150
+	},
+
+    "enhanced_alloys" : {
+        "name" : "Enhanced Alloys",
+        "description" : "",
+        "price" : 15000,
+        "factor" : 0.8,
+        "integrity" : 175
+    },
+
+    "energy_diffusers" : {
+        "name" : "Energy Diffusers",
+        "description" : "",
+        "price" : 25000,
+        "factor" : 0.45,
+        "integrity" : 100
+    }, 
+
+    "quantum_buffers" : {
+        "name" : "Quantum Buffers",
+        "description" : "",
+        "price" : 40000,
+        "factor" : 0.5,
+        "integrity" : 125
+    },
+
+    "microshield_array" : {
+        "name" : "Microshield Array",
+        "description" : "",
+        "price" : 60000,
+        "factor" : 0.7,
+        "integrity" : 200
+    }
+}

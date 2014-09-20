@@ -59,7 +59,7 @@ public class TitleController implements Initializable {
      *
      * @param url The location to resolve all relative paths for the root
      * object.
-     * @param resources The resources used to localize the root object.
+     * @param rb The resources used to localize the root object.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
