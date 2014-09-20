@@ -128,8 +128,9 @@ public class CharacterCreateController implements Initializable {
         Button buttonName = (Button) event.getSource();
 
         for (int count = 0; count < decButtons.length; count++) {
-            if (decButtons[count] == buttonName) {
+            if (decButtons[count] == buttonName && Integer.parseInt(values[count].getText()) != 1) {
                 values[count].setText("" + (Integer.parseInt(values[count].getText()) - 1));
+                remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
             }
         }
     }
@@ -146,6 +147,5 @@ public class CharacterCreateController implements Initializable {
         values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
         incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
         decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
-        
     }
 }
