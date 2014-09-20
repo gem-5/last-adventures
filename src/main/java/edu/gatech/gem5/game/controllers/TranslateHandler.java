@@ -46,8 +46,26 @@ public class TranslateHandler {
      */
     public TranslateHandler(Node object, double delay, double duration, double setToX, double setToY) {
 
+        this(object, delay, duration, setToX, setToY, 0, 0);
+    }
+
+    /**
+     * Customizable constructor for translate animation.
+     *
+     * @param object Object to apply animation
+     * @param delay The delay before playing the animation in seconds
+     * @param duration The duration of the animation in seconds
+     * @param setToX (Transition amount) Sets the value of the property toX
+     * @param setToY (Transition amount) Sets the value of the property toY
+     * @param setFromX "start from" x-value
+     * @param setFromY "start from" y-value
+     */
+    public TranslateHandler(Node object, double delay, double duration, double setToX, double setToY, double setFromX, double setFromY) {
+        
         translateTransition = new TranslateTransition(Duration.seconds(duration), object);
         translateTransition.setDelay(Duration.seconds(delay));
+        translateTransition.setFromX(setFromX);
+        translateTransition.setFromY(setFromY);
         translateTransition.setToX(setToX);
         translateTransition.setToY(setToY);
         translateTransition.play();
