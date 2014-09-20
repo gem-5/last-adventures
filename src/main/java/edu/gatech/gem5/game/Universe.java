@@ -7,6 +7,9 @@
 package edu.gatech.gem5.game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
 
 /**
  *
@@ -16,8 +19,9 @@ import java.util.ArrayList;
 public class Universe {
     private final ArrayList<SolarSystem> universe;
     //size on screen in pixels
-    private int length;
-    private int width;
+    private final int width;
+    private final int height;
+    private final int numberOfPlanets;
     //temporary list of names for systems
     private static String[] names = {
     "Acamar",
@@ -140,29 +144,69 @@ public class Universe {
     "Yojimbo",		// A film by Akira Kurosawa
     "Zalkon",
     "Zuul"
-    };
-    
-    ArrayList<Point> locations;
-    
+    };    
 
-    public Universe(int length, int width) {
-        this.length = length;
-        this.width = width;
-        
+    public Universe(int num, int min, int max) {
+        this.width = 100;
+        this.height = 150;
+        this.numberOfPlanets = num;
         //places systems appropriate distance from each other
-        this.locations = layoutUniverse(locations);
+        ArrayList<Point> layout = layoutUniverse(min, max);
         
         this.universe = new ArrayList<>();
-        for (int i = 0; i < 120; i++) {
-            universe.add(new SolarSystem(names[i], locations.get(i).xCoordinate, 
-                    locations.get(i).yCoordinate));
+        for (int i = 0; i < layout.size(); i++) {
+            universe.add(new SolarSystem(names[i], layout.get(i).xCoordinate, 
+                    layout.get(i).yCoordinate));
         }
-        
     }
     
-    private ArrayList<Point> layoutUniverse(ArrayList<Point> locs) {
-        
-        return locs;
+    private ArrayList<Point> layoutUniverse(int min, int max) {
+        Random random = new Random();
+        //the resulting list of locations
+        ArrayList<Point> locations = new ArrayList<>();
+        //these points are the right distance away from all planets in locations
+        HashMap<String, Point> primed = new HashMap<>();
+        //these points are either planets, or too close to planets to be 
+        //considered for new planets
+        HashSet<String> locked = new HashSet<>();
+        //pick an inital planet
+        Point current = new Point(random.nextInt(width), random.nextInt(height));
+        locations.add(current);
+        //add the rest of the planets
+        for (int n = 0; n < numberOfPlanets -1; n++) {
+            //lock the current planet and the points within min distance of it
+            locked.add(current.toString());
+            for(int i = current.xCoordinate - min; i <= current.xCoordinate + min; i++) {
+                for (int j = current.yCoordinate - min; j <= current.yCoordinate + min; j++) {
+                    locked.add(new Point(i,j).toString());
+                    primed.remove(new Point(i,j).toString());
+                }
+            }
+            //prime the points within max distance from the current planet
+            for (int i = current.xCoordinate - max; i <= current.xCoordinate + max; i++) {
+                for (int j = current.yCoordinate - max; j <= current.yCoordinate + max; j++) {
+                    Point prime = new Point(i,j);
+                    //don't prime if it's already locked
+                    //don't prime if outside of length/height or outside of 0
+                    if(!locked.contains(prime.toString()) &&
+                            prime.xCoordinate >= 0 &&
+                            prime.yCoordinate >= 0 &&
+                            prime.xCoordinate < width &&
+                            prime.yCoordinate < height) {
+                        primed.put(prime.toString(),prime);
+                    }
+                }
+            }
+            //don't attempt to overcrowd the universe!
+            if(primed.isEmpty()) {
+                System.out.println("We've reached capacity! " + n + "/" + names.length +" planets placed");
+                break;
+            }
+            //pick a new planet to add to the final list, which unprimes it
+            current = primed.remove((String) primed.keySet().toArray()[random.nextInt(primed.size())]);
+            locations.add(current);
+        }
+        return locations;
     }
 
     /**
@@ -173,26 +217,49 @@ public class Universe {
     }
 
     /**
-     * @return the length
-     */
-    public int getLength() {
-        return length;
-    }
-
-    /**
      * @return the width
      */
     public int getWidth() {
         return width;
     }
     
+    /**
+     * @return the width
+     */
+    public int getHeight() {
+        return height;
+    }
+   
+    @Override
+    public String toString() {
+        String result = "";
+        for (SolarSystem system : universe) {
+           result += system.toString() + "\n";
+        }
+        return result;
+    }
+    
+    public static void main(String[] args) {
+        Universe uni = new Universe(Universe.names.length, 4, 13);
+        System.out.println(uni);
+    }
+    
+    /*
+    * This is a simple class to couple an x and y coordinate together
+    */
     private class Point {
+        //location
         private int xCoordinate;
         private int yCoordinate;
         
         public Point (int x, int y) {
             this.xCoordinate = x;
             this.yCoordinate = y;
+        }
+        
+        @Override
+        public String toString() {
+            return "(" + xCoordinate + ", " + yCoordinate + ")";
         }
     }
 }
