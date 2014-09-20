@@ -232,20 +232,8 @@ public class Universe {
     @Override
     public String toString() {
         String result = "";
-        String[][] field = new String[width][height];
-        for (int r = 0; r < width; r++) {
-            for (int c = 0; c< height; c++) {
-                field[r][c] = ".";
-            }
-        }
-        for (SolarSystem universe1 : universe) {
-            field[universe1.getXCoordinate()][universe1.getYCoordinate()] = "X";
-        }
-         for (int r = 0; r < width; r++) {
-            for (int c = 0; c< height; c++) {
-                result += field[r][c];
-            }
-            result += "\n";
+        for (SolarSystem system : universe) {
+           result += system.toString() + "\n";
         }
         return result;
     }
