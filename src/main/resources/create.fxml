@@ -32,7 +32,7 @@
             <TextField
                 fx:id="name"
                 GridPane.columnIndex="1"
-                GridPane.columnSpan="2"
+                GridPane.columnSpan="3"
                 GridPane.rowIndex="0"
                 prefHeight="24.0"
                 prefWidth="270.0"
@@ -43,128 +43,136 @@
                 GridPane.rowIndex="1"
                 text="Pilot"
             />
+            <Button
+                fx:id="pilotDec"
+                id="pilot"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="1"
+                text="-"
+                onAction="#decrement"
+            />
             <Label
                 fx:id="pilotValue"
-                GridPane.columnIndex="1"
+                GridPane.columnIndex="2"
                 GridPane.rowIndex="1"
                 text="1"
             />
-            <Slider
-                fx:id="pilotSlider"
-                GridPane.columnIndex="2"
+            <Button
+                fx:id="pilotInc"
+                id="pilot"
+                GridPane.columnIndex="3"
                 GridPane.rowIndex="1"
-                min="1"
-                max="21"
-                majorTickUnit="1"
-                minorTickCount="0"
-                opacity="0.8"
-                prefHeight="13.0"
-                prefWidth="128.0"
-                showTickMarks="true"
-                snapToTicks="true"
-                
+                text="+"
+                onAction="#increment"
             />
             <Label 
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="2"
                 text="Fighter"
             />
+            <Button
+                fx:id="fighterDec"
+                id="fighter"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="2"
+                text="-"
+                onAction="#decrement"
+            />
             <Label
                 fx:id="fighterValue"
-                GridPane.columnIndex="1"
+                GridPane.columnIndex="2"
                 GridPane.rowIndex="2"
                 text="1"
             />
-            <Slider
-                fx:id="fighterSlider"
-                GridPane.columnIndex="2"
+            <Button
+                fx:id="fighterInc"
+                id="fighter"
+                GridPane.columnIndex="3"
                 GridPane.rowIndex="2"
-                min="1"
-                max="21"
-                majorTickUnit="1"
-                minorTickCount="0"
-                opacity="0.8"
-                prefHeight="13.0"
-                prefWidth="128.0"
-                showTickMarks="true"
-                snapToTicks="true"
+                text="+"
+                onAction="#increment"
             />
             <Label 
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="3"
                 text="Trader"
             />
+            <Button
+                fx:id="traderDec"
+                id="trader"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="3"
+                text="-"
+                onAction="#decrement"
+            />
             <Label
                 fx:id="traderValue"
-                GridPane.columnIndex="1"
+                GridPane.columnIndex="2"
                 GridPane.rowIndex="3"
                 text="1"
             />
-            <Slider
-                fx:id="traderSlider"
-                GridPane.columnIndex="2"
+            <Button
+                fx:id="traderInc"
+                id="trader"
+                GridPane.columnIndex="3"
                 GridPane.rowIndex="3"
-                min="1"
-                max="21"
-                majorTickUnit="1"
-                minorTickCount="0"
-                opacity="0.8"
-                prefHeight="13.0"
-                prefWidth="128.0"
-                showTickMarks="true"
-                snapToTicks="true"
+                text="+"
+                onAction="#increment"
             />
             <Label
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="4"
                 text="Engineer"
             />
+            <Button
+                fx:id="engineerDec"
+                id="engineer"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="4"
+                text="-"
+                onAction="#decrement"
+            />
             <Label
                 fx:id="engineerValue"
-                GridPane.columnIndex="1"
+                GridPane.columnIndex="2"
                 GridPane.rowIndex="4"
                 text="1"
             />
-            <Slider
-                fx:id="engineerSlider"
-                GridPane.columnIndex="2"
+            <Button
+                fx:id="engineerInc"
+                id="engineer"
+                GridPane.columnIndex="3"
                 GridPane.rowIndex="4"
-                min="1"
-                max="21"
-                majorTickUnit="1"
-                minorTickCount="0"
-                opacity="0.8"
-                prefHeight="13.0"
-                prefWidth="128.0"
-                showTickMarks="true"
-                snapToTicks="true"
+                text="+"
+                onAction="#increment"
             />
             <Label
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="5"
                 text="Investor"
             />
+            <Button
+                fx:id="investorDec"
+                id="investor"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="5"
+                text="-"
+                onAction="#decrement"
+            />
             <Label
                 fx:id="investorValue"
-                GridPane.columnIndex="1"
+                GridPane.columnIndex="2"
                 GridPane.rowIndex="5"
                 text="1"
             />
-            <Slider
-                fx:id="investorSlider"
-                GridPane.columnIndex="2"
+            <Button
+                fx:id="investorInc"
+                id="investor"
+                GridPane.columnIndex="3"
                 GridPane.rowIndex="5"
-                min="1"
-                max="21"
-                majorTickUnit="1"
-                minorTickCount="0"
-                opacity="0.8"
-                prefHeight="13.0"
-                prefWidth="128.0"
-                showTickMarks="true"
-                snapToTicks="true"
-            >
-            </Slider>
+                text="+"
+                onAction="#increment"
+            />
             <Label
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="6"

@@ -13,6 +13,7 @@
     prefWidth="1280"
     xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="edu.gatech.gem5.game.controllers.TitleController"
+    fx:id="defaultScene"
 >
     <children>
 
@@ -23,30 +24,30 @@
             text="Last Adventures"
         />
 
-        <GridPane layoutX="700" layoutY="250">
+        <GridPane fx:id="gridPane" layoutX="700" layoutY="250">
             <vgap>10.0</vgap>
             <Button text="New"
-                id="new"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="1"
-		onAction="#changeScenes" 
+                    id="newButton"
+                    GridPane.columnIndex="0"
+                    GridPane.rowIndex="1"
+                    onAction="#changeScenes" 
             />
             <Button text="Continue"
-                id="continue"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="2"
-                onAction="#changeScenes"
+                    id="continueButton"
+                    GridPane.columnIndex="0"
+                    GridPane.rowIndex="2"
+                    onAction="#changeScenes"
             />
             <Button text="Load"
-                id="load"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="3"
-                onAction="#changeScenes"
+                    id="loadButton"
+                    GridPane.columnIndex="0"
+                    GridPane.rowIndex="3"
+                    onAction="#changeScenes"
             />
         </GridPane>
 
     </children>
-	<stylesheets>
-		<URL value="@title.css" />
-	</stylesheets>
+    <stylesheets>
+        <URL value="@title.css" />
+    </stylesheets>
 </AnchorPane>
