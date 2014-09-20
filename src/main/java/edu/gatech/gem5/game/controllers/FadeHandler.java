@@ -7,7 +7,7 @@ import javafx.util.Duration;
 /**
  * Let's make a pretty fade animation!
  *
- * @author James
+ * @author James Jong Han Park
  */
 public class FadeHandler {
 
