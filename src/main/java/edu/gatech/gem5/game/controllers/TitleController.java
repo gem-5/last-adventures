@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
@@ -28,20 +27,20 @@ public class TitleController implements Initializable {
 
     @FXML
     Parent root;
-    
+
     /**
      * Changes the scene based on the button pressed.
      */
     @FXML
     private void changeScenes(ActionEvent event) throws Exception {
         //gets this scene's stage
-        
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        String id = ((Button)(event.getSource())).idProperty().get();
+        String id = ((Button) (event.getSource())).idProperty().get();
         //loads the create FXML file into root
         if (id.equals("new")) {
             LastAdventures.createNewSaveFile();
-            root = FXMLLoader.load(getClass().getResource("/create.fxml"));                     
+            root = FXMLLoader.load(getClass().getResource("/create.fxml"));
         } else if (id.equals("continue")) {
             //TODO
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));
@@ -52,18 +51,18 @@ public class TitleController implements Initializable {
         //sets the stage to root scene
         stage.setScene(new Scene((Pane) root));
     }
-    
+
     /**
-     * Initialize the controller. Does nothing because there's nothing
-     * to initialize.
+     * Initialize the controller. Does nothing because there's nothing to
+     * initialize.
      *
      * @param url The location to resolve all relative paths for the root
      * object.
      * @param resources The resources used to localize the root object.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle resources) {
         // do nothing
-    }    
-    
+    }
+
 }
