@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Character;
@@ -63,7 +58,7 @@ public class CharacterStatusController implements Initializable {
 
         // Adds fade in effects. Labels appear in order, .2 seconds per label.
         for (int x = 0; x < labels.length; x++) {
-            fh = new FadeHandler(labels[x], x / 5.0);
+            new FadeHandler(labels[x], x / 5.0);
         }
     }
 }
