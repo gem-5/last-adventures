@@ -14,3 +14,18 @@
     -fx-text-fill: white;
     -fx-font-size: 30;
 }
+
+.button, .button:default, .button:cancel, .button:armed {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border: none;
+    -fx-padding: 0;
+    -fx-margin: 0;
+    -fx-opacity: 0.5;
+	-fx-cursor: hand;
+}
+
+.button:armed, .button:hover {
+    -fx-opacity: 1.0;
+}

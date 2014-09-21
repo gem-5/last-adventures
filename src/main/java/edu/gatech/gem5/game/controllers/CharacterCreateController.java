@@ -5,16 +5,12 @@ package edu.gatech.gem5.game.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Ship;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,30 +19,39 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author James
+ * @author James Jong Han Park
  * @author Jack
  */
 public class CharacterCreateController implements Initializable {
+
     Parent root;
     @FXML
-    Slider pilotSlider;
+    Button pilotInc;
     @FXML
-    Slider fighterSlider;
+    Button fighterInc;
     @FXML
-    Slider traderSlider;
+    Button traderInc;
     @FXML
-    Slider engineerSlider;
+    Button engineerInc;
     @FXML
-    Slider investorSlider;
+    Button investorInc;
+    @FXML
+    Button pilotDec;
+    @FXML
+    Button fighterDec;
+    @FXML
+    Button traderDec;
+    @FXML
+    Button engineerDec;
+    @FXML
+    Button investorDec;
     @FXML
     Label pilotValue;
     @FXML
@@ -59,9 +64,27 @@ public class CharacterCreateController implements Initializable {
     Label investorValue;
     @FXML
     Label remainingValue;
-    @FXML 
+    @FXML
     TextField name;
-    
+
+    @FXML
+    Label pilot;
+    @FXML
+    Label fighter;
+    @FXML
+    Label trader;
+    @FXML
+    Label engineer;
+    @FXML
+    Label investor;
+    @FXML
+    Button confirm;
+    @FXML
+    Label remaining;
+
+    private Button[] incButtons, decButtons;
+    private Label[] values, skillNames;
+
     /**
      *
      * @param event a button press
@@ -70,155 +93,100 @@ public class CharacterCreateController implements Initializable {
     @FXML
     public void changeScenes(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        String id = ((Button)(event.getSource())).idProperty().get();
-        if(id.equals("confirm")) {
-            Character player = new Character( name.getText(),
-                    (int)pilotSlider.getValue(),
-                    (int)fighterSlider.getValue(),
-                    (int)engineerSlider.getValue(),
-                    (int)traderSlider.getValue(),
-                    (int)investorSlider.getValue(), (Ship)null);
+        String id = ((Button) (event.getSource())).idProperty().get();
+        if (id.equals("confirm")) {
+            Character player = new Character(name.getText(),
+                    Integer.parseInt(pilotValue.getText()),
+                    Integer.parseInt(fighterValue.getText()),
+                    Integer.parseInt(traderValue.getText()),
+                    Integer.parseInt(engineerValue.getText()),
+                    Integer.parseInt(investorValue.getText()), (Ship) null);
             LastAdventures.getCurrentSaveFile().addCharacter(player);
             //this is to print out the character once it is made
             System.out.println(LastAdventures.getCurrentSaveFile());
-            root = FXMLLoader.load(getClass().getResource("/status.fxml"));
+
+            if (!name.getText().equals("Nyan")) {
+                root = FXMLLoader.load(getClass().getResource("/status.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("/easterNyan.fxml"));
+            }
         } else if (id.equals("back")) {
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));
         }
-        
+
         stage.setScene(new Scene((Pane) root));
     }
+
+    /**
+     *
+     * @param event a incrementor button press
+     * @throws Exception
+     */
+    @FXML
+    public void increment(ActionEvent event) throws Exception {
+        Button buttonName = (Button) event.getSource();
+
+        if (Integer.parseInt(remainingValue.getText()) != 0) {
+
+            for (int count = 0; count < incButtons.length; count++) {
+                if (incButtons[count] == buttonName) {
+                    values[count].setText("" + (Integer.parseInt(values[count].getText()) + 1));
+                }
+            }
+            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) - 1));
+        }
+
+    }
+
+    /**
+     *
+     * @param event a decrementor button press
+     * @throws Exception
+     */
+    @FXML
+    public void decrement(ActionEvent event) throws Exception {
+        Button buttonName = (Button) event.getSource();
+
+        for (int count = 0; count < decButtons.length; count++) {
+            if (decButtons[count] == buttonName && Integer.parseInt(values[count].getText()) != 1) {
+                values[count].setText("" + (Integer.parseInt(values[count].getText()) - 1));
+                remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
+            }
+        }
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO implement anonymous changelistener<Number> and 
-        // EventHandler<MouseEvent> as concrete classes
-        pilotSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
 
-                    pilotValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        pilotSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(pilotValue.getText());
-                int badNumber = (int) pilotSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    pilotSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
-        fighterSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
+        // Note: Make sure that values, incButtons, and decButtons' objects allign in order together.
+        // Ex. values[0] = pilotValue, incButtons[0] = pillotInc, decbuttons[0] = pilotDec
+        // ... values[3] = engineerValue, incButtons[3] = engineerInc, decbuttons[3] = engineerDec
+        values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
+        incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
+        decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
 
-                    fighterValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        fighterSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(fighterValue.getText());
-                int badNumber = (int) fighterSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    fighterSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
-        traderSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
+        skillNames = new Label[]{pilot, fighter, trader, engineer, investor, remaining};
 
-                    traderValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        traderSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(traderValue.getText());
-                int badNumber = (int) traderSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    traderSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
-        engineerSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
+        // Hide labels and buttons (used for animation)
+        for (int x = 0; x < values.length; x++) {
+            skillNames[x].setTranslateX(-300);
+            values[x].setOpacity(0);
+        }
+        remainingValue.setTranslateX(-300);
+        remaining.setTranslateX(-300);
 
-                    engineerValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        engineerSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(engineerValue.getText());
-                int badNumber = (int) engineerSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    engineerSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
-        investorSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (Integer.parseInt(remainingValue.getText()) != 0 || oldValue.intValue() > newValue.intValue()) {
+        // Apply transition animation
+        for (int x = 0; x < skillNames.length; x++) {
+            new TranslateHandler(skillNames[x], x / 5.0, 1, 0, 0, -300, 0);
+        }
+        new TranslateHandler(remainingValue, skillNames.length / 5.0, 1, 0, 0, -300, 0);
 
-                    investorValue.setText("" + newValue.intValue());
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) +
-                            (oldValue.intValue() - newValue.intValue())));
-                }
-            }
-        });
-        investorSlider.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                int oldNumber = Integer.parseInt(investorValue.getText());
-                int badNumber = (int) investorSlider.getValue();
-                //the badNumber was too high
-                if (badNumber != oldNumber) {
-                    investorSlider.setValue(oldNumber);
-                    remainingValue.setText("" + (Integer.parseInt(
-                            remainingValue.getText()) - (badNumber - oldNumber)));
-                }
-            }
-        });
-   }     
+        // Apply fade-in animation
+        for (int x = 0; x < values.length; x++) {
+            new FadeHandler(values[x], skillNames.length / 5.0 + 1.1);
+        }
+    }
 }
