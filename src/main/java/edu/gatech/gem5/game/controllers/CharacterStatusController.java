@@ -2,6 +2,7 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Universe;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -40,21 +41,27 @@ public class CharacterStatusController implements Initializable {
     @FXML
     Label investorValue;
     @FXML
+    Button confirm;
+    @FXML
     Button returnToCreate;
     
     /**
      * Changes screens
      * 
-     * @param event A button press
+     * @param event A button press attempting to change scenes
      * @throws Exception
      */
     @FXML
     public void changeScenes(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button)(event.getSource())).idProperty().get();
-        if (id.equals("back")) {
+        if (id.equals("confirm")) {
+            LastAdventures.getCurrentSaveFile()
+                    .addUniverse(new Universe (Universe.generateNames().length, 4, 13));
+            root = FXMLLoader.load(getClass().getResource("/displayUniverse.fxml"));
+        } else if (id.equals("back")) {
+            LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
             root = FXMLLoader.load(getClass().getResource("/create.fxml"));
-            
         }
         
         stage.setScene(new Scene((Pane) root));

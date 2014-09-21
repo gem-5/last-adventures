@@ -199,7 +199,7 @@ public class Universe {
             }
             //don't attempt to overcrowd the universe!
             if(primed.isEmpty()) {
-                System.out.println("We've reached capacity! " + n + "/" + names.length +" planets placed");
+                //universe has reached capacity with n solar systems placed
                 break;
             }
             //pick a new planet to add to the final list, which unprimes it
@@ -207,6 +207,15 @@ public class Universe {
             locations.add(current);
         }
         return locations;
+    }
+    
+    /**
+     * This method uses an algorithm to generate names for the Solar Systems
+     * 
+     * @return the list of names generate by the algorithm
+     */
+    public static String[] generateNames() {
+        return names;
     }
 
     /**
