@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane
+    xmlns:fx="http://javafx.com/fxml/1" 
+    id="AnchorPane"
+    prefHeight="720"
+    prefWidth="1280"
+    fx:controller="edu.gatech.gem5.game.controllers.DisplayUniverseController"
+    fx:id="root"
+>
+    <children>
+        
+    </children>
+    <stylesheets>
+        <URL value="@displayUniverse.css"/>
+    </stylesheets>
+</AnchorPane>

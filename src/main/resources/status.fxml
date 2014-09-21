@@ -55,18 +55,25 @@
                 text="1"
             />
             <Button 
-                id="back"
+                id="confirm"
                 GridPane.columnIndex="1"
+                GridPane.rowIndex="7"
+                mnemonicParsing="false"
+                text="Confirm"
+                onAction="#changeScenes" 
+            />
+            <Button 
+                id="back"
+                GridPane.columnIndex="2"
                 GridPane.rowIndex="7"
                 cancelButton="true"
                 mnemonicParsing="false"
                 text="Back"
                 onAction="#changeScenes" 
-            >
-            </Button>
+            />
         </GridPane>
     </children>
     <stylesheets>
-        <URL value="@status.css"/>
+        <URL value="@create.css"/>
     </stylesheets>
 </AnchorPane>

@@ -21,6 +21,7 @@ public class LastAdventures extends Application {
 
     private static LinkedList<SaveFile> saveFiles;
     private static Integer currentFile;
+    private final static Integer NONE = -1;
 
     /**
      * Default constructor for LastAdventures. Initializes an empty holder for
@@ -28,7 +29,7 @@ public class LastAdventures extends Application {
      */
     public LastAdventures() {
         saveFiles = new LinkedList<>();
-        currentFile = 0;
+        currentFile = NONE;
     }
 
     @Override
@@ -71,6 +72,23 @@ public class LastAdventures extends Application {
         // puts a new save file in the table at the next "index"
         saveFiles.add(new SaveFile());
         currentFile = saveFiles.size() - 1;
+    }
+    
+    /**
+     * Deletes a specified save file.
+     * 
+     * @param file the save file to be deleted
+     */
+    public static void deleteSaveFile(SaveFile file) {
+        int index = saveFiles.indexOf(file);
+        if (index == currentFile) {
+            //if we delete the current file, disable continue on title screen
+            currentFile = NONE;
+        } else if (index < currentFile) {
+            //if we delete a file before the current file, update the index
+            currentFile--;
+        }
+        saveFiles.remove(file);
     }
 
     /**
