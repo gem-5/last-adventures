@@ -20,19 +20,6 @@ public class NameGenerator {
         this.rand = new Random();
     }
 
-
-    // private String pickNConsonants(int n) {
-    //     if (n == 0)
-    //         return "";
-    //     return consonants[rand.nextInt(consonants.length)] + pickNConsonants(n-1);
-    // }
-
-    // private String pickNVowels(int n) {
-    //     if (n == 0)
-    //         return "";
-    //     return vowels[rand.nextInt(vowels.length)] + pickNConsonants(n-1);
-    // }
-
     /**
      * Method to generate new names
      * @return the newly generated name
