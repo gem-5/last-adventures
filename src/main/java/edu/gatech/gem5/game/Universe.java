@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  *
  * @author Jack
- * @autor James
+ * @author James
  */
 public class Universe {
     private final ArrayList<SolarSystem> universe;
@@ -22,6 +22,7 @@ public class Universe {
     private final int width;
     private final int height;
     private final int numberOfPlanets;
+    private final NameGenerator nameGen;
     //temporary list of names for systems
     private static String[] names = {
     "Acamar",
@@ -39,7 +40,7 @@ public class Universe {
     "Carzon",
     "Castor",		// A Greek demi-god
     "Cestus",
-    "Cheron",		
+    "Cheron",
     "Courteney",	// After Courteney Cox??
     "Daled",
     "Damast",
@@ -144,29 +145,34 @@ public class Universe {
     "Yojimbo",		// A film by Akira Kurosawa
     "Zalkon",
     "Zuul"
-    };    
+    };
 
     public Universe(int num, int min, int max) {
         this.width = 100;
         this.height = 150;
         this.numberOfPlanets = num;
+        this.nameGen = new NameGenerator();
         //places systems appropriate distance from each other
         ArrayList<Point> layout = layoutUniverse(min, max);
-        
+
         this.universe = new ArrayList<>();
+        // for (int i = 0; i < layout.size(); i++) {
+        //     universe.add(new SolarSystem(names[i], layout.get(i).xCoordinate,
+        //             layout.get(i).yCoordinate));
+        // }
         for (int i = 0; i < layout.size(); i++) {
-            universe.add(new SolarSystem(names[i], layout.get(i).xCoordinate, 
+            universe.add(new SolarSystem(nameGen.newName(), layout.get(i).xCoordinate,
                     layout.get(i).yCoordinate));
         }
     }
-    
+
     private ArrayList<Point> layoutUniverse(int min, int max) {
         Random random = new Random();
         //the resulting list of locations
         ArrayList<Point> locations = new ArrayList<>();
         //these points are the right distance away from all planets in locations
         HashMap<String, Point> primed = new HashMap<>();
-        //these points are either planets, or too close to planets to be 
+        //these points are either planets, or too close to planets to be
         //considered for new planets
         HashSet<String> locked = new HashSet<>();
         //pick an inital planet
@@ -208,10 +214,10 @@ public class Universe {
         }
         return locations;
     }
-    
+
     /**
      * This method uses an algorithm to generate names for the Solar Systems
-     * 
+     *
      * @return the list of names generate by the algorithm
      */
     public static String[] generateNames() {
@@ -231,14 +237,14 @@ public class Universe {
     public int getWidth() {
         return width;
     }
-    
+
     /**
      * @return the width
      */
     public int getHeight() {
         return height;
     }
-   
+
     @Override
     public String toString() {
         String result = "";
@@ -247,12 +253,12 @@ public class Universe {
         }
         return result;
     }
-    
+
     public static void main(String[] args) {
         Universe uni = new Universe(Universe.names.length, 4, 13);
         System.out.println(uni);
     }
-    
+
     /*
     * This is a simple class to couple an x and y coordinate together
     */
@@ -260,17 +266,15 @@ public class Universe {
         //location
         private int xCoordinate;
         private int yCoordinate;
-        
+
         public Point (int x, int y) {
             this.xCoordinate = x;
             this.yCoordinate = y;
         }
-        
+
         @Override
         public String toString() {
             return "(" + xCoordinate + ", " + yCoordinate + ")";
         }
     }
 }
-
-

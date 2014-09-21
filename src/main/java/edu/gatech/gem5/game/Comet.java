@@ -7,5 +7,7 @@ package edu.gatech.gem5.game;
 
 public class Comet extends Ship {
 
-    super("Comet", 25, 1, 2, 2, 2, 15, 5, 7, 5000, 125, 100, "Universal Transports");
+    public Comet() {
+        super("Comet", 25, 1, 2, 2, 2, 15, 5, 7, 5000, 125, 100, "Universal Transports");
+    }
 }

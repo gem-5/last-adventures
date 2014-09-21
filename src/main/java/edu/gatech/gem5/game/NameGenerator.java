@@ -1,3 +1,5 @@
+package edu.gatech.gem5.game;
+
 import java.util.Random;
 
 public class NameGenerator {
@@ -31,7 +33,10 @@ public class NameGenerator {
     //     return vowels[rand.nextInt(vowels.length)] + pickNConsonants(n-1);
     // }
 
-
+    /**
+     * Method to generate new names
+     * @return the newly generated name
+     */
     public String newName() {
         int length = rand.nextInt(5) + 4;
         boolean vowel = rand.nextBoolean();
