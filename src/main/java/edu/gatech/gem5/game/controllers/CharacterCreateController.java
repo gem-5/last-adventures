@@ -102,8 +102,6 @@ public class CharacterCreateController implements Initializable {
                     Integer.parseInt(engineerValue.getText()),
                     Integer.parseInt(investorValue.getText()), (Ship) null);
             LastAdventures.getCurrentSaveFile().addCharacter(player);
-            //this is to print out the character once it is made
-            System.out.println(LastAdventures.getCurrentSaveFile());
 
             if (!name.getText().equals("Nyan")) {
                 root = FXMLLoader.load(getClass().getResource("/status.fxml"));
@@ -111,6 +109,7 @@ public class CharacterCreateController implements Initializable {
                 root = FXMLLoader.load(getClass().getResource("/easterNyan.fxml"));
             }
         } else if (id.equals("back")) {
+            LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));
         }
 

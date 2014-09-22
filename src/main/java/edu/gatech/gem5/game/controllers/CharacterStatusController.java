@@ -24,6 +24,7 @@ import javafx.stage.Stage;
  *
  * @author Alex
  * @author James Jong Han Park
+ * @author Jack Mueller
  */
 public class CharacterStatusController implements Initializable {
 
@@ -57,10 +58,9 @@ public class CharacterStatusController implements Initializable {
         String id = ((Button)(event.getSource())).idProperty().get();
         if (id.equals("confirm")) {
             LastAdventures.getCurrentSaveFile()
-                    .addUniverse(new Universe (Universe.generateNames().length, 4, 13));
+                    .addUniverse(new Universe (120, 4, 13));
             root = FXMLLoader.load(getClass().getResource("/displayUniverse.fxml"));
         } else if (id.equals("back")) {
-            LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
             root = FXMLLoader.load(getClass().getResource("/create.fxml"));
         }
         
