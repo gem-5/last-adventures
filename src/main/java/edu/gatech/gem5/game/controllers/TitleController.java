@@ -41,6 +41,9 @@ public class TitleController implements Initializable {
 
     /**
      * Changes the scene based on the button pressed.
+     * 
+     * @param event a button press
+     * @throws Exception if the scene resource is not found
      */
     @FXML
     private void changeScenes(ActionEvent event) throws Exception {

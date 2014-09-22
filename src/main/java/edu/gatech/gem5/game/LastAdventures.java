@@ -72,7 +72,6 @@ public class LastAdventures extends Application {
         // puts a new save file in the table at the next "index"
         saveFiles.add(new SaveFile());
         currentFile = saveFiles.size() - 1;
-        System.out.println("cre" + currentFile);
     }
     
     /**
@@ -89,7 +88,6 @@ public class LastAdventures extends Application {
             //if we delete a file before the current file, update the index
             currentFile--;
         }
-        System.out.println("rem" + currentFile);
         saveFiles.remove(file);
     }
 

@@ -33,7 +33,7 @@ public class DisplayUniverseController implements Initializable {
      * Changes screens
      * 
      * @param event A button press attempting to change scenes
-     * @throws Exception
+     * @throws Exception if the scene resource is not found
      */
     @FXML
     public void changeScenes(MouseEvent event) throws Exception {

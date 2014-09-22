@@ -88,7 +88,7 @@ public class CharacterCreateController implements Initializable {
     /**
      *
      * @param event a button press
-     * @throws Exception
+     * @throws Exception if the scene resource is not found
      */
     @FXML
     public void changeScenes(ActionEvent event) throws Exception {
@@ -119,10 +119,9 @@ public class CharacterCreateController implements Initializable {
     /**
      *
      * @param event a incrementor button press
-     * @throws Exception
      */
     @FXML
-    public void increment(ActionEvent event) throws Exception {
+    public void increment(ActionEvent event) {
         Button buttonName = (Button) event.getSource();
 
         if (Integer.parseInt(remainingValue.getText()) != 0) {
@@ -140,10 +139,9 @@ public class CharacterCreateController implements Initializable {
     /**
      *
      * @param event a decrementor button press
-     * @throws Exception
      */
     @FXML
-    public void decrement(ActionEvent event) throws Exception {
+    public void decrement(ActionEvent event) {
         Button buttonName = (Button) event.getSource();
 
         for (int count = 0; count < decButtons.length; count++) {

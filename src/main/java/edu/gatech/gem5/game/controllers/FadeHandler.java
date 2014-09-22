@@ -42,8 +42,8 @@ public class FadeHandler {
      * @param object Object to apply fade animation
      * @param delay The delay before playing the animation in seconds
      * @param duration The duration of the fade animation in seconds
-     * @param fromValue 0.0 means transparent & 1.0 means opaque
-     * @param toValue 0.0 means transparent & 1.0 means opaque
+     * @param fromValue 0.0 means transparent and 1.0 means opaque
+     * @param toValue 0.0 means transparent and 1.0 means opaque
      */
     public FadeHandler(Node object, double delay, double duration, double fromValue, double toValue) {
 
