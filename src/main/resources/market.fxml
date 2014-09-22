@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="720" prefWidth="1280" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="edu.gatech.gem5.game.controllers.MarketController">    
+    <stylesheets>
+        <URL value="@status.css" />
+    </stylesheets>
+   <children>
+      <SplitPane dividerPositions="0.5" layoutY="1.0" prefHeight="720.0" prefWidth="1280.0">
+        <items>
+          <AnchorPane fx:id="left">
+               <children>
+                  <TabPane fx:id="buyBox" layoutY="50.0" prefHeight="600.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Ships">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="555.0" />
+                        </content>
+                      </Tab>
+                      <Tab text="Weapons">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                        <Tab text="Shields">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                        <Tab text="Goods">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+                  <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Market Name" />
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="right" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TabPane fx:id="buyBox1" layoutY="50.0" prefHeight="600.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE">
+                     <tabs>
+                        <Tab text="Ships">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="636.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Weapons">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Shields">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Goods">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+                  <Text layoutX="524.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Cash Amount" />
+                  <Text layoutX="384.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Goods Amount" />
+                  <Text layoutX="536.0" layoutY="685.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal Count" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
