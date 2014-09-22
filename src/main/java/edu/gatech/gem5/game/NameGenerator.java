@@ -21,14 +21,17 @@ public class NameGenerator {
     }
 
     /**
-     * Method to generate new names
+     * Method to generate new names from a given min and max length
+     * @param minLength The minimum length of the name to be generated
+     * @param maxLength The maximum length of the name to be generated
      * @return the newly generated name
      */
-    public String newName() {
-        int length = rand.nextInt(5) + 4;
+    public String newName(int minLength, int maxLength) {
+        int length = rand.nextInt(maxLength - minLength) + minLength;
         boolean vowel = rand.nextBoolean();
         String name = "";
-        for (int i = 0; i < length; i++) {
+        // for (int i = 0; name.length() < length; i++) {
+        while (name.length() < length) {
             if (vowel) {
                 // name += pickNVowels(rand.nextInt(2) + 1);
                 name += consonants[rand.nextInt(consonants.length)];
@@ -39,6 +42,22 @@ public class NameGenerator {
             vowel = !vowel;
         }
         return java.lang.Character.toUpperCase(name.charAt(0)) + name.substring(1);
+    }
+    /**
+     * Method to generate new names with a maximum length of the given value
+     * and a minimum length of half that value
+     * @param maxLength The maximum length of the name to be generated
+     * @return the newly generated name
+     */
+    public String newName(int maxLength) {
+        return newName(maxLength / 2, maxLength);
+    }
+    /**
+     * Method to generate new names with a size between 4-9 characters.
+     * @return the newly generated name
+     */
+    public String newName() {
+        return newName(4, 9);
     }
 
     public static void main(String[] args) {
