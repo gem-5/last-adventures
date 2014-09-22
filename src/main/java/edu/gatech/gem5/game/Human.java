@@ -142,12 +142,17 @@ public class Human {
      */
     public String toString() {
         if (this.ship == null) {
-            return String.format("Character name: %s%nSkills:%n%tPilot%t%d%n%tFighter%t%d%n%tTrader%t%d%n%tEngineer%t%d%n%tInvestor%t%d%nShip: None",
+            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: None",
                                  name, pilot, fighter, trader, engineer, investor);
         } else {
-            return String.format("Character name: %s%nSkills:%n%tPilot%t%d%n%tFighter%t%d%n%tTrader%t%d%n%tEngineer%t%d%n%tInvestor%t%d%nShip: %s",
+            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: %s",
                                  name, pilot, fighter, trader, engineer, investor, ship.toString());
         }
 
+    }
+
+    public static void main(String[] args) {
+        Human bob = new Human("Bob", 10, 11, 7, 9, 4, new Vagabond());
+        System.out.println(bob.toString());
     }
 }

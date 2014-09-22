@@ -57,4 +57,12 @@ public class Ship{
         // this.shieldList = new ArrayList<>(shieldSlots);
         // this.gadgetList = new ArrayList<>(gadgetSlots);
     }
+    /**
+     * Prints out a string representation of a Ship
+     * @return a string representing the Ship
+     */
+    public String toString() {
+        // eventually maybe also add in other Ship info for debugging purposes
+        return this.name;
+    }
 }
