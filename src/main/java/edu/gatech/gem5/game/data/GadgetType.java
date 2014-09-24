@@ -36,7 +36,7 @@ public class GadgetType {
     /**
      * Apply the bonus to a ship or something. I dunno how this should work.
      *
-     * @param Ship the ship to bonusify
+     * @param ship the ship to bonusify
      */
     public void applyBonus(Ship ship) {
         // not implemented
@@ -44,22 +44,11 @@ public class GadgetType {
 
     /**
      * Get the bonus.
+     *
+     * @return the map of bonuses
      */
     public Map<String, Double> getBonus() {
         return this.bonus;
-    }
-
-    /**
-     * A wrapper class for bonuses applied by a gadget type.
-     *
-     * @author Creston Bunch
-     */
-    public class Bonus {
-        private Map<String, String> bonuses;
-
-        public Bonus(Map<String, String> bonuses) {
-            this.bonuses = bonuses;
-        }
     }
 
 }
