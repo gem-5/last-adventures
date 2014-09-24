@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package edu.gatech.gem5.game;
 
 /**
@@ -32,12 +26,17 @@ public class SaveFile {
         return player;
     }
     
+    public Universe getUniverse() {
+        return universe;
+    }
+    
     @Override
     public String toString() {
         return String.format("Player:%n%1s\nPilot: %d%nFighter: %d%nEngineer: "+
                 "%d%nTrader: %d%nInvestor: %d", player.getName(), 
                 player.getPilot(), player.getFighter(), player.getEngineer(),
-                player.getTrader(), player.getInvestor());
+                player.getTrader(), player.getInvestor()) + "\n" +  universe.toString();
+        
 
     }
 }

@@ -23,9 +23,9 @@
 		"bonus" : {"fighting" : 1.25}
 	},
 
-	"coalking" : {
+	"cloaking" : {
 		"name" : "Cloaking Device",
-		"description" : "Decreases chance to be seen by pirates and police."
+		"description" : "Decreases chance to be seen by pirates and police.",
 		"bonus" : {"stealth" : 1.25}
 	}
 }

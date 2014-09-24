@@ -1,56 +1,56 @@
 {
-    "preagriculture":{
+    "0":{
         "name" : "Pre-agriculture",
-        "rank" : 1,
+        "rank" : 0,
         "occurrence" : 0.3,
         "wealth" : 0.3
     },
 
-    "agriculture":{
+    "1":{
         "name" : "Agriculture",
-        "rank" : 2,
+        "rank" : 1,
         "occurrence" : 0.2,
         "wealth" : 0.4
     },
 
-    "medieval":{
+    "2":{
         "name" : "Medieval",
-        "rank" : 3,
+        "rank" : 2,
         "occurrence" : 0.2,
         "wealth" : 0.5
     },
 
-    "renaissance":{
+    "3":{
         "name" : "Renaissance",
-        "rank" : 4,
+        "rank" : 3,
         "occurrence" : 0.1,
         "wealth" : 0.6
     },
 
-    "earlyindustrial":{
+    "4":{
         "name" : "Early Industrial",
-        "rank" : 5,
+        "rank" : 4,
         "occurrence" : 0.1,
         "wealth" : 0.7
     },
 
-    "industrial":{
+    "5":{
         "name" : "Industrial",
-        "rank" : 6,
+        "rank" : 5,
         "occurrence" : 0.05,
         "wealth" : 0.8
     },
 
-    "postindustrial":{
+    "6":{
         "name" : "Post-Industrial",
-        "rank" : 7,
+        "rank" : 6,
         "occurrence" : 0.025,
         "wealth" : 0.9
     },
 
-    "digital":{
+    "7":{
         "name" : "Digital",
-        "rank" : 8,
+        "rank" : 7,
         "occurrence" : 0.025,
         "wealth" : 1.0
     }

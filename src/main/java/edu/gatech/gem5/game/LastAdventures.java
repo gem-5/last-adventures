@@ -1,163 +1,205 @@
 package edu.gatech.gem5.game;
 
-import java.net.URI;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.List;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
+
+import edu.gatech.gem5.game.readers.*;
+import edu.gatech.gem5.game.data.*;
 
 /**
  *
  * @author Jack
  * @author Creston
- * @author James Park
+ * @author James Jong Han Park
  */
 public class LastAdventures extends Application {
 
-	private static LinkedList<SaveFile> saveFiles;
-	private static Integer currentFile;
+    private static LinkedList<SaveFile> saveFiles;
+    private static Integer currentFile;
+    private final static Integer NONE = -1;
 
-	/**
-	 * Default constructor for LastAdventures. Initializes an empty holder for
-	 * save files.
-	 */
-	public LastAdventures() {
-		saveFiles = new LinkedList<>();
-		currentFile = 0;
-	}
+    // data containers from the JSON files
+    // TODO: make this not publicly writable somehow, perhaps a wrapper class
+    public static Map<String, ShipType> DATA_SHIPS;
+    public static Map<String, GadgetType> DATA_GADGETS;
+    public static Map<String, WeaponType> DATA_WEAPONS;
+    public static Map<String, GoodType> DATA_GOODS;
+    public static Map<String, ShieldType> DATA_SHIELDS;
+    public static Map<String, CompanyType> DATA_COMPANIES;
+    public static Map<String, GovernmentType> DATA_GOVERNMENTS;
+    public static Map<String, ConditionType> DATA_CONDITIONS;
+    public static Map<String, EnvironmentType> DATA_ENVIRONMENTS;
+    public static Map<Integer, TechType> DATA_TECHS;
 
-	@Override
-	public void start(Stage stage) throws Exception {
+    /**
+     * Default constructor for LastAdventures. Initializes an empty holder for
+     * save files.
+     */
+    public LastAdventures() {
+        saveFiles = new LinkedList<>();
+        currentFile = NONE;
+    }
 
-		Parent root = FXMLLoader.load(getClass().getResource("/title.fxml"));
-		Scene scene = new Scene(root);
+    @Override
+    public void start(Stage stage) throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/title.fxml"));
+        Scene scene = new Scene(root);
 
 		// Listen for moments when the scene changes on the stage, then
-		// re-attach the size change listeners new the new scene
-		stage.sceneProperty().addListener(new ChangeListener<Scene>() {
-			public void changed(ObservableValue<? extends Scene> observable,
-					Scene oldValue, Scene newValue) {
-				Pane root = (Pane) newValue.getRoot();
-				letterbox(newValue, root);
-			}
-		});
+        // re-attach the size change listeners new the new scene
+        stage.sceneProperty().addListener(new ChangeListener<Scene>() {
+            public void changed(ObservableValue<? extends Scene> observable,
+                    Scene oldValue, Scene newValue) {
+                Pane root = (Pane) newValue.getRoot();
+                letterbox(newValue, root);
+            }
+        });
 
 		// For some reason you have to show the stage before letterboxing it
-		// for the scene change listener to work.
-		stage.show();
-		stage.setScene(scene);
+        // for the scene change listener to work.
+        stage.show();
+        stage.setScene(scene);
 
-		// stage.setFullScreen(true);
-	}
+        // stage.setFullScreen(true);
+    }
 
-	/**
-	 * Main method.
-	 * 
-	 * @param args
-	 *            the command line arguments
-	 */
-	public static void main(String[] args) {
-		launch(args);
-	}
+    /**
+     * Main method.
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // load data files
+        DATA_SHIPS = (new ShipReader()).load("/data/Ships.json");
+        DATA_GADGETS = (new GadgetReader()).load("/data/Gadgets.json");
+        DATA_WEAPONS = (new WeaponReader()).load("/data/Weapons.json");
+        DATA_GOODS = (new GoodReader()).load("/data/Goods.json");
+        DATA_SHIELDS = (new ShieldReader()).load("/data/Shields.json");
+        DATA_COMPANIES = (new CompanyReader()).load("/data/Companies.json");
+        DATA_GOVERNMENTS = (new
+            GovernmentReader()).load("/data/Governments.json");
+        DATA_CONDITIONS = new ConditionReader().load("/data/Conditions.json");
+        DATA_ENVIRONMENTS = 
+            new EnvironmentReader().load("/data/Environments.json");
+        DATA_TECHS = new TechReader().load("/data/TechLevels.json");
 
-	/**
-	 * Creates a new save file.
-	 */
-	public static void createNewSaveFile() {
-		// puts a new save file in the table at the next "index"
-		saveFiles.add(new SaveFile());
-		currentFile = saveFiles.size() - 1;
-	}
+        launch(args);
+    }
 
-	/**
-	 * Getter method for current save file.
-	 * 
-	 * @return the currentFile
-	 */
-	public static SaveFile getCurrentSaveFile() {
-		return saveFiles.get(currentFile);
-	}
+    /**
+     * Creates a new save file.
+     */
+    public static void createNewSaveFile() {
+        // puts a new save file in the table at the next "index"
+        saveFiles.add(new SaveFile());
+        currentFile = saveFiles.size() - 1;
+    }
+    
+    /**
+     * Deletes a specified save file.
+     * 
+     * @param file the save file to be deleted
+     */
+    public static void deleteSaveFile(SaveFile file) {
+        int index = saveFiles.indexOf(file);
+        if (index == currentFile) {
+            //if we delete the current file, disable continue on title screen
+            currentFile = NONE;
+        } else if (index < currentFile) {
+            //if we delete a file before the current file, update the index
+            currentFile--;
+        }
+        saveFiles.remove(file);
+    }
 
-	private void letterbox(final Scene scene, final Pane contentPane) {
-		final double initWidth = scene.getWidth();
-		final double initHeight = scene.getHeight();
-		final double ratio = initWidth / initHeight;
+    /**
+     * Getter method for current save file.
+     *
+     * @return the currentFile
+     */
+    public static SaveFile getCurrentSaveFile() {
+        return saveFiles.get(currentFile);
+    }
 
-		SizeChangeListener sizeListener = new SizeChangeListener(scene, ratio,
-				initHeight, initWidth, contentPane);
-		scene.widthProperty().addListener(sizeListener);
-		scene.heightProperty().addListener(sizeListener);
-	}
+    private void letterbox(final Scene scene, final Pane contentPane) {
+        final double initWidth = scene.getWidth();
+        final double initHeight = scene.getHeight();
+        final double ratio = initWidth / initHeight;
 
-	/**
-	 * Allows all elements to scale equally to the screen size.
-	 *
-	 * @author jewelsea from StackOverflow and Creston Bunch
-	 */
-	private static class SizeChangeListener implements ChangeListener<Number> {
-		private final Scene scene;
-		private final double ratio;
-		private final double initHeight;
-		private final double initWidth;
-		private final Pane contentPane;
+        SizeChangeListener sizeListener = new SizeChangeListener(scene, ratio,
+                initHeight, initWidth, contentPane);
+        scene.widthProperty().addListener(sizeListener);
+        scene.heightProperty().addListener(sizeListener);
+    }
 
-		/**
-		 * Initialize the listener.
-		 *
-		 * @param scene
-		 *            The scene being listened to.
-		 * @param ratio
-		 *            The ratio of width / height.
-		 * @param initHeight
-		 *            The initial height.
-		 * @param initWidth
-		 *            The initial width.
-		 * @param contentPane
-		 *            The content pane.
-		 */
-		public SizeChangeListener(Scene scene, double ratio, double initHeight,
-				double initWidth, Pane contentPane) {
-			this.scene = scene;
-			this.ratio = ratio;
-			this.initHeight = initHeight;
-			this.initWidth = initWidth;
-			this.contentPane = contentPane;
-		}
+    /**
+     * Allows all elements to scale equally to the screen size.
+     *
+     * @author jewelsea from StackOverflow and Creston Bunch
+     */
+    private static class SizeChangeListener implements ChangeListener<Number> {
 
-		/**
-		 * Scale the scene to a new size.
-		 */
-		@Override
-		public void changed(ObservableValue<? extends Number> observableValue,
-				Number oldValue, Number newValue) {
-			final double newWidth = scene.getWidth();
-			final double newHeight = scene.getHeight();
+        private final Scene scene;
+        private final double ratio;
+        private final double initHeight;
+        private final double initWidth;
+        private final Pane contentPane;
 
-			double scaleFactor = (newWidth / newHeight > ratio) ? newHeight
-					/ initHeight : newWidth / initWidth;
+        /**
+         * Initialize the listener.
+         *
+         * @param scene The scene being listened to.
+         * @param ratio The ratio of width / height.
+         * @param initHeight The initial height.
+         * @param initWidth The initial width.
+         * @param contentPane The content pane.
+         */
+        public SizeChangeListener(Scene scene, double ratio, double initHeight,
+                double initWidth, Pane contentPane) {
+            this.scene = scene;
+            this.ratio = ratio;
+            this.initHeight = initHeight;
+            this.initWidth = initWidth;
+            this.contentPane = contentPane;
+        }
 
-			if (scaleFactor >= 1) {
-				Scale scale = new Scale(scaleFactor, scaleFactor);
-				scale.setPivotX(0);
-				scale.setPivotY(0);
-				scene.getRoot().getTransforms().setAll(scale);
+        /**
+         * Scale the scene to a new size.
+         */
+        @Override
+        public void changed(ObservableValue<? extends Number> observableValue,
+                Number oldValue, Number newValue) {
+            final double newWidth = scene.getWidth();
+            final double newHeight = scene.getHeight();
 
-				contentPane.setPrefWidth(newWidth / scaleFactor);
-				contentPane.setPrefHeight(newHeight / scaleFactor);
-			} else {
-				contentPane.setPrefWidth(Math.max(initWidth, newWidth));
-				contentPane.setPrefHeight(Math.max(initHeight, newHeight));
-			}
-		}
+            double scaleFactor = (newWidth / newHeight > ratio) ? newHeight
+                    / initHeight : newWidth / initWidth;
 
-	}
+            if (scaleFactor >= 1) {
+                Scale scale = new Scale(scaleFactor, scaleFactor);
+                scale.setPivotX(0);
+                scale.setPivotY(0);
+                scene.getRoot().getTransforms().setAll(scale);
+
+                contentPane.setPrefWidth(newWidth / scaleFactor);
+                contentPane.setPrefHeight(newHeight / scaleFactor);
+            } else {
+                contentPane.setPrefWidth(Math.max(initWidth, newWidth));
+                contentPane.setPrefHeight(Math.max(initHeight, newHeight));
+            }
+        }
+
+    }
 
 }

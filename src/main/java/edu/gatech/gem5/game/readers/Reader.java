@@ -1,6 +1,8 @@
 package edu.gatech.gem5.game.readers;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.charset.Charset;
@@ -15,6 +17,21 @@ import java.util.Map;
  */
 
 abstract public class Reader<T> {
+    
+    /**
+     * Read a stream into a string.
+     *
+     * @param stream The input stream.
+     * @return The contents of the stream as a string.
+     */
+    protected String readStream(InputStream stream) {
+        String out = "";
+        Scanner scanner = new Scanner(stream);
+        while (scanner.hasNext()) {
+            out += scanner.nextLine() + "\n";
+        }
+        return out;
+    }
 
     /**
      * Read a file into a string.
@@ -50,6 +67,6 @@ abstract public class Reader<T> {
      * @param path The path of the data file to load.
      * @return A map with the ids and corresponding objects.
      */
-    abstract public Map<String, T> load(String path);
+    abstract public Map<? extends Object, T> load(String path);
 
 }

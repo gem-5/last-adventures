@@ -15,11 +15,6 @@
     -fx-font-size: 30;
 }
 
-.slider {
-    -fx-size: 30;
-    -fx-color: white;
-}
-
 .text-field {
     -fx-text-fill: white;
     -fx-font-size: 30;

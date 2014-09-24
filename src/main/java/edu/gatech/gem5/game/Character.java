@@ -1,4 +1,5 @@
 package edu.gatech.gem5.game;
+
 /**
  * Class implementation of Player Character in Last Adventures
  * @author Sam Blumenthal
@@ -20,10 +21,9 @@ public class Character extends Human {
  * @param traderString the trader skill of the character
  * @param engineerString the engineer skill of the character
  * @param investorString the investor skill of the character
- * @param shipString the name of the character's ship
  * @return A new Character created from the given parameters.
  */
-    public static Character createCharacterFromStrings(String nameString, String pilotString, String fighterString, String traderString, String engineerString, String investorString, String shipString) {
+    public static Character createCharacterFromStrings(String nameString, String pilotString, String fighterString, String traderString, String engineerString, String investorString) {
         int pilot = Integer.parseInt(pilotString);
         int fighter = Integer.parseInt(fighterString);
         int trader = Integer.parseInt(traderString);
@@ -31,7 +31,8 @@ public class Character extends Human {
         int investor = Integer.parseInt(investorString);
         // Implement this with a Ship constructor once Ship class is created.
         // Ship ship = null;
-        Ship ship = new Gnat();
+        //Ship ship = new Vagabond();
+        Ship ship = new Ship(LastAdventures.DATA_SHIPS.get("vagabond"));
 
         return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);
     }

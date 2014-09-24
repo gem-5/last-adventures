@@ -5,8 +5,7 @@
 		"price" : 1000,
 		"damage" : 4,
 		"accuracy" : 0.5,
-		"rate" : 0.75,
-		"min_tech" : 5
+		"rate" : 0.75
 	},
 	
 	"pulse2" : {
@@ -15,8 +14,7 @@
 		"price" : 2000,
 		"damage" : 7,
 		"accuracy" : 0.6,
-		"rate" : 1,
-		"min_tech" : 5
+		"rate" : 1
 	},
 
 	"beam1" : {
@@ -25,8 +23,7 @@
 		"price" : 5000,
 		"damage" : 10,
 		"accuracy" : 0.5,
-		"rate" : 2.2,
-		"min_tech" : 6
+		"rate" : 2.2
 	},
 
 	"beam2" : {
@@ -35,8 +32,7 @@
 		"price" : 10000,
 		"damage" : 15,
 		"accuracy" : 0.3,
-		"rate" : 5,
-		"min_tech" : 6
+		"rate" : 5
 	},
 
 	"beam3" : {
@@ -45,8 +41,7 @@
 		"price" : 10000,
 		"damage" : 20,
 		"accuracy" : 0.75,
-		"rate" : 1.5,
-		"min_tech" : 6
+		"rate" : 1.5
 	},
 
 	"military1" : {
@@ -55,8 +50,7 @@
 		"price" : 15000,
 		"damage" : 25,
 		"accuracy" : 0.5,
-		"rate" : 2.0,
-		"min_tech" : 6
+		"rate" : 2.0
 	},
 
 	"military2" : {
@@ -65,8 +59,7 @@
 		"price" : 25000,
 		"damage" : 30,
 		"accuracy" : 0.4,
-		"rate" : 2.5,
-		"min_tech" : 6
+		"rate" : 2.5
 	},
 
 	"phaser1" : {
@@ -75,8 +68,7 @@
 		"price" : 40000,
 		"damage" : 35,
 		"accuracy" : 0.5,
-		"rate" : 2,
-		"min_tech" : 7
+		"rate" : 2
 	},
 
 	"phaser2" : {
@@ -85,8 +77,7 @@
 		"price" : 60000,
 		"damage" : 40,
 		"accuracy" : 0.5,
-		"rate" : 2,
-		"min_tech" : 7
+		"rate" : 2
 	},
 
 	"railgun" : {
@@ -95,8 +86,7 @@
 		"price" : 100000,
 		"damage" : 60,
 		"accuracy" : 0.75,
-		"rate" : 1,
-		"min_tech" : 8
+		"rate" : 1
 	}
 
 }
