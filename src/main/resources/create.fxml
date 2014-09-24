@@ -210,6 +210,12 @@
                 onAction="#changeScenes"
             >
             </Button>
+            <Label
+                fx:id="errorMessage"
+                GridPane.columnIndex="5"
+                GridPane.rowIndex="0"
+                text=""
+            />
         </GridPane>
     </children>
 </AnchorPane>
