@@ -2,7 +2,6 @@ package edu.gatech.gem5.game;
 
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.List;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,19 +26,36 @@ public class LastAdventures extends Application {
     private static LinkedList<SaveFile> saveFiles;
     private static Integer currentFile;
     private final static Integer NONE = -1;
-
-    // data containers from the JSON files
-    // TODO: make this not publicly writable somehow, perhaps a wrapper class
-    public static Map<String, ShipType> DATA_SHIPS;
-    public static Map<String, GadgetType> DATA_GADGETS;
-    public static Map<String, WeaponType> DATA_WEAPONS;
-    public static Map<String, GoodType> DATA_GOODS;
-    public static Map<String, ShieldType> DATA_SHIELDS;
-    public static Map<String, CompanyType> DATA_COMPANIES;
-    public static Map<String, GovernmentType> DATA_GOVERNMENTS;
-    public static Map<String, ConditionType> DATA_CONDITIONS;
-    public static Map<String, EnvironmentType> DATA_ENVIRONMENTS;
-    public static Map<Integer, TechType> DATA_TECHS;
+    
+    public static Manager manager;
+    /** 
+     * the following two arrays should be kept parallel
+     * to make this less fragile, all Readers must either implement
+     * an interface or extend a superclass
+     */
+    private static final String[] dataNames = {
+        "ships",
+        "gadgets",
+        "goods",
+        "shields",
+        "companies",
+        "governments",
+        "conditions",
+        "environments",
+        "techs"
+    };
+    
+    private static final Map[] data = {
+        new ShipReader().load("/data/Ships.json"),
+        new GadgetReader().load("/data/Gadgets.json"),
+        new GoodReader().load("/data/Goods.json"),
+        new ShieldReader().load("/data/Shields.json"),
+        new CompanyReader().load("/data/Companies.json"),
+        new GovernmentReader().load("/data/Governments.json"),
+        new ConditionReader().load("/data/Conditions.json"),
+        new EnvironmentReader().load("/data/Environments.json"),
+        new TechReader().load("/data/TechLevels.json")    
+    };
 
     /**
      * Default constructor for LastAdventures. Initializes an empty holder for
@@ -81,18 +97,8 @@ public class LastAdventures extends Application {
      */
     public static void main(String[] args) {
         // load data files
-        DATA_SHIPS = (new ShipReader()).load("/data/Ships.json");
-        DATA_GADGETS = (new GadgetReader()).load("/data/Gadgets.json");
-        DATA_WEAPONS = (new WeaponReader()).load("/data/Weapons.json");
-        DATA_GOODS = (new GoodReader()).load("/data/Goods.json");
-        DATA_SHIELDS = (new ShieldReader()).load("/data/Shields.json");
-        DATA_COMPANIES = (new CompanyReader()).load("/data/Companies.json");
-        DATA_GOVERNMENTS = (new
-            GovernmentReader()).load("/data/Governments.json");
-        DATA_CONDITIONS = new ConditionReader().load("/data/Conditions.json");
-        DATA_ENVIRONMENTS = 
-            new EnvironmentReader().load("/data/Environments.json");
-        DATA_TECHS = new TechReader().load("/data/TechLevels.json");
+        manager = new Manager();
+        manager.manageAll(dataNames, data);
 
         launch(args);
     }

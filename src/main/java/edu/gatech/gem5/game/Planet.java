@@ -9,7 +9,6 @@ import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
 
 import edu.gatech.gem5.game.data.TechType;
 import edu.gatech.gem5.game.data.EnvironmentType;
@@ -32,7 +31,7 @@ class Planet {
     private String condition;
 
     /**
-     * Construct a planet with a random tech level, environement, government,
+     * Construct a planet with a random tech level, environment, government,
      * and list of companies based on the data files.
      */
     public Planet() {
@@ -41,6 +40,7 @@ class Planet {
         this.government = chooseGovernment();
         this.companies = chooseCompanies();
         // TODO: a new condition should be applied every turn
+        // some conditions should last longer than one turn.
         this.condition = null;
     }
 
@@ -50,7 +50,8 @@ class Planet {
      * @return the tech level.
      */
     public TechType getTechLevel() {
-        return LastAdventures.DATA_TECHS.get(this.techLevel);
+        Map<Integer, TechType> techs = LastAdventures.manager.getInfo("techs");
+        return techs.get(this.techLevel);
     }
 
     /**
@@ -59,7 +60,8 @@ class Planet {
      * @return the environment type
      */
     public EnvironmentType getEnvironment() {
-        return LastAdventures.DATA_ENVIRONMENTS.get(this.environment);
+        Map<String, EnvironmentType> environments = LastAdventures.manager.getInfo("environments");
+        return environments.get(this.environment);
     }
 
     /**
@@ -68,7 +70,8 @@ class Planet {
      * @return the government type
      */
     public GovernmentType getGovernment() {
-        return LastAdventures.DATA_GOVERNMENTS.get(this.government);
+        Map<String, GovernmentType> governments = LastAdventures.manager.getInfo("governments");
+        return governments.get(this.government);
     }
 
     /**
@@ -79,13 +82,14 @@ class Planet {
     public List<CompanyType> getCompanies() {
         List<CompanyType> out = new ArrayList<>();
         for (String s : this.companies) {
-            out.add(LastAdventures.DATA_COMPANIES.get(s));
+            Map<String, CompanyType> companies = LastAdventures.manager.getInfo("companies");
+            out.add(companies.get(s));
         }
         return out;
     }
 
     private int chooseTechLevel() {
-        Map<Integer, TechType> levels = LastAdventures.DATA_TECHS;
+        Map<Integer, TechType> levels = LastAdventures.manager.getInfo("techs");
         double roll = new Random().nextDouble();
         double sum = 0;
         for (Map.Entry<Integer, TechType> t : levels.entrySet()) {
@@ -97,7 +101,7 @@ class Planet {
     }
 
     private String chooseEnvironment() {
-        Map<String, EnvironmentType> list = LastAdventures.DATA_ENVIRONMENTS;
+        Map<String, EnvironmentType> list = LastAdventures.manager.getInfo("environments");
         double roll = new Random().nextDouble();
         double sum = 0;
         for (Map.Entry<String, EnvironmentType> t : list.entrySet()) {
@@ -112,7 +116,7 @@ class Planet {
         // TODO:
         //.. this is a bit repetative, I can probably consilidate these into
         //a single private method if all these types have the same interface
-        Map<String, GovernmentType> list = LastAdventures.DATA_GOVERNMENTS;
+        Map<String, GovernmentType> list = LastAdventures.manager.getInfo("governments");
         double roll = new Random().nextDouble();
         double sum = 0;
         for (Map.Entry<String, GovernmentType> t : list.entrySet()) {
@@ -124,7 +128,7 @@ class Planet {
     }
 
     private List<String> chooseCompanies() {
-        Map<String, CompanyType> choices = LastAdventures.DATA_COMPANIES;
+        Map<String, CompanyType> choices = LastAdventures.manager.getInfo("companies");
         List<String> out = new ArrayList<>();
         for (Map.Entry<String, CompanyType> t : choices.entrySet()) {
             if (this.techLevel < t.getValue().getMinTech() ||
