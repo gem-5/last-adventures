@@ -99,13 +99,6 @@ public class CharacterCreateController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button) (event.getSource())).idProperty().get();
         if (id.equals("confirm")) {
-//            Character player = new Character(name.getText(),
-//                    Integer.parseInt(pilotValue.getText()),
-//                    Integer.parseInt(fighterValue.getText()),
-//                    Integer.parseInt(traderValue.getText()),
-//                    Integer.parseInt(engineerValue.getText()),
-//                    Integer.parseInt(investorValue.getText()), (Ship) null);
-//            LastAdventures.getCurrentSaveFile().addCharacter(player);
             if (name.getText().trim().isEmpty()) {
                 errorMessage.setText("Please enter a name.");
             } else if (!name.getText().equals("Nyan")) {
@@ -124,8 +117,9 @@ public class CharacterCreateController implements Initializable {
             LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));
         }
-
-        stage.setScene(new Scene((Pane) root));
+        if (root != null) {
+            stage.setScene(new Scene((Pane) root));
+        }
     }
 
     /**

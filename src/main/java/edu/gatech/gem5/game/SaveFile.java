@@ -8,10 +8,12 @@ public class SaveFile {
     
     private Character player;
     private Universe universe;
+    private Planet currentPlanet;
     
     public SaveFile() {
         this.player = null;
         this.universe = null;
+        this.currentPlanet = null;
     }
     
     public void addCharacter(Character player) {
@@ -28,6 +30,14 @@ public class SaveFile {
     
     public Universe getUniverse() {
         return universe;
+    }
+    
+    public Planet getPlanet() {
+        return currentPlanet;
+    }
+    
+    public void setCurrentPlanet(Planet planet) {
+        currentPlanet = planet;
     }
     
     @Override

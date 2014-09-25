@@ -22,13 +22,15 @@ import edu.gatech.gem5.game.data.ConditionType;
  * @author Jack
  * @author Creston
  */
-class Planet {
+public class Planet {
 
     private int techLevel;
     private String environment;
     private String government;
-    private List<String> companies;
+    private List<String> companyList;
     private String condition;
+    
+    private List<Company> companies;
 
     /**
      * Construct a planet with a random tech level, environment, government,
@@ -38,10 +40,14 @@ class Planet {
         this.techLevel = chooseTechLevel();
         this.environment = chooseEnvironment();
         this.government = chooseGovernment();
-        this.companies = chooseCompanies();
+        this.companyList = chooseCompanies();
         // TODO: a new condition should be applied every turn
         // some conditions should last longer than one turn.
         this.condition = null;
+        companies = new ArrayList<>();
+        for (CompanyType type : getCompanies()) {
+            companies.add(new Company(type));
+        }
     }
 
     /**
@@ -81,7 +87,7 @@ class Planet {
      */
     public List<CompanyType> getCompanies() {
         List<CompanyType> out = new ArrayList<>();
-        for (String s : this.companies) {
+        for (String s : this.companyList) {
             Map<String, CompanyType> companies = LastAdventures.manager.getInfo("companies");
             out.add(companies.get(s));
         }
@@ -160,7 +166,7 @@ class Planet {
         result += "\n";
         result += "Government: " + this.government;
         result += "\n";
-        result += "Compnies: " + this.companies;
+        result += "Compnies: " + this.companyList;
         return result;
     }
 }
