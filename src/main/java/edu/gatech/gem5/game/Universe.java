@@ -45,50 +45,45 @@ public class Universe {
     }
 
     private ArrayList<Point> layoutUniverse(int min, int max, int num) {
-        Random random = new Random();
-        //the resulting list of locations
+        Random rng = new Random();
         ArrayList<Point> locations = new ArrayList<>();
-        //these points are the right distance away from all planets in locations
-        HashMap<String, Point> primed = new HashMap<>();
-        //these points are either planets, or too close to planets to be
-        //considered for new planets
-        HashSet<String> locked = new HashSet<>();
-        //pick an inital planet
-        Point current = new Point(random.nextInt(width), random.nextInt(height));
-        locations.add(current);
-        //add the rest of the planets
-        for (int n = 0; n < num -1; n++) {
-            //lock the current planet and the points within min distance of it
-            locked.add(current.toString());
-            for(int i = current.xCoordinate - min; i <= current.xCoordinate + min; i++) {
-                for (int j = current.yCoordinate - min; j <= current.yCoordinate + min; j++) {
-                    locked.add(new Point(i,j).toString());
-                    primed.remove(new Point(i,j).toString());
-                }
-            }
-            //prime the points within max distance from the current planet
-            for (int i = current.xCoordinate - max; i <= current.xCoordinate + max; i++) {
-                for (int j = current.yCoordinate - max; j <= current.yCoordinate + max; j++) {
-                    Point prime = new Point(i,j);
-                    //don't prime if it's already locked
-                    //don't prime if outside of length/height or outside of 0
-                    if(!locked.contains(prime.toString()) &&
-                            prime.xCoordinate >= 0 &&
-                            prime.yCoordinate >= 0 &&
-                            prime.xCoordinate < width &&
-                            prime.yCoordinate < height) {
-                        primed.put(prime.toString(),prime);
+
+        int numArms = 4;
+        int armCapacity = num / numArms;
+        double rVariance = 2;
+        double tVariance = 0.2;
+        double rMax = Math.min(this.width, this.height) / 2;
+        double dr = (rMax / armCapacity) * 0.95;
+        double b = 0.5;
+        double distanceThreshold = 1;
+
+        // let's go around in a circle and make spirals
+        for (int j = 0; j < numArms; j++) {
+            double r = rMax;
+            double theta = 0;
+            double tOffset = (2 * Math.PI / numArms) * j;
+            for (int i = 0; i < armCapacity; i++) {
+                double rv = 2 * rVariance * rng.nextDouble() - rVariance;
+                double rt = 2 * tVariance * rng.nextDouble() - tVariance;
+                theta = (1 / b) * Math.log(r / rMax) + tOffset + rt;
+                int x = (int) Math.round((r+rv) * Math.cos(theta)) + width / 2;
+                int y = (int) Math.round((r+rv) * Math.sin(theta)) + height / 2;
+
+                Point p = new Point(x, y);
+                // ensure the point is valid
+                boolean valid = true;
+                for (Point q : locations) {
+                    if (q.distance(p) <= distanceThreshold || p.equals(q)) {
+                        valid = false;
+                        break;
                     }
                 }
+                if (valid) {
+                    locations.add(p);
+                    r -= dr;
+                }
+                else i--; // try again
             }
-            //don't attempt to overcrowd the universe!
-            if(primed.isEmpty()) {
-                //universe has reached capacity with n solar systems placed
-                break;
-            }
-            //pick a new planet to add to the final list, which unprimes it
-            current = primed.remove((String) primed.keySet().toArray()[random.nextInt(primed.size())]);
-            locations.add(current);
         }
         return locations;
     }
@@ -139,6 +134,27 @@ public class Universe {
         public Point (int x, int y) {
             this.xCoordinate = x;
             this.yCoordinate = y;
+        }
+
+        public int getX() {
+            return this.xCoordinate;
+        }
+
+        public int getY() {
+            return this.yCoordinate;
+        }
+
+        public double distance(Point o) {
+            int dx = o.getX() - getX();
+            int dy = o.getY() - getY();
+            return Math.sqrt(dx*dx + dy*dy);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == this) return true;
+            if (o instanceof Point == false) return false;
+            return ((Point) o).getX() == getX() && ((Point) o).getY() == getY();
         }
 
         @Override

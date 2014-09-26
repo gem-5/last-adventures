@@ -8,8 +8,10 @@ package edu.gatech.gem5.game.controllers;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Ship;
+import edu.gatech.gem5.game.data.ShipType;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Map;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -98,6 +100,8 @@ public class CharacterCreateController implements Initializable {
     public void changeScenes(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button) (event.getSource())).idProperty().get();
+        Map<String, ShipType> ships = LastAdventures.manager.getInfo("ships");
+
         if (id.equals("confirm")) {
             if (name.getText().trim().isEmpty()) {
                 errorMessage.setText("Please enter a name.");
@@ -107,7 +111,10 @@ public class CharacterCreateController implements Initializable {
                         Integer.parseInt(fighterValue.getText()),
                         Integer.parseInt(traderValue.getText()),
                         Integer.parseInt(engineerValue.getText()),
-                        Integer.parseInt(investorValue.getText()), (Ship) null);
+                        Integer.parseInt(investorValue.getText()),
+                        // default ship
+                        new Ship(ships.get("vagabond"))
+                        );
                 LastAdventures.getCurrentSaveFile().addCharacter(player);
                 root = FXMLLoader.load(getClass().getResource("/status.fxml"));
             } else {

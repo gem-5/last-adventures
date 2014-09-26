@@ -5,7 +5,7 @@
 }
 
 .root {
-    -fx-background-image: url("img/star_tile.png");
+    -fx-background: black;
     -fx-background-repeat: repeat;
     -fx-font-family: "Didact Gothic";
 }

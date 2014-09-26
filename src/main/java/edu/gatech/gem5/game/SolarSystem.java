@@ -1,6 +1,8 @@
 package edu.gatech.gem5.game;
 
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -10,11 +12,11 @@ public class SolarSystem {
     private final String name;
     private final int xCoordinate;
     private final int yCoordinate;
-    private Planet[] planets;
+    private List<Planet> planets;
     
-    private static final double THIRD_PLANET_PERCENT = 66;
-    private static final double FOURTH_PLANET_PERCENT = 20;
-    public  static final int PLANET_MAX = 4;
+    // max(planets.size()) == PROBABILITIES.length
+    // each entry n represents the probability of an nth planet existing
+    private static final double[] PROBABILITIES = {1, 1, 0.66, 0.2};
     
     public SolarSystem (String name, int x, int y) {
         this.name = name;
@@ -33,7 +35,7 @@ public class SolarSystem {
     /**
      * @return the array of planets in this system
      */
-    public Planet[] getPlanets() {
+    public List<Planet> getPlanets() {
         return planets;
     }
     /**
@@ -54,46 +56,23 @@ public class SolarSystem {
     public String toString() {
         String result = getName();
         result += "\nLocation: (" + getXCoordinate() + ", " + getYCoordinate() +")";
-        for (int i = 0; i < PLANET_MAX; i++) {
-            if (planets[i] != null) {
-                result +=
-                "\n\tOrbit " + (i+1) +
-                ":\n\t\t" +
-                planets[i].toString().replace("\n", "\n\t\t");
-            }
+        for (Planet p : getPlanets()) {
+            result += "\n\t" + p.toString().replace("\n", "\n\t");
         }
         return result;
     }
 
-    private Planet[] determinePlanets() {
+    private List<Planet> determinePlanets() {
         Random random = new Random();
-        Planet[] orbits = new Planet[PLANET_MAX];
+        List<Planet> orbits = new ArrayList<>();
         int num = 0;
-        //ensure at least 2 planets
-        while (num < 2) {
-            int choice = random.nextInt(PLANET_MAX);
-            if (orbits[choice] == null) {
-                orbits[choice] = new Planet();
-                num++;
-            }
-        }
-        if (random.nextDouble() > THIRD_PLANET_PERCENT/100) {
-            while (num < 3) {
-            int choice = random.nextInt(PLANET_MAX);
-                if (orbits[choice] == null) {
-                    orbits[choice] = new Planet();
-                    num++;
-                }
-            }
-        }
-        if (random.nextDouble() > FOURTH_PLANET_PERCENT/100) {
-            while (num < 4) {
-            int choice = random.nextInt(PLANET_MAX);
-                if (orbits[choice] == null) {
-                    orbits[choice] = new Planet();
-                    num++;
-                }
-            }
+        // roll through the list of probabilities
+        for (int i = 0; i < PROBABILITIES.length; i++) {
+            double p = PROBABILITIES[i];
+            double roll = random.nextDouble();
+            if (roll <= p)
+                orbits.add(new Planet());
+            else break; // stop generating planets as soon as a roll fails
         }
         return orbits;
     }

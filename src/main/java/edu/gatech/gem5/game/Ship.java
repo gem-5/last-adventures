@@ -40,6 +40,13 @@ public class Ship {
     }
 
     /**
+     * @return the type of ship.
+     */
+    public ShipType getType() {
+        return this.type;
+    }
+
+    /**
      * @return the cargoList
      */
     public Good[] getCargoList() {

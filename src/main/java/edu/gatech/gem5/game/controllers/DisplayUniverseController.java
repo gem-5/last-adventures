@@ -5,6 +5,7 @@ import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
+import edu.gatech.gem5.game.Ship;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,6 +22,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
+import javafx.scene.control.Tooltip;
+import javafx.scene.Cursor;
 
 /**
  * FXML Controller class
@@ -60,13 +66,18 @@ public class DisplayUniverseController implements Initializable {
         ObservableList<Node> children = root.getChildren();
         ArrayList<SolarSystem> systems = universe.getUniverse();
         for (SolarSystem system : systems) {
-            Image img = new Image("img/solarSystemSmall.png");
-            ImageView imgView = new ImageView(img);
+            Circle circle = new Circle();
             int xCoordinate = system.getXCoordinate();
             int yCoordinate = system.getYCoordinate();
-            imgView.setLayoutX(xCoordinate * widthRatio);
-            imgView.setLayoutY(yCoordinate * heightRatio);
-            children.add(imgView);
+            circle.setCenterX(xCoordinate * widthRatio);
+            circle.setCenterY(yCoordinate * heightRatio);
+            circle.setRadius(2.0 * system.getPlanets().size());
+            circle.setFill(Color.WHITE);
+            circle.setCursor(Cursor.HAND);
+            Tooltip t = new Tooltip("Planets: " + system.getPlanets().size());
+            Tooltip.install(circle, t);
+
+            children.add(circle);
         }
         
         //Randomly choose a planet to start on
@@ -75,20 +86,31 @@ public class DisplayUniverseController implements Initializable {
         SaveFile save = LastAdventures.getCurrentSaveFile();
         
         Image img = new Image("img/currentSystem.png");
+        int dx = (int) img.getWidth() / 2;
+        int dy = (int) img.getHeight() / 2;
             ImageView imgView = new ImageView(img);
             int xCoordinate = startSystem.getXCoordinate();
             int yCoordinate = startSystem.getYCoordinate();
-            imgView.setLayoutX(xCoordinate * widthRatio);
-            imgView.setLayoutY(yCoordinate * heightRatio);
+            imgView.setLayoutX(xCoordinate * widthRatio - dx);
+            imgView.setLayoutY(yCoordinate * heightRatio - dy);
             children.add(imgView);
+
+        // show the ship range
+        Ship s = save.getCharacter().getShip();
+        double range = s.getType().getRange();
+        Circle circle = new Circle();
+        circle.setCenterX(xCoordinate * widthRatio);
+        circle.setCenterY(yCoordinate * heightRatio);
+        circle.setRadius(range);
+        circle.setStroke(Color.GREEN);
+        circle.setFill(Color.TRANSPARENT);
+        children.add(circle);
         
-        Planet startPlanet = startSystem.getPlanets()[rand.nextInt(SolarSystem.PLANET_MAX)];
-        while(startPlanet == null) {
-            startPlanet = startSystem.getPlanets()[rand.nextInt(SolarSystem.PLANET_MAX)];
-        }
+        Planet startPlanet = startSystem.getPlanets().get(0);
+
         save.setCurrentPlanet(startPlanet);
         //this is to print out the character once it is made
-        System.out.println(LastAdventures.getCurrentSaveFile());
+        //System.out.println(LastAdventures.getCurrentSaveFile());
     }    
-    
+
 }
