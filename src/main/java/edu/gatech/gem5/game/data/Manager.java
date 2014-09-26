@@ -25,6 +25,11 @@ public class Manager {
         }
     }
     
+    /**
+     * 
+     * @param name the type of thing you want information about
+     * @return 
+     */
     public Map getInfo(String name) {
         return dataSets.get(name);
     }

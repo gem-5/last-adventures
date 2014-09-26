@@ -49,6 +49,22 @@ public class Planet {
             companies.add(new Company(type));
         }
     }
+    
+    /**
+     *
+     * @return
+     */
+    public Map<String, Integer> getDemand() {
+        return null;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public Map<String, Integer> getSupply() {
+        return null;
+    }
 
     /**
      * Get the tech level.
