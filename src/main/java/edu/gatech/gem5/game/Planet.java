@@ -6,40 +6,183 @@
 package edu.gatech.gem5.game;
 
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+
+import edu.gatech.gem5.game.data.TechType;
+import edu.gatech.gem5.game.data.EnvironmentType;
+import edu.gatech.gem5.game.data.GovernmentType;
+import edu.gatech.gem5.game.data.CompanyType;
+import edu.gatech.gem5.game.data.ConditionType;
 
 /**
+ * Represents a planet in a system.
  *
  * @author Jack
-
+ * @author Creston
  */
-class Planet {
+public class Planet {
+
     private int techLevel;
-    private final int resource;
-    Company[] companies;
-    private static final String[] techLevels = {"Pre-Agriculture", "Agriculture",
-                                                "Medieval", "Renaissance", "Early Industrial",
-                                                "Industrial", "Post-Industrial", "Hi-Tech"};
+    private String environment;
+    private String government;
+    private List<String> companyList;
+    private String condition;
+    
+    private List<Company> companies;
 
-    // temporary, we'll probably want different ones based on our goods.
-    // Also, if we follow the original, then it should be weighted a bit towards NOSPECIALRESOURCES
-    private static final String[] resourceLevels = {"NOSPECIALRESOURCES", "MINERALRICH",
-                                                    "MINERALPOOR", "DESERT", "LOTSOFWATER",
-                                                    "RICHSOIL", "POORSOIL", "RICHFAUNA",
-                                                    "LIFELESS", "WEIRDMUSHROOMS", "LOTSOFHERBS",
-                                                    "ARTISTIC", "WARLIKE"};
-
+    /**
+     * Construct a planet with a random tech level, environment, government,
+     * and list of companies based on the data files.
+     */
     public Planet() {
-        techLevel = new Random().nextInt(8);
-        resource = new Random().nextInt(13);
-        companies = null;
+        this.techLevel = chooseTechLevel();
+        this.environment = chooseEnvironment();
+        this.government = chooseGovernment();
+        this.companyList = chooseCompanies();
+        // TODO: a new condition should be applied every turn
+        // some conditions should last longer than one turn.
+        this.condition = null;
+        companies = new ArrayList<>();
+        for (CompanyType type : getCompanies()) {
+            companies.add(new Company(type));
+        }
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public Map<String, Integer> getDemand() {
+        return null;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public Map<String, Integer> getSupply() {
+        return null;
+    }
+
+    /**
+     * Get the tech level.
+     *
+     * @return the tech level.
+     */
+    public TechType getTechLevel() {
+        Map<Integer, TechType> techs = LastAdventures.manager.getInfo("techs");
+        return techs.get(this.techLevel);
+    }
+
+    /**
+     * Get the environment type.
+     *
+     * @return the environment type
+     */
+    public EnvironmentType getEnvironment() {
+        Map<String, EnvironmentType> environments = LastAdventures.manager.getInfo("environments");
+        return environments.get(this.environment);
+    }
+
+    /**
+     * Get the government type.
+     *
+     * @return the government type
+     */
+    public GovernmentType getGovernment() {
+        Map<String, GovernmentType> governments = LastAdventures.manager.getInfo("governments");
+        return governments.get(this.government);
+    }
+
+    /**
+     * Get the list of companies.
+     *
+     * @return the company list.
+     */
+    public List<CompanyType> getCompanies() {
+        List<CompanyType> out = new ArrayList<>();
+        for (String s : this.companyList) {
+            Map<String, CompanyType> companies = LastAdventures.manager.getInfo("companies");
+            out.add(companies.get(s));
+        }
+        return out;
+    }
+
+    private int chooseTechLevel() {
+        Map<Integer, TechType> levels = LastAdventures.manager.getInfo("techs");
+        double roll = new Random().nextDouble();
+        double sum = 0;
+        for (Map.Entry<Integer, TechType> t : levels.entrySet()) {
+            sum += t.getValue().getOccurrence();
+            if (roll <= sum) return t.getKey();
+        }
+        // this should never happen unless max(sum) < 1.0
+        return -1;
+    }
+
+    private String chooseEnvironment() {
+        Map<String, EnvironmentType> list = LastAdventures.manager.getInfo("environments");
+        double roll = new Random().nextDouble();
+        double sum = 0;
+        for (Map.Entry<String, EnvironmentType> t : list.entrySet()) {
+            sum += t.getValue().getOccurrence();
+            if (roll <= sum) return t.getKey();
+        }
+        // this should never happen unless max(sum) < 1.0
+        return null;
+    }
+
+    private String chooseGovernment() {
+        // TODO:
+        //.. this is a bit repetative, I can probably consilidate these into
+        //a single private method if all these types have the same interface
+        Map<String, GovernmentType> list = LastAdventures.manager.getInfo("governments");
+        double roll = new Random().nextDouble();
+        double sum = 0;
+        for (Map.Entry<String, GovernmentType> t : list.entrySet()) {
+            sum += t.getValue().getOccurrence();
+            if (roll <= sum) return t.getKey();
+        }
+        // this should never happen unless max(sum) < 1.0
+        return null;
+    }
+
+    private List<String> chooseCompanies() {
+        Map<String, CompanyType> choices = LastAdventures.manager.getInfo("companies");
+        List<String> out = new ArrayList<>();
+        for (Map.Entry<String, CompanyType> t : choices.entrySet()) {
+            if (this.techLevel < t.getValue().getMinTech() ||
+                this.techLevel > t.getValue().getMaxTech())
+                continue; // not the right tech level, skip this company
+
+            // multiply the occurrence factors to the base probability
+            double p = t.getValue().getOccurrence();
+            if (t.getValue().getEnvironments().containsKey(this.environment)) {
+                p *= t.getValue().getEnvironments().get(this.environment);
+            }
+            if (t.getValue().getGovernments().containsKey(this.government)) {
+                p *= t.getValue().getGovernments().get(this.government);
+            }
+
+            double roll = new Random().nextDouble();
+            
+            if (roll <= p) out.add(t.getKey());
+        }
+        return out;
     }
 
     @Override
     public String toString() {
         String result = "";
-        result += "Tech Level: " + techLevels[techLevel] + " {" + techLevel + "}";
+        result += "Tech Level: " + this.techLevel;
         result += "\n";
-        result += "Special Resource: " + resourceLevels[resource] + " {" + resource + "}";
+        result += "Environment: " + this.environment;
+        result += "\n";
+        result += "Government: " + this.government;
+        result += "\n";
+        result += "Compnies: " + this.companyList;
         return result;
     }
 }

@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package edu.gatech.gem5.game;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -19,9 +12,9 @@ public class SolarSystem {
     private final int yCoordinate;
     private Planet[] planets;
     
-    private final double THIRD_PLANET_PERCENT = 66;
-    private final double FOURTH_PLANET_PERCENT = 20;
-    private final int PLANET_MAX = 4;
+    private static final double THIRD_PLANET_PERCENT = 66;
+    private static final double FOURTH_PLANET_PERCENT = 20;
+    public  static final int PLANET_MAX = 4;
     
     public SolarSystem (String name, int x, int y) {
         this.name = name;
@@ -36,7 +29,13 @@ public class SolarSystem {
     public String getName() {
         return name;
     }
-
+    
+    /**
+     * @return the array of planets in this system
+     */
+    public Planet[] getPlanets() {
+        return planets;
+    }
     /**
      * @return the xCoordinate of the system in its universe
      */
@@ -57,7 +56,10 @@ public class SolarSystem {
         result += "\nLocation: (" + getXCoordinate() + ", " + getYCoordinate() +")";
         for (int i = 0; i < PLANET_MAX; i++) {
             if (planets[i] != null) {
-                result += "\n\tOrbit " + (i+1) + ":\n\t\t" + planets[i].toString().replace("\n", "\n\t\t");
+                result +=
+                "\n\tOrbit " + (i+1) +
+                ":\n\t\t" +
+                planets[i].toString().replace("\n", "\n\t\t");
             }
         }
         return result;

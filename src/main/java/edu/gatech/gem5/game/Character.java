@@ -1,4 +1,8 @@
 package edu.gatech.gem5.game;
+
+import edu.gatech.gem5.game.data.ShipType;
+import java.util.Map;
+
 /**
  * Class implementation of Player Character in Last Adventures
  * @author Sam Blumenthal
@@ -29,10 +33,19 @@ public class Character extends Human {
         int trader = Integer.parseInt(traderString);
         int engineer = Integer.parseInt(engineerString);
         int investor = Integer.parseInt(investorString);
-        // Implement this with a Ship constructor once Ship class is created.
-        // Ship ship = null;
-        Ship ship = new Vagabond();
+
+        Map<String, ShipType> ships = LastAdventures.manager.getInfo("ships");
+        Ship ship = new Ship(ships.get("vagabond"));
 
         return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);
+    }
+
+    int getMoney() {
+        return 0;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    void setMoney(int m) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

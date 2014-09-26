@@ -34,8 +34,13 @@ public class Universe {
 
         this.universe = new ArrayList<>();
         for (int i = 0; i < layout.size(); i++) {
-            universe.add(new SolarSystem(nameGen.newName(), layout.get(i).xCoordinate,
-                    layout.get(i).yCoordinate));
+            universe.add(
+                new SolarSystem(
+                    nameGen.newName(),
+                    layout.get(i).xCoordinate,
+                    layout.get(i).yCoordinate
+                )
+            );
         }
     }
 

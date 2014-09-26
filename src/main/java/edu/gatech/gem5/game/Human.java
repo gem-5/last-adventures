@@ -1,4 +1,8 @@
 package edu.gatech.gem5.game;
+
+import edu.gatech.gem5.game.data.ShipType;
+import java.util.Map;
+
 /**
  * Super class for Humans in Last Adventures
  * @author Sam Blumenthal
@@ -152,7 +156,9 @@ public class Human {
     }
 
     public static void main(String[] args) {
-        Human bob = new Human("Bob", 10, 11, 7, 9, 4, new Vagabond());
+        Map<String, ShipType> ships = LastAdventures.manager.getInfo("ships");
+        Human bob = new Human("Bob", 10, 11, 7, 9, 4,
+                new Ship(ships.get("vagabond")));
         System.out.println(bob.toString());
     }
 }

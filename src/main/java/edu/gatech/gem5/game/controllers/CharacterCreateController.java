@@ -10,6 +10,8 @@ import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Ship;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,6 +83,8 @@ public class CharacterCreateController implements Initializable {
     Button confirm;
     @FXML
     Label remaining;
+    @FXML
+    Label errorMessage;
 
     private Button[] incButtons, decButtons;
     private Label[] values, skillNames;
@@ -88,22 +92,23 @@ public class CharacterCreateController implements Initializable {
     /**
      *
      * @param event a button press
-     * @throws Exception
+     * @throws Exception if the scene resource is not found
      */
     @FXML
     public void changeScenes(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button) (event.getSource())).idProperty().get();
         if (id.equals("confirm")) {
-            Character player = new Character(name.getText(),
-                    Integer.parseInt(pilotValue.getText()),
-                    Integer.parseInt(fighterValue.getText()),
-                    Integer.parseInt(traderValue.getText()),
-                    Integer.parseInt(engineerValue.getText()),
-                    Integer.parseInt(investorValue.getText()), (Ship) null);
-            LastAdventures.getCurrentSaveFile().addCharacter(player);
-
-            if (!name.getText().equals("Nyan")) {
+            if (name.getText().trim().isEmpty()) {
+                errorMessage.setText("Please enter a name.");
+            } else if (!name.getText().equals("Nyan")) {
+                Character player = new Character(name.getText().trim(),
+                        Integer.parseInt(pilotValue.getText()),
+                        Integer.parseInt(fighterValue.getText()),
+                        Integer.parseInt(traderValue.getText()),
+                        Integer.parseInt(engineerValue.getText()),
+                        Integer.parseInt(investorValue.getText()), (Ship) null);
+                LastAdventures.getCurrentSaveFile().addCharacter(player);
                 root = FXMLLoader.load(getClass().getResource("/status.fxml"));
             } else {
                 root = FXMLLoader.load(getClass().getResource("/easterNyan.fxml"));
@@ -112,17 +117,17 @@ public class CharacterCreateController implements Initializable {
             LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
             root = FXMLLoader.load(getClass().getResource("/title.fxml"));
         }
-
-        stage.setScene(new Scene((Pane) root));
+        if (root != null) {
+            stage.setScene(new Scene((Pane) root));
+        }
     }
 
     /**
      *
      * @param event a incrementor button press
-     * @throws Exception
      */
     @FXML
-    public void increment(ActionEvent event) throws Exception {
+    public void increment(ActionEvent event) {
         Button buttonName = (Button) event.getSource();
 
         if (Integer.parseInt(remainingValue.getText()) != 0) {
@@ -140,10 +145,9 @@ public class CharacterCreateController implements Initializable {
     /**
      *
      * @param event a decrementor button press
-     * @throws Exception
      */
     @FXML
-    public void decrement(ActionEvent event) throws Exception {
+    public void decrement(ActionEvent event) {
         Button buttonName = (Button) event.getSource();
 
         for (int count = 0; count < decButtons.length; count++) {
@@ -154,6 +158,24 @@ public class CharacterCreateController implements Initializable {
         }
     }
 
+    /**
+     * Limits the length of a text field
+     * @param tf A text field
+     * @param maxLength The maximum number of characters allowed
+     */
+    public static void addTextLimiter(final TextField tf, final int maxLength) {
+        tf.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> ov,
+                    final String oldValue, final String newValue) {
+                if (tf.getText().length() > maxLength) {
+                    String s = tf.getText().substring(0, maxLength);
+                    tf.setText(s);
+                }
+            }
+        });
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -186,6 +208,9 @@ public class CharacterCreateController implements Initializable {
         // Apply fade-in animation
         for (int x = 0; x < values.length; x++) {
             new FadeHandler(values[x], skillNames.length / 5.0 + 1.1);
+            
+        // Set limit to name field
+        addTextLimiter(name, 8);
         }
     }
 }

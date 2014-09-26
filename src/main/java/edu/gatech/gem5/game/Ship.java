@@ -1,68 +1,81 @@
 package edu.gatech.gem5.game;
+
+import edu.gatech.gem5.game.data.ShipType;
+import java.util.Stack;
+
 /**
- * Super class for Ships in Last Adventures
- * @author Sam Blumenthal
+ * A class for ship objects owned by players/NPCs.
+ *
+ * @author  Creston Bunch
+ * @author Jack Mueller
  */
-public class Ship{
 
-    // List of all parameters given by the table in Project Description
-    protected String name;
-    protected int cargoBay;
-    protected int weaponSlots;
-    protected int shieldSlots;
-    protected int gadgetSlots;
-    protected int crew;
-    protected int fuelMax;
-    protected int currentFuel;
-    protected int minTechLevel;
-    protected int fuelCost;
-    protected int price;
-    protected int bounty;
-    protected int hullStrength;
-    protected String manufacturer;
-    protected double valueFactor;
-    protected double attackFactor;
-    protected double bestFactor;
-    protected double balance;
+public class Ship {
+    
+    private final ShipType type;
+    private double health;
+    private Good[] cargoList;
+    private Stack<Integer> openBays;
+    private Weapon[] weaponList;
+    private Shield[] shieldList;
+    private Gadget[] gadgetList;
+    private Mercenary[] crewList;
 
-    // // Lists for storing cargo & ship upgrades, limited by ship parameters
-    // protected List<Cargo>  cargoList;
-    // protected List<Weapon> weaponList;
-    // protected List<Shield> shieldList;
-    // protected List<Gadget> gadgetList;
-
-    protected Ship(String name, int cargo, int weaponSlots, int shieldSlots, int gadgetSlots,
-                   int crew, int fuelMax, int minTechLevel, int fuelCost, int price, int bounty,
-                   int hullStrength, String manufacturer) {
-        this.name = name;
-        this.cargoBay = cargo;
-        this.weaponSlots = weaponSlots;
-        this.shieldSlots = shieldSlots;
-        this.gadgetSlots = gadgetSlots;
-        this.crew = crew;
-        this.fuelMax = fuelMax;
-        this.currentFuel = fuelMax; // The ship starts with full fuel
-        this.minTechLevel = minTechLevel;
-        this.fuelCost = fuelCost;
-        this.price = price;
-        this.bounty = bounty;
-        this.hullStrength = hullStrength;
-        this.manufacturer = manufacturer;
-        this.valueFactor = price / (100.0 * cargo + 5 * gadgetSlots * fuelCost + crew * 1000);
-        this.attackFactor = price / (100.0 * weaponSlots + 1000.0 * gadgetSlots + hullStrength * 10 + crew * 1000);
-        this.bestFactor = Math.min(this.attackFactor, this.valueFactor);
-
-        // this.cargoList = new ArrayList<>(cargoBay);
-        // this.weaponList = new ArrayList<>(weaponSlots);
-        // this.shieldList = new ArrayList<>(shieldSlots);
-        // this.gadgetList = new ArrayList<>(gadgetSlots);
-    }
     /**
-     * Prints out a string representation of a Ship
-     * @return a string representing the Ship
+     * Construct the ship from a given ship type.
+     *
+     * @param ship The ShipBase to copy.
      */
-    public String toString() {
-        // eventually maybe also add in other Ship info for debugging purposes
-        return this.name;
+    public Ship(ShipType ship) {
+        this.type = ship;
+        this.cargoList = new Good[ship.getCargoSlots()];
+        this.openBays = new Stack<>();
+        for (int i = 0; i < cargoList.length; i++) {
+            openBays.push(i); // all bays are open at the beginning
+        }
+        this.weaponList = new Weapon[ship.getWeaponSlots()];
+        this.shieldList = new Shield[ship.getShieldSlots()];
+        this.gadgetList = new Gadget[ship.getGadgetSlots()];
+        this.crewList = new Mercenary[ship.getCrewSlots()];
     }
+
+    /**
+     * @return the cargoList
+     */
+    public Good[] getCargoList() {
+        return cargoList;
+    }
+
+    /**
+     * @param cargoList the cargoList to set
+     */
+    public void setCargoList(Good[] cargoList) {
+        this.cargoList = cargoList;
+    }
+
+    /**
+     * OpenBays is sent to Transaction class to tell it which bays to put 
+     * the cargo in.
+     * @return the open bays
+     */
+    public Stack<Integer> getOpenBays() {
+        return openBays;
+    }
+    
+    /**
+     * OpenBays is received from Transaction class once it has filled some bays.
+     * @param openBays the open bays
+     */
+    public void setOpenBays(Stack<Integer> openBays) {
+        this.openBays = openBays;
+    }
+    
+    /**
+     * @param bay the bay to open
+     */
+    public void openNewBay(int bay) {
+        openBays.push(bay);
+    }
+    
+    
 }

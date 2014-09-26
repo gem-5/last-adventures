@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game;
 
 import java.util.LinkedList;
+import java.util.Map;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,6 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
+
+import edu.gatech.gem5.game.readers.*;
+import edu.gatech.gem5.game.data.*;
 
 /**
  *
@@ -22,6 +26,36 @@ public class LastAdventures extends Application {
     private static LinkedList<SaveFile> saveFiles;
     private static Integer currentFile;
     private final static Integer NONE = -1;
+    
+    public static Manager manager;
+    /** 
+     * the following two arrays should be kept parallel
+     * to make this less fragile, all Readers must either implement
+     * an interface or extend a superclass
+     */
+    private static final String[] dataNames = {
+        "ships",
+        "gadgets",
+        "goods",
+        "shields",
+        "companies",
+        "governments",
+        "conditions",
+        "environments",
+        "techs"
+    };
+    
+    private static final Map[] data = {
+        new ShipReader().load("/data/Ships.json"),
+        new GadgetReader().load("/data/Gadgets.json"),
+        new GoodReader().load("/data/Goods.json"),
+        new ShieldReader().load("/data/Shields.json"),
+        new CompanyReader().load("/data/Companies.json"),
+        new GovernmentReader().load("/data/Governments.json"),
+        new ConditionReader().load("/data/Conditions.json"),
+        new EnvironmentReader().load("/data/Environments.json"),
+        new TechReader().load("/data/TechLevels.json")    
+    };
 
     /**
      * Default constructor for LastAdventures. Initializes an empty holder for
@@ -62,6 +96,10 @@ public class LastAdventures extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // load data files
+        manager = new Manager();
+        manager.manageAll(dataNames, data);
+
         launch(args);
     }
 
@@ -72,7 +110,6 @@ public class LastAdventures extends Application {
         // puts a new save file in the table at the next "index"
         saveFiles.add(new SaveFile());
         currentFile = saveFiles.size() - 1;
-        System.out.println("cre" + currentFile);
     }
     
     /**
@@ -89,7 +126,6 @@ public class LastAdventures extends Application {
             //if we delete a file before the current file, update the index
             currentFile--;
         }
-        System.out.println("rem" + currentFile);
         saveFiles.remove(file);
     }
 

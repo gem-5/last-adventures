@@ -1,0 +1,92 @@
+{
+	"pulse1" : {
+		"name" : "Pulse Laser",
+		"description" : "",
+		"price" : 1000,
+		"damage" : 4,
+		"accuracy" : 0.5,
+		"rate" : 0.75
+	},
+	
+	"pulse2" : {
+		"name" : "Pulse Laser Mk. II",
+		"description" : "",
+		"price" : 2000,
+		"damage" : 7,
+		"accuracy" : 0.6,
+		"rate" : 1
+	},
+
+	"beam1" : {
+		"name" : "Beam Laser",
+		"description" : "",
+		"price" : 5000,
+		"damage" : 10,
+		"accuracy" : 0.5,
+		"rate" : 2.2
+	},
+
+	"beam2" : {
+		"name" : "Beam Repeater",
+		"description" : "",
+		"price" : 10000,
+		"damage" : 15,
+		"accuracy" : 0.3,
+		"rate" : 5
+	},
+
+	"beam3" : {
+		"name" : "Beam Cannon",
+		"description" : "",
+		"price" : 10000,
+		"damage" : 20,
+		"accuracy" : 0.75,
+		"rate" : 1.5
+	},
+
+	"military1" : {
+		"name" : "Military Pulse Laser",
+		"description" : "",
+		"price" : 15000,
+		"damage" : 25,
+		"accuracy" : 0.5,
+		"rate" : 2.0
+	},
+
+	"military2" : {
+		"name" : "Military Beam Laser",
+		"description" : "",
+		"price" : 25000,
+		"damage" : 30,
+		"accuracy" : 0.4,
+		"rate" : 2.5
+	},
+
+	"phaser1" : {
+		"name" : "Phaser",
+		"description" : "",
+		"price" : 40000,
+		"damage" : 35,
+		"accuracy" : 0.5,
+		"rate" : 2
+	},
+
+	"phaser2" : {
+		"name" : "Phaser Mk. II",
+		"description" : "",
+		"price" : 60000,
+		"damage" : 40,
+		"accuracy" : 0.5,
+		"rate" : 2
+	},
+
+	"railgun" : {
+		"name" : "Railgun",
+		"description" : "",
+		"price" : 100000,
+		"damage" : 60,
+		"accuracy" : 0.75,
+		"rate" : 1
+	}
+
+}

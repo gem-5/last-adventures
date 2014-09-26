@@ -1,0 +1,300 @@
+{
+	"bolt" : {
+		"name" : "Bolt",
+		"description" : "",
+		"cargoBay" : 10,
+		"weaponSlots" : 0,
+		"shieldSlots" : 0,
+		"gadgetSlots" : 0,
+		"crew"	  : 1,
+		"range"	: 19,
+		"fuelCost" : 1,
+		"price" : 800,
+		"bounty" : 5,
+		"hullStrength" : 25
+	},
+
+	"vagabond" : {
+		"name" : "Vagabond",
+		"description" : "",
+		"cargoBay" : 15,
+		"weaponSlots" : 1,
+		"shieldSlots" : 0,
+		"gadgetSlots" : 1,
+		"crew" : 1,
+		"range" : 14,
+		"fuelCost" : 2,
+		"price" : 1000,
+		"bounty" : 50,
+		"hullStrength" : 100
+	},
+
+	"drifter" : {
+		"name" : "Drifter",
+		"description" : "",
+		"cargoBay" : 20,
+		"weaponSlots" : 1,
+		"shieldSlots" : 0,
+		"gadgetSlots" : 1,
+		"crew" : 1,
+		"range" : 14,
+		"fuelCost" : 2,
+		"price" : 1300,
+		"bounty" : 50,
+		"hullStrength" : 100
+	},
+
+	"c100i" : {
+		"name" : "C 100i",
+		"description" : "",
+		"cargoBay" : 20,
+		"weaponSlots" : 1,
+		"shieldSlots" : 1,
+		"gadgetSlots" : 1,
+		"crew" : 1,
+		"range" : 17,
+		"fuelCost" : 3,
+		"price" : 2500,
+		"bounty" : 75,
+		"hullStrength" : 100
+	},
+	
+	"c300i" : {
+		"name" : "C 300i",
+		"description" : "",
+		"cargoBay" : 25,
+		"weaponSlots" : 1,
+		"shieldSlots" : 1,
+		"gadgetSlots" : 1,
+		"crew" : 1,
+		"range" : 17,
+		"fuelCost" : 3,
+		"price" : 3000,
+		"bounty" : 75,
+		"hullStrength" : 100
+	},
+	
+	"c600i" : {
+		"name" : "C 600i",
+		"description" : "",
+		"cargoBay" : 25,
+		"weaponSlots" : 2,
+		"shieldSlots" : 1,
+		"gadgetSlots" : 1,
+		"crew" : 1,
+		"range" : 17,
+		"fuelCost" : 3,
+		"price" : 3500,
+		"bounty" : 75,
+		"hullStrength" : 100
+	},
+
+	"xintercept" : {
+		"name" : "X Intercept",
+		"description" : "",
+		"cargoBay" : 10,
+		"weaponSlots" : 2,
+		"shieldSlots" : 1,
+		"gadgetSlots" : 1,
+		"crew" : 1,
+		"range" : 13,
+		"fuelCost" : 5,
+		"price" : 3000,
+		"bounty" : 100,
+		"hullStrength" : 100
+	},
+	
+	"yintercept" : {
+		"name" : "Y Intercept",
+		"description" : "",
+		"cargoBay" : 15,
+		"weaponSlots" : 2,
+		"shieldSlots" : 2,
+		"gadgetSlots" : 1,
+		"crew" : 1,
+		"range" : 13,
+		"fuelCost" : 5,
+		"price" : 4000,
+		"bounty" : 100,
+		"hullStrength" : 100
+	},
+
+	"comet" : {
+		"name" : "Comet",
+		"description" : "",
+		"cargoBay" : 25,
+		"weaponSlots" : 1,
+		"shieldSlots" : 2,
+		"gadgetSlots" : 2,
+		"crew" : 2,
+		"range" : 15,
+		"fuelCost" : 7,
+		"price" : 5000,
+		"bounty" : 125,
+		"hullStrength" : 100
+	},
+
+	"galaxy" : {
+		"name" : "Galaxy",
+		"description" : "",
+		"cargoBay" : 30,
+		"weaponSlots" : 1,
+		"shieldSlots" : 2,
+		"gadgetSlots" : 2,
+		"crew" : 2,
+		"range" : 15,
+		"fuelCost" : 7,
+		"price" : 7000,
+		"bounty" : 150,
+		"hullStrength" : 100
+	},
+
+	"runners" : {
+		"name" : "Runner S",
+		"description" : "",
+		"cargoBay" : 35,
+		"weaponSlots" : 0,
+		"shieldSlots" : 1,
+		"gadgetSlots" : 1,
+		"crew" : 1,
+		"range" : 14,
+		"price" : 9000,
+		"bounty" : 300,
+		"hullStrength" : 50
+	},
+
+	"runnersl" : {
+		"name" : "Runner SL",
+		"description" : "",
+		"cargoBay" : 40,
+		"weaponSlots" : 0,
+		"shieldSlots" : 1,
+		"gadgetSlots" : 1,
+		"crew" : 1,
+		"range" : 14,
+		"fuelCost" : 9,
+		"price" : 12500,
+		"bounty" : 300,
+		"hullStrength" : 50
+	},
+
+	"runnersx" : {
+		"name" : "Runner SX",
+		"description" : "",
+		"cargoBay" : 45,
+		"weaponSlots" : 0,
+		"shieldSlots" : 1,
+		"gadgetSlots" : 1,
+		"crew" : 3,
+		"range" : 14,
+		"fuelCost" : 9,
+		"price" : 20000,
+		"bounty" : 300,
+		"hullStrength" : 50
+	},
+	
+	"runnerxl" : {
+		"name" : "Runner XL",
+		"description" : "",
+		"cargoBay" : 45,
+		"weaponSlots" : 1,
+		"shieldSlots" : 1,
+		"gadgetSlots" : 1,
+		"crew" : 3,
+		"range" : 14,
+		"fuelCost" : 9,
+		"price" : 25000,
+		"bounty" : 300,
+		"hullStrength" : 50
+	},
+
+	"magnitude1" : {
+		"name" : "Magnitude Class I",
+		"description" : "",
+		"cargoBay" : 20,
+		"weaponSlots" : 2,
+		"shieldSlots" : 2,
+		"gadgetSlots" : 1,
+		"crew" : 2,
+		"range" : 16,
+		"fuelCost" : 11,
+		"price" : 35000,
+		"bounty" : 700,
+		"hullStrength" : 150
+	},
+
+	"magnitude2" : {
+		"name" : "Magnitude Class II",
+		"description" : "",
+		"cargoBay" : 25,
+		"weaponSlots" : 2,
+		"shieldSlots" : 2,
+		"gadgetSlots" : 1,
+		"crew" : 2,
+		"range" : 16,
+		"fuelCost" : 11,
+		"price" : 35000,
+		"bounty" : 700,
+		"hullStrength" : 150
+	},
+
+	"voyager1" : {
+		"name" : "Voyager",
+		"description" : "",
+		"cargoBay" : 30,
+		"weaponSlots" : 2,
+		"shieldSlots" : 2,
+		"gadgetSlots" : 3,
+		"crew" : 3,
+		"range" : 15,
+		"fuelCost" : 13,
+		"price" : 75000,
+		"bounty" : 1000,
+		"hullStrength" : 100
+	},
+
+	"voyager2" : {
+		"name" : "Voyager II",
+		"description" : "",
+		"cargoBay" : 35,
+		"weaponSlots" : 2,
+		"shieldSlots" : 2,
+		"gadgetSlots" : 3,
+		"crew" : 3,
+		"range" : 15,
+		"fuelCost" : 13,
+		"price" : 100000,
+		"bounty" : 1000,
+		"hullStrength" : 100
+	},
+
+	"leviathan" : {
+		"name" : "Leviathan",
+		"description" : "",
+		"cargoBay" : 60,
+		"weaponSlots" : 2,
+		"shieldSlots" : 2,
+		"gadgetSlots" : 3,
+		"crew" : 3,
+		"range" : 15,
+		"fuelCost" : 13,
+		"price" : 150000,
+		"bounty" : 1700,
+		"hullStrength" : 200
+	},
+
+	"slx503" : {
+		"name" : "SLX 503",
+		"description" : "",
+		"cargoBay" : 35,
+		"weaponSlots" : 3,
+		"shieldSlots" : 2,
+		"gadgetSlots" : 2,
+		"crew" : 3,
+		"range" : 14,
+		"fuelCost" : 20,
+		"price" : 210000,
+		"bounty" : 1700,
+		"hullStrength" : 200
+	}
+}
