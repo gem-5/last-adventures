@@ -11,7 +11,7 @@ import java.util.Stack;
  */
 
 public class Ship {
-    
+
     private final ShipType type;
     private double health;
     private Good[] cargoList;
@@ -54,14 +54,14 @@ public class Ship {
     }
 
     /**
-     * OpenBays is sent to Transaction class to tell it which bays to put 
+     * OpenBays is sent to Transaction class to tell it which bays to put
      * the cargo in.
      * @return the open bays
      */
     public Stack<Integer> getOpenBays() {
         return openBays;
     }
-    
+
     /**
      * OpenBays is received from Transaction class once it has filled some bays.
      * @param openBays the open bays
@@ -69,13 +69,30 @@ public class Ship {
     public void setOpenBays(Stack<Integer> openBays) {
         this.openBays = openBays;
     }
-    
+
     /**
      * @param bay the bay to open
      */
     public void openNewBay(int bay) {
         openBays.push(bay);
     }
-    
-    
+
+    public int getNetWorth() {
+        int worth = type.getPrice();
+
+        for (Weapon w: weaponList) {
+            worth += w.getWorth();
+        }
+
+        for (Shield s: shieldList) {
+            worth += s.getWorth();
+        }
+
+        for (Gadget g: gadgetList) {
+            worth += g.getWorth();
+        }
+
+        return worth;
+
+    }
 }

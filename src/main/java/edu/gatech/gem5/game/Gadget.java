@@ -21,4 +21,8 @@ public class Gadget {
         this.type = type;
     }
 
+    public int getWorth() {
+        return this.type.getPrice();
+    }
+
 }

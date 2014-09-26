@@ -21,4 +21,8 @@ public class Weapon {
         this.type = type;
     }
 
+    public int getWorth() {
+        return this.type.getPrice();
+    }
+
 }

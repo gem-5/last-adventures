@@ -13,6 +13,7 @@ public class GadgetType {
 
     private String name;
     private String description;
+    private int price;
     private Map<String, Double> bonus;
 
     /**
@@ -31,6 +32,10 @@ public class GadgetType {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    public int getPrice() {
+        return this.price;
     }
 
     /**

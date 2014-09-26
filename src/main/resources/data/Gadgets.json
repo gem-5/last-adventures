@@ -2,30 +2,35 @@
 	"cargo_bays" : {
 		"name" : "Extra Cargo Bays",
 		"description" : "Adds 5 additional cargo bays.",
-		"bonus" : {"cargo" : 5}
+		"bonus" : {"cargo" : 5},
+                "price" : 1000
 	},
 
 	"nav_system" : {
 		"name" : "Navigation System",
 		"description" : "Enhances piloting skills.",
-		"bonus" : {"piloting" : 1.25}
+		"bonus" : {"piloting" : 1.25},
+                "price" : 2000
 	},
 
 	"auto_repair" : {
 		"name" : "Auto Repair System",
 		"description" : "Increases engineering performance.",
-		"bonus" : {"engineering" : 1.25}
-	}, 
+		"bonus" : {"engineering" : 1.25},
+                "price" : 3000
+	},
 
 	"targeting" : {
 		"name" : "Targeting System",
 		"description" : "Improves combat abilities.",
-		"bonus" : {"fighting" : 1.25}
+		"bonus" : {"fighting" : 1.25},
+                "price" : 4000
 	},
 
 	"cloaking" : {
 		"name" : "Cloaking Device",
 		"description" : "Decreases chance to be seen by pirates and police.",
-		"bonus" : {"stealth" : 1.25}
+		"bonus" : {"stealth" : 1.25},
+                "price" : 5000
 	}
 }

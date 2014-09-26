@@ -40,12 +40,12 @@ public class Character extends Human {
         return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);
     }
 
-    int getMoney() {
-        return 0;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    void setMoney(int m) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    // int getMoney() {
+    //     return 0;
+    //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // }
+
+    // void setMoney(int m) {
+    //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // }
 }

@@ -19,6 +19,8 @@ public class Human {
     private int investor;
     // Ship
     private Ship ship;
+    // Money
+    private int money;
 
 
     public Human(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship) {
@@ -141,6 +143,26 @@ public class Human {
     public void decInvestor() {
         this.investor--;
     }
+
+    public int getMoney() {
+        return this.money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public void incMoney(int amount) {
+        this.money += amount;
+    }
+
+    public void decMoney(int amount) {
+        this.money -= amount;
+    }
+
+    public int getNetWorth() {
+        return this.money + this.ship.getNetWorth();
+    }
     /**
      * @return A String representation of the Human.
      */
@@ -149,8 +171,8 @@ public class Human {
             return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: None",
                                  name, pilot, fighter, trader, engineer, investor);
         } else {
-            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: %s",
-                                 name, pilot, fighter, trader, engineer, investor, ship.toString());
+            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: %s%nNet Worth: %d",
+                                 name, pilot, fighter, trader, engineer, investor, ship.toString(), this.getNetWorth());
         }
 
     }
