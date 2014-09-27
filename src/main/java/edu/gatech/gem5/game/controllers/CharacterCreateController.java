@@ -8,8 +8,14 @@ package edu.gatech.gem5.game.controllers;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Ship;
+import edu.gatech.gem5.game.Universe;
+import edu.gatech.gem5.game.SolarSystem;
+import edu.gatech.gem5.game.data.ShipType;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Map;
+import java.util.List;
+import java.util.Random;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -98,20 +104,22 @@ public class CharacterCreateController implements Initializable {
     public void changeScenes(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button) (event.getSource())).idProperty().get();
+        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
+
         if (id.equals("confirm")) {
             if (name.getText().trim().isEmpty()) {
                 errorMessage.setText("Please enter a name.");
-            } else if (!name.getText().equals("Nyan")) {
+            } else {
                 Character player = new Character(name.getText().trim(),
                         Integer.parseInt(pilotValue.getText()),
                         Integer.parseInt(fighterValue.getText()),
                         Integer.parseInt(traderValue.getText()),
                         Integer.parseInt(engineerValue.getText()),
-                        Integer.parseInt(investorValue.getText()), (Ship) null);
-                LastAdventures.getCurrentSaveFile().addCharacter(player);
+                        Integer.parseInt(investorValue.getText()),
+                        // default ship
+                        new Ship(ships.get("vagabond")));
+                beginNewGame(player, new Universe(120, 4, 13));
                 root = FXMLLoader.load(getClass().getResource("/status.fxml"));
-            } else {
-                root = FXMLLoader.load(getClass().getResource("/easterNyan.fxml"));
             }
         } else if (id.equals("back")) {
             LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
@@ -120,6 +128,16 @@ public class CharacterCreateController implements Initializable {
         if (root != null) {
             stage.setScene(new Scene((Pane) root));
         }
+    }
+
+    private void beginNewGame(Character player, Universe uni) {
+        LastAdventures.getCurrentSaveFile().addCharacter(player);
+        LastAdventures.getCurrentSaveFile().addUniverse(uni);
+        List<SolarSystem> systems = uni.getUniverse();
+        SolarSystem start = systems.get(new Random().nextInt(systems.size()));
+        LastAdventures.getCurrentSaveFile().setCurrentPlanet(
+            start.getPlanets().get(0)
+        );
     }
 
     /**
@@ -175,7 +193,7 @@ public class CharacterCreateController implements Initializable {
             }
         });
     }
-    
+
     /**
      * Initializes the controller class.
      */
@@ -208,7 +226,7 @@ public class CharacterCreateController implements Initializable {
         // Apply fade-in animation
         for (int x = 0; x < values.length; x++) {
             new FadeHandler(values[x], skillNames.length / 5.0 + 1.1);
-            
+
         // Set limit to name field
         addTextLimiter(name, 8);
         }

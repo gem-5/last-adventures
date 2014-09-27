@@ -16,6 +16,8 @@ public class GadgetType {
     private int price;
     private Map<String, Double> bonus;
 
+    public static final String KEY = "gadget";
+
     /**
      * Get the name of this gadget.
      *

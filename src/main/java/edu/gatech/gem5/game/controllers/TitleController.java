@@ -18,7 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -34,14 +34,14 @@ public class TitleController implements Initializable {
     private Parent root;
 
     @FXML
-    private AnchorPane defaultScene;
+    private BorderPane defaultScene;
 
     @FXML
     private GridPane gridPane;
 
     /**
      * Changes the scene based on the button pressed.
-     * 
+     *
      * @param event a button press
      * @throws Exception if the scene resource is not found
      */
@@ -51,6 +51,7 @@ public class TitleController implements Initializable {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button) (event.getSource())).idProperty().get();
+        Node root = this.root;
         //loads the create FXML file into root
         if (id.equals("newButton")) {
             LastAdventures.createNewSaveFile();

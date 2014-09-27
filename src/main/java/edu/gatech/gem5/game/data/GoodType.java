@@ -6,11 +6,15 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public class GoodType {
+public class GoodType extends DataType {
 
     private String name;
     private int value;
+    private int minStock;
+    private int maxStock;
     private boolean legal;
+
+    public static final String KEY = "good";
 
     /**
      * Return the name of this good type.
@@ -28,6 +32,24 @@ public class GoodType {
      */
     public int getValue() {
         return this.value;
+    }
+
+    /**
+     * Return the minimum stock a planet can have.
+     *
+     * @return the min stock
+     */
+    public int getMinStock() {
+        return this.minStock;
+    }
+
+    /**
+     * Return the maximum stock a planet can have.
+     *
+     * @return the max stock
+     */
+    public int getMaxStock() {
+        return this.maxStock;
     }
 
     /**

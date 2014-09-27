@@ -7,14 +7,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane
-    xmlns:fx="http://javafx.com/fxml/1"
-    id="AnchorPane"
-    prefHeight="720"
+<BorderPane
     prefWidth="1280"
+    prefHeight="720"
+    xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="edu.gatech.gem5.game.controllers.CharacterStatusController"
 >
-    <children>
+    <top>
+        <HBox><Region HBox.Hgrow="always"/>
+            <Label
+                fx:id="title"
+                text="This is who you are"
+            />
+        <Region HBox.Hgrow="always" /></HBox>
+    </top>
+    <center>
+        <HBox><Region HBox.Hgrow="always"/>
         <GridPane layoutX="50" layoutY="50">
             <vgap>10.0</vgap>
             <hgap>10.0</hgap>
@@ -54,26 +62,27 @@
                 GridPane.rowIndex="6"
                 text="1"
             />
-            <Button 
+            <Button
                 id="confirm"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="7"
                 mnemonicParsing="false"
                 text="Confirm"
-                onAction="#changeScenes" 
+                onAction="#changeScenes"
             />
-            <Button 
+            <Button
                 id="back"
                 GridPane.columnIndex="2"
                 GridPane.rowIndex="7"
                 cancelButton="true"
                 mnemonicParsing="false"
                 text="Back"
-                onAction="#changeScenes" 
+                onAction="#changeScenes"
             />
         </GridPane>
-    </children>
+        <Region HBox.Hgrow="always" /></HBox>
+    </center>
     <stylesheets>
         <URL value="@create.css"/>
     </stylesheets>
-</AnchorPane>
+</BorderPane>

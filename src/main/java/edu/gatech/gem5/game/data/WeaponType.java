@@ -6,7 +6,7 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public class WeaponType {
+public class WeaponType extends DataType {
 
     private String name;
     private String description;
@@ -14,6 +14,8 @@ public class WeaponType {
     private int damage;
     private double accuracy;
     private double rate;
+
+    public static final String KEY = "weapon";
 
     /**
      * Get the name of this weapon.

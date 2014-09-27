@@ -6,13 +6,15 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public class ShieldType {
+public class ShieldType extends DataType {
 
     private String name = "";
     private String description = "";
     private int price;
     private double factor;
     private int integrity;
+
+    public static final String KEY = "shield";
 
     /**
      * Return the name of this shield type.

@@ -178,7 +178,7 @@ public class Human {
     }
 
     public static void main(String[] args) {
-        Map<String, ShipType> ships = LastAdventures.manager.getInfo("ships");
+        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
         Human bob = new Human("Bob", 10, 11, 7, 9, 4,
                 new Ship(ships.get("vagabond")));
         System.out.println(bob.toString());

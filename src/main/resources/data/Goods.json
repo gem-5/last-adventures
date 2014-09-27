@@ -2,72 +2,96 @@
     "water" : {
         "name" : "Water",
         "value" : 40,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 10,
+        "maxStock" : 40
     },
 
     "furs" : {
         "name" : "Furs",
         "value" : 280,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 5,
+        "maxStock" : 20
     },
 
     "food" : {
         "name" : "Food",
         "value" : 110,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 10,
+        "maxStock" : 40
     },
 
     "ore" : {
         "name" : "Ore",
         "value" : 430,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 15,
+        "maxStock" : 20
     }, 
 
     "textiles" : {
         "name" : "Textiles",
         "value" : 400,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 10,
+        "maxStock" : 20
     },
 
     "gems" : {
         "name" : "Gems",
         "value" : 800,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 1,
+        "maxStock" : 10
     },
 
     "games" : {
         "name" : "Games",
         "value" : 210,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 5,
+        "maxStock" : 15
     },
 
     "firearms" : {
         "name" : "Firearms",
         "value" : 900,
-        "legal" : false
+        "legal" : false,
+        "minStock" : 1,
+        "maxStock" : 10
     },
 
     "medicine" : {
         "name" : "Medicine",
         "value" : 550,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 1,
+        "maxStock" : 10
     },
 
     "drugs" : {
         "name" : "Drugs",
         "value" : 3000,
-        "legal" : false
+        "legal" : false,
+        "minStock" : 1,
+        "maxStock" : 20
     },
 
     "machines" : {
         "name" : "Machines",
         "value" : 750,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 1,
+        "maxStock" : 10
     },
 
     "robots" : {
         "name" : "Robots",
         "value" : 4000,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 1,
+        "maxStock" : 5
     }
 }

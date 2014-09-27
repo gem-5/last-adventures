@@ -9,7 +9,7 @@ import java.util.Map;
  * @author Creston Bunch
  */
 
-public class CompanyType {
+public class CompanyType extends DataType {
 
     private String name;
     private String description;
@@ -23,6 +23,8 @@ public class CompanyType {
     private double wealth;
     private Map<String, Double> environments;
     private Map<String, Double> governments;
+    
+    public static final String KEY = "company";
 
     /**
      * Get the name of this company.

@@ -6,7 +6,7 @@ package edu.gatech.gem5.game.data;
  * @author Sam Blumenthal
  * @author Creston Bunch
  */
-public class ShipType {
+public class ShipType extends DataType {
 
     // List of all parameters given by the table in Project Description
     private String name;
@@ -22,26 +22,7 @@ public class ShipType {
     private int bounty;
     private int hullStrength;
 
-    /*
-     * GSON uses reflection to directly write the member variable, no need
-     * for a constructor
-     *
-    protected ShipBase(String name, int cargo, int weaponSlots, int shieldSlots,
-                   int gadgetSlots, int crew, int fuelCost, int price,
-                   int bounty, int hullStrength) {
-        this.name = name;
-        this.cargoBay = cargo;
-        this.weaponSlots = weaponSlots;
-        this.shieldSlots = shieldSlots;
-        this.gadgetSlots = gadgetSlots;
-        this.crewSlots = crew;
-        this.fuelCost = fuelCost;
-        this.price = price;
-        this.bounty = bounty;
-        this.hullStrength = hullStrength;
-
-    }
-    */
+    public static final String KEY = "ship";
 
     /**
      * Return the name of this ship type.
