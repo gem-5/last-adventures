@@ -83,7 +83,6 @@ public class Ship {
     public void openNewBay(int bay) {
         openBays.push(bay);
     }
-<<<<<<< HEAD
 
     public int getNetWorth() {
         int worth = type.getPrice();
@@ -103,6 +102,5 @@ public class Ship {
         return worth;
 
     }
-=======
->>>>>>> f6ba31975d2cc4bfc2674dec8a05b9ea9485435e
+
 }

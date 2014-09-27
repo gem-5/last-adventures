@@ -9,10 +9,8 @@ import java.util.Map;
  */
 public class Character extends Human {
 
-<<<<<<< HEAD
-=======
+
     private int money;
->>>>>>> f6ba31975d2cc4bfc2674dec8a05b9ea9485435e
 
     public Character(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship) {
         super(name, pilot, fighter, trader, engineer, investor, ship);
@@ -45,7 +43,6 @@ public class Character extends Human {
         return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);
     }
 
-<<<<<<< HEAD
     // int getMoney() {
     //     return 0;
     //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -54,7 +51,6 @@ public class Character extends Human {
     // void setMoney(int m) {
     //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     // }
-=======
     public int getMoney() {
         return this.money;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -64,5 +60,5 @@ public class Character extends Human {
         this.money = m;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
->>>>>>> f6ba31975d2cc4bfc2674dec8a05b9ea9485435e
+
 }
