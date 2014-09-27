@@ -12,6 +12,8 @@ public class GoodType {
     private int value;
     private boolean legal;
 
+    public static final String KEY = "good";
+
     /**
      * Return the name of this good type.
      *

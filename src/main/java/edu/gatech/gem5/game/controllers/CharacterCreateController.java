@@ -100,7 +100,7 @@ public class CharacterCreateController implements Initializable {
     public void changeScenes(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button) (event.getSource())).idProperty().get();
-        Map<String, ShipType> ships = LastAdventures.manager.getInfo("ships");
+        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
 
         if (id.equals("confirm")) {
             if (name.getText().trim().isEmpty()) {

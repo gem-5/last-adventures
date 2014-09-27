@@ -33,7 +33,7 @@ public class Character extends Human {
         int engineer = Integer.parseInt(engineerString);
         int investor = Integer.parseInt(investorString);
 
-        Map<String, ShipType> ships = LastAdventures.manager.getInfo("ships");
+        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
         Ship ship = new Ship(ships.get("vagabond"));
 
         return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);

@@ -8,11 +8,13 @@ import java.util.Map;
  * @author Creston Bunch
  */
 
-public class ConditionType {
+public class ConditionType extends DataType {
 
     private String name;
     private Map<String, Double> demand;
     private double occurrence;
+
+    public static final String KEY = "condition";
 
     /**
      * Get the name of this condition.
