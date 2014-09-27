@@ -13,7 +13,7 @@ import edu.gatech.gem5.game.data.GoodType;
  */
 public class Transaction {
     
-    Character player;
+    public Character player;
     //the planet that this character is doing business on
     Planet planet;
     
@@ -32,7 +32,6 @@ public class Transaction {
      * a good that you can buy at one of the companies of this planet.
      */
     public void buy(int quantity, String good) {
-            
         //player loses money, gains cargo
         int money = player.getMoney();
         int price = planet.getDemand().get(good);
@@ -47,6 +46,35 @@ public class Transaction {
         //don't know if this line is necessary
         ship.setOpenBays(open);
         ship.setCargoList(cargo);
+    }
+    
+    /**
+     * 
+     * @param quantity the number of good involved in this transaction.
+     * This should always be a valid number that will not exceed the capacity of
+     * the cargo hold
+     * @param good the good involved in this transaction. This should always be
+     * a good that you can buy at one of the companies of this planet.
+     * @return A string describing the validity the transaction.
+     */
+    public String validateBuy(int quantity, String good) {
+        int money = player.getMoney();
+        int price = planet.getDemand().get(good);
+        if (money - quantity * price < 0) {
+            return "You are " + (quantity * price - money) + " credits short " +
+                    "for this transaction.";
+        }
+        Ship ship = player.getShip();
+        Stack<Integer> open = ship.getOpenBays();
+        if (open.size() < quantity) {
+            return "You need " + (quantity - open.size()) + " more cargo bays "+
+                    "to hold this much " + good + ".";
+        }
+        
+        //transaction is valid, confirm with question
+        return "Are you sure you want to buy " + quantity + " cargo bay" + 
+                (quantity == 1 ? "" : "s") + " of " + good + " for " +
+                (quantity * price) + " credits?";
     }
     
     /**
@@ -84,15 +112,37 @@ public class Transaction {
     /**
      * 
      * @param quantity the number of good involved in this transaction.
-     * This should always be a valid number that will not exceed the capacity of
-     * the cargo hold
      * @param good the good involved in this transaction. This should always be
      * a good that you can buy at one of the companies of this planet.
-     * @return A string describing what was wrong with the transaction, or 
-     * an Optional object if nothing was wrong.
+     * @return A string describing the validity the transaction.
      */
-    public String validateBuy(int quantity, String good) {
-        return "";
+    public String validateSell(int quantity, String good) {
+        //int wealth get the planets wealth here
+        int value = planet.getSupply().get(good);
+        
+        //TODO
+        //check if the planet has enough wealth to buy these goods from you here
+        
+        Ship ship = player.getShip();
+        Good[] cargo = ship.getCargoList();
+        Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
+        Stack<Integer> open = ship.getOpenBays();
+        //loop through cargo
+        int numOfGood = 0, cargoSlot = 0;
+        while (cargoSlot < cargo.length) {
+            if (cargo[cargoSlot].getType().getName().equals(good)) {
+                numOfGood++;
+            }
+            cargoSlot++;
+        }
+        if (numOfGood < quantity) {
+            return "You need " + (quantity - numOfGood) + " more bays of " +
+                    good + " to sell this many.";
+        }
+        
+        //transaction is valid, confirm with question
+        return "Are you sure you want to well " + quantity + " cargo bay" + 
+                (quantity == 1 ? "" : "s") + " of " + good + " for " +
+                (quantity * value) + " credits?";
     }
-    
 }
