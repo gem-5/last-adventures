@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="720" prefWidth="1280" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="edu.gatech.gem5.game.controllers.MarketController">    
+<AnchorPane id="AnchorPane" prefHeight="720" prefWidth="1280" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="edu.gatech.gem5.game.controllers.MarketController">
    <children>
       <SplitPane dividerPositions="0.5" layoutY="1.0" prefHeight="720.0" prefWidth="1280.0">
         <items>
@@ -17,27 +17,41 @@
                <children>
                   <TabPane fx:id="buyBox" layoutY="50.0" prefHeight="600.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
+                      <Tab text="Goods">
+                        <content>
+                            <VBox>
+                                <ListView fx:id="buyGoods" VBox.Vgrow="always"/>
+                                <Region VBox.Vgrow="always"/>
+                                <Button text="Purchase" onAction="#buyGoods"/>
+                            </VBox>
+                        </content>
+                      </Tab>
                       <Tab text="Ships">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="555.0" />
+                            <VBox>
+                                <ListView fx:id="upShips" VBox.Vgrow="always"/>
+                                <Region VBox.Vgrow="always"/>
+                                <Button text="Upgrade" onAction="#upShip"/>
+                            </VBox>
                         </content>
                       </Tab>
                       <Tab text="Weapons">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            <VBox>
+                                <ListView fx:id="upWeapons" VBox.Vgrow="always"/>
+                                <Region VBox.Vgrow="always"/>
+                                <Button text="Upgrade" onAction="#upWeapon"/>
+                            </VBox>
                         </content>
                       </Tab>
                         <Tab text="Shields">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                        <Tab text="Goods">
-                          <content>
-                            <ListView fx:id="buyGoods">
-
-                            </ListView>
-                          </content>
+                        <content>
+                            <VBox>
+                                <ListView fx:id="upShields" VBox.Vgrow="always"/>
+                                <Region VBox.Vgrow="always"/>
+                                <Button text="Upgrade" onAction="#upShield"/>
+                            </VBox>
+                        </content>
                         </Tab>
                     </tabs>
                   </TabPane>
@@ -70,9 +84,10 @@
                         </Tab>
                      </tabs>
                   </TabPane>
-                  <Text layoutX="524.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Cash Amount" />
-                  <Text layoutX="384.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Goods Amount" />
-                  <Text layoutX="536.0" layoutY="685.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal Count" />
+                  <HBox>
+                      <Label text="Player Cash:"/>
+                      <Label fx:id="lblCash" />
+                  </HBox>
                </children>
             </AnchorPane>
         </items>

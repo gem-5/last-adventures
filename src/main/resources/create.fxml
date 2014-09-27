@@ -10,9 +10,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane
-    prefHeight="720"
+<BorderPane
     prefWidth="1280"
+    prefHeight="720"
     xmlns="http://javafx.com/javafx/8"
     xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="edu.gatech.gem5.game.controllers.CharacterCreateController"
@@ -20,7 +20,18 @@
     <stylesheets>
         <URL value="@create.css" />
     </stylesheets>
-    <children>
+    <top>
+        <HBox>
+            <Region HBox.Hgrow="always"/>
+            <Label
+                fx:id="title"
+                text="Begin your journey..."
+            />
+            <Region HBox.Hgrow="always"/>
+        </HBox>
+    </top>
+    <center>
+        <HBox><Region HBox.Hgrow="always"/>
         <GridPane layoutX="50" layoutY="50">
             <vgap>10.0</vgap>
             <hgap>10.0</hgap>
@@ -67,7 +78,7 @@
                 onAction="#increment"
             />
             <Label
-                fx:id="fighter" 
+                fx:id="fighter"
                 GridPane.columnIndex="0"
                 GridPane.rowIndex="2"
                 text="Fighter"
@@ -191,14 +202,14 @@
                 text="20"
             />
 
-            <Button 
+            <Button
                 id="back"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="7"
                 cancelButton="true"
                 mnemonicParsing="false"
                 text="Back"
-                onAction="#changeScenes" 
+                onAction="#changeScenes"
             >
             </Button>
             <Button
@@ -217,5 +228,6 @@
                 text=""
             />
         </GridPane>
-    </children>
-</AnchorPane>
+        <Region HBox.Hgrow="always"/></HBox>
+    </center>
+</BorderPane>

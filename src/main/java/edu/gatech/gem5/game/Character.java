@@ -9,8 +9,11 @@ import java.util.Map;
  */
 public class Character extends Human {
 
+    private int money;
+
     public Character(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship) {
         super(name, pilot, fighter, trader, engineer, investor, ship);
+        int money = 1000;
     }
 
     public String toString() {
@@ -39,12 +42,13 @@ public class Character extends Human {
         return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);
     }
 
-    int getMoney() {
-        return 0;
+    public int getMoney() {
+        return this.money;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    void setMoney(int m) {
+
+    public void setMoney(int m) {
+        this.money = m;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

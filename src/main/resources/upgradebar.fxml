@@ -7,8 +7,6 @@
 
 <fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
     <Label fx:id="lblItem"/>
-    <Label fx:id="lblPrice"/>
     <Region HBox.Hgrow="always"/>
-    <Label fx:id="lblQuantity"/>
-    <Slider fx:id="sldQuantity"/>
+    <Label fx:id="lblPrice"/>
 </fx:root>

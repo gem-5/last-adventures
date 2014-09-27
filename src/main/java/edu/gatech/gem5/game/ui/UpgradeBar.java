@@ -20,10 +20,9 @@ import edu.gatech.gem5.game.data.DataType;
  *
  * @author Creston Bunch
  */
-public class BuyBar extends HBox {
+public class UpgradeBar extends HBox {
 
     private String product;
-    private int quantity;
     private int price;
 
     @FXML
@@ -32,18 +31,12 @@ public class BuyBar extends HBox {
     @FXML
     private Label lblPrice;
 
-    @FXML
-    private Label lblQuantity;
-
-    @FXML
-    private Slider sldQuantity;
-
     /**
      * Construct and set the root of this custom control.
      */
-    public BuyBar() {
+    public UpgradeBar() {
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/buybar.fxml")
+            getClass().getResource("/upgradebar.fxml")
         );
         loader.setRoot(this);
         loader.setController(this);
@@ -53,31 +46,6 @@ public class BuyBar extends HBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-
-        sldQuantity.setShowTickMarks(true);
-        sldQuantity.setShowTickLabels(true);
-        sldQuantity.setMajorTickUnit(1);
-        sldQuantity.setBlockIncrement(1);
-        sldQuantity.setSnapToTicks(true);
-        sldQuantity.setMinorTickCount(0);
-
-        sldQuantity.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable,
-                    Number oldValue, Number newValue) {
-                lblQuantity.setText(newValue.toString());
-            }
-        });
-    }
-
-    @FXML
-    public void decrement(MouseEvent event) throws Exception {
-        // not implemented
-    }
-
-    @FXML
-    public void increment(MouseEvent event) throws Exception {
-        // not implemented
     }
 
     /**
@@ -87,17 +55,6 @@ public class BuyBar extends HBox {
      */
     public void setKey(String key) {
         this.product = key;
-    }
-
-    /**
-     * Set the quantity of the item sold.
-     *
-     * @param q the quantity
-     */
-    public void setQuantity(int q) {
-        this.quantity = q;
-        sldQuantity.setMin(0);
-        sldQuantity.setMax(q);
     }
 
     /**

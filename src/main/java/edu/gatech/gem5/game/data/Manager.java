@@ -10,9 +10,9 @@ import java.util.Map;
  * @author Creston Bunch
  */
 public class Manager {
-    
+
     private Map<String, Map> dataSets;
-    
+
     /**
      * Construct the manager with no data sets.
      */
@@ -29,14 +29,14 @@ public class Manager {
     public void add(String key, Map data) {
         dataSets.put(key, data);
     }
-       
+
     /**
-     * 
+     *
      * @param key the key of the thing you want information about
      * @return The data set
      */
     public Map get(String key) {
         return dataSets.get(key);
     }
-    
+
 }

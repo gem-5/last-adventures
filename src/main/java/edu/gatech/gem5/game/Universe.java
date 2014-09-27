@@ -6,6 +6,7 @@
 
 package edu.gatech.gem5.game;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,7 +24,7 @@ public class Universe {
     private final int height;
     private final int numberOfPlanets;
     private final NameGenerator nameGen;
-    
+
     public Universe(int num, int min, int max) {
         this.width = 100;
         this.height = 150;
@@ -91,7 +92,7 @@ public class Universe {
     /**
      * @return the list of systems in the universe
      */
-    public ArrayList<SolarSystem> getUniverse() {
+    public List<SolarSystem> getUniverse() {
         return universe;
     }
 

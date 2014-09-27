@@ -7,7 +7,7 @@ import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -37,11 +37,11 @@ public class DisplayUniverseController implements Initializable {
 
     @FXML
     AnchorPane root;
-    
-    
+
+
         /**
      * Changes screens
-     * 
+     *
      * @param event A button press attempting to change scenes
      * @throws Exception if the scene resource is not found
      */
@@ -50,10 +50,10 @@ public class DisplayUniverseController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         root = FXMLLoader.load(getClass().getResource("/market.fxml"));
-     
+
         stage.setScene(new Scene((Pane) root));
     }
-    
+
     /**
      * Initializes the controller class.
      */
@@ -64,7 +64,7 @@ public class DisplayUniverseController implements Initializable {
         double widthRatio = root.getPrefWidth()/universe.getWidth();
         double heightRatio = root.getPrefHeight()/universe.getHeight();
         ObservableList<Node> children = root.getChildren();
-        ArrayList<SolarSystem> systems = universe.getUniverse();
+        List<SolarSystem> systems = universe.getUniverse();
         for (SolarSystem system : systems) {
             Circle circle = new Circle();
             int xCoordinate = system.getXCoordinate();
@@ -75,19 +75,19 @@ public class DisplayUniverseController implements Initializable {
             circle.setFill(Color.WHITE);
             circle.setCursor(Cursor.HAND);
             Tooltip t = new Tooltip(
-                system.getName() + "\n" + 
+                system.getName() + "\n" +
                 "Planets: " + system.getPlanets().size()
             );
             Tooltip.install(circle, t);
 
             children.add(circle);
         }
-        
+
         //Randomly choose a planet to start on
         Random rand = new Random();
         SolarSystem startSystem = systems.get(rand.nextInt(systems.size()));
         SaveFile save = LastAdventures.getCurrentSaveFile();
-        
+
         Image img = new Image("img/currentSystem.png");
         int dx = (int) img.getWidth() / 2;
         int dy = (int) img.getHeight() / 2;
@@ -110,12 +110,6 @@ public class DisplayUniverseController implements Initializable {
         circle.setFill(Color.TRANSPARENT);
         children.add(circle);
         circle.toBack();
-        
-        Planet startPlanet = startSystem.getPlanets().get(0);
-
-        save.setCurrentPlanet(startPlanet);
-        //this is to print out the character once it is made
-        //System.out.println(LastAdventures.getCurrentSaveFile());
-    }    
+    }
 
 }

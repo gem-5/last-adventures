@@ -45,10 +45,10 @@ public class CharacterStatusController implements Initializable {
     Button confirm;
     @FXML
     Button returnToCreate;
-    
+
     /**
      * Changes screens
-     * 
+     *
      * @param event A button press attempting to change scenes
      * @throws Exception if the scene resource is not found
      */
@@ -56,17 +56,16 @@ public class CharacterStatusController implements Initializable {
     public void changeScenes(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button)(event.getSource())).idProperty().get();
+        Node root = this.root;
         if (id.equals("confirm")) {
-            LastAdventures.getCurrentSaveFile()
-                    .addUniverse(new Universe (120, 4, 13));
-            root = FXMLLoader.load(getClass().getResource("/displayUniverse.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/planet.fxml"));
         } else if (id.equals("back")) {
             root = FXMLLoader.load(getClass().getResource("/create.fxml"));
         }
-        
+
         stage.setScene(new Scene((Pane) root));
     }
-    
+
     /**
      * Initializes the controller class.
      */
