@@ -20,4 +20,8 @@ public class Good {
     public Good(GoodType type) {
         this.type = type;
     }
+    
+    public GoodType getType() {
+        return type;
+    }
 }

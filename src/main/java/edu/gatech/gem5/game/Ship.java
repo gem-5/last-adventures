@@ -83,6 +83,4 @@ public class Ship {
     public void openNewBay(int bay) {
         openBays.push(bay);
     }
-    
-    
 }
