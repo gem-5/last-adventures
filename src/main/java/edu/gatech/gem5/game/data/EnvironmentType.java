@@ -8,13 +8,15 @@ import java.util.Map;
  * @author Creston Bunch
  */
 
-public class EnvironmentType {
+public class EnvironmentType extends DataType {
     
     private String name;
     private Map<String, Double> supply;
     private Map<String, Double> demand;
     private double occurrence;
     private double wealth;
+
+    public static final String KEY = "environment";
 
     /**
      * Get the name of this environment type.

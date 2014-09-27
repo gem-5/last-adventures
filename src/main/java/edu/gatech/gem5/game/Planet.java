@@ -72,7 +72,7 @@ public class Planet {
      * @return the tech level.
      */
     public TechType getTechLevel() {
-        Map<Integer, TechType> techs = LastAdventures.manager.getInfo("techs");
+        Map<Integer, TechType> techs = LastAdventures.data.get(TechType.KEY);
         return techs.get(this.techLevel);
     }
 
@@ -82,7 +82,8 @@ public class Planet {
      * @return the environment type
      */
     public EnvironmentType getEnvironment() {
-        Map<String, EnvironmentType> environments = LastAdventures.manager.getInfo("environments");
+        Map<String, EnvironmentType> environments =
+        LastAdventures.data.get(EnvironmentType.KEY);
         return environments.get(this.environment);
     }
 
@@ -92,7 +93,8 @@ public class Planet {
      * @return the government type
      */
     public GovernmentType getGovernment() {
-        Map<String, GovernmentType> governments = LastAdventures.manager.getInfo("governments");
+        Map<String, GovernmentType> governments =
+        LastAdventures.data.get(GovernmentType.KEY);
         return governments.get(this.government);
     }
 
@@ -104,14 +106,15 @@ public class Planet {
     public List<CompanyType> getCompanies() {
         List<CompanyType> out = new ArrayList<>();
         for (String s : this.companyList) {
-            Map<String, CompanyType> companies = LastAdventures.manager.getInfo("companies");
+            Map<String, CompanyType> companies =
+            LastAdventures.data.get(CompanyType.KEY);
             out.add(companies.get(s));
         }
         return out;
     }
 
     private int chooseTechLevel() {
-        Map<Integer, TechType> levels = LastAdventures.manager.getInfo("techs");
+        Map<Integer, TechType> levels = LastAdventures.data.get(TechType.KEY);
         double roll = new Random().nextDouble();
         double sum = 0;
         for (Map.Entry<Integer, TechType> t : levels.entrySet()) {
@@ -123,7 +126,8 @@ public class Planet {
     }
 
     private String chooseEnvironment() {
-        Map<String, EnvironmentType> list = LastAdventures.manager.getInfo("environments");
+        Map<String, EnvironmentType> list =
+        LastAdventures.data.get(EnvironmentType.KEY);
         double roll = new Random().nextDouble();
         double sum = 0;
         for (Map.Entry<String, EnvironmentType> t : list.entrySet()) {
@@ -138,7 +142,8 @@ public class Planet {
         // TODO:
         //.. this is a bit repetative, I can probably consilidate these into
         //a single private method if all these types have the same interface
-        Map<String, GovernmentType> list = LastAdventures.manager.getInfo("governments");
+        Map<String, GovernmentType> list =
+        LastAdventures.data.get(GovernmentType.KEY);
         double roll = new Random().nextDouble();
         double sum = 0;
         for (Map.Entry<String, GovernmentType> t : list.entrySet()) {
@@ -150,7 +155,8 @@ public class Planet {
     }
 
     private List<String> chooseCompanies() {
-        Map<String, CompanyType> choices = LastAdventures.manager.getInfo("companies");
+        Map<String, CompanyType> choices =
+        LastAdventures.data.get(CompanyType.KEY);
         List<String> out = new ArrayList<>();
         for (Map.Entry<String, CompanyType> t : choices.entrySet()) {
             if (this.techLevel < t.getValue().getMinTech() ||

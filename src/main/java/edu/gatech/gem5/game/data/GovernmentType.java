@@ -9,7 +9,7 @@ import java.util.List;
  * @author Creston Bunch
  */
 
-public class GovernmentType {
+public class GovernmentType extends DataType {
 
     private String name;
     private String description;
@@ -24,6 +24,8 @@ public class GovernmentType {
     private Map<String, Double> supply;
     private List<String> forbidden;
     private double occurrence;
+
+    public static final String KEY = "government";
 
     /**
      * Get the name of the government type.

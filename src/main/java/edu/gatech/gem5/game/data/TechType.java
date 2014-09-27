@@ -6,12 +6,14 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public class TechType {
+public class TechType extends DataType {
 
     private String name;
     private int rank;
     private double occurrence;
     private double wealth;
+
+    public static final String KEY = "tech";
 
     /**
      * Get the name of this tech level.

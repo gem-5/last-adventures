@@ -27,36 +27,8 @@ public class LastAdventures extends Application {
     private static Integer currentFile;
     private final static Integer NONE = -1;
     
-    public static Manager manager;
-    /** 
-     * the following two arrays should be kept parallel
-     * to make this less fragile, all Readers must either implement
-     * an interface or extend a superclass
-     */
-    private static final String[] dataNames = {
-        "ships",
-        "gadgets",
-        "goods",
-        "shields",
-        "companies",
-        "governments",
-        "conditions",
-        "environments",
-        "techs"
-    };
+    public static Manager data;
     
-    private static final Map[] data = {
-        new ShipReader().load("/data/Ships.json"),
-        new GadgetReader().load("/data/Gadgets.json"),
-        new GoodReader().load("/data/Goods.json"),
-        new ShieldReader().load("/data/Shields.json"),
-        new CompanyReader().load("/data/Companies.json"),
-        new GovernmentReader().load("/data/Governments.json"),
-        new ConditionReader().load("/data/Conditions.json"),
-        new EnvironmentReader().load("/data/Environments.json"),
-        new TechReader().load("/data/TechLevels.json")    
-    };
-
     /**
      * Default constructor for LastAdventures. Initializes an empty holder for
      * save files.
@@ -96,9 +68,21 @@ public class LastAdventures extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // load data files
-        manager = new Manager();
-        manager.manageAll(dataNames, data);
+        data = new Manager();
+        
+        data.add(ShipType.KEY, new ShipReader().load("/data/Ships.json"));
+        data.add(GadgetType.KEY, new GadgetReader().load("/data/Gadgets.json"));
+        data.add(GoodType.KEY, new GoodReader().load("/data/Goods.json"));
+        data.add(ShieldType.KEY, new ShieldReader().load("/data/Shields.json"));
+        data.add(CompanyType.KEY, new
+        CompanyReader().load("/data/Companies.json"));
+        data.add(GovernmentType.KEY, new
+        GovernmentReader().load("/data/Governments.json"));
+        data.add(ConditionType.KEY, new
+        ConditionReader().load("/data/Conditions.json"));
+        data.add(EnvironmentType.KEY, new
+        EnvironmentReader().load("/data/Environments.json"));
+        data.add(TechType.KEY, new TechReader().load("/data/TechLevels.json"));
 
         launch(args);
     }

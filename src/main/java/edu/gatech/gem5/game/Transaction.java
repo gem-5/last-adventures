@@ -3,6 +3,8 @@ package edu.gatech.gem5.game;
 import java.util.Map;
 import java.util.Stack;
 
+import edu.gatech.gem5.game.data.GoodType;
+
 /**
  * This class handles all exchanges between the player character and a planet's
  * stock. This includes goods, ships, weapons, gadgets, and shields.
@@ -48,10 +50,10 @@ public class Transaction {
                 player.setMoney(money - quantity * price);
                 Ship ship = player.getShip();
                 Good[] cargo = ship.getCargoList();
-                Map goodInfo = LastAdventures.manager.getInfo("good");
+                Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
                 Stack<Integer> open = ship.getOpenBays();
                 for (int i = 0; i < quantity; i++) {
-                    cargo[open.pop()] = (Good) goodInfo.get(good);
+                    cargo[open.pop()] = new Good(goodInfo.get(good));
                 }
                 //don't know if this line is necessary
                 ship.setOpenBays(open);
