@@ -6,7 +6,7 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public class GoodType {
+public class GoodType extends DataType {
 
     private String name;
     private int value;

@@ -74,7 +74,10 @@ public class DisplayUniverseController implements Initializable {
             circle.setRadius(2.0 * system.getPlanets().size());
             circle.setFill(Color.WHITE);
             circle.setCursor(Cursor.HAND);
-            Tooltip t = new Tooltip("Planets: " + system.getPlanets().size());
+            Tooltip t = new Tooltip(
+                system.getName() + "\n" + 
+                "Planets: " + system.getPlanets().size()
+            );
             Tooltip.install(circle, t);
 
             children.add(circle);
@@ -94,6 +97,7 @@ public class DisplayUniverseController implements Initializable {
             imgView.setLayoutX(xCoordinate * widthRatio - dx);
             imgView.setLayoutY(yCoordinate * heightRatio - dy);
             children.add(imgView);
+            imgView.toBack();
 
         // show the ship range
         Ship s = save.getCharacter().getShip();
@@ -105,6 +109,7 @@ public class DisplayUniverseController implements Initializable {
         circle.setStroke(Color.GREEN);
         circle.setFill(Color.TRANSPARENT);
         children.add(circle);
+        circle.toBack();
         
         Planet startPlanet = startSystem.getPlanets().get(0);
 

@@ -10,9 +10,6 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane id="AnchorPane" prefHeight="720" prefWidth="1280" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="edu.gatech.gem5.game.controllers.MarketController">    
-    <stylesheets>
-        <URL value="@status.css" />
-    </stylesheets>
    <children>
       <SplitPane dividerPositions="0.5" layoutY="1.0" prefHeight="720.0" prefWidth="1280.0">
         <items>
@@ -37,7 +34,9 @@
                         </Tab>
                         <Tab text="Goods">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            <ListView fx:id="buyGoods">
+
+                            </ListView>
                           </content>
                         </Tab>
                     </tabs>

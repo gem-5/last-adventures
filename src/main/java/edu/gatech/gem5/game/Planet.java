@@ -9,7 +9,9 @@ import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 
+import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.TechType;
 import edu.gatech.gem5.game.data.EnvironmentType;
 import edu.gatech.gem5.game.data.GovernmentType;
@@ -58,15 +60,7 @@ public class Planet {
         return null;
     }
     
-    /**
-     *
-     * @return
-     */
-    public Map<String, Integer> getSupply() {
-        return null;
-    }
-
-    /**
+   /**
      * Get the tech level.
      *
      * @return the tech level.
@@ -109,6 +103,39 @@ public class Planet {
             Map<String, CompanyType> companies =
             LastAdventures.data.get(CompanyType.KEY);
             out.add(companies.get(s));
+        }
+        return out;
+    }
+
+    /**
+     * Get a map of goods and their quantities sold by this planet.
+     *
+     * @return the map
+     */
+    public Map<String, Integer> getStock() {
+        Map<String, Integer> out = new HashMap<>();
+        for (CompanyType c : getCompanies()) {
+            for (String s : c.getProducts()) {
+                out.put(s, 10); // TODO: change this number
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Get a map of goods and their prices sold by this planet.
+     *
+     * @return the map
+     */
+    public Map<String, Integer> getSupply() {
+        Map<String, Integer> out = new HashMap<>();
+        for (CompanyType c : getCompanies()) {
+            for (String s : c.getProducts()) {
+                GoodType g = (GoodType) 
+                    LastAdventures.data.get(GoodType.KEY).get(s);
+                int value = g.getValue();
+                out.put(s, value); // TODO: apply multipliers
+            }
         }
         return out;
     }

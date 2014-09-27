@@ -105,7 +105,7 @@ public class CharacterCreateController implements Initializable {
         if (id.equals("confirm")) {
             if (name.getText().trim().isEmpty()) {
                 errorMessage.setText("Please enter a name.");
-            } else if (!name.getText().equals("Nyan")) {
+            } else {
                 Character player = new Character(name.getText().trim(),
                         Integer.parseInt(pilotValue.getText()),
                         Integer.parseInt(fighterValue.getText()),
@@ -113,12 +113,9 @@ public class CharacterCreateController implements Initializable {
                         Integer.parseInt(engineerValue.getText()),
                         Integer.parseInt(investorValue.getText()),
                         // default ship
-                        new Ship(ships.get("vagabond"))
-                        );
+                        new Ship(ships.get("vagabond")));
                 LastAdventures.getCurrentSaveFile().addCharacter(player);
                 root = FXMLLoader.load(getClass().getResource("/status.fxml"));
-            } else {
-                root = FXMLLoader.load(getClass().getResource("/easterNyan.fxml"));
             }
         } else if (id.equals("back")) {
             LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
