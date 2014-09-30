@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.ui.BuyBar;
 import edu.gatech.gem5.game.ui.UpgradeBar;
 import edu.gatech.gem5.game.data.DataType;
@@ -24,6 +25,10 @@ import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.data.WeaponType;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -152,7 +157,7 @@ public class MarketController extends Controller {
                 ((GoodType) goods.get(x.getKey())).getName()
             );
             lstGoods.add(b);
-        }
+        }        
         buyGoods.setItems(lstGoods);
 
     }

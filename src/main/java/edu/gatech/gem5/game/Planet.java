@@ -17,6 +17,7 @@ import edu.gatech.gem5.game.data.EnvironmentType;
 import edu.gatech.gem5.game.data.GovernmentType;
 import edu.gatech.gem5.game.data.CompanyType;
 import edu.gatech.gem5.game.data.ConditionType;
+import java.util.TreeMap;
 
 /**
  * Represents a planet in a system.
@@ -59,14 +60,6 @@ public class Planet {
      */
     public SolarSystem getSolarySystem() {
         return this.solarSystem;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Map<String, Integer> getDemand() {
-        return null;
     }
 
    /**
@@ -171,7 +164,7 @@ public class Planet {
      * @return the map
      */
     public Map<String, Integer> getStock() {
-        Map<String, Integer> out = new HashMap<>();
+        Map<String, Integer> out = new TreeMap<>();
         for (CompanyType c : getCompanies()) {
             for (String s : c.getProducts()) {
                 if (!out.containsKey(s)) out.put(s, 0);
@@ -193,7 +186,7 @@ public class Planet {
      * @return the map
      */
     public Map<String, Integer> getSupply() {
-        Map<String, Integer> out = new HashMap<>();
+        Map<String, Integer> out = new TreeMap<>();
         for (CompanyType c : getCompanies()) {
             for (String s : c.getProducts()) {
                 GoodType g = (GoodType)
@@ -224,6 +217,14 @@ public class Planet {
             }
         }
         return out;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public Map<String, Integer> getDemand() {
+        return null;
     }
 
     private Map<String, Integer> getCompetitions() {
