@@ -21,6 +21,7 @@ import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Good;
+import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.ui.BuyBar;
 import edu.gatech.gem5.game.ui.UpgradeBar;
 import edu.gatech.gem5.game.data.DataType;
@@ -29,6 +30,10 @@ import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.data.WeaponType;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -71,8 +76,49 @@ public class MarketController implements Initializable {
         // not implemented
     }
 
-    public void sellGoods() {
+    public void sellGood() {
 
+    }
+
+
+    /**
+     * Buy Goods
+     *
+     * @param event A button press attempting to change scenes
+     * @throws Exception
+     */
+    @FXML
+    public void buyGoods(ActionEvent event) throws Exception {
+        String id = ((Button) (event.getSource())).idProperty().get();
+
+        if (id.equals("purchase")) {
+            Transaction transaction = new Transaction();
+            int[] quantities = new int[ buyGoods.getItems().size()];
+            //TODO ObservableList<BuyBar> has a sorted method - ask Jack about
+            //this if you feel like doing work
+            for(int i = 0; i < buyGoods.getItems().size(); i++) {
+                quantities[i] = (int) buyGoods.getItems().get(i).getSliderValue();
+            }
+            if (transaction.validateBuy(quantities)) {
+                System.out.println("I have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
+                transaction.buy(quantities);
+                lblCash.setText("" + LastAdventures.getCurrentSaveFile()
+                        .getCharacter().getMoney());
+                System.out.println("I now have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
+            } else {
+                System.out.println("error is:");
+                System.out.println(transaction.getErrorMessage());
+                transaction.getErrorMessage();//this should be text of some popup dialog
+            }
+        } else if (id.equals("sell")) {
+            Transaction transaction = new Transaction();
+            if (transaction.validateSell(3, "water")) {
+                transaction.sell(3,"water");
+            } else {
+                System.out.println(transaction.getErrorMessage());
+                transaction.getErrorMessage();//this should be text of some popup dialog
+            }
+        }
     }
 
     /**

@@ -22,7 +22,7 @@
                             <VBox>
                                 <ListView fx:id="buyGoods" VBox.Vgrow="always"/>
                                 <Region VBox.Vgrow="always"/>
-                                <Button text="Purchase" onAction="#buyGoods"/>
+                                <Button id="purchase" text="Purchase" onAction="#buyGoods"/>
                             </VBox>
                         </content>
                       </Tab>
