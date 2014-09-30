@@ -1,5 +1,6 @@
 {
     "water" : {
+        "key" : "water",
         "name" : "Water",
         "value" : 40,
         "legal" : true,
@@ -8,6 +9,7 @@
     },
 
     "furs" : {
+        "key" : "furs",
         "name" : "Furs",
         "value" : 280,
         "legal" : true,
@@ -16,6 +18,7 @@
     },
 
     "food" : {
+        "key" : "food",
         "name" : "Food",
         "value" : 110,
         "legal" : true,
@@ -24,14 +27,16 @@
     },
 
     "ore" : {
+        "key" : "ore",
         "name" : "Ore",
         "value" : 430,
         "legal" : true,
         "minStock" : 15,
         "maxStock" : 20
-    }, 
+    },
 
     "textiles" : {
+        "key" : "textiles",
         "name" : "Textiles",
         "value" : 400,
         "legal" : true,
@@ -40,6 +45,7 @@
     },
 
     "gems" : {
+        "key" : "gems",
         "name" : "Gems",
         "value" : 800,
         "legal" : true,
@@ -48,6 +54,7 @@
     },
 
     "games" : {
+        "key" : "games",
         "name" : "Games",
         "value" : 210,
         "legal" : true,
@@ -56,6 +63,7 @@
     },
 
     "firearms" : {
+        "key" : "firearms",
         "name" : "Firearms",
         "value" : 900,
         "legal" : false,
@@ -64,6 +72,7 @@
     },
 
     "medicine" : {
+        "key" : "medicine",
         "name" : "Medicine",
         "value" : 550,
         "legal" : true,
@@ -72,6 +81,7 @@
     },
 
     "drugs" : {
+        "key" : "drugs",
         "name" : "Drugs",
         "value" : 3000,
         "legal" : false,
@@ -80,6 +90,7 @@
     },
 
     "machines" : {
+        "key" : "machines",
         "name" : "Machines",
         "value" : 750,
         "legal" : true,
@@ -88,6 +99,7 @@
     },
 
     "robots" : {
+        "key" : "robots",
         "name" : "Robots",
         "value" : 4000,
         "legal" : true,

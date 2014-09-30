@@ -19,6 +19,8 @@ import javafx.collections.FXCollections;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.Character;
+import edu.gatech.gem5.game.Good;
 import edu.gatech.gem5.game.ui.BuyBar;
 import edu.gatech.gem5.game.ui.UpgradeBar;
 import edu.gatech.gem5.game.data.DataType;
@@ -50,6 +52,8 @@ public class MarketController implements Initializable {
     @FXML
     private ListView<UpgradeBar> upShields;
 
+    private ListView<BuyBar> sellGoods;
+
     @FXML
     public void buyGoods() {
         // not implemented
@@ -65,6 +69,10 @@ public class MarketController implements Initializable {
     @FXML
     public void upShield() {
         // not implemented
+    }
+
+    public void sellGoods() {
+
     }
 
     /**
@@ -132,6 +140,20 @@ public class MarketController implements Initializable {
             lstGoods.add(b);
         }
         buyGoods.setItems(lstGoods);
+
+        // this is the tab for goods the player has
+        ObservableList<BuyBar> listGoods = FXCollections.observableArrayList();
+        Map<Good, Integer> playerGoods = LastAdventures.getCurrentSaveFile().getCharacter().getShip().getCargoCounts();
+        for (Map.Entry<Good, Integer> g: playerGoods.entrySet()) {
+            BuyBar b = new BuyBar();
+            b.setKey(g.getKey().getType().getKey());
+            b.setQuantity(g.getValue());
+            b.setPrice(planet.getDemand().get(g.getKey().getType().getKey()));
+            b.setText(g.getKey().getType().getName());
+            listGoods.add(b);
+        }
+        sellGoods.setItems(listGoods);
     }
+
 
 }

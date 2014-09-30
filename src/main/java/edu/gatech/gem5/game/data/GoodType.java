@@ -8,6 +8,7 @@ package edu.gatech.gem5.game.data;
 
 public class GoodType extends DataType {
 
+    private String key;
     private String name;
     private int value;
     private int minStock;
@@ -16,6 +17,14 @@ public class GoodType extends DataType {
 
     public static final String KEY = "good";
 
+    /**
+     * Return the name of this good type.
+     *
+     * @return the name
+     */
+    public String getKey() {
+        return this.key;
+    }
     /**
      * Return the name of this good type.
      *
