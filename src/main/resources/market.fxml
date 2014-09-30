@@ -9,88 +9,104 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="720" prefWidth="1280" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="edu.gatech.gem5.game.controllers.MarketController">
-   <children>
-      <SplitPane dividerPositions="0.5" layoutY="1.0" prefHeight="720.0" prefWidth="1280.0">
-        <items>
-          <AnchorPane fx:id="left">
-               <children>
-                  <TabPane fx:id="buyBox" layoutY="50.0" prefHeight="600.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="Goods">
-                        <content>
-                            <VBox>
-                                <ListView fx:id="buyGoods" VBox.Vgrow="always"/>
-                                <Region VBox.Vgrow="always"/>
-                                <Button id="purchase" text="Purchase" onAction="#buyGoods"/>
-                            </VBox>
-                        </content>
-                      </Tab>
-                      <Tab text="Ships">
-                        <content>
-                            <VBox>
-                                <ListView fx:id="upShips" VBox.Vgrow="always"/>
-                                <Region VBox.Vgrow="always"/>
-                                <Button text="Upgrade" onAction="#upShip"/>
-                            </VBox>
-                        </content>
-                      </Tab>
-                      <Tab text="Weapons">
-                        <content>
-                            <VBox>
-                                <ListView fx:id="upWeapons" VBox.Vgrow="always"/>
-                                <Region VBox.Vgrow="always"/>
-                                <Button text="Upgrade" onAction="#upWeapon"/>
-                            </VBox>
-                        </content>
-                      </Tab>
-                        <Tab text="Shields">
-                        <content>
-                            <VBox>
-                                <ListView fx:id="upShields" VBox.Vgrow="always"/>
-                                <Region VBox.Vgrow="always"/>
-                                <Button text="Upgrade" onAction="#upShield"/>
-                            </VBox>
-                        </content>
-                        </Tab>
-                    </tabs>
-                  </TabPane>
-                  <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Market Name" />
-               </children>
-            </AnchorPane>
-          <AnchorPane fx:id="right" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <TabPane fx:id="buyBox1" layoutY="50.0" prefHeight="600.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE">
-                     <tabs>
-                        <Tab text="Ships">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="636.0" />
-                           </content>
-                        </Tab>
-                        <Tab text="Weapons">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </Tab>
-                        <Tab text="Shields">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </Tab>
-                        <Tab text="Goods">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </Tab>
-                     </tabs>
-                  </TabPane>
-                  <HBox>
-                      <Label text="Player Cash:"/>
-                      <Label fx:id="lblCash" />
-                  </HBox>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <SplitPane dividerPositions="0.5" layoutY="1.0" prefHeight="720.0" prefWidth="1280.0">
+            <items>
+                <AnchorPane fx:id="left">
+                    <children>
+                        <TabPane fx:id="buyBox" layoutY="50.0" prefHeight="600.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE">
+                            <tabs>
+                                <Tab text="Goods">
+                                    <content>
+                                        <VBox prefHeight="673.0" prefWidth="636.0">
+                                            <children>
+                                                <ListView fx:id="buyGoods" prefHeight="636.0" prefWidth="636.0" VBox.Vgrow="always" />
+                                                <Region prefHeight="178.0" prefWidth="636.0" VBox.Vgrow="always" />
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Button id="purchase" onAction="#buttonTransaction" text="Purchase" />
+                                                        <Region prefHeight="24.0" prefWidth="24.0" />
+                                                        <Button id="back" onAction="#buttonMenu" text="Back" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+                                <Tab text="Ships">
+                                    <content>
+                                        <VBox>
+                                            <children>
+                                                <ListView fx:id="upShips" VBox.Vgrow="always" />
+                                                <Region VBox.Vgrow="always" />
+                                                <Button onAction="#upShip" text="Upgrade" />
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+                                <Tab text="Weapons">
+                                    <content>
+                                        <VBox>
+                                            <children>
+                                                <ListView fx:id="upWeapons" VBox.Vgrow="always" />
+                                                <Region VBox.Vgrow="always" />
+                                                <Button onAction="#upWeapon" text="Upgrade" />
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+                                <Tab text="Shields">
+                                    <content>
+                                        <VBox>
+                                            <children>
+                                                <ListView fx:id="upShields" VBox.Vgrow="always" />
+                                                <Region VBox.Vgrow="always" />
+                                                <Button onAction="#upShield" text="Upgrade" />
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                        <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Market Name" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="right" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <TabPane fx:id="buyBox1" layoutY="50.0" prefHeight="600.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE">
+                            <tabs>
+                                <Tab text="Ships">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="636.0" />
+                                    </content>
+                                </Tab>
+                                <Tab text="Weapons">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                                <Tab text="Shields">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                                <Tab text="Goods">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                        <HBox>
+                            <children>
+                                <Label text="Player Cash:" />
+                                <Label fx:id="lblCash" />
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
 </AnchorPane>

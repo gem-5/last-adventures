@@ -8,16 +8,15 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane
-    xmlns:fx="http://javafx.com/fxml/1" 
+    xmlns:fx="http://javafx.com/fxml/1"
     id="AnchorPane"
     prefHeight="720"
     prefWidth="1280"
-    fx:controller="edu.gatech.gem5.game.controllers.DisplayUniverseController"
     fx:id="root"
-    onMouseClicked="#changeScenes"  
+    onMouseClicked="#changeScenes"
 >
     <children>
-        
+
     </children>
     <stylesheets>
         <URL value="@displayUniverse.css"/>

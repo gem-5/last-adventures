@@ -5,11 +5,7 @@ package edu.gatech.gem5.game.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Map;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Label;
@@ -38,7 +34,7 @@ import javafx.stage.Stage;
  *
  * @author James
  */
-public class MarketController implements Initializable {
+public class MarketController extends Controller {
 
     @FXML
     private Label lblCash;
@@ -55,40 +51,43 @@ public class MarketController implements Initializable {
     @FXML
     private ListView<UpgradeBar> upShields;
 
-    @FXML
-    public void buyGoods() {
-        // not implemented
-    }
-    @FXML
-    public void upShip() {
-        // not implemented
-    }
-    @FXML
-    public void upWeapon() {
-        // not implemented
-    }
-    @FXML
-    public void upShield() {
-        // not implemented
+    private Planet planet;
+    public static final String MARKET_VIEW_FILE = "/market.fxml";
+
+    /**
+     * Construct the planet controller.
+     */
+    public MarketController() {
+        // load the view or throw an exception
+        super(MARKET_VIEW_FILE);
+
+        SaveFile save = LastAdventures.getCurrentSaveFile();
+        planet = save.getPlanet();
+
+        fillLabels();
+        buildGoodsList();
+        buildShieldList();
+        buildShipList();
+        buildWeaponList();
     }
 
-    
     /**
-     * Buy Goods
+     * Buy/Sell Goods
      *
      * @param event A button press attempting to change scenes
-     * @throws Exception 
+     * @throws Exception
      */
     @FXML
-    public void buyGoods(ActionEvent event) throws Exception {
+    public void buttonTransaction(ActionEvent event) throws Exception {
         String id = ((Button) (event.getSource())).idProperty().get();
-        
+
+        // Buy Goods
         if (id.equals("purchase")) {
             Transaction transaction = new Transaction();
-            int[] quantities = new int[ buyGoods.getItems().size()];
+            int[] quantities = new int[buyGoods.getItems().size()];
             //TODO ObservableList<BuyBar> has a sorted method - ask Jack about
             //this if you feel like doing work
-            for(int i = 0; i < buyGoods.getItems().size(); i++) {
+            for (int i = 0; i < buyGoods.getItems().size(); i++) {
                 quantities[i] = (int) buyGoods.getItems().get(i).getSliderValue();
             }
             if (transaction.validateBuy(quantities)) {
@@ -102,6 +101,7 @@ public class MarketController implements Initializable {
                 System.out.println(transaction.getErrorMessage());
                 transaction.getErrorMessage();//this should be text of some popup dialog
             }
+            // Sell goods
         } else if (id.equals("sell")) {
             Transaction transaction = new Transaction();
             if (transaction.validateSell(new int[buyGoods.getItems().size()])) {
@@ -112,22 +112,53 @@ public class MarketController implements Initializable {
             }
         }
     }
-    
+
     /**
-     * Initializes the controller class.
+     * Buy Goods
+     *
+     * @param event A button press attempting to change scenes
+     * @throws Exception
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void buttonMenu(ActionEvent event) throws Exception {
+        String id = ((Button) (event.getSource())).idProperty().get();
+        // Goto main screen.
+        if (id.equals("back")) {
+            LastAdventures.swap(new PlanetController());
+        }
+    }
+
+    @FXML
+    public void buyGoods() {
+        // not implemented
+    }
+
+    @FXML
+    public void upShip() {
+        // not implemented
+    }
+
+    @FXML
+    public void upWeapon() {
+        // not implemented
+    }
+
+    @FXML
+    public void upShield() {
+        // not implemented
+    }
+
+    private void fillLabels() {
         SaveFile save = LastAdventures.getCurrentSaveFile();
-        Planet planet = save.getPlanet();
-
         this.lblCash.setText(
-            ((Integer) save.getCharacter().getMoney()).toString()
+                ((Integer) save.getCharacter().getMoney()).toString()
         );
+    }
 
+    private void buildShipList() {
         // this is the tab for ships that the planet sells
-        ObservableList<UpgradeBar> lstShips =
-            FXCollections.observableArrayList();
+        ObservableList<UpgradeBar> lstShips
+                = FXCollections.observableArrayList();
         Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
         for (String x : planet.getShips()) {
             UpgradeBar b = new UpgradeBar();
@@ -138,9 +169,12 @@ public class MarketController implements Initializable {
             lstShips.add(b);
         }
         upShips.setItems(lstShips);
+    }
+
+    private void buildWeaponList() {
         // this is the tab for weapons that the planet sells
-        ObservableList<UpgradeBar> lstWeapons =
-            FXCollections.observableArrayList();
+        ObservableList<UpgradeBar> lstWeapons
+                = FXCollections.observableArrayList();
         Map<String, WeaponType> weps = LastAdventures.data.get(WeaponType.KEY);
         for (String x : planet.getWeapons()) {
             UpgradeBar b = new UpgradeBar();
@@ -151,9 +185,12 @@ public class MarketController implements Initializable {
             lstWeapons.add(b);
         }
         upWeapons.setItems(lstWeapons);
+    }
+
+    private void buildShieldList() {
         // this is the tab for shields that the planet sells
-        ObservableList<UpgradeBar> lstShields =
-            FXCollections.observableArrayList();
+        ObservableList<UpgradeBar> lstShields
+                = FXCollections.observableArrayList();
         Map<String, ShieldType> shilds = LastAdventures.data.get(ShieldType.KEY);
         for (String x : planet.getShields()) {
             UpgradeBar b = new UpgradeBar();
@@ -164,6 +201,9 @@ public class MarketController implements Initializable {
             lstShields.add(b);
         }
         upShields.setItems(lstShields);
+    }
+
+    private void buildGoodsList() {
         // this is the tab for goods that the planet sells
         ObservableList<BuyBar> lstGoods = FXCollections.observableArrayList();
         Map<String, GoodType> goods = LastAdventures.data.get(GoodType.KEY);
@@ -173,11 +213,12 @@ public class MarketController implements Initializable {
             b.setQuantity(x.getValue());
             b.setPrice(planet.getSupply().get(x.getKey()));
             b.setText(
-                ((GoodType) goods.get(x.getKey())).getName()
+                    ((GoodType) goods.get(x.getKey())).getName()
             );
             lstGoods.add(b);
-        }        
+        }
         buyGoods.setItems(lstGoods);
+
     }
 
 }

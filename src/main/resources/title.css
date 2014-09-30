@@ -16,6 +16,10 @@
     -fx-opacity: 0.5;
 }
 
+.FlowPane {
+    -fx-alignment: center;
+}
+
 #subtitle {
     -fx-font-size: 40;
 }

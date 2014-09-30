@@ -6,14 +6,10 @@ import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
-import java.net.URL;
 import java.util.List;
 import java.util.Random;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -33,34 +29,28 @@ import javafx.scene.Cursor;
  *
  * @author Jack Mueller
  */
-public class DisplayUniverseController implements Initializable {
+public class DisplayUniverseController extends Controller {
 
     @FXML
     AnchorPane root;
 
+    private Universe universe;
+
+    public static final String UNIVERSE_VIEW_FILE = "displayUniverse.fxml";
 
     /**
-     * Changes screens
-     *
-     * @param event A button press attempting to change scenes
-     * @throws Exception if the scene resource is not found
+     * Construct the universe display controller.
      */
-    @FXML
-    public void changeScenes(MouseEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        root = FXMLLoader.load(getClass().getResource("/market.fxml"));
-
-        stage.setScene(new Scene((Pane) root));
+    public DisplayUniverseController() {
+        super(UNIVERSE_VIEW_FILE);
+        universe = LastAdventures.getCurrentSaveFile().getUniverse();
+        drawUniverse();
+        drawSystemMarker();
+        drawShipRange();
     }
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        Universe universe = LastAdventures.getCurrentSaveFile().getUniverse();
-
+    private void drawUniverse() {
+        Pane root = (Pane) LastAdventures.getRoot();
         double widthRatio = root.getPrefWidth()/universe.getWidth();
         double heightRatio = root.getPrefHeight()/universe.getHeight();
         ObservableList<Node> children = root.getChildren();
@@ -82,23 +72,34 @@ public class DisplayUniverseController implements Initializable {
 
             children.add(circle);
         }
+    }
 
-        //Randomly choose a planet to start on
-        Random rand = new Random();
-        SolarSystem startSystem = systems.get(rand.nextInt(systems.size()));
+    private void drawSystemMarker() {
+        Pane root = (Pane) LastAdventures.getRoot();
+        double widthRatio = root.getPrefWidth()/universe.getWidth();
+        double heightRatio = root.getPrefHeight()/universe.getHeight();
+        ObservableList<Node> children = root.getChildren();
         SaveFile save = LastAdventures.getCurrentSaveFile();
-
+        int xCoordinate = save.getPlanet().getSolarySystem().getXCoordinate();
+        int yCoordinate = save.getPlanet().getSolarySystem().getYCoordinate();
         Image img = new Image("img/currentSystem.png");
         int dx = (int) img.getWidth() / 2;
         int dy = (int) img.getHeight() / 2;
             ImageView imgView = new ImageView(img);
-            int xCoordinate = startSystem.getXCoordinate();
-            int yCoordinate = startSystem.getYCoordinate();
             imgView.setLayoutX(xCoordinate * widthRatio - dx);
             imgView.setLayoutY(yCoordinate * heightRatio - dy);
             children.add(imgView);
             imgView.toBack();
+    }
 
+    private void drawShipRange() {
+        Pane root = (Pane) LastAdventures.getRoot();
+        double widthRatio = root.getPrefWidth()/universe.getWidth();
+        double heightRatio = root.getPrefHeight()/universe.getHeight();
+        SaveFile save = LastAdventures.getCurrentSaveFile();
+        int xCoordinate = save.getPlanet().getSolarySystem().getXCoordinate();
+        int yCoordinate = save.getPlanet().getSolarySystem().getYCoordinate();
+        ObservableList<Node> children = root.getChildren();
         // show the ship range
         Ship s = save.getCharacter().getShip();
         double range = s.getType().getRange();
@@ -112,4 +113,14 @@ public class DisplayUniverseController implements Initializable {
         circle.toBack();
     }
 
+    /**
+     * Changes screens
+     *
+     * @param event A button press attempting to change scenes
+     * @throws Exception if the scene resource is not found
+     */
+    @FXML
+    public void changeScenes(MouseEvent event) throws Exception {
+        LastAdventures.swap(new MarketController());
+    }
 }

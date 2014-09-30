@@ -11,8 +11,6 @@ import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.data.ShipType;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Map;
 import java.util.List;
 import java.util.Random;
@@ -20,8 +18,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,7 +33,7 @@ import javafx.stage.Stage;
  * @author James Jong Han Park
  * @author Jack
  */
-public class CharacterCreateController implements Initializable {
+public class CharacterCreateController extends Controller {
 
     Parent root;
     @FXML
@@ -95,39 +91,60 @@ public class CharacterCreateController implements Initializable {
     private Button[] incButtons, decButtons;
     private Label[] values, skillNames;
 
+    public static final String CREATE_VIEW_FILE = "/create.fxml";
+
+    /**
+     * Construct the character creation controller.
+     */
+    public CharacterCreateController() {
+        // load the view or throw an exception
+        super(CREATE_VIEW_FILE);
+        // Create a new save file
+        game.createNewSaveFile();
+    }
+
     /**
      *
      * @param event a button press
-     * @throws Exception if the scene resource is not found
      */
     @FXML
     public void changeScenes(ActionEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button) (event.getSource())).idProperty().get();
-        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
 
         if (id.equals("confirm")) {
-            if (name.getText().trim().isEmpty()) {
-                errorMessage.setText("Please enter a name.");
-            } else {
-                Character player = new Character(name.getText().trim(),
-                        Integer.parseInt(pilotValue.getText()),
-                        Integer.parseInt(fighterValue.getText()),
-                        Integer.parseInt(traderValue.getText()),
-                        Integer.parseInt(engineerValue.getText()),
-                        Integer.parseInt(investorValue.getText()),
-                        // default ship
-                        new Ship(ships.get("vagabond")));
-                beginNewGame(player, new Universe(120, 4, 13));
-                root = FXMLLoader.load(getClass().getResource("/status.fxml"));
+            if (validate(name.getText().trim())) {
+                beginNewGame(createCharacter(), createUniverse());
+                LastAdventures.swap(new CharacterStatusController());
             }
         } else if (id.equals("back")) {
             LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
-            root = FXMLLoader.load(getClass().getResource("/title.fxml"));
+            LastAdventures.swap(new TitleController());
         }
-        if (root != null) {
-            stage.setScene(new Scene((Pane) root));
+    }
+
+    private boolean validate(String str) {
+        if (str.isEmpty()) {
+            errorMessage.setText("Please enter a name.");
+            return false;
         }
+        return true;
+    }
+
+    private Character createCharacter() {
+        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
+        return new Character(
+            name.getText().trim(),
+            Integer.parseInt(pilotValue.getText()),
+            Integer.parseInt(fighterValue.getText()),
+            Integer.parseInt(traderValue.getText()),
+            Integer.parseInt(engineerValue.getText()),
+            Integer.parseInt(investorValue.getText()),
+            // default ship
+            new Ship(ships.get("vagabond")));
+    }
+
+    private Universe createUniverse() {
+        return new Universe(120, 4, 13);
     }
 
     private void beginNewGame(Character player, Universe uni) {
@@ -194,41 +211,4 @@ public class CharacterCreateController implements Initializable {
         });
     }
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-        // Note: Make sure that values, incButtons, and decButtons' objects allign in order together.
-        // Ex. values[0] = pilotValue, incButtons[0] = pillotInc, decbuttons[0] = pilotDec
-        // ... values[3] = engineerValue, incButtons[3] = engineerInc, decbuttons[3] = engineerDec
-        values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
-        incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
-        decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
-
-        skillNames = new Label[]{pilot, fighter, trader, engineer, investor, remaining};
-
-        // Hide labels and buttons (used for animation)
-        for (int x = 0; x < values.length; x++) {
-            skillNames[x].setTranslateX(-300);
-            values[x].setOpacity(0);
-        }
-        remainingValue.setTranslateX(-300);
-        remaining.setTranslateX(-300);
-
-        // Apply transition animation
-        for (int x = 0; x < skillNames.length; x++) {
-            new TranslateHandler(skillNames[x], x / 5.0, 1, 0, 0, -300, 0);
-        }
-        new TranslateHandler(remainingValue, skillNames.length / 5.0, 1, 0, 0, -300, 0);
-
-        // Apply fade-in animation
-        for (int x = 0; x < values.length; x++) {
-            new FadeHandler(values[x], skillNames.length / 5.0 + 1.1);
-
-        // Set limit to name field
-        addTextLimiter(name, 8);
-        }
-    }
 }
