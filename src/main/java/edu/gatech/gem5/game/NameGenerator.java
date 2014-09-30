@@ -1,4 +1,4 @@
-package edu.gatech.gem5.game;
+// package edu.gatech.gem5.game;
 
 import java.util.Random;
 
@@ -26,8 +26,8 @@ public class NameGenerator {
     private static final String[] realGreek = { "\u03B1", "\u03B2", "\u03B3", "\u03B4", "\u03B5",
                                                 "\u03B6", "\u03B7", "\u03B8", "\u03B9", "\u03BA",
                                                 "\u03BB", "\u03BC", "\u03BD", "\u03BE", "\u03BF",
-                                                "\u03C1", "\u03B2", "\u03B3", "\u03B4", "\u03B5",
-                                                "\u03B6", "\u03B7", "\u03B8", "\u03B9" };
+                                                "\u03C1", "\u03C2", "\u03C3", "\u03C4", "\u03C5",
+                                                "\u03C6", "\u03C7", "\u03C8", "\u03C9" };
 
 
 
@@ -79,7 +79,10 @@ public class NameGenerator {
     public String newName() {
         return newName(4, 9);
     }
-
+    /**
+     * Method to generate new planet names with Greek characters
+     * @return the newly generated name
+     */
     public String newPlanetName() {
         String name = newName();
         if (unicode) {
@@ -89,7 +92,12 @@ public class NameGenerator {
         }
         return name;
     }
-
+    /**
+     * Method to generate new names from a given min and max length
+     * @param minLength The minimum length of the name to be generated
+     * @param maxLength The maximum length of the name to be generated
+     * @return the newly generated name
+     */
     public String[] planetNames(int numberOfPlanets) {
         return planetNames(numberOfPlanets, newName());
     }
@@ -99,7 +107,7 @@ public class NameGenerator {
         String name = solarSystemName;
         // int i = numberOfPlanets;
         for (int i = 0, j = 0; i < numberOfPlanets; i++, j++) {
-            j += rand.nextInt(24 - j - numberOfPlanets + i);
+            j = rand.nextInt(24 - j - numberOfPlanets + i) + j;
             names[i] = name + "-" + (unicode ? realGreek[j] : greek[j]);
         }
         return names;
