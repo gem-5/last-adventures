@@ -8,6 +8,7 @@ package edu.gatech.gem5.game.data;
 
 public class WeaponType extends DataType {
 
+    private String key;
     private String name;
     private String description;
     private int price;
@@ -17,6 +18,13 @@ public class WeaponType extends DataType {
 
     public static final String KEY = "weapon";
 
+    /**
+     * Get the key of this weapon
+     * @return the key
+     */
+    public String getKey() {
+        return this.key;
+    }
     /**
      * Get the name of this weapon.
      *

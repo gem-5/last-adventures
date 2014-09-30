@@ -8,6 +8,7 @@ package edu.gatech.gem5.game.data;
 
 public class ShieldType extends DataType {
 
+    private String key;
     private String name = "";
     private String description = "";
     private int price;
@@ -16,6 +17,13 @@ public class ShieldType extends DataType {
 
     public static final String KEY = "shield";
 
+    /**
+     * Get the key of this shield type
+     * @return the key
+     */
+    public String getKey() {
+        return this.key;
+    }
     /**
      * Return the name of this shield type.
      *

@@ -2,6 +2,8 @@ package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.data.ShipType;
 import java.util.Stack;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * A class for ship objects owned by players/NPCs.
@@ -101,6 +103,19 @@ public class Ship {
 
         return worth;
 
+    }
+    public Map<Good, Integer> getCargoCounts() {
+        Map<Good, Integer> goodMap = new TreeMap<>();
+        for (Good g: cargoList) {
+            if (g != null) {
+                if (goodMap.get(g) == null) {
+                    goodMap.put(g, 1);
+                } else {
+                    goodMap.put(g, goodMap.get(g) + 1);
+                }
+            }
+        }
+        return goodMap;
     }
 
 }

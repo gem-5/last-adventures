@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class GadgetType {
 
+    private String key;
     private String name;
     private String description;
     private int price;
@@ -18,6 +19,13 @@ public class GadgetType {
 
     public static final String KEY = "gadget";
 
+    /**
+     * Get the key of this gadget
+     * @return the key
+     */
+    public String getKey() {
+        return this.key;
+    }
     /**
      * Get the name of this gadget.
      *

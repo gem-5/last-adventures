@@ -16,6 +16,8 @@ import javafx.collections.FXCollections;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.Character;
+import edu.gatech.gem5.game.Good;
 import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.ui.BuyBar;
 import edu.gatech.gem5.game.ui.UpgradeBar;
@@ -70,7 +72,11 @@ public class MarketController extends Controller {
         buildShieldList();
         buildShipList();
         buildWeaponList();
+        buildSellGoodsList();
     }
+
+    @FXML
+    private ListView<BuyBar> sellGoods;
 
     @FXML
     public void buyGoods() {
@@ -89,7 +95,52 @@ public class MarketController extends Controller {
         // not implemented
     }
 
-    private void fillLabels() {
+
+    /**
+     * Buy Goods
+     *
+     * @param event A button press attempting to change scenes
+     * @throws Exception
+     */
+    @FXML
+    public void buyGoods(ActionEvent event) throws Exception {
+        String id = ((Button) (event.getSource())).idProperty().get();
+
+        if (id.equals("purchase")) {
+            Transaction transaction = new Transaction();
+            int[] quantities = new int[ buyGoods.getItems().size()];
+            //TODO ObservableList<BuyBar> has a sorted method - ask Jack about
+            //this if you feel like doing work
+            for(int i = 0; i < buyGoods.getItems().size(); i++) {
+                quantities[i] = (int) buyGoods.getItems().get(i).getSliderValue();
+            }
+            if (transaction.validateBuy(quantities)) {
+                System.out.println("I have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
+                transaction.buy(quantities);
+                lblCash.setText("" + LastAdventures.getCurrentSaveFile()
+                        .getCharacter().getMoney());
+                System.out.println("I now have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
+            } else {
+                System.out.println("error is:");
+                System.out.println(transaction.getErrorMessage());
+                transaction.getErrorMessage();//this should be text of some popup dialog
+            }
+        } else if (id.equals("sell")) {
+            Transaction transaction = new Transaction();
+            if (transaction.validateSell(3, "water")) {
+                transaction.sell(3,"water");
+            } else {
+                System.out.println(transaction.getErrorMessage());
+                transaction.getErrorMessage();//this should be text of some popup dialog
+            }
+        }
+    }
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         SaveFile save = LastAdventures.getCurrentSaveFile();
         this.lblCash.setText(
             ((Integer) save.getCharacter().getMoney()).toString()
@@ -157,9 +208,26 @@ public class MarketController extends Controller {
                 ((GoodType) goods.get(x.getKey())).getName()
             );
             lstGoods.add(b);
-        }        
+        }
         buyGoods.setItems(lstGoods);
-
     }
+
+    private void buildSellGoodsList() {
+        ObservableList<BuyBar> listGoods = FXCollections.observableArrayList();
+        Map<Good, Integer> playerGoods = LastAdventures.getCurrentSaveFile().getCharacter().getShip().getCargoCounts();
+        for (Map.Entry<Good, Integer> g: playerGoods.entrySet()) {
+            BuyBar b = new BuyBar();
+            b.setKey(g.getKey().getType().getKey());
+            b.setQuantity(g.getValue());
+            b.setPrice(planet.getDemand().get(g.getKey().getType().getKey()));
+            b.setText(g.getKey().getType().getName());
+            // b.setText(
+            //           ((GoodType) goods.get(g.getKey())).getName()
+            //           );
+            listGoods.add(b);
+        }
+        sellGoods.setItems(listGoods);
+    }
+
 
 }
