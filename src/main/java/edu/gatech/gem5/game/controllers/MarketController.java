@@ -57,6 +57,7 @@ public class MarketController implements Initializable {
     @FXML
     private ListView<UpgradeBar> upShields;
 
+    @FXML
     private ListView<BuyBar> sellGoods;
 
     @FXML
@@ -74,10 +75,6 @@ public class MarketController implements Initializable {
     @FXML
     public void upShield() {
         // not implemented
-    }
-
-    public void sellGood() {
-
     }
 
 
@@ -196,6 +193,9 @@ public class MarketController implements Initializable {
             b.setQuantity(g.getValue());
             b.setPrice(planet.getDemand().get(g.getKey().getType().getKey()));
             b.setText(g.getKey().getType().getName());
+            // b.setText(
+            //           ((GoodType) goods.get(g.getKey())).getName()
+            //           );
             listGoods.add(b);
         }
         sellGoods.setItems(listGoods);
