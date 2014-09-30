@@ -10,11 +10,9 @@ import java.util.Map;
 public class Character extends Human {
 
 
-    private int money;
 
     public Character(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship) {
-        super(name, pilot, fighter, trader, engineer, investor, ship);
-        money = 1000;
+        super(name, pilot, fighter, trader, engineer, investor, ship, 1000);
     }
 
     public String toString() {
@@ -51,14 +49,14 @@ public class Character extends Human {
     // void setMoney(int m) {
     //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     // }
-    public int getMoney() {
-        return this.money;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    // public int getMoney() {
+    //     return this.money;
+    //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // }
 
-    public void setMoney(int m) {
-        this.money = m;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    // public void setMoney(int m) {
+    //     this.money = m;
+    //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // }
 
 }

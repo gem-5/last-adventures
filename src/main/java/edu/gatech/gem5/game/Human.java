@@ -23,7 +23,7 @@ public class Human {
     private int money;
 
 
-    public Human(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship) {
+    public Human(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int money) {
         this.name = name;
         this.pilot = pilot;
         this.fighter = fighter;
@@ -31,6 +31,7 @@ public class Human {
         this.engineer = engineer;
         this.investor = investor;
         this.ship = ship;
+        this.money = money;
 
     }
     /**
@@ -161,15 +162,18 @@ public class Human {
     }
 
     public int getNetWorth() {
-        return this.money + this.ship.getNetWorth();
+        int worth = money;
+        if (ship != null)
+            worth += ship.getNetWorth();
+        return worth;
     }
     /**
      * @return A String representation of the Human.
      */
     public String toString() {
         if (this.ship == null) {
-            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: None",
-                                 name, pilot, fighter, trader, engineer, investor);
+            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: None%nNet Worth: %d",
+                                 name, pilot, fighter, trader, engineer, investor, this.getNetWorth());
         } else {
             return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: %s%nNet Worth: %d",
                                  name, pilot, fighter, trader, engineer, investor, ship.toString(), this.getNetWorth());
@@ -180,7 +184,7 @@ public class Human {
     public static void main(String[] args) {
         Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
         Human bob = new Human("Bob", 10, 11, 7, 9, 4,
-                new Ship(ships.get("vagabond")));
+                              new Ship(ships.get("vagabond")), 0);
         System.out.println(bob.toString());
     }
 }
