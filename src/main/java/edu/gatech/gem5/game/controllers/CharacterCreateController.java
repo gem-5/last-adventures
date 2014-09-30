@@ -101,25 +101,35 @@ public class CharacterCreateController extends Controller {
         super(CREATE_VIEW_FILE);
         // Create a new save file
         game.createNewSaveFile();
+
+        values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
+        incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
+        decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
+        skillNames = new Label[]{pilot, fighter, trader, engineer, investor, remaining};
     }
 
     /**
+     * Move to the confirm screen.
      *
      * @param event a button press
      */
     @FXML
-    public void changeScenes(ActionEvent event) throws Exception {
-        String id = ((Button) (event.getSource())).idProperty().get();
-
-        if (id.equals("confirm")) {
-            if (validate(name.getText().trim())) {
-                beginNewGame(createCharacter(), createUniverse());
-                LastAdventures.swap(new CharacterStatusController());
-            }
-        } else if (id.equals("back")) {
-            LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
-            LastAdventures.swap(new TitleController());
+    public void confirmCharacter(ActionEvent event) throws Exception {
+        if (validate(name.getText().trim())) {
+            beginNewGame(createCharacter(), createUniverse());
+            LastAdventures.swap(new CharacterStatusController());
         }
+    }
+
+    /**
+     * Go back to the title screen.
+     *
+     * @param event a button press
+     */
+    @FXML
+    public void goBack(ActionEvent event) throws Exception {
+        LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
+        LastAdventures.swap(new TitleController());
     }
 
     private boolean validate(String str) {

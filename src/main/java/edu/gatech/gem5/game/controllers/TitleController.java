@@ -47,22 +47,32 @@ public class TitleController extends Controller {
     }
 
     /**
-     * Changes the scene based on the button pressed.
+     * Move to the new game scene.
      *
-     * @param event a button press
+     * @param even a button press
      */
     @FXML
-    private void changeScenes(ActionEvent event) throws Exception {
-        String id = ((Button) (event.getSource())).idProperty().get();
-        //loads the create FXML file into root
-        if (id.equals("newButton")) {
-            LastAdventures.swap(new CharacterCreateController());
-        } else if (id.equals("continueButton")) {
-            //TODO
-            LastAdventures.swap(this); // go nowhere
-        } else if (id.equals("loadButton")) {
-            //TODO
-            LastAdventures.swap(this); // go nowhere
-        }
+    private void startNewGame(ActionEvent event) throws Exception {
+        LastAdventures.swap(new CharacterCreateController());
+    }
+
+    /**
+     * Move to the continue game scene.
+     *
+     * @param even a button press
+     */
+    @FXML
+    private void continueGame(ActionEvent event) throws Exception {
+        LastAdventures.swap(this); // go nowhere
+    }
+
+    /**
+     * Move to the load game scene.
+     *
+     * @param even a button press
+     */
+    @FXML
+    private void loadGame(ActionEvent event) throws Exception {
+        LastAdventures.swap(this); // go nowhere
     }
 }

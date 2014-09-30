@@ -65,19 +65,23 @@ public class CharacterStatusController extends Controller {
     }
 
     /**
-     * Changes screens
+     * Continue to the planet screen.
      *
-     * @param event A button press attempting to change scenes
+     * @param event a button press
      */
     @FXML
-    public void changeScenes(ActionEvent event) throws Exception {
-        String id = ((Button)(event.getSource())).idProperty().get();
-        Node root = this.root;
-        if (id.equals("confirm")) {
-            LastAdventures.swap(new PlanetController());
-        } else if (id.equals("back")) {
-            LastAdventures.swap(new CharacterCreateController());
-        }
+    public void startGame(ActionEvent event) throws Exception {
+        LastAdventures.swap(new PlanetController());
+    }
+
+    /**
+     * Go back to create a new character.
+     *
+     * @param event a button press
+     */
+    @FXML
+    public void goBack(ActionEvent event) throws Exception {
+        LastAdventures.swap(new CharacterCreateController());
     }
 
 }
