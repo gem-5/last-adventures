@@ -14,7 +14,7 @@ public class Character extends Human {
 
     public Character(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship) {
         super(name, pilot, fighter, trader, engineer, investor, ship);
-        int money = 1000;
+        money = 1000;
     }
 
     public String toString() {
