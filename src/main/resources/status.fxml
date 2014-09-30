@@ -67,7 +67,7 @@
                 GridPane.rowIndex="7"
                 mnemonicParsing="false"
                 text="Confirm"
-                onAction="#changeScenes"
+                onAction="#startGame"
             />
             <Button
                 id="back"
@@ -76,7 +76,7 @@
                 cancelButton="true"
                 mnemonicParsing="false"
                 text="Back"
-                onAction="#changeScenes"
+                onAction="#goBack"
             />
         </GridPane>
         <Region HBox.Hgrow="always" /></HBox>

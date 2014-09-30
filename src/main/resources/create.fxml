@@ -208,7 +208,7 @@
                 cancelButton="true"
                 mnemonicParsing="false"
                 text="Back"
-                onAction="#changeScenes"
+                onAction="#goBack"
             >
             </Button>
             <Button
@@ -217,7 +217,7 @@
                 GridPane.rowIndex="7"
                 mnemonicParsing="false"
                 text="Confirm"
-                onAction="#changeScenes"
+                onAction="#confirmCharacter"
             >
             </Button>
             <Label

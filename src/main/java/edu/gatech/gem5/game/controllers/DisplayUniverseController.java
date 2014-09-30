@@ -14,10 +14,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
@@ -32,11 +32,18 @@ import javafx.scene.Cursor;
 public class DisplayUniverseController extends Controller {
 
     @FXML
-    AnchorPane root;
+    AnchorPane map;
 
+    private Pane root;
     private Universe universe;
+    private ObservableList<Node> nodes;
+    private SaveFile save;
+    private double widthRatio;
+    private double heightRatio;
+    private int xCoordinate;
+    private int yCoordinate;;
 
-    public static final String UNIVERSE_VIEW_FILE = "displayUniverse.fxml";
+    public static final String UNIVERSE_VIEW_FILE = "/displayUniverse.fxml";
 
     /**
      * Construct the universe display controller.
@@ -44,16 +51,29 @@ public class DisplayUniverseController extends Controller {
     public DisplayUniverseController() {
         super(UNIVERSE_VIEW_FILE);
         universe = LastAdventures.getCurrentSaveFile().getUniverse();
+        root = (Pane) LastAdventures.getRoot();
+        nodes = map.getChildren();
+        widthRatio = root.getPrefWidth() / universe.getWidth();
+        heightRatio = root.getPrefHeight() / universe.getHeight();
+        save = LastAdventures.getCurrentSaveFile();
+        xCoordinate = save.getPlanet().getSolarySystem().getXCoordinate();
+        yCoordinate = save.getPlanet().getSolarySystem().getYCoordinate();
         drawUniverse();
         drawSystemMarker();
         drawShipRange();
     }
+    /**
+     * Returns to the planet screen.
+     *
+     * @param event A button press attempting to change scenes
+     */
+    @FXML
+    public void goBack(ActionEvent event) throws Exception {
+        System.out.println("World");
+        LastAdventures.swap(new PlanetController());
+    }
 
     private void drawUniverse() {
-        Pane root = (Pane) LastAdventures.getRoot();
-        double widthRatio = root.getPrefWidth()/universe.getWidth();
-        double heightRatio = root.getPrefHeight()/universe.getHeight();
-        ObservableList<Node> children = root.getChildren();
         List<SolarSystem> systems = universe.getUniverse();
         for (SolarSystem system : systems) {
             Circle circle = new Circle();
@@ -69,37 +89,22 @@ public class DisplayUniverseController extends Controller {
                 "Planets: " + system.getPlanets().size()
             );
             Tooltip.install(circle, t);
-
-            children.add(circle);
+            nodes.add(circle);
         }
     }
 
     private void drawSystemMarker() {
-        Pane root = (Pane) LastAdventures.getRoot();
-        double widthRatio = root.getPrefWidth()/universe.getWidth();
-        double heightRatio = root.getPrefHeight()/universe.getHeight();
-        ObservableList<Node> children = root.getChildren();
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        int xCoordinate = save.getPlanet().getSolarySystem().getXCoordinate();
-        int yCoordinate = save.getPlanet().getSolarySystem().getYCoordinate();
         Image img = new Image("img/currentSystem.png");
         int dx = (int) img.getWidth() / 2;
         int dy = (int) img.getHeight() / 2;
             ImageView imgView = new ImageView(img);
             imgView.setLayoutX(xCoordinate * widthRatio - dx);
             imgView.setLayoutY(yCoordinate * heightRatio - dy);
-            children.add(imgView);
+            nodes.add(imgView);
             imgView.toBack();
     }
 
     private void drawShipRange() {
-        Pane root = (Pane) LastAdventures.getRoot();
-        double widthRatio = root.getPrefWidth()/universe.getWidth();
-        double heightRatio = root.getPrefHeight()/universe.getHeight();
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        int xCoordinate = save.getPlanet().getSolarySystem().getXCoordinate();
-        int yCoordinate = save.getPlanet().getSolarySystem().getYCoordinate();
-        ObservableList<Node> children = root.getChildren();
         // show the ship range
         Ship s = save.getCharacter().getShip();
         double range = s.getType().getRange();
@@ -109,18 +114,8 @@ public class DisplayUniverseController extends Controller {
         circle.setRadius(range);
         circle.setStroke(Color.GREEN);
         circle.setFill(Color.TRANSPARENT);
-        children.add(circle);
+        nodes.add(circle);
         circle.toBack();
     }
 
-    /**
-     * Changes screens
-     *
-     * @param event A button press attempting to change scenes
-     * @throws Exception if the scene resource is not found
-     */
-    @FXML
-    public void changeScenes(MouseEvent event) throws Exception {
-        LastAdventures.swap(new MarketController());
-    }
 }
