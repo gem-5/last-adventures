@@ -193,34 +193,17 @@ public class Planet {
                     LastAdventures.data.get(GoodType.KEY).get(s);
                 double value = g.getValue();
                 // Apply government multipliers
-                // GovernmentType gov = getGovernment();
-                // for (Map.Entry<String, Double> f : gov.getSupply().entrySet()) {
-                //     if (f.getKey().equals(s)) {
-                //         value *= f.getValue();
-                //     }
-                // }
-                Map<String, Double> govMap = getGovernment.getSupply();
+                Map<String, Double> govMap = getGovernment().getSupply();
                 if (govMap.get(s) != null) {
                     value *= govMap.get(s);
                 }
                 // Apply environment multipliers
-                // EnvironmentType env = getEnvironment();
-                // for (Map.Entry<String, Double> f : env.getSupply().entrySet()) {
-                //     if (f.getKey().equals(s)) {
-                //         value *= f.getValue();
-                //     }
-                // }
                 Map<String, Double> envMap = getEnvironment().getSupply();
                 if (envMap.get(s) != null) {
-                    value *= govMap.get(s);
+                    value *= envMap.get(s);
                 }
                 // TODO: Apply Condition multipliers
                 // Apply competition factor
-                // for (Map.Entry<String, Integer> f : getCompetitions().entrySet()) {
-                //     if (f.getKey().equals(s) && f.getValue() > 1) {
-                //         value *= COMPETITION_FACTOR;
-                //     }
-                // }
                 Map<String, Integer> f = getCompetitions();
                 if (f.get(s) != null && f.get(s) > 1) {
                     value *= COMPETITION_FACTOR;

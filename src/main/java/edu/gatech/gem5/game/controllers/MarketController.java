@@ -136,16 +136,13 @@ public class MarketController extends Controller {
         }
     }
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    private void fillLabels() {
         SaveFile save = LastAdventures.getCurrentSaveFile();
         this.lblCash.setText(
-            ((Integer) save.getCharacter().getMoney()).toString()
-        );
+                             ((Integer) save.getCharacter().getMoney()).toString()
+                             );
     }
+
 
     private void buildShipList() {
         // this is the tab for ships that the planet sells
