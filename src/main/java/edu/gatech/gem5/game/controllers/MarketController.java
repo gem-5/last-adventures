@@ -97,42 +97,57 @@ public class MarketController extends Controller {
 
 
     /**
-     * Buy Goods
+     * Buy/Sell Goods
      *
      * @param event A button press attempting to change scenes
      * @throws Exception
      */
     @FXML
-    public void buyGoods(ActionEvent event) throws Exception {
+    public void buttonTransaction(ActionEvent event) throws Exception {
         String id = ((Button) (event.getSource())).idProperty().get();
-
+        // Buy Goods
         if (id.equals("purchase")) {
             Transaction transaction = new Transaction();
-            int[] quantities = new int[ buyGoods.getItems().size()];
+            int[] quantities = new int[buyGoods.getItems().size()];
             //TODO ObservableList<BuyBar> has a sorted method - ask Jack about
             //this if you feel like doing work
-            for(int i = 0; i < buyGoods.getItems().size(); i++) {
+            for (int i = 0; i < buyGoods.getItems().size(); i++) {
                 quantities[i] = (int) buyGoods.getItems().get(i).getSliderValue();
             }
             if (transaction.validateBuy(quantities)) {
                 System.out.println("I have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
                 transaction.buy(quantities);
                 lblCash.setText("" + LastAdventures.getCurrentSaveFile()
-                        .getCharacter().getMoney());
+                                .getCharacter().getMoney());
                 System.out.println("I now have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
             } else {
                 System.out.println("error is:");
                 System.out.println(transaction.getErrorMessage());
                 transaction.getErrorMessage();//this should be text of some popup dialog
             }
+            // Sell goods
         } else if (id.equals("sell")) {
             Transaction transaction = new Transaction();
             if (transaction.validateSell(3, "water")) {
-                transaction.sell(3,"water");
+                transaction.sell(3, "water");
             } else {
                 System.out.println(transaction.getErrorMessage());
                 transaction.getErrorMessage();//this should be text of some popup dialog
             }
+        }
+    }
+    /**
+     * Buy Goods
+     *
+     * @param event A button press attempting to change scenes
+     * @throws Exception
+     */
+    @FXML
+    public void buttonMenu(ActionEvent event) throws Exception {
+        String id = ((Button) (event.getSource())).idProperty().get();
+        // Goto main screen.
+        if (id.equals("back")) {
+            LastAdventures.swap(new PlanetController());
         }
     }
 
