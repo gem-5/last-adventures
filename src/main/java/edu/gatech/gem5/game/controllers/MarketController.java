@@ -104,7 +104,7 @@ public class MarketController implements Initializable {
             }
         } else if (id.equals("sell")) {
             Transaction transaction = new Transaction();
-            if (transaction.validateSell(3, "water")) {
+            if (transaction.validateSell(new int[buyGoods.getItems().size()])) {
                 transaction.sell(3,"water");
             } else {
                 System.out.println(transaction.getErrorMessage());
