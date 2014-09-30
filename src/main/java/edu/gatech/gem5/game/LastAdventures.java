@@ -2,6 +2,7 @@ package edu.gatech.gem5.game;
 
 import java.util.LinkedList;
 import java.util.Map;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,8 @@ import javafx.stage.Stage;
 import edu.gatech.gem5.game.readers.*;
 import edu.gatech.gem5.game.data.*;
 
+import edu.gatech.gem5.game.controllers.*;
+
 /**
  *
  * @author Jack
@@ -20,11 +23,15 @@ import edu.gatech.gem5.game.data.*;
  */
 public class LastAdventures extends Application {
 
-    private static LinkedList<SaveFile> saveFiles;
-    private static Integer currentFile;
     private final static Integer NONE = -1;
 
+    private static LinkedList<SaveFile> saveFiles;
+    private static Integer currentFile;
+
     public static Manager data;
+
+    private static Parent root;
+    private static Stage stage;
 
     /**
      * Default constructor for LastAdventures. Initializes an empty holder for
@@ -35,15 +42,39 @@ public class LastAdventures extends Application {
         currentFile = NONE;
     }
 
+    /**
+     * Start the game.
+     *
+     * @param stage The stage to start with
+     * @throws Exception when something bad happens
+     */
     @Override
-    public void start(Stage stage) throws Exception {
-
-        Parent root = FXMLLoader.load(getClass().getResource("/title.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+    public void start(Stage stage) {
+        this.stage = stage;
+        swap(new TitleController());
         stage.show();
-
         // stage.setFullScreen(true);
+    }
+
+    /**
+     * Changes the controller to something fresh.
+     *
+     * @param c The new controller to load.
+     * @throws IOException if there was an error loading a file.
+     */
+    public static void swap(Controller c) {
+        Scene scene = c.getScene();
+        root = scene.getRoot();
+        stage.setScene(scene);
+    }
+
+    /**
+     * Return the game stage.
+     *
+     * @return the stage
+     */
+    public static Parent getRoot() {
+        return root;
     }
 
     /**

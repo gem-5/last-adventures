@@ -6,10 +6,7 @@ package edu.gatech.gem5.game.controllers;
  * and open the template in the editor.
  */
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Map;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Label;
@@ -33,7 +30,7 @@ import edu.gatech.gem5.game.data.GadgetType;
  *
  * @author James
  */
-public class MarketController implements Initializable {
+public class MarketController extends Controller {
 
     @FXML
     private Label lblCash;
@@ -49,6 +46,26 @@ public class MarketController implements Initializable {
 
     @FXML
     private ListView<UpgradeBar> upShields;
+
+    private Planet planet;
+    public static final String MARKET_VIEW_FILE = "/market.fxml";
+
+    /**
+     * Construct the planet controller.
+     */
+    public MarketController() {
+        // load the view or throw an exception
+        super(MARKET_VIEW_FILE);
+
+        SaveFile save = LastAdventures.getCurrentSaveFile();
+        planet = save.getPlanet();
+
+        fillLabels();
+        buildGoodsList();
+        buildShieldList();
+        buildShipList();
+        buildWeaponList();
+    }
 
     @FXML
     public void buyGoods() {
@@ -67,18 +84,14 @@ public class MarketController implements Initializable {
         // not implemented
     }
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    private void fillLabels() {
         SaveFile save = LastAdventures.getCurrentSaveFile();
-        Planet planet = save.getPlanet();
-
         this.lblCash.setText(
             ((Integer) save.getCharacter().getMoney()).toString()
         );
+    }
 
+    private void buildShipList() {
         // this is the tab for ships that the planet sells
         ObservableList<UpgradeBar> lstShips =
             FXCollections.observableArrayList();
@@ -92,7 +105,10 @@ public class MarketController implements Initializable {
             lstShips.add(b);
         }
         upShips.setItems(lstShips);
-        // this is the tab for weapons that the planet sells
+    }
+
+    private void buildWeaponList() {
+         // this is the tab for weapons that the planet sells
         ObservableList<UpgradeBar> lstWeapons =
             FXCollections.observableArrayList();
         Map<String, WeaponType> weps = LastAdventures.data.get(WeaponType.KEY);
@@ -104,7 +120,10 @@ public class MarketController implements Initializable {
             b.setText(weapon.getName());
             lstWeapons.add(b);
         }
-        upWeapons.setItems(lstWeapons);
+       upWeapons.setItems(lstWeapons);
+    }
+
+    private void buildShieldList() {
         // this is the tab for shields that the planet sells
         ObservableList<UpgradeBar> lstShields =
             FXCollections.observableArrayList();
@@ -118,6 +137,9 @@ public class MarketController implements Initializable {
             lstShields.add(b);
         }
         upShields.setItems(lstShields);
+    }
+
+    private void buildGoodsList() {
         // this is the tab for goods that the planet sells
         ObservableList<BuyBar> lstGoods = FXCollections.observableArrayList();
         Map<String, GoodType> goods = LastAdventures.data.get(GoodType.KEY);
@@ -132,6 +154,7 @@ public class MarketController implements Initializable {
             lstGoods.add(b);
         }
         buyGoods.setItems(lstGoods);
+
     }
 
 }

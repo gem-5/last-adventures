@@ -11,7 +11,6 @@
     prefWidth="1280"
     prefHeight="720"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="edu.gatech.gem5.game.controllers.CharacterStatusController"
 >
     <top>
         <HBox><Region HBox.Hgrow="always"/>

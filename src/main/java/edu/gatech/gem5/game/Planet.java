@@ -31,14 +31,18 @@ public class Planet {
     private String government;
     private List<String> companyList;
     private String condition;
+    private SolarSystem solarSystem;
 
     private static final double COMPETITION_FACTOR = 0.75;
 
     /**
      * Construct a planet with a random tech level, environment, government,
      * and list of companies based on the data files.
+     *
+     * @param sys The solar system that contains this planet.
      */
-    public Planet() {
+    public Planet(SolarSystem sys) {
+        this.solarSystem = sys;
         this.techLevel = chooseTechLevel();
         this.environment = chooseEnvironment();
         this.government = chooseGovernment();
@@ -46,6 +50,15 @@ public class Planet {
         // TODO: a new condition should be applied every turn
         // some conditions should last longer than one turn.
         this.condition = null;
+    }
+
+    /**
+     * Get the solar system that contains this planet.
+     *
+     * @return the solar system.
+     */
+    public SolarSystem getSolarySystem() {
+        return this.solarSystem;
     }
 
     /**
