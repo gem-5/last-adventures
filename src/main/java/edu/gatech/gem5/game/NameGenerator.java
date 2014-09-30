@@ -1,4 +1,4 @@
-// package edu.gatech.gem5.game;
+package edu.gatech.gem5.game;
 
 import java.util.Random;
 
