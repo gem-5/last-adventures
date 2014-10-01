@@ -94,6 +94,11 @@
                                 <Tab text="Goods">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            <VBox>
+                                <ListView fx:id="sellGoods" VBox.Vgrow="always"/>
+                                <Region VBox.Vgrow="always"/>
+                                <Button id="sell" text="Sell" onAction="#buyGoods"/>
+                            </VBox>
                                     </content>
                                 </Tab>
                             </tabs>

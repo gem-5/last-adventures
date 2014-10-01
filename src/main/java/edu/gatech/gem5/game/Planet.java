@@ -193,38 +193,58 @@ public class Planet {
                     LastAdventures.data.get(GoodType.KEY).get(s);
                 double value = g.getValue();
                 // Apply government multipliers
-                GovernmentType gov = getGovernment();
-                for (Map.Entry<String, Double> f : gov.getSupply().entrySet()) {
-                    if (f.getKey().equals(s)) {
-                        value *= f.getValue();
-                    }
+                Map<String, Double> govMap = getGovernment().getSupply();
+                if (govMap.get(s) != null) {
+                    value *= govMap.get(s);
                 }
                 // Apply environment multipliers
-                EnvironmentType env = getEnvironment();
-                for (Map.Entry<String, Double> f : env.getSupply().entrySet()) {
-                    if (f.getKey().equals(s)) {
-                        value *= f.getValue();
-                    }
+                Map<String, Double> envMap = getEnvironment().getSupply();
+                if (envMap.get(s) != null) {
+                    value *= envMap.get(s);
                 }
                 // TODO: Apply Condition multipliers
                 // Apply competition factor
-                for (Map.Entry<String, Integer> f : getCompetitions().entrySet()) {
-                    if (f.getKey().equals(s) && f.getValue() > 1) {
-                        value *= COMPETITION_FACTOR;
-                    }
+                Map<String, Integer> f = getCompetitions();
+                if (f.get(s) != null && f.get(s) > 1) {
+                    value *= COMPETITION_FACTOR;
                 }
                 out.put(s, (int) Math.round(value));
             }
         }
         return out;
     }
-    
     /**
      *
      * @return
      */
     public Map<String, Integer> getDemand() {
-        return null;
+        Map<String, Integer> in = new TreeMap<>();
+        Ship playerShip = LastAdventures.getCurrentSaveFile().getCharacter().getShip();
+        for (Good g : playerShip.getCargoList()) {
+            GoodType gt = g.getType();
+            double value = gt.getValue();
+            String s = gt.getKey();
+
+            Map<String, Double> govMap = getGovernment().getDemand();
+            if (govMap.get(s) != null) {
+                value *= govMap.get(s);
+            }
+            Map<String, Double> envMap = getEnvironment().getDemand();
+            if (envMap.get(s) != null) {
+                value *= govMap.get(s);
+            }
+            // If any company produces the good, it sells for less
+            Map<String, Integer> f = getCompetitions();
+            if (f.get(s) != null) {
+                value *= COMPETITION_FACTOR;
+            }
+
+            in.put(s, (int) Math.round(value));
+
+
+
+        }
+        return in;
     }
 
     private Map<String, Integer> getCompetitions() {

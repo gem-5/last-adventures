@@ -50,6 +50,7 @@ public class PlanetController extends Controller {
         // load the view or throw an exception
         super(PLANET_VIEW_FILE);
 
+        System.out.println("World");
         SaveFile save = LastAdventures.getCurrentSaveFile();
         planet = save.getPlanet();
 
