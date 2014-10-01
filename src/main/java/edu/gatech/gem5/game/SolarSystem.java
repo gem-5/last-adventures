@@ -64,6 +64,7 @@ public class SolarSystem {
 
     private List<Planet> determinePlanets() {
         Random random = new Random();
+        NameGenerator nameGen = new NameGenerator();
         List<Planet> orbits = new ArrayList<>();
         int num = 0;
         // roll through the list of probabilities
@@ -71,8 +72,14 @@ public class SolarSystem {
             double p = PROBABILITIES[i];
             double roll = random.nextDouble();
             if (roll <= p)
-                orbits.add(new Planet(this));
+                num++;
+                // orbits.add(new Planet(this));
             else break; // stop generating planets as soon as a roll fails
+        }
+        // gives each planet a proper name based on the system name
+        String[] names = nameGen.planetNames(num, this.name);
+        for (int i = 0; i < num; i++) {
+            orbits.add(new Planet(this, names[i]));
         }
         return orbits;
     }

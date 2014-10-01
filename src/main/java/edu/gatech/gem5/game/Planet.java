@@ -33,6 +33,7 @@ public class Planet {
     private List<String> companyList;
     private String condition;
     private SolarSystem solarSystem;
+    private String name;
 
     private static final double COMPETITION_FACTOR = 0.75;
 
@@ -42,12 +43,13 @@ public class Planet {
      *
      * @param sys The solar system that contains this planet.
      */
-    public Planet(SolarSystem sys) {
+    public Planet(SolarSystem sys, String name) {
         this.solarSystem = sys;
         this.techLevel = chooseTechLevel();
         this.environment = chooseEnvironment();
         this.government = chooseGovernment();
         this.companyList = chooseCompanies();
+        this.name = name;
         // TODO: a new condition should be applied every turn
         // some conditions should last longer than one turn.
         this.condition = null;
@@ -221,7 +223,7 @@ public class Planet {
         Map<String, Integer> in = new TreeMap<>();
         Ship playerShip = LastAdventures.getCurrentSaveFile().getCharacter().getShip();
         for (Good g : playerShip.getCargoList()) {
-            if (g != null) { //there is cargo at this spot    
+            if (g != null) { //there is cargo at this spot
                 GoodType gt = g.getType();
                 double value = gt.getValue();
                 String s = gt.getKey();
