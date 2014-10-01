@@ -34,7 +34,6 @@ public class Mercenary extends Human {
             stats[r.nextInt(5)]++;
         }
 
-        // String name = String.format("%s %s", rand.newName(4,6), rand.newName(4,8));
         String name = rand.newHumanName();
 
 
