@@ -5,7 +5,6 @@ package edu.gatech.gem5.game.controllers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.util.Map;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -43,6 +42,9 @@ public class MarketController extends Controller {
     private Label lblCash;
 
     @FXML
+    private Label errorLabel;
+
+    @FXML
     private ListView<BuyBar> buyGoods;
 
     @FXML
@@ -53,8 +55,6 @@ public class MarketController extends Controller {
 
     @FXML
     private ListView<UpgradeBar> upShields;
-    
-    
 
     private Planet planet;
     public static final String MARKET_VIEW_FILE = "/market.fxml";
@@ -84,19 +84,21 @@ public class MarketController extends Controller {
     public void buyGoods() {
         // not implemented
     }
+
     @FXML
     public void upShip() {
         // not implemented
     }
+
     @FXML
     public void upWeapon() {
         // not implemented
     }
+
     @FXML
     public void upShield() {
         // not implemented
     }
-
 
     /**
      * Buy/Sell Goods
@@ -119,13 +121,13 @@ public class MarketController extends Controller {
             if (transaction.validateBuy(quantities)) {
                 transaction.buy(quantities);
                 lblCash.setText("" + LastAdventures.getCurrentSaveFile()
-                                .getCharacter().getMoney());
+                        .getCharacter().getMoney());
                 buildBuyGoodsList(); //necessary for when planets have wealth and stock
                 buildSellGoodsList(); //necessary for updateing the ListView of cargo
                 fillLabels(); //update the money label
-
+                
             } else {
-                System.out.println(transaction.getErrorMessage());
+                errorLabel.setText(transaction.getErrorMessage());
             }
             // Sell goods
         } else if (id.equals("sell")) {
@@ -135,16 +137,16 @@ public class MarketController extends Controller {
                 quantities[i] = (int) sellGoods.getItems().get(i).getSliderValue();
             }
             if (transaction.validateSell(quantities)) {
-                System.out.println("hello");
                 transaction.sell(quantities);
                 buildBuyGoodsList(); //necessary for when planets have wealth and stock
                 buildSellGoodsList(); //necessary for updateing the ListView of cargo
                 fillLabels(); //update the money label
             } else {
-                System.out.println(transaction.getErrorMessage());
+                errorLabel.setText(transaction.getErrorMessage());
             }
         }
     }
+
     /**
      * Buy Goods
      *
@@ -163,15 +165,15 @@ public class MarketController extends Controller {
     private void fillLabels() {
         SaveFile save = LastAdventures.getCurrentSaveFile();
         this.lblCash.setText(
-                             ((Integer) save.getCharacter().getMoney()).toString()
-                             );
+                ((Integer) save.getCharacter().getMoney()).toString()
+        );
+        errorLabel.setText("");
     }
-
 
     private void buildShipList() {
         // this is the tab for ships that the planet sells
-        ObservableList<UpgradeBar> lstShips =
-            FXCollections.observableArrayList();
+        ObservableList<UpgradeBar> lstShips
+                = FXCollections.observableArrayList();
         Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
         for (String x : planet.getShips()) {
             UpgradeBar b = new UpgradeBar();
@@ -185,9 +187,9 @@ public class MarketController extends Controller {
     }
 
     private void buildWeaponList() {
-         // this is the tab for weapons that the planet sells
-        ObservableList<UpgradeBar> lstWeapons =
-            FXCollections.observableArrayList();
+        // this is the tab for weapons that the planet sells
+        ObservableList<UpgradeBar> lstWeapons
+                = FXCollections.observableArrayList();
         Map<String, WeaponType> weps = LastAdventures.data.get(WeaponType.KEY);
         for (String x : planet.getWeapons()) {
             UpgradeBar b = new UpgradeBar();
@@ -197,13 +199,13 @@ public class MarketController extends Controller {
             b.setText(weapon.getName());
             lstWeapons.add(b);
         }
-       upWeapons.setItems(lstWeapons);
+        upWeapons.setItems(lstWeapons);
     }
 
     private void buildShieldList() {
         // this is the tab for shields that the planet sells
-        ObservableList<UpgradeBar> lstShields =
-            FXCollections.observableArrayList();
+        ObservableList<UpgradeBar> lstShields
+                = FXCollections.observableArrayList();
         Map<String, ShieldType> shilds = LastAdventures.data.get(ShieldType.KEY);
         for (String x : planet.getShields()) {
             UpgradeBar b = new UpgradeBar();
@@ -226,7 +228,7 @@ public class MarketController extends Controller {
             b.setQuantity(x.getValue());
             b.setPrice(planet.getSupply().get(x.getKey()));
             b.setText(
-                ((GoodType) goods.get(x.getKey())).getName()
+                    ((GoodType) goods.get(x.getKey())).getName()
             );
             lstGoods.add(b);
         }
@@ -236,7 +238,7 @@ public class MarketController extends Controller {
     private void buildSellGoodsList() {
         ObservableList<BuyBar> listGoods = FXCollections.observableArrayList();
         Map<GoodType, Integer> playerGoods = LastAdventures.getCurrentSaveFile().getCharacter().getShip().getCargoCounts();
-        for (Map.Entry<GoodType, Integer> g: playerGoods.entrySet()) {
+        for (Map.Entry<GoodType, Integer> g : playerGoods.entrySet()) {
             BuyBar b = new BuyBar();
             b.setKey(g.getKey().getKey());
             b.setQuantity(g.getValue());
@@ -249,6 +251,5 @@ public class MarketController extends Controller {
         }
         sellGoods.setItems(listGoods);
     }
-
 
 }

@@ -28,6 +28,8 @@
                                                         <Button id="purchase" onAction="#buttonTransaction" text="Purchase" />
                                                         <Region prefHeight="24.0" prefWidth="24.0" />
                                                         <Button id="back" onAction="#buttonMenu" text="Back" />
+                                          <Region prefHeight="24.0" prefWidth="24.0" />
+                                          <Label fx:id="errorLabel" prefHeight="24.0" prefWidth="476.0" />
                                                     </children>
                                                 </HBox>
                                             </children>
@@ -76,6 +78,18 @@
                     <children>
                         <TabPane fx:id="buyBox1" layoutY="50.0" prefHeight="600.0" prefWidth="636.0" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
+                                <Tab text="Goods">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            <VBox>
+                               <children>
+                                   <ListView fx:id="sellGoods" VBox.Vgrow="always" />
+                                   <Region VBox.Vgrow="always" />
+                                   <Button id="sell" onAction="#buttonTransaction" text="Sell" />
+                               </children>
+                            </VBox>
+                                    </content>
+                                </Tab>
                                 <Tab text="Ships">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="636.0" />
@@ -89,16 +103,6 @@
                                 <Tab text="Shields">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                    </content>
-                                </Tab>
-                                <Tab text="Goods">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            <VBox>
-                                <ListView fx:id="sellGoods" VBox.Vgrow="always"/>
-                                <Region VBox.Vgrow="always"/>
-                                <Button id="sell" text="Sell" onAction="#buttonTransaction"/>
-                            </VBox>
                                     </content>
                                 </Tab>
                             </tabs>
