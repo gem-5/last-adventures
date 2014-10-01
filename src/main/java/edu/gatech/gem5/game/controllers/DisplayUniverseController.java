@@ -6,22 +6,18 @@ import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
-import java.net.URL;
 import java.util.List;
 import java.util.Random;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
@@ -34,37 +30,51 @@ import javafx.scene.control.Button;
  *
  * @author Jack Mueller
  */
-public class DisplayUniverseController implements Initializable {
+public class DisplayUniverseController extends Controller {
 
     @FXML
-    AnchorPane root;
+    AnchorPane map;
 
+    private Pane root;
+    private Universe universe;
+    private ObservableList<Node> nodes;
+    private SaveFile save;
+    private double widthRatio;
+    private double heightRatio;
+    private int xCoordinate;
+    private int yCoordinate;;
+
+    public static final String UNIVERSE_VIEW_FILE = "/displayUniverse.fxml";
 
     /**
-     * Changes screens
+     * Construct the universe display controller.
+     */
+    public DisplayUniverseController() {
+        super(UNIVERSE_VIEW_FILE);
+        universe = LastAdventures.getCurrentSaveFile().getUniverse();
+        root = (Pane) LastAdventures.getRoot();
+        nodes = map.getChildren();
+        widthRatio = root.getPrefWidth() / universe.getWidth();
+        heightRatio = root.getPrefHeight() / universe.getHeight();
+        save = LastAdventures.getCurrentSaveFile();
+        xCoordinate = save.getPlanet().getSolarySystem().getXCoordinate();
+        yCoordinate = save.getPlanet().getSolarySystem().getYCoordinate();
+        drawUniverse();
+        drawSystemMarker();
+        drawShipRange();
+    }
+    /**
+     * Returns to the planet screen.
      *
      * @param event A button press attempting to change scenes
-     * @throws Exception if the scene resource is not found
      */
     @FXML
-    public void changeScenes(MouseEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        root = FXMLLoader.load(getClass().getResource("/market.fxml"));
-
-        stage.setScene(new Scene((Pane) root));
+    public void goBack(ActionEvent event) throws Exception {
+        System.out.println("World");
+        LastAdventures.swap(new PlanetController());
     }
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        Universe universe = LastAdventures.getCurrentSaveFile().getUniverse();
-
-        double widthRatio = root.getPrefWidth()/universe.getWidth();
-        double heightRatio = root.getPrefHeight()/universe.getHeight();
-        ObservableList<Node> children = root.getChildren();
+    private void drawUniverse() {
         List<SolarSystem> systems = universe.getUniverse();
         for (SolarSystem system : systems) {
             Circle circle = new Circle();
@@ -80,6 +90,7 @@ public class DisplayUniverseController implements Initializable {
                 "Planets: " + system.getPlanets().size()
             );
             Tooltip.install(circle, t);
+            nodes.add(circle);
 
             children.add(circle);
             
@@ -89,23 +100,20 @@ public class DisplayUniverseController implements Initializable {
             solarSys.setLayoutY(circle.getCenterY() + circle.getRadius());
             children.add(solarSys);
         }
+    }
 
-        //Randomly choose a planet to start on
-        Random rand = new Random();
-        SolarSystem startSystem = systems.get(rand.nextInt(systems.size()));
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-
+    private void drawSystemMarker() {
         Image img = new Image("img/currentSystem.png");
         int dx = (int) img.getWidth() / 2;
         int dy = (int) img.getHeight() / 2;
             ImageView imgView = new ImageView(img);
-            int xCoordinate = startSystem.getXCoordinate();
-            int yCoordinate = startSystem.getYCoordinate();
             imgView.setLayoutX(xCoordinate * widthRatio - dx);
             imgView.setLayoutY(yCoordinate * heightRatio - dy);
-            children.add(imgView);
+            nodes.add(imgView);
             imgView.toBack();
+    }
 
+    private void drawShipRange() {
         // show the ship range
         Ship s = save.getCharacter().getShip();
         double range = s.getType().getRange();
@@ -115,7 +123,7 @@ public class DisplayUniverseController implements Initializable {
         circle.setRadius(range);
         circle.setStroke(Color.GREEN);
         circle.setFill(Color.TRANSPARENT);
-        children.add(circle);
+        nodes.add(circle);
         circle.toBack();
     }
 

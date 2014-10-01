@@ -7,19 +7,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane
-    xmlns:fx="http://javafx.com/fxml/1" 
-    id="AnchorPane"
+<BorderPane
+    xmlns:fx="http://javafx.com/fxml/1"
     prefHeight="720"
     prefWidth="1280"
-    fx:controller="edu.gatech.gem5.game.controllers.DisplayUniverseController"
     fx:id="root"
-    onMouseClicked="#changeScenes"  
 >
-    <children>
-        
-    </children>
+    <top>
+        <Label text="Other planets in the system could go here." />
+    </top>
+    <center>
+        <AnchorPane fx:id="map">
+
+        </AnchorPane>
+    </center>
+    <bottom>
+        <Button onAction="#goBack" text="Return to Planet"/>
+    </bottom>
     <stylesheets>
         <URL value="@displayUniverse.css"/>
     </stylesheets>
-</AnchorPane>
+
+</BorderPane>

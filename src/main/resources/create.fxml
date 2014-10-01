@@ -15,7 +15,6 @@
     prefHeight="720"
     xmlns="http://javafx.com/javafx/8"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="edu.gatech.gem5.game.controllers.CharacterCreateController"
 >
     <stylesheets>
         <URL value="@create.css" />
@@ -209,7 +208,7 @@
                 cancelButton="true"
                 mnemonicParsing="false"
                 text="Back"
-                onAction="#changeScenes"
+                onAction="#goBack"
             >
             </Button>
             <Button
@@ -218,7 +217,7 @@
                 GridPane.rowIndex="7"
                 mnemonicParsing="false"
                 text="Confirm"
-                onAction="#changeScenes"
+                onAction="#confirmCharacter"
             >
             </Button>
             <Label

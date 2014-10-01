@@ -13,11 +13,11 @@ public class SolarSystem {
     private final int xCoordinate;
     private final int yCoordinate;
     private List<Planet> planets;
-    
+
     // max(planets.size()) == PROBABILITIES.length
     // each entry n represents the probability of an nth planet existing
     private static final double[] PROBABILITIES = {1, 1, 0.66, 0.2};
-    
+
     public SolarSystem (String name, int x, int y) {
         this.name = name;
         this.xCoordinate = x;
@@ -31,7 +31,7 @@ public class SolarSystem {
     public String getName() {
         return name;
     }
-    
+
     /**
      * @return the array of planets in this system
      */
@@ -51,7 +51,7 @@ public class SolarSystem {
     public int getYCoordinate() {
         return yCoordinate;
     }
-    
+
     @Override
     public String toString() {
         String result = getName();
@@ -71,7 +71,7 @@ public class SolarSystem {
             double p = PROBABILITIES[i];
             double roll = random.nextDouble();
             if (roll <= p)
-                orbits.add(new Planet());
+                orbits.add(new Planet(this));
             else break; // stop generating planets as soon as a roll fails
         }
         return orbits;

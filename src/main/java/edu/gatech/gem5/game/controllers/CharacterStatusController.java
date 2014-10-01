@@ -3,12 +3,9 @@ package edu.gatech.gem5.game.controllers;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Universe;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,7 +23,7 @@ import javafx.stage.Stage;
  * @author James Jong Han Park
  * @author Jack Mueller
  */
-public class CharacterStatusController implements Initializable {
+public class CharacterStatusController extends Controller {
 
     Parent root;
     @FXML
@@ -46,31 +43,15 @@ public class CharacterStatusController implements Initializable {
     @FXML
     Button returnToCreate;
 
-    /**
-     * Changes screens
-     *
-     * @param event A button press attempting to change scenes
-     * @throws Exception if the scene resource is not found
-     */
-    @FXML
-    public void changeScenes(ActionEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        String id = ((Button)(event.getSource())).idProperty().get();
-        Node root = this.root;
-        if (id.equals("confirm")) {
-            root = FXMLLoader.load(getClass().getResource("/planet.fxml"));
-        } else if (id.equals("back")) {
-            root = FXMLLoader.load(getClass().getResource("/create.fxml"));
-        }
-
-        stage.setScene(new Scene((Pane) root));
-    }
+    public static final String STATUS_VIEW_FILE = "/status.fxml";
 
     /**
-     * Initializes the controller class.
+     * Construct the character status controller.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle bundle) {
+    public CharacterStatusController() {
+        // load the view or throw an exception
+        super(STATUS_VIEW_FILE);
+
         Character player = LastAdventures.getCurrentSaveFile().getCharacter();
 
         Label[] labels = {playerName, pilotValue, fighterValue, traderValue, engineerValue, investorValue};
@@ -81,17 +62,26 @@ public class CharacterStatusController implements Initializable {
         traderValue.setText("Trader: " + player.getTrader());
         engineerValue.setText("Engineer: " + player.getEngineer());
         investorValue.setText("Investor: " + player.getInvestor());
-
-        FadeHandler fh;
-
-        // Sets all labels to transparent/invisible (for fade effect below)
-        for (Label label : labels) {
-            label.setOpacity(0);
-        }
-
-        // Adds fade in effects. Labels appear in order, .2 seconds per label.
-        for (int x = 0; x < labels.length; x++) {
-            new FadeHandler(labels[x], x / 5.0);
-        }
     }
+
+    /**
+     * Continue to the planet screen.
+     *
+     * @param event a button press
+     */
+    @FXML
+    public void startGame(ActionEvent event) throws Exception {
+        LastAdventures.swap(new PlanetController());
+    }
+
+    /**
+     * Go back to create a new character.
+     *
+     * @param event a button press
+     */
+    @FXML
+    public void goBack(ActionEvent event) throws Exception {
+        LastAdventures.swap(new CharacterCreateController());
+    }
+
 }

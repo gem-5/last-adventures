@@ -11,7 +11,6 @@
     prefWidth="1280"
     prefHeight="720"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="edu.gatech.gem5.game.controllers.TitleController"
     fx:id="defaultScene"
 >
     <top>
@@ -34,19 +33,19 @@
                         id="newButton"
                         GridPane.columnIndex="0"
                         GridPane.rowIndex="1"
-                        onAction="#changeScenes"
+                        onAction="#startNewGame"
                 />
                 <Button text="Continue"
                         id="continueButton"
                         GridPane.columnIndex="0"
                         GridPane.rowIndex="2"
-                        onAction="#changeScenes"
+                        onAction="#continueGame"
                 />
                 <Button text="Load"
                         id="loadButton"
                         GridPane.columnIndex="0"
                         GridPane.rowIndex="3"
-                        onAction="#changeScenes"
+                        onAction="#loadGame"
                 />
             </GridPane>
             <Region HBox.Hgrow="always"/>

@@ -6,13 +6,10 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,7 +25,7 @@ import javafx.stage.Stage;
  * @author Creston Bunch
  * @author James Jong Han Park
  */
-public class TitleController implements Initializable {
+public class TitleController extends Controller {
 
     @FXML
     private Parent root;
@@ -39,65 +36,43 @@ public class TitleController implements Initializable {
     @FXML
     private GridPane gridPane;
 
+    public static final String TITLE_VIEW_FILE = "/title.fxml" ;
+
     /**
-     * Changes the scene based on the button pressed.
+     * Construct the title controller.
+     */
+    public TitleController() {
+        // load the view or throw an exception
+        super(TITLE_VIEW_FILE);
+    }
+
+    /**
+     * Move to the new game scene.
      *
-     * @param event a button press
-     * @throws Exception if the scene resource is not found
+     * @param even a button press
      */
     @FXML
-    private void changeScenes(ActionEvent event) throws Exception {
-        //gets this scene's stage
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        String id = ((Button) (event.getSource())).idProperty().get();
-        Node root = this.root;
-        //loads the create FXML file into root
-        if (id.equals("newButton")) {
-            LastAdventures.createNewSaveFile();
-            root = FXMLLoader.load(getClass().getResource("/create.fxml"));
-        } else if (id.equals("continueButton")) {
-            //TODO
-            root = FXMLLoader.load(getClass().getResource("/title.fxml"));
-        } else if (id.equals("loadButton")) {
-            //TODO
-            root = FXMLLoader.load(getClass().getResource("/title.fxml"));
-        }
-
-        //sets the stage to root scene
-        stage.setScene(new Scene((Pane) root));
-
+    private void startNewGame(ActionEvent event) throws Exception {
+        LastAdventures.swap(new CharacterCreateController());
     }
 
     /**
-     * Initialize the controller.
+     * Move to the continue game scene.
      *
-     * @param url The location to resolve all relative paths for the root
-     * object.
-     * @param rb The resources used to localize the root object.
+     * @param even a button press
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-        gridPane.setOpacity(0);
-
-        // Adds fade-in animation when mouse enters the screen.
-        defaultScene.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                new FadeHandler(gridPane);
-            }
-        });
-
-        // Adds fade-out animation when mouse leaves the screen.
-        defaultScene.setOnMouseExited(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                new FadeHandler(gridPane, 0, .5, 1, 0);
-            }
-        });
+    @FXML
+    private void continueGame(ActionEvent event) throws Exception {
+        LastAdventures.swap(this); // go nowhere
     }
 
+    /**
+     * Move to the load game scene.
+     *
+     * @param even a button press
+     */
+    @FXML
+    private void loadGame(ActionEvent event) throws Exception {
+        LastAdventures.swap(this); // go nowhere
+    }
 }

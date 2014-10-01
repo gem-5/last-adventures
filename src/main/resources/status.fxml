@@ -11,7 +11,6 @@
     prefWidth="1280"
     prefHeight="720"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="edu.gatech.gem5.game.controllers.CharacterStatusController"
 >
     <top>
         <HBox><Region HBox.Hgrow="always"/>
@@ -68,7 +67,7 @@
                 GridPane.rowIndex="7"
                 mnemonicParsing="false"
                 text="Confirm"
-                onAction="#changeScenes"
+                onAction="#startGame"
             />
             <Button
                 id="back"
@@ -77,7 +76,7 @@
                 cancelButton="true"
                 mnemonicParsing="false"
                 text="Back"
-                onAction="#changeScenes"
+                onAction="#goBack"
             />
         </GridPane>
         <Region HBox.Hgrow="always" /></HBox>

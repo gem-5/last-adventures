@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import edu.gatech.gem5.game.data.GoodType;
+import java.util.TreeMap;
 import java.util.stream.IntStream;
 
 /**
@@ -50,12 +51,60 @@ public class Transaction {
         Good[] cargo = ship.getCargoList();
         Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
         Stack<Integer> open = ship.getOpenBays();
-        for (int i = 0; i < quantity.length; i++)    
+        for (int i = 0; i < quantity.length; i++) {
             for (int j = 0; j < quantity[i]; j++) {
                 cargo[open.pop()] = new Good((GoodType)LastAdventures.data.
                         get("good").get(supply.keySet().toArray()[i]));
             }
+        }
             
+        //don't know if this line is necessary
+        ship.setOpenBays(open);
+        ship.setCargoList(cargo);
+    }
+    
+    /**
+     * 
+     * @param quantity the number of good involved in this transaction.
+     * This should always be a valid number that will not exceed the number
+     * the player has of this good
+     * @param good the good involved in this transaction. This should always be
+     * a good that you can buy at one of the companies of this planet.
+     */
+    public void sell(int quantity[]) {
+        //player gains money, loses cargo
+        int money = player.getMoney();
+        Map<String, Integer> demand = planet.getDemand();
+        Object[] prices = demand.values().toArray();
+        int total = 0;
+        for (int i = 0; i < quantity.length; i++) {
+            for (int j = 0; j < quantity[i]; j++)
+                total += (Integer)prices[i];
+        }
+        player.setMoney(money + total);
+        Ship ship = player.getShip();
+        Good[] cargo = ship.getCargoList();
+        Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
+        Stack<Integer> open = ship.getOpenBays();
+        //TODO this triple loop is silly, let's implement the cargo as a map
+        //exactly like how getCargoCounts works, not as an array. However,
+        //getCargoCounts should still be the same, it should just make a new
+        //Map<GoodType, Integer> from the ship's Map<Good, Integer>
+        for (int i = 0; i < quantity.length; i++) {
+            for (int j = 0; j < quantity[i];) {
+                int k = 0;
+                while (j < quantity[i] && k < ship.getCargoList().length) {
+                    if( ship.getCargoList()[k]!= null && ship.getCargoList()[k].getType().getKey().equals(demand.keySet().toArray()[i])) {
+                        cargo[open.push(k)] = null;
+                        j++;
+                    }
+                        
+                k++;
+                
+                }
+            }
+        }
+        
         //don't know if this line is necessary
         ship.setOpenBays(open);
         ship.setCargoList(cargo);
@@ -100,66 +149,20 @@ public class Transaction {
     /**
      * 
      * @param quantity the number of good involved in this transaction.
-     * This should always be a valid number that will not exceed the number
-     * the player has of this good
-     * @param good the good involved in this transaction. This should always be
-     * a good that you can buy at one of the companies of this planet.
-     */
-    public void sell(int quantity, String good) {
-        //player gains money, loses cargo
-        int money = player.getMoney();
-        int value = planet.getDemand().get(good);
-        player.setMoney(money - quantity * value);
-        Ship ship = player.getShip();
-        Good[] cargo = ship.getCargoList();
-        Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
-        String goodName = goodInfo.get(good).getName();
-        Stack<Integer> open = ship.getOpenBays();
-        int i = 0, j = 0;
-        while (i < quantity) {
-            if (goodName.equals(good)) {
-                cargo[j] = null;
-                open.push(j);
-                i++;
-            }
-            j++;
-        }
-        //don't know if this line is necessary
-        ship.setOpenBays(open);
-        ship.setCargoList(cargo);
-    }
-    
-    /**
-     * 
-     * @param quantity the number of good involved in this transaction.
      * @param good the good involved in this transaction. This should always be
      * a good that you can buy at one of the companies of this planet.
      * @return A string describing the validity the transaction.
      */
-    public boolean validateSell(int quantity, String good) {
+    public boolean validateSell(int[] quantity) {
         //int wealth get the planets wealth here
-        int value = planet.getDemand().get(good);
+        
         
         //TODO
         //check if the planet has enough wealth to buy these goods from you here
         
-        Ship ship = player.getShip();
-        Good[] cargo = ship.getCargoList();
-        Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
-        Stack<Integer> open = ship.getOpenBays();
-        //loop through cargo
-        int numOfGood = 0, cargoSlot = 0;
-        while (cargoSlot < cargo.length) {
-            if (cargo[cargoSlot].getType().getName().equals(good)) {
-                numOfGood++;
-            }
-            cargoSlot++;
-        }
-        if (numOfGood < quantity) {
-            errorMessage = "You need " + (quantity - numOfGood) + " more bays of " +
-                    good + " to sell this many.";
-            return false;
-        }
+        
+        
+        
         
         //transaction is valid
         return true;
