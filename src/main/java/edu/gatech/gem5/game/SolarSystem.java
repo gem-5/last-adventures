@@ -64,7 +64,7 @@ public class SolarSystem {
 
     private List<Planet> determinePlanets() {
         Random random = new Random();
-        NameGenerator nameGen = new NameGenerator();
+        NameGenerator nameGen = new NameGenerator(true);
         List<Planet> orbits = new ArrayList<>();
         int num = 0;
         // roll through the list of probabilities

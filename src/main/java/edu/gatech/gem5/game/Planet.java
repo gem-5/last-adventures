@@ -74,6 +74,7 @@ public class Planet {
         return techs.get(this.techLevel);
     }
 
+
     /**
      * Get the environment type.
      *
@@ -330,9 +331,16 @@ public class Planet {
         return out;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+
     @Override
     public String toString() {
         String result = "";
+        result += "Name: " + this.name;
+        result += "\n";
         result += "Tech Level: " + this.techLevel;
         result += "\n";
         result += "Environment: " + this.environment;

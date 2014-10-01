@@ -100,7 +100,10 @@ public class LastAdventures extends Application {
         EnvironmentReader().load("/data/Environments.json"));
         data.add(TechType.KEY, new TechReader().load("/data/TechLevels.json"));
 
+        // Universe.main(new String[0]);
         launch(args);
+
+
     }
 
     /**
