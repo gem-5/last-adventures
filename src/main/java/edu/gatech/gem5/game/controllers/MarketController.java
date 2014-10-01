@@ -28,6 +28,7 @@ import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -40,7 +41,7 @@ import javafx.stage.Stage;
  *
  * @author James
  */
-public class MarketController implements Initializable {
+public class MarketController extends Controller {
     @FXML
     AnchorPane root;
     @FXML

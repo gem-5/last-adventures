@@ -91,14 +91,12 @@ public class DisplayUniverseController extends Controller {
             );
             Tooltip.install(circle, t);
             nodes.add(circle);
-
-            children.add(circle);
             
             Button solarSys = new Button();
             solarSys.setPrefSize(circle.getRadius() * 2, circle.getRadius() * 2);  
             solarSys.setLayoutX(circle.getCenterX() + circle.getRadius());
             solarSys.setLayoutY(circle.getCenterY() + circle.getRadius());
-            children.add(solarSys);
+            nodes.add(solarSys);
         }
     }
 
