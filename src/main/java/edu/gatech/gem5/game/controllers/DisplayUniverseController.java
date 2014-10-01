@@ -39,7 +39,7 @@ public class DisplayUniverseController implements Initializable {
     AnchorPane root;
 
 
-        /**
+    /**
      * Changes screens
      *
      * @param event A button press attempting to change scenes

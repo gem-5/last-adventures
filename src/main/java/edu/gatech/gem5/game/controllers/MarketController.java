@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.ui.BuyBar;
 import edu.gatech.gem5.game.ui.UpgradeBar;
 import edu.gatech.gem5.game.data.DataType;
@@ -34,6 +35,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -79,6 +82,47 @@ public class MarketController implements Initializable {
         // not implemented
     }
 
+    
+    /**
+     * Buy Goods
+     *
+     * @param event A button press attempting to change scenes
+     * @throws Exception 
+     */
+    @FXML
+    public void buyGoods(ActionEvent event) throws Exception {
+        String id = ((Button) (event.getSource())).idProperty().get();
+        
+        if (id.equals("purchase")) {
+            Transaction transaction = new Transaction();
+            int[] quantities = new int[ buyGoods.getItems().size()];
+            //TODO ObservableList<BuyBar> has a sorted method - ask Jack about
+            //this if you feel like doing work
+            for(int i = 0; i < buyGoods.getItems().size(); i++) {
+                quantities[i] = (int) buyGoods.getItems().get(i).getSliderValue();
+            }
+            if (transaction.validateBuy(quantities)) {
+                System.out.println("I have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
+                transaction.buy(quantities);
+                lblCash.setText("" + LastAdventures.getCurrentSaveFile()
+                        .getCharacter().getMoney());
+                System.out.println("I now have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
+            } else {
+                System.out.println("error is:");
+                System.out.println(transaction.getErrorMessage());
+                transaction.getErrorMessage();//this should be text of some popup dialog
+            }
+        } else if (id.equals("sell")) {
+            Transaction transaction = new Transaction();
+            if (transaction.validateSell(3, "water")) {
+                transaction.sell(3,"water");
+            } else {
+                System.out.println(transaction.getErrorMessage());
+                transaction.getErrorMessage();//this should be text of some popup dialog
+            }
+        }
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -142,7 +186,7 @@ public class MarketController implements Initializable {
                 ((GoodType) goods.get(x.getKey())).getName()
             );
             lstGoods.add(b);
-        }
+        }        
         buyGoods.setItems(lstGoods);
     }
 
