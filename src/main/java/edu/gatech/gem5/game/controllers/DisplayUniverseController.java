@@ -27,6 +27,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -81,6 +82,12 @@ public class DisplayUniverseController implements Initializable {
             Tooltip.install(circle, t);
 
             children.add(circle);
+            
+            Button solarSys = new Button();
+            solarSys.setPrefSize(circle.getRadius() * 2, circle.getRadius() * 2);  
+            solarSys.setLayoutX(circle.getCenterX() + circle.getRadius());
+            solarSys.setLayoutY(circle.getCenterY() + circle.getRadius());
+            children.add(solarSys);
         }
 
         //Randomly choose a planet to start on

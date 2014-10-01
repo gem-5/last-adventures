@@ -35,8 +35,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -193,7 +191,7 @@ public class MarketController implements Initializable {
     public void changeScenes(ActionEvent event) throws Exception {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String id = ((Button)(event.getSource())).idProperty().get();
-        if (id.equals(universe)) {
+        if (id.equals("universe")) {
             root = FXMLLoader.load(getClass().getResource("/displayUniverse.fxml"));
 
             stage.setScene(new Scene((Pane) root));
