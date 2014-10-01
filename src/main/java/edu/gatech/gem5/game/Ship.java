@@ -2,12 +2,8 @@ package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.ShipType;
-import java.util.Map;
 import java.util.Stack;
-<<<<<<< HEAD
-=======
 import java.util.Map;
->>>>>>> master
 import java.util.TreeMap;
 
 /**
