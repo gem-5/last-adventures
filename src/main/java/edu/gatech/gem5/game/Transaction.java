@@ -51,11 +51,12 @@ public class Transaction {
         Good[] cargo = ship.getCargoList();
         Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
         Stack<Integer> open = ship.getOpenBays();
-        for (int i = 0; i < quantity.length; i++)    
+        for (int i = 0; i < quantity.length; i++) {
             for (int j = 0; j < quantity[i]; j++) {
                 cargo[open.pop()] = new Good((GoodType)LastAdventures.data.
                         get("good").get(supply.keySet().toArray()[i]));
             }
+        }
             
         //don't know if this line is necessary
         ship.setOpenBays(open);
@@ -70,25 +71,40 @@ public class Transaction {
      * @param good the good involved in this transaction. This should always be
      * a good that you can buy at one of the companies of this planet.
      */
-    public void sell(int quantity, String good) {
+    public void sell(int quantity[]) {
         //player gains money, loses cargo
         int money = player.getMoney();
-        int value = planet.getDemand().get(good);
-        player.setMoney(money - quantity * value);
+        Map<String, Integer> demand = planet.getDemand();
+        Object[] prices = demand.values().toArray();
+        int total = 0;
+        for (int i = 0; i < quantity.length; i++) {
+            for (int j = 0; j < quantity[i]; j++)
+                total += (Integer)prices[i];
+        }
+        player.setMoney(money + total);
         Ship ship = player.getShip();
         Good[] cargo = ship.getCargoList();
         Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
-        String goodName = goodInfo.get(good).getName();
         Stack<Integer> open = ship.getOpenBays();
-        int i = 0, j = 0;
-        while (i < quantity) {
-            if (goodName.equals(good)) {
-                cargo[j] = null;
-                open.push(j);
-                i++;
+        //TODO this triple loop is silly, let's implement the cargo as a map
+        //exactly like how getCargoCounts works, not as an array. However,
+        //getCargoCounts should still be the same, it should just make a new
+        //Map<GoodType, Integer> from the ship's Map<Good, Integer>
+        for (int i = 0; i < quantity.length; i++) {
+            for (int j = 0; j < quantity[i];) {
+                int k = 0;
+                while (j < quantity[i] && k < ship.getCargoList().length) {
+                    if( ship.getCargoList()[k]!= null && ship.getCargoList()[k].getType().getKey().equals(demand.keySet().toArray()[i])) {
+                        cargo[open.push(k)] = null;
+                        j++;
+                    }
+                        
+                k++;
+                
+                }
             }
-            j++;
         }
+        
         //don't know if this line is necessary
         ship.setOpenBays(open);
         ship.setCargoList(cargo);
@@ -139,34 +155,14 @@ public class Transaction {
      */
     public boolean validateSell(int[] quantity) {
         //int wealth get the planets wealth here
-        Object[] values = planet.getDemand().values().toArray();
+        
         
         //TODO
         //check if the planet has enough wealth to buy these goods from you here
         
-        Ship ship = player.getShip();
-        Good[] cargo = ship.getCargoList();
-        Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
-        Stack<Integer> open = ship.getOpenBays();
-        //loop through cargo
-        int numOfGood = 0, cargoSlot = 0;
-        Map<GoodType, Integer> cargoCounts = player.getShip().getCargoCounts();
-        Map<String, Integer> missing = new TreeMap<>();
-        String[] keys = (String[])cargoCounts.keySet().toArray();
         
-        for (int i = 0; i < quantity.length; i++) {
-            int surplus = cargoCounts.get(LastAdventures.data.get("good").get(keys[i])) - quantity[i];
-            if(surplus < 0) {
-                missing.put(keys[i], surplus * -1); //missing this many of this good
-            }
-        }
         
-        int totalItems = IntStream.of(quantity).sum();
-        if (numOfGood < totalItems) {
-            errorMessage = "You need " + (totalItems - numOfGood) + " more bays.";// of " +
-                    //"xxx" + " to sell this many.";
-            return false;
-        }
+        
         
         //transaction is valid
         return true;

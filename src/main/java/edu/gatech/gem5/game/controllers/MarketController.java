@@ -53,6 +53,8 @@ public class MarketController extends Controller {
 
     @FXML
     private ListView<UpgradeBar> upShields;
+    
+    
 
     private Planet planet;
     public static final String MARKET_VIEW_FILE = "/market.fxml";
@@ -115,24 +117,31 @@ public class MarketController extends Controller {
                 quantities[i] = (int) buyGoods.getItems().get(i).getSliderValue();
             }
             if (transaction.validateBuy(quantities)) {
-                System.out.println("I have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
                 transaction.buy(quantities);
                 lblCash.setText("" + LastAdventures.getCurrentSaveFile()
                                 .getCharacter().getMoney());
-                System.out.println("I now have: " + LastAdventures.getCurrentSaveFile().getCharacter().getMoney());
+                buildBuyGoodsList(); //necessary for when planets have wealth and stock
+                buildSellGoodsList(); //necessary for updateing the ListView of cargo
+                fillLabels(); //update the money label
+
             } else {
-                System.out.println("error is:");
                 System.out.println(transaction.getErrorMessage());
-                transaction.getErrorMessage();//this should be text of some popup dialog
             }
             // Sell goods
         } else if (id.equals("sell")) {
             Transaction transaction = new Transaction();
-            if (transaction.validateSell(new int[buyGoods.getItems().size()])) {
-                transaction.sell(3, "water");
+            int[] quantities = new int[sellGoods.getItems().size()];
+            for (int i = 0; i < sellGoods.getItems().size(); i++) {
+                quantities[i] = (int) sellGoods.getItems().get(i).getSliderValue();
+            }
+            if (transaction.validateSell(quantities)) {
+                System.out.println("hello");
+                transaction.sell(quantities);
+                buildBuyGoodsList(); //necessary for when planets have wealth and stock
+                buildSellGoodsList(); //necessary for updateing the ListView of cargo
+                fillLabels(); //update the money label
             } else {
                 System.out.println(transaction.getErrorMessage());
-                transaction.getErrorMessage();//this should be text of some popup dialog
             }
         }
     }

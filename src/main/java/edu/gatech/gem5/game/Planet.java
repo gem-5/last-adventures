@@ -221,25 +221,27 @@ public class Planet {
         Map<String, Integer> in = new TreeMap<>();
         Ship playerShip = LastAdventures.getCurrentSaveFile().getCharacter().getShip();
         for (Good g : playerShip.getCargoList()) {
-            GoodType gt = g.getType();
-            double value = gt.getValue();
-            String s = gt.getKey();
+            if (g != null) { //there is cargo at this spot    
+                GoodType gt = g.getType();
+                double value = gt.getValue();
+                String s = gt.getKey();
 
-            Map<String, Double> govMap = getGovernment().getDemand();
-            if (govMap.get(s) != null) {
-                value *= govMap.get(s);
-            }
-            Map<String, Double> envMap = getEnvironment().getDemand();
-            if (envMap.get(s) != null) {
-                value *= govMap.get(s);
-            }
-            // If any company produces the good, it sells for less
-            Map<String, Integer> f = getCompetitions();
-            if (f.get(s) != null) {
-                value *= COMPETITION_FACTOR;
-            }
+                Map<String, Double> govMap = getGovernment().getDemand();
+                if (govMap.get(s) != null) {
+                    value *= govMap.get(s);
+                }
+                Map<String, Double> envMap = getEnvironment().getDemand();
+                if (envMap.get(s) != null) {
+                    value *= govMap.get(s);
+                }
+                // If any company produces the good, it sells for less
+                Map<String, Integer> f = getCompetitions();
+                if (f.get(s) != null) {
+                    value *= COMPETITION_FACTOR;
+                }
 
-            in.put(s, (int) Math.round(value));
+                in.put(s, (int) Math.round(value));
+            }
 
 
 

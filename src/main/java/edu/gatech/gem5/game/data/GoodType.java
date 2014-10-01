@@ -6,7 +6,7 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public class GoodType extends DataType {
+public class GoodType extends DataType implements Comparable {
 
     private String key;
     private String name;
@@ -68,6 +68,17 @@ public class GoodType extends DataType {
      */
     public boolean isLegal() {
         return this.legal;
+    }
+
+    /**
+     * An GoodType is sorted in alphabetical order
+     * 
+     * @param o the other object
+     * @return A negative, zero, or positive integer
+     */
+    @Override
+    public int compareTo(Object o) {
+        return this.getName().compareTo(((GoodType) o).getName());
     }
 
 }

@@ -69,7 +69,7 @@
                                 </Tab>
                             </tabs>
                         </TabPane>
-                        <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Market Name" />
+                        <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Market" />
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="right" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -97,7 +97,7 @@
                             <VBox>
                                 <ListView fx:id="sellGoods" VBox.Vgrow="always"/>
                                 <Region VBox.Vgrow="always"/>
-                                <Button id="sell" text="Sell" onAction="#buyGoods"/>
+                                <Button id="sell" text="Sell" onAction="#buttonTransaction"/>
                             </VBox>
                                     </content>
                                 </Tab>
