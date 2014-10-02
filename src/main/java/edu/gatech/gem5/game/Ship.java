@@ -5,6 +5,8 @@ import edu.gatech.gem5.game.data.ShipType;
 import java.util.Stack;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class for ship objects owned by players/NPCs.
@@ -19,9 +21,12 @@ public class Ship {
     private double health;
     private Good[] cargoList;
     private Stack<Integer> openBays;
-    private Weapon[] weaponList;
-    private Shield[] shieldList;
-    private Gadget[] gadgetList;
+    // private Weapon[] weaponList;
+    private List<Weapon> weaponList;
+    // private Shield[] shieldList;
+    private List<Shield> shieldList;
+    // private Gadget[] gadgetList;
+    private List<Gadget> gadgetList;
     private Mercenary[] crewList;
 
     /**
@@ -36,9 +41,9 @@ public class Ship {
         for (int i = 0; i < cargoList.length; i++) {
             openBays.push(i); // all bays are open at the beginning
         }
-        this.weaponList = new Weapon[ship.getWeaponSlots()];
-        this.shieldList = new Shield[ship.getShieldSlots()];
-        this.gadgetList = new Gadget[ship.getGadgetSlots()];
+        this.weaponList = new ArrayList<>(ship.getWeaponSlots());
+        this.shieldList = new ArrayList<>(ship.getShieldSlots());
+        this.gadgetList = new ArrayList<>(ship.getGadgetSlots());
         this.crewList = new Mercenary[ship.getCrewSlots()];
     }
 
@@ -105,7 +110,19 @@ public class Ship {
         return worth;
 
     }
-    
+
+    public List<Weapon> getWeaponList() {
+        return this.weaponList;
+    }
+
+    public List<Shield> getList() {
+        return this.shieldList;
+    }
+
+    public List<Gadget> getGadgetList() {
+        return this.gadgetList;
+    }
+
     public Map<GoodType, Integer> getCargoCounts() {
         Map<GoodType, Integer> goodMap = new TreeMap<>();
         for (Good g: cargoList) {

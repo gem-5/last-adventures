@@ -15,6 +15,7 @@ public class Character extends Human {
         super(name, pilot, fighter, trader, engineer, investor, ship, 100000);
     }
 
+    @Override
     public String toString() {
         return "*PLAYER CHARACTER*\n" + super.toString();
     }
@@ -42,23 +43,5 @@ public class Character extends Human {
 
         return new Character(nameString, pilot, fighter, trader, engineer, investor, ship);
     }
-
-    // int getMoney() {
-    //     return 0;
-    //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
-
-    // void setMoney(int m) {
-    //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
-    // public int getMoney() {
-    //     return this.money;
-    //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
-
-    // public void setMoney(int m) {
-    //     this.money = m;
-    //     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    // }
 
 }

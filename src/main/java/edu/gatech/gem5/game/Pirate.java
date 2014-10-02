@@ -16,7 +16,7 @@ public class Pirate extends Human {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
 
-    private static Pirate createPirate(int seed) {
+    public static Pirate createPirate(int seed) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
 
@@ -56,5 +56,10 @@ public class Pirate extends Human {
             Pirate bob = createPirate((1000 * i % 50000) + 1);
             System.out.println(bob);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "*PIRATE*\n" + super.toString();
     }
 }
