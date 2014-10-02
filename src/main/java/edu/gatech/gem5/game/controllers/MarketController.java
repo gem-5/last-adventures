@@ -27,8 +27,13 @@ import edu.gatech.gem5.game.data.WeaponType;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -37,7 +42,11 @@ import javafx.stage.Stage;
  * @author James
  */
 public class MarketController extends Controller {
-
+    @FXML
+    AnchorPane root;
+    @FXML
+    Button universe;
+    
     @FXML
     private Label lblCash;
 
@@ -252,4 +261,13 @@ public class MarketController extends Controller {
         sellGoods.setItems(listGoods);
     }
 
+    public void changeScenes(ActionEvent event) throws Exception {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        String id = ((Button)(event.getSource())).idProperty().get();
+        if (id.equals("universe")) {
+            root = FXMLLoader.load(getClass().getResource("/displayUniverse.fxml"));
+
+            stage.setScene(new Scene((Pane) root));
+        }
+    }
 }

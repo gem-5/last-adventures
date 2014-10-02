@@ -88,34 +88,4 @@
                                    <Button id="sell" onAction="#buttonTransaction" text="Sell" />
                                </children>
                             </VBox>
-                                    </content>
-                                </Tab>
-                                <Tab text="Ships">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="636.0" />
-                                    </content>
-                                </Tab>
-                                <Tab text="Weapons">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                    </content>
-                                </Tab>
-                                <Tab text="Shields">
-                                    <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                    </content>
-                                </Tab>
-                            </tabs>
-                        </TabPane>
-                        <HBox>
-                            <children>
-                                <Label text="Player Cash:" />
-                                <Label fx:id="lblCash" />
-                            </children>
-                        </HBox>
-                    </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
-    </children>
 </AnchorPane>
