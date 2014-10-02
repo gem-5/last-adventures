@@ -118,13 +118,20 @@ public class BuyBar extends HBox {
     public void setText(String text) {
         this.lblItem.setText(text);
     }
-    
+
     /**
-     * 
+     *
      * @return the value of the slider
      */
     public int getSliderValue() {
         return (int) sldQuantity.valueProperty().get();
+    }
+
+    /**
+     * @return the good key
+     */
+    public String getProduct() {
+        return this.product;
     }
 
 
