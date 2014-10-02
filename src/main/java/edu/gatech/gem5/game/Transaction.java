@@ -10,165 +10,119 @@ import java.util.stream.IntStream;
 /**
  * This class handles all exchanges between the player character and a planet's
  * stock. This includes goods, ships, weapons, gadgets, and shields.
- * 
+ *
  * @author Jack Mueller
  */
 public class Transaction {
-    
+
     private Character player;
     //the planet that this character is doing business on
     private Planet planet;
     private String errorMessage;
-    
-    public Transaction() {
-        SaveFile saveFile = LastAdventures.getCurrentSaveFile();
-        player = saveFile.getCharacter();
-        planet = saveFile.getPlanet();
-        errorMessage = "";
-    }
-    
+
     /**
-     * 
-     * @param quantity the number of good involved in this transaction.
-     * This should always be a valid number that will not exceed the capacity of
-     * the cargo hold
-     * @param good the good involved in this transaction. This should always be
-     * a good that you can buy at one of the companies of this planet.
+     * This transaction is between a player and a planet
+     *
+     * @param player The player making the transaction.
+     * @param planet The planet making the transaction.
      */
-    public void buy(int[] quantity) {
-        //player loses money, gains cargo
-        int money = player.getMoney();
-        Map<String, Integer> supply = planet.getSupply();
-        Object[] prices = supply.values().toArray();
-        int total = 0;
-        for (int i = 0; i < quantity.length; i++) {
-            for (int j = 0; j < quantity[i]; j++)
-                total += (Integer)prices[i];
+    public Transaction(Character player, Planet planet) {
+        this.player = player;
+        this.planet = planet;
+        this.errorMessage = "";
+    }
+
+    /**
+     * Purchase a number of goods
+     *
+     * @param purchases A map of goods and their quantities to purchase.
+     */
+    public void buy(Map<String, Integer> purchases) {
+        for (Map.Entry<String, Integer> p : purchases.entrySet()) {
+            int unitPrice = planet.getSupply().get(p.getKey());
+            int sumTotal = unitPrice * p.getValue();
+            // player loses money, gains cargo
+            player.setMoney(player.getMoney() - sumTotal);
+            player.getShip().addCargo(p.getKey(), p.getValue());
+            // planet loses stock
+            Map<String, Integer> stock = planet.getStock();
+            stock.put(p.getKey(), stock.get(p.getKey()) - p.getValue());
         }
-        System.out.println("and the total is: " + total);
-        player.setMoney(money - total);
-        Ship ship = player.getShip();
-        Good[] cargo = ship.getCargoList();
-        Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
-        Stack<Integer> open = ship.getOpenBays();
-        for (int i = 0; i < quantity.length; i++) {
-            for (int j = 0; j < quantity[i]; j++) {
-                cargo[open.pop()] = new Good((GoodType)LastAdventures.data.
-                        get("good").get(supply.keySet().toArray()[i]));
+    }
+
+    /**
+     * Sell a number of goods
+     *
+     * @param sales A map of goods and their quantities to sell.
+     */
+    public void sell(Map<String, Integer> sales) {
+        for(Map.Entry<String, Integer> s : sales.entrySet()) {
+            int unitPrice = planet.getDemand().get(s.getKey());
+            int sumTotal = unitPrice * s.getValue();
+            // planet loses money, player gains money
+            // TODO: take money from the planet
+            player.setMoney(player.getMoney() + sumTotal);
+            // player loses cargo
+            player.getShip().takeCargo(s.getKey(), s.getValue());
+        }
+    }
+
+    /**
+     * Check if a purchase is possible.
+     *
+     * @param purchases A map of goods and their quantities to purchase.
+     */
+    public boolean validateBuy(Map<String, Integer> purchases) {
+        int total = 0;
+        int count = 0;
+        for (Map.Entry<String, Integer> p : purchases.entrySet()) {
+            int unitPrice = planet.getSupply().get(p.getKey());
+            total += p.getValue() * unitPrice;
+            count += p.getValue();
+            // planet does not have enough stock
+            if (p.getValue() > planet.getStock().get(p.getKey())) {
+                errorMessage = "The planet does not have that much in stock.";
+                return false;
             }
         }
-            
-        //don't know if this line is necessary
-        ship.setOpenBays(open);
-        ship.setCargoList(cargo);
-    }
-    
-    /**
-     * 
-     * @param quantity the number of good involved in this transaction.
-     * This should always be a valid number that will not exceed the number
-     * the player has of this good
-     * @param good the good involved in this transaction. This should always be
-     * a good that you can buy at one of the companies of this planet.
-     */
-    public void sell(int quantity[]) {
-        //player gains money, loses cargo
-        int money = player.getMoney();
-        Map<String, Integer> demand = planet.getDemand();
-        Object[] prices = demand.values().toArray();
-        int total = 0;
-        for (int i = 0; i < quantity.length; i++) {
-            for (int j = 0; j < quantity[i]; j++)
-                total += (Integer)prices[i];
-        }
-        player.setMoney(money + total);
-        Ship ship = player.getShip();
-        Good[] cargo = ship.getCargoList();
-        Map<String, GoodType> goodInfo = LastAdventures.data.get(GoodType.KEY);
-        Stack<Integer> open = ship.getOpenBays();
-        //TODO this triple loop is silly, let's implement the cargo as a map
-        //exactly like how getCargoCounts works, not as an array. However,
-        //getCargoCounts should still be the same, it should just make a new
-        //Map<GoodType, Integer> from the ship's Map<Good, Integer>
-        for (int i = 0; i < quantity.length; i++) {
-            for (int j = 0; j < quantity[i];) {
-                int k = 0;
-                while (j < quantity[i] && k < ship.getCargoList().length) {
-                    if( ship.getCargoList()[k]!= null && ship.getCargoList()[k].getType().getKey().equals(demand.keySet().toArray()[i])) {
-                        cargo[open.push(k)] = null;
-                        j++;
-                    }
-                        
-                k++;
-                
-                }
-            }
-        }
-        
-        //don't know if this line is necessary
-        ship.setOpenBays(open);
-        ship.setCargoList(cargo);
-    }
-    
-    /**
-     * 
-     * @param quantity the number of good involved in this transaction.
-     * This should always be a valid number that will not exceed the capacity of
-     * the cargo hold
-     * @param good the good involved in this transaction. This should always be
-     * a good that you can buy at one of the companies of this planet.
-     * @return A string describing the validity the transaction.
-     */
-    public boolean validateBuy(int[] quantity) {
-        int money = player.getMoney();
-        Object[] prices = planet.getSupply().values().toArray();
-        int total = 0;
-        for (int i = 0; i < quantity.length; i++) {
-            for (int j = 0; j < quantity[i]; j++)
-                total += (Integer)prices[i];
-        }
-        
-        if (money - total < 0) {
-            errorMessage = "You are " + (total - money) + " credits short " +
-                    "for this transaction.";
+        // player does not have enough money
+        if (player.getMoney() < total) {
+            errorMessage = "You are " + (total - player.getMoney())
+                + " credits short "
+                + "for this transaction.";
             return false;
         }
-        Ship ship = player.getShip();
-        Stack<Integer> open = ship.getOpenBays();
-        int totalItems = IntStream.of(quantity).sum();
-        if (open.size() < totalItems) {
-            errorMessage = "You need " + (totalItems - open.size()) + 
-                    " more cargo bays.";
+        // player does not have enough cargo slots
+        if (count > player.getShip().getOpenBays()) {
+            errorMessage = "You need "
+                + (count - player.getShip().getOpenBays())
+                + " more cargo bays.";
             return false;
         }
-        
-        //transaction is valid
         return true;
     }
-    
+
     /**
-     * 
-     * @param quantity the number of good involved in this transaction.
-     * @param good the good involved in this transaction. This should always be
-     * a good that you can buy at one of the companies of this planet.
-     * @return A string describing the validity the transaction.
+     * Check if the sale is possible.
+     *
+     * @param sales A map of goods and their quantities to sell.
      */
-    public boolean validateSell(int[] quantity) {
+    public boolean validateSell(Map<String, Integer> sales) {
         //int wealth get the planets wealth here
-        
-        
+
+
         //TODO
         //check if the planet has enough wealth to buy these goods from you here
-        
-        
-        
-        
-        
+
+
+
+
+
         //transaction is valid
         return true;
     }
-    
-    
+
+
     /**
      * @return the last error message
      */

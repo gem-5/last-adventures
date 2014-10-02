@@ -6,6 +6,7 @@ package edu.gatech.gem5.game.controllers;
  * and open the template in the editor.
  */
 import java.util.Map;
+import java.util.HashMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Label;
@@ -18,6 +19,7 @@ import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Good;
 import edu.gatech.gem5.game.Transaction;
+import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.ui.BuyBar;
 import edu.gatech.gem5.game.ui.UpgradeBar;
 import edu.gatech.gem5.game.data.DataType;
@@ -42,19 +44,16 @@ public class MarketController extends Controller {
     private Label lblCash;
 
     @FXML
+    private Label lblSlots;
+
+    @FXML
     private Label errorLabel;
 
     @FXML
     private ListView<BuyBar> buyGoods;
-
     @FXML
-    private ListView<UpgradeBar> upShips;
+    private ListView<BuyBar> sellGoods;
 
-    @FXML
-    private ListView<UpgradeBar> upWeapons;
-
-    @FXML
-    private ListView<UpgradeBar> upShields;
 
     private Planet planet;
     public static final String MARKET_VIEW_FILE = "/market.fxml";
@@ -71,95 +70,81 @@ public class MarketController extends Controller {
 
         fillLabels();
         buildBuyGoodsList();
-        buildShieldList();
-        buildShipList();
-        buildWeaponList();
         buildSellGoodsList();
     }
 
+    /**
+     * Commit a purchase.
+     *
+     * @param event A button event.
+     * @throws Exception if something stupid happens
+     */
     @FXML
-    private ListView<BuyBar> sellGoods;
-
-    @FXML
-    public void buyGoods() {
-        // not implemented
-    }
-
-    @FXML
-    public void upShip() {
-        // not implemented
-    }
-
-    @FXML
-    public void upWeapon() {
-        // not implemented
-    }
-
-    @FXML
-    public void upShield() {
-        // not implemented
+    public void makePurchase(ActionEvent event) throws Exception {
+        // enumerate purchases
+        Map<String, Integer> purchases = new HashMap<>();
+        for (BuyBar bar : buyGoods.getItems()) {
+            String productKey = bar.getProduct();
+            int quantity = bar.getSliderValue();
+            purchases.put(productKey, quantity);
+        }
+        // construct a transaction between a player and a planet
+        Transaction t = new Transaction(
+            LastAdventures.getCurrentSaveFile().getCharacter(),
+            LastAdventures.getCurrentSaveFile().getPlanet()
+        );
+        // attempt the purchase
+        if (t.validateBuy(purchases)) {
+            t.buy(purchases);
+            buildBuyGoodsList(); //necessary for when planets have wealth and stock
+            buildSellGoodsList(); //necessary for updateing the ListView of cargo
+            fillLabels(); //update the money label
+        } else {
+            errorLabel.setText(t.getErrorMessage());
+        }
     }
 
     /**
-     * Buy/Sell Goods
+     * Commit a sale.
+     *
+     * @param event A button event.
+     * @throws Exception if something stupid happens
+     */
+    @FXML
+    public void makeSale(ActionEvent event) throws Exception {
+         // enumerate sales
+        Map<String, Integer> sales = new HashMap<>();
+        for (BuyBar bar : sellGoods.getItems()) {
+            String productKey = bar.getProduct();
+            int quantity = bar.getSliderValue();
+            sales.put(productKey, quantity);
+        }
+        // construct a transaction between a player and a planet
+        Transaction t = new Transaction(
+            LastAdventures.getCurrentSaveFile().getCharacter(),
+            LastAdventures.getCurrentSaveFile().getPlanet()
+        );
+        // attempt the sale
+        if (t.validateSell(sales)) {
+            t.sell(sales);
+            // update the labels
+            buildBuyGoodsList(); //necessary for when planets have wealth and stock
+            buildSellGoodsList(); //necessary for updateing the ListView of cargo
+            fillLabels(); //update the money label
+        } else {
+            errorLabel.setText(t.getErrorMessage());
+        }
+    }
+
+    /**
+     * Go back to the planet screen.
      *
      * @param event A button press attempting to change scenes
      * @throws Exception
      */
     @FXML
-    public void buttonTransaction(ActionEvent event) throws Exception {
-        String id = ((Button) (event.getSource())).idProperty().get();
-        // Buy Goods
-        if (id.equals("purchase")) {
-            Transaction transaction = new Transaction();
-            int[] quantities = new int[buyGoods.getItems().size()];
-            //TODO ObservableList<BuyBar> has a sorted method - ask Jack about
-            //this if you feel like doing work
-            for (int i = 0; i < buyGoods.getItems().size(); i++) {
-                quantities[i] = (int) buyGoods.getItems().get(i).getSliderValue();
-            }
-            if (transaction.validateBuy(quantities)) {
-                transaction.buy(quantities);
-                lblCash.setText("" + LastAdventures.getCurrentSaveFile()
-                        .getCharacter().getMoney());
-                buildBuyGoodsList(); //necessary for when planets have wealth and stock
-                buildSellGoodsList(); //necessary for updateing the ListView of cargo
-                fillLabels(); //update the money label
-                
-            } else {
-                errorLabel.setText(transaction.getErrorMessage());
-            }
-            // Sell goods
-        } else if (id.equals("sell")) {
-            Transaction transaction = new Transaction();
-            int[] quantities = new int[sellGoods.getItems().size()];
-            for (int i = 0; i < sellGoods.getItems().size(); i++) {
-                quantities[i] = (int) sellGoods.getItems().get(i).getSliderValue();
-            }
-            if (transaction.validateSell(quantities)) {
-                transaction.sell(quantities);
-                buildBuyGoodsList(); //necessary for when planets have wealth and stock
-                buildSellGoodsList(); //necessary for updateing the ListView of cargo
-                fillLabels(); //update the money label
-            } else {
-                errorLabel.setText(transaction.getErrorMessage());
-            }
-        }
-    }
-
-    /**
-     * Buy Goods
-     *
-     * @param event A button press attempting to change scenes
-     * @throws Exception
-     */
-    @FXML
-    public void buttonMenu(ActionEvent event) throws Exception {
-        String id = ((Button) (event.getSource())).idProperty().get();
-        // Goto main screen.
-        if (id.equals("back")) {
-            LastAdventures.swap(new PlanetController());
-        }
+    public void goBack(ActionEvent event) throws Exception {
+        LastAdventures.swap(new PlanetController());
     }
 
     private void fillLabels() {
@@ -167,9 +152,13 @@ public class MarketController extends Controller {
         this.lblCash.setText(
                 ((Integer) save.getCharacter().getMoney()).toString()
         );
+        Ship s = save.getCharacter().getShip();
+        this.lblSlots.setText(
+            ((Integer) s.getOpenBays()).toString()
+        );
         errorLabel.setText("");
     }
-
+    /*
     private void buildShipList() {
         // this is the tab for ships that the planet sells
         ObservableList<UpgradeBar> lstShips
@@ -216,7 +205,7 @@ public class MarketController extends Controller {
             lstShields.add(b);
         }
         upShields.setItems(lstShields);
-    }
+    }*/
 
     private void buildBuyGoodsList() {
         // this is the tab for goods that the planet sells
@@ -237,13 +226,15 @@ public class MarketController extends Controller {
 
     private void buildSellGoodsList() {
         ObservableList<BuyBar> listGoods = FXCollections.observableArrayList();
-        Map<GoodType, Integer> playerGoods = LastAdventures.getCurrentSaveFile().getCharacter().getShip().getCargoCounts();
-        for (Map.Entry<GoodType, Integer> g : playerGoods.entrySet()) {
+        Map<String, Integer> playerGoods = LastAdventures.getCurrentSaveFile().getCharacter().getShip().getCargoList();
+        for (Map.Entry<String, Integer> s : playerGoods.entrySet()) {
+            if (s.getValue() == 0) continue; // don't bother with these
+            GoodType g = (GoodType) LastAdventures.data.get(GoodType.KEY).get(s.getKey());
             BuyBar b = new BuyBar();
-            b.setKey(g.getKey().getKey());
-            b.setQuantity(g.getValue());
-            b.setPrice(planet.getDemand().get(g.getKey().getKey()));
-            b.setText(g.getKey().getName());
+            b.setKey(s.getKey());
+            b.setQuantity(s.getValue());
+            b.setPrice(planet.getDemand().get(s.getKey()));
+            b.setText(g.getName());
             // b.setText(
             //           ((GoodType) goods.get(g.getKey())).getName()
             //           );
