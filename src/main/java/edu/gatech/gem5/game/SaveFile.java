@@ -9,11 +9,13 @@ public class SaveFile {
     private Character player;
     private Universe universe;
     private Planet currentPlanet;
+    private SolarSystem currentSolarSystem;
 
     public SaveFile() {
         this.player = null;
         this.universe = null;
         this.currentPlanet = null;
+        this.currentSolarSystem = null;
     }
 
     public void addCharacter(Character player) {
@@ -35,9 +37,17 @@ public class SaveFile {
     public Planet getPlanet() {
         return currentPlanet;
     }
+    
+    public SolarSystem getSolarSystem() {
+        return currentSolarSystem;
+    }
 
     public void setCurrentPlanet(Planet planet) {
         currentPlanet = planet;
+    }
+    
+    public void setSolarSystem(SolarSystem sys) {
+        currentSolarSystem = sys;
     }
 
     @Override

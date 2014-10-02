@@ -10,223 +10,80 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane
-    prefWidth="1280"
-    prefHeight="720"
-    xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1"
->
+<BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@create.css" />
     </stylesheets>
     <top>
         <HBox>
-            <Region HBox.Hgrow="always"/>
-            <Label
-                fx:id="title"
-                text="Begin your journey..."
-            />
-            <Region HBox.Hgrow="always"/>
+            <children>
+                <Region HBox.Hgrow="always" />
+                <Label fx:id="title" text="Begin your journey..." />
+                <Region HBox.Hgrow="always" />
+            </children>
         </HBox>
     </top>
     <center>
-        <HBox><Region HBox.Hgrow="always"/>
-        <GridPane layoutX="50" layoutY="50">
-            <vgap>10.0</vgap>
-            <hgap>10.0</hgap>
-            <Label
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="0"
-                text="Name"
-            />
-            <TextField
-                fx:id="name"
-                GridPane.columnIndex="1"
-                GridPane.columnSpan="3"
-                GridPane.rowIndex="0"
-                prefHeight="24.0"
-                prefWidth="270.0"
-            >
-            </TextField>
-            <Label
-                fx:id="pilot"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="1"
-                text="Pilot"
-            />
-            <Button
-                fx:id="pilotDec"
-                id="pilot"
-                GridPane.columnIndex="1"
-                GridPane.rowIndex="1"
-                text="-"
-                onAction="#decrement"
-            />
-            <Label
-                fx:id="pilotValue"
-                GridPane.columnIndex="2"
-                GridPane.rowIndex="1"
-                text="1"
-            />
-            <Button
-                fx:id="pilotInc"
-                id="pilot"
-                GridPane.columnIndex="3"
-                GridPane.rowIndex="1"
-                text="+"
-                onAction="#increment"
-            />
-            <Label
-                fx:id="fighter"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="2"
-                text="Fighter"
-            />
-            <Button
-                fx:id="fighterDec"
-                id="fighter"
-                GridPane.columnIndex="1"
-                GridPane.rowIndex="2"
-                text="-"
-                onAction="#decrement"
-            />
-            <Label
-                fx:id="fighterValue"
-                GridPane.columnIndex="2"
-                GridPane.rowIndex="2"
-                text="1"
-            />
-            <Button
-                fx:id="fighterInc"
-                id="fighter"
-                GridPane.columnIndex="3"
-                GridPane.rowIndex="2"
-                text="+"
-                onAction="#increment"
-            />
-            <Label
-                fx:id="trader"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="3"
-                text="Trader"
-            />
-            <Button
-                fx:id="traderDec"
-                id="trader"
-                GridPane.columnIndex="1"
-                GridPane.rowIndex="3"
-                text="-"
-                onAction="#decrement"
-            />
-            <Label
-                fx:id="traderValue"
-                GridPane.columnIndex="2"
-                GridPane.rowIndex="3"
-                text="1"
-            />
-            <Button
-                fx:id="traderInc"
-                id="trader"
-                GridPane.columnIndex="3"
-                GridPane.rowIndex="3"
-                text="+"
-                onAction="#increment"
-            />
-            <Label
-                fx:id="engineer"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="4"
-                text="Engineer"
-            />
-            <Button
-                fx:id="engineerDec"
-                id="engineer"
-                GridPane.columnIndex="1"
-                GridPane.rowIndex="4"
-                text="-"
-                onAction="#decrement"
-            />
-            <Label
-                fx:id="engineerValue"
-                GridPane.columnIndex="2"
-                GridPane.rowIndex="4"
-                text="1"
-            />
-            <Button
-                fx:id="engineerInc"
-                id="engineer"
-                GridPane.columnIndex="3"
-                GridPane.rowIndex="4"
-                text="+"
-                onAction="#increment"
-            />
-            <Label
-                fx:id="investor"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="5"
-                text="Investor"
-            />
-            <Button
-                fx:id="investorDec"
-                id="investor"
-                GridPane.columnIndex="1"
-                GridPane.rowIndex="5"
-                text="-"
-                onAction="#decrement"
-            />
-            <Label
-                fx:id="investorValue"
-                GridPane.columnIndex="2"
-                GridPane.rowIndex="5"
-                text="1"
-            />
-            <Button
-                fx:id="investorInc"
-                id="investor"
-                GridPane.columnIndex="3"
-                GridPane.rowIndex="5"
-                text="+"
-                onAction="#increment"
-            />
-            <Label
-                fx:id="remaining"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="6"
-                text="SP Remaining:"
-            />
-            <Label
-                fx:id="remainingValue"
-                GridPane.columnIndex="1"
-                GridPane.rowIndex="6"
-                text="20"
-            />
-
-            <Button
-                id="back"
-                GridPane.columnIndex="1"
-                GridPane.rowIndex="7"
-                cancelButton="true"
-                mnemonicParsing="false"
-                text="Back"
-                onAction="#goBack"
-            >
-            </Button>
-            <Button
-                fx:id="confirm"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="7"
-                mnemonicParsing="false"
-                text="Confirm"
-                onAction="#confirmCharacter"
-            >
-            </Button>
-            <Label
-                fx:id="errorMessage"
-                GridPane.columnIndex="5"
-                GridPane.rowIndex="0"
-                text=""
-            />
-        </GridPane>
-        <Region HBox.Hgrow="always"/></HBox>
+        <HBox>
+            <children>
+                <Region HBox.Hgrow="always" />
+                <GridPane layoutX="50" layoutY="50">
+                    <vgap>10.0</vgap>
+                    <hgap>10.0</hgap>
+                    <children>
+                        <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="name" prefHeight="24.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0">
+                        </TextField>
+                        <Label fx:id="pilot" text="Pilot" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Button id="pilot" fx:id="pilotDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="pilotValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Button id="pilot" fx:id="pilotInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label fx:id="fighter" text="Fighter" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Button id="fighter" fx:id="fighterDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="fighterValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Button id="fighter" fx:id="fighterInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label fx:id="trader" text="Trader" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Button id="trader" fx:id="traderDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="traderValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Button id="trader" fx:id="traderInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label fx:id="engineer" text="Engineer" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <Button id="engineer" fx:id="engineerDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="engineerValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <Button id="engineer" fx:id="engineerInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <Label fx:id="investor" text="Investor" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                        <Button id="investor" fx:id="investorDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="investorValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <Button id="investor" fx:id="investorInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                        <Label fx:id="remaining" text="SP Remaining:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                        <Label fx:id="remainingValue" text="20" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      
+                        <Button id="back" cancelButton="true" mnemonicParsing="false" onAction="#goBack" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                        </Button>
+                        <Button fx:id="confirm" mnemonicParsing="false" onAction="#confirmCharacter" text="Confirm" GridPane.columnIndex="0" GridPane.rowIndex="7">
+                        </Button>
+                        <Label fx:id="errorMessage" text="" GridPane.columnIndex="5" GridPane.rowIndex="0" />
+                    </children>
+                    <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+                </GridPane>
+                <Region HBox.Hgrow="always" />
+            </children>
+        </HBox>
     </center>
 </BorderPane>

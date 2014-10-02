@@ -28,9 +28,6 @@
             <VBox HBox.Hgrow="always">
                 <Label>Planet Goods</Label>
                 <ListView fx:id="buyGoods" VBox.Vgrow="always"/>
-                <Region VBox.Vgrow="always"/>
-                <HBox>
-                </HBox>
             </VBox>
             <VBox HBox.Hgrow="always">
                 <Label>Your Goods</Label>
@@ -39,10 +36,13 @@
         </HBox>
     </center>
     <bottom>
-        <HBox>
-            <Button onAction="#makePurchase" text="Purchase" />
-            <Button id="sell" onAction="#makeSale" text="Sell" />
-            <Label fx:id="errorLabel" />
-        </HBox>
+        <VBox>
+            <HBox>
+                <Button onAction="#makePurchase" text="Purchase" />
+                <Region HBox.Hgrow="always" />
+                <Button id="sell" onAction="#makeSale" text="Sell" />
+            </HBox>
+        <Label fx:id="errorLabel" />
+        </VBox>
     </bottom>
 </BorderPane>
