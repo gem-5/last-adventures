@@ -18,17 +18,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
  *
  * @author Jack Mueller
+ * @author Alex Liu
  */
 public class DisplayUniverseController extends Controller {
 
@@ -90,13 +93,13 @@ public class DisplayUniverseController extends Controller {
                 "Planets: " + system.getPlanets().size()
             );
             Tooltip.install(circle, t);
+
+            circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    travelTo(system);
+                }
+            });
             nodes.add(circle);
-            
-            Button solarSys = new Button();
-            solarSys.setPrefSize(circle.getRadius() * 2, circle.getRadius() * 2);  
-            solarSys.setLayoutX(circle.getCenterX() + circle.getRadius());
-            solarSys.setLayoutY(circle.getCenterY() + circle.getRadius());
-            nodes.add(solarSys);
         }
     }
 
@@ -124,5 +127,20 @@ public class DisplayUniverseController extends Controller {
         nodes.add(circle);
         circle.toBack();
     }
-
+    
+    /**
+     * Sets the current planet and solar system to the save file, then changes to
+     * the PlanetController scene
+     * @param sys 
+     */
+    private void travelTo(SolarSystem sys) {
+        SaveFile current = LastAdventures.getCurrentSaveFile();
+        current.setSolarSystem(sys);
+        
+        //Random planet from solar system selected
+        //@TODO Player not actually travelling to this planet, implement later!!
+        current.setCurrentPlanet(sys.getPlanets().get(0));
+        
+        LastAdventures.swap(new PlanetController());
+    }
 }

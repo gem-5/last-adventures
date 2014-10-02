@@ -7,6 +7,7 @@ package edu.gatech.gem5.game.controllers;
  */
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.SolarSystem;
@@ -158,13 +159,13 @@ public class CharacterCreateController extends Controller {
     }
 
     private void beginNewGame(Character player, Universe uni) {
-        LastAdventures.getCurrentSaveFile().addCharacter(player);
-        LastAdventures.getCurrentSaveFile().addUniverse(uni);
+        final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();
+        currentSaveFile.addCharacter(player);
+        currentSaveFile.addUniverse(uni);
         List<SolarSystem> systems = uni.getUniverse();
         SolarSystem start = systems.get(new Random().nextInt(systems.size()));
-        LastAdventures.getCurrentSaveFile().setCurrentPlanet(
-            start.getPlanets().get(0)
-        );
+        currentSaveFile.setSolarSystem(start);
+        currentSaveFile.setCurrentPlanet(start.getPlanets().get(0));
     }
 
     /**
