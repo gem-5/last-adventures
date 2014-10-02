@@ -43,7 +43,7 @@ public class BuyBar extends HBox {
      */
     public BuyBar() {
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/buybar.fxml")
+            getClass().getResource("/fxml/buybar.fxml")
         );
         loader.setRoot(this);
         loader.setController(this);

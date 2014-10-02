@@ -47,7 +47,7 @@ public class DisplayUniverseController extends Controller {
     private int xCoordinate;
     private int yCoordinate;;
 
-    public static final String UNIVERSE_VIEW_FILE = "/displayUniverse.fxml";
+    public static final String UNIVERSE_VIEW_FILE = "/fxml/displayUniverse.fxml";
 
     /**
      * Construct the universe display controller.
@@ -127,20 +127,20 @@ public class DisplayUniverseController extends Controller {
         nodes.add(circle);
         circle.toBack();
     }
-    
+
     /**
      * Sets the current planet and solar system to the save file, then changes to
      * the PlanetController scene
-     * @param sys 
+     * @param sys
      */
     private void travelTo(SolarSystem sys) {
         SaveFile current = LastAdventures.getCurrentSaveFile();
         current.setSolarSystem(sys);
-        
+
         //Random planet from solar system selected
         //@TODO Player not actually travelling to this planet, implement later!!
         current.setCurrentPlanet(sys.getPlanets().get(0));
-        
+
         LastAdventures.swap(new PlanetController());
     }
 }

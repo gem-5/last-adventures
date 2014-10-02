@@ -12,7 +12,7 @@
 
 <BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@create.css" />
+        <URL value="@/css/create.css" />
     </stylesheets>
     <top>
         <HBox>
@@ -56,7 +56,7 @@
                         <Button id="investor" fx:id="investorInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                         <Label fx:id="remaining" text="SP Remaining:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                         <Label fx:id="remainingValue" text="20" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      
+
                         <Button id="back" cancelButton="true" mnemonicParsing="false" onAction="#goBack" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="7">
                         </Button>
                         <Button fx:id="confirm" mnemonicParsing="false" onAction="#confirmCharacter" text="Confirm" GridPane.columnIndex="0" GridPane.rowIndex="7">

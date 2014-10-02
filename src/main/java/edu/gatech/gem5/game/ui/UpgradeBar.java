@@ -36,7 +36,7 @@ public class UpgradeBar extends HBox {
      */
     public UpgradeBar() {
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/upgradebar.fxml")
+            getClass().getResource("/fxml/upgradebar.fxml")
         );
         loader.setRoot(this);
         loader.setController(this);

@@ -48,7 +48,7 @@ public class MarketController extends Controller {
     AnchorPane root;
     @FXML
     Button universe;
-    
+
     @FXML
     private Label lblCash;
 
@@ -65,7 +65,7 @@ public class MarketController extends Controller {
 
 
     private Planet planet;
-    public static final String MARKET_VIEW_FILE = "/market.fxml";
+    public static final String MARKET_VIEW_FILE = "/fxml/market.fxml";
 
     /**
      * Construct the planet controller.

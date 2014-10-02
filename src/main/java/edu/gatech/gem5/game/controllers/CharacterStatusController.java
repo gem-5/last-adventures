@@ -43,7 +43,7 @@ public class CharacterStatusController extends Controller {
     @FXML
     Button returnToCreate;
 
-    public static final String STATUS_VIEW_FILE = "/status.fxml";
+    public static final String STATUS_VIEW_FILE = "/fxml/status.fxml";
 
     /**
      * Construct the character status controller.

@@ -82,6 +82,6 @@
         <Region HBox.Hgrow="always" /></HBox>
     </center>
     <stylesheets>
-        <URL value="@create.css"/>
+        <URL value="@/css/create.css"/>
     </stylesheets>
 </BorderPane>

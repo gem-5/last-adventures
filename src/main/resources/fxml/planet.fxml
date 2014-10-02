@@ -102,6 +102,6 @@
     </right>
 
     <stylesheets>
-        <URL value="@planet.css" />
+        <URL value="@/css/planet.css" />
     </stylesheets>
 </BorderPane>

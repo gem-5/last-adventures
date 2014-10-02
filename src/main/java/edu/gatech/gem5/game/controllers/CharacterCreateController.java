@@ -90,7 +90,7 @@ public class CharacterCreateController extends Controller {
     private Button[] incButtons, decButtons;
     private Label[] values, skillNames;
 
-    public static final String CREATE_VIEW_FILE = "/create.fxml";
+    public static final String CREATE_VIEW_FILE = "/fxml/create.fxml";
 
     /**
      * Construct the character creation controller.

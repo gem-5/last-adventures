@@ -41,7 +41,7 @@ public class PlanetController extends Controller {
 
     Planet planet;
 
-    public static final String PLANET_VIEW_FILE = "/planet.fxml";
+    public static final String PLANET_VIEW_FILE = "/fxml/planet.fxml";
 
     /**
      * Construct the planet controller.
