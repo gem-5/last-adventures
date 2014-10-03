@@ -2,6 +2,8 @@ package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.ShipType;
+import edu.gatech.gem5.game.data.ShieldType;
+import edu.gatech.gem5.game.data.GadgetType;
 import java.util.Stack;
 import java.util.Map;
 import java.util.TreeMap;
@@ -115,7 +117,7 @@ public class Ship {
         return this.weaponList;
     }
 
-    public List<Shield> getList() {
+    public List<Shield> getShieldList() {
         return this.shieldList;
     }
 
@@ -135,6 +137,35 @@ public class Ship {
             }
         }
         return goodMap;
+    }
+
+    public String toString() {
+        String result = "Ship: ";
+        result += this.type.getName();
+        result += "\n  Cargo:";
+        for (Map.Entry<GoodType, Integer> kv: getCargoCounts().entrySet()) {
+            result += String.format("%n\t%s  %d", kv.getKey().getName(), kv.getValue());
+        }
+        result += "\n  Weapons:";
+        for (Weapon w: weaponList) {
+            if (w != null) {
+                result += String.format("%n\t%s", w.getType().getName());
+            }
+        }
+        result += "\n  Shields:";
+        for (Shield s: shieldList) {
+            if (s != null) {
+                result += String.format("%n\t%s", s.getType().getName());
+            }
+        }
+        result += "\n  Gadgets:";
+        for (Gadget g: gadgetList) {
+            if (g != null) {
+                result += String.format("%n\t%s", g.getType().getName());
+            }
+        }
+        return result;
+
     }
 
 }

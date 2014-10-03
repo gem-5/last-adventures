@@ -101,6 +101,7 @@ public class LastAdventures extends Application {
         data.add(TechType.KEY, new TechReader().load("/data/TechLevels.json"));
 
         // Universe.main(new String[0]);
+        Encounter.main(new String[0]);
         launch(args);
 
 

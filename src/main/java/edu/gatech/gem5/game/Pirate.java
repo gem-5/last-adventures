@@ -16,7 +16,7 @@ public class Pirate extends Human {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
 
-    public static Pirate createPirate(int seed) {
+    public static Pirate createPirate(int seed, Ship ship) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
 
@@ -42,21 +42,21 @@ public class Pirate extends Human {
 
         String name = rand.newHumanName();
 
-        return new Pirate(name, stats[0], stats[1], stats[2], stats[3], stats[4], null, loot);
+        return new Pirate(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
 
-    public static Pirate createPirate() {
-        int seed = LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth();
-        return createPirate(seed);
-    }
+    // private static Pirate createPirate() {
+    //     int seed = LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth();
+    //     return createPirate(seed, null);
+    // }
 
-    public static void main(String[] args) {
+    // public static void main(String[] args) {
 
-        for (int i = 1; i < 100; i++) {
-            Pirate bob = createPirate((1000 * i % 50000) + 1);
-            System.out.println(bob);
-        }
-    }
+    //     for (int i = 1; i < 100; i++) {
+    //         Pirate bob = createPirate((1000 * i % 50000) + 1);
+    //         System.out.println(bob);
+    //     }
+    // }
 
     @Override
     public String toString() {

@@ -9,56 +9,124 @@ import java.util.Random;
 
 public class Encounter {
 
-    private static final String[] ships =
-        (String[]) LastAdventures.data.get(ShipType.KEY).keySet().toArray();
+    //TODO: Find a way to properly get these to cast.
+    private static final Object[] ships =
+        LastAdventures.data.get(ShipType.KEY).values().toArray();
 
-    private static final String[] weapons =
-        (String[]) LastAdventures.data.get(WeaponType.KEY).keySet().toArray();
+    private static final Object[] weapons =
+        LastAdventures.data.get(WeaponType.KEY).values().toArray();
 
-    private static final String[] shields =
-        (String[]) LastAdventures.data.get(ShieldType.KEY).keySet().toArray();
+    private static final Object[] shields =
+        LastAdventures.data.get(ShieldType.KEY).values().toArray();
 
-    private static final String[] gadgets =
-        (String[]) LastAdventures.data.get(GadgetType.KEY).keySet().toArray();
-    private static final String[] goods =
-        (String[]) LastAdventures.data.get(GoodType.KEY).keySet().toArray();
+    private static final Object[] gadgets =
+        LastAdventures.data.get(GadgetType.KEY).values().toArray();
+
+    private static final Object[] goods =
+        LastAdventures.data.get(GoodType.KEY).values().toArray();
 
     private static final Random r = new Random();
 
-
     public void getEncounter() {
-        int encounter = r.nextInt(3);
         int seed = LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth();
+    }
+
+    private void getEncounter(int seed) {
+        Human spawn = null;
+        int encounter = r.nextInt(3);
         switch (encounter) {
         case 0:
-            traderEncounter(seed);
+            spawn = traderEncounter(seed);
             break;
         case 1:
-            policeEncounter(seed);
+            spawn = policeEncounter(seed);
             break;
         case 2:
-            pirateEncounter(seed);
+            spawn = pirateEncounter(seed);
             break;
         }
+        System.out.printf("Encounter with: %s%n", spawn.toString());
 
     }
 
-    private void pirateEncounter(int seed) {
-        int shipIndex = Math.max(r.nextInt(seed) / 5000, ships.length - 1);
-        ShipType shipT = LastAdventures.data.get(ShipType.KEY).get(ships[shipIndex]);
+    private Pirate pirateEncounter(int seed) {
+        int shipIndex = Math.max(r.nextInt(seed) / 7500, ships.length - 1);
+        ShipType shipT = (ShipType) ships[shipIndex];
         Ship ship = new Ship(shipT);
 
         int weaponsNum = Math.max(r.nextInt(seed) / 10000, shipT.getWeaponSlots() - 1);
         for (int i = 0; i < weaponsNum; i++) {
-            ship.getWeaponList().add(weapons[i]);
+            ship.getWeaponList().add(new Weapon((WeaponType) weapons[i]));
         }
 
-        int gadgetsNum = Math.max(r.netInt(seed) / 20000, shipT.getGadgetSlots() - 1);
-        for (int i = 0; i < gadgetsNum; i++) {
-            ship.getGadgestList().add(gadgets[i]);
+        int shieldsNum = Math.max(r.nextInt(seed) / 15000, shipT.getShieldSlots() - 1);
+        for (int i = 0; i < shieldsNum; i++) {
+            ship.getShieldList().add(new Shield((ShieldType) shields[i]));
         }
+
+        int gadgetsNum = Math.max(r.nextInt(seed) / 20000, shipT.getGadgetSlots() - 1);
+        for (int i = 0; i < gadgetsNum; i++) {
+            ship.getGadgetList().add(new Gadget((GadgetType) gadgets[i]));
+        }
+
+        return Pirate.createPirate(seed, ship);
 
     }
 
+    private Trader traderEncounter(int seed) {
+        int shipIndex = Math.max(r.nextInt(seed) / 10000, ships.length - 1);
+        ShipType shipT = (ShipType) ships[shipIndex];
+        Ship ship = new Ship(shipT);
 
+        int weaponsNum = Math.max(r.nextInt(seed) / 20000, shipT.getWeaponSlots() - 1);
+        for (int i = 0; i < weaponsNum; i++) {
+            ship.getWeaponList().add(new Weapon((WeaponType) weapons[i]));
+        }
+
+        int shieldsNum = Math.max(r.nextInt(seed) / 15000, shipT.getShieldSlots() - 1);
+        for (int i = 0; i < shieldsNum; i++) {
+            ship.getShieldList().add(new Shield((ShieldType) shields[i]));
+        }
+
+        int gadgetsNum = Math.max(r.nextInt(seed) / 10000, shipT.getGadgetSlots() - 1);
+        for (int i = 0; i < gadgetsNum; i++) {
+            ship.getGadgetList().add(new Gadget((GadgetType) gadgets[i]));
+        }
+
+        return Trader.createTrader(seed, ship);
+
+    }
+
+    private Police policeEncounter(int seed) {
+        int shipIndex = Math.max(r.nextInt(seed) / 5000, ships.length - 1);
+        ShipType shipT = (ShipType) ships[shipIndex];
+        Ship ship = new Ship(shipT);
+
+        int weaponsNum = Math.max(r.nextInt(seed) / 15000, shipT.getWeaponSlots() - 1);
+        for (int i = 0; i < weaponsNum; i++) {
+            ship.getWeaponList().add(new Weapon((WeaponType) weapons[i]));
+        }
+
+        int shieldsNum = Math.max(r.nextInt(seed) / 10000, shipT.getShieldSlots() - 1);
+        for (int i = 0; i < shieldsNum; i++) {
+            ship.getShieldList().add(new Shield((ShieldType) shields[i]));
+        }
+
+        int gadgetsNum = Math.max(r.nextInt(seed) / 20000, shipT.getGadgetSlots() - 1);
+        for (int i = 0; i < gadgetsNum; i++) {
+            ship.getGadgetList().add(new Gadget((GadgetType) gadgets[i]));
+        }
+
+        return Police.createPolice(seed, ship);
+
+    }
+
+    public static void main(String[] args) {
+        Encounter e = new Encounter();
+        for (int i = 1; i < 20; i++) {
+            e.getEncounter(1000 * i);
+        }
+
+
+    }
 }

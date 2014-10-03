@@ -235,7 +235,7 @@ public class Planet {
                 }
                 Map<String, Double> envMap = getEnvironment().getDemand();
                 if (envMap.get(s) != null) {
-                    value *= govMap.get(s);
+                    value *= envMap.get(s);
                 }
                 // If any company produces the good, it sells for less
                 Map<String, Integer> f = getCompetitions();
