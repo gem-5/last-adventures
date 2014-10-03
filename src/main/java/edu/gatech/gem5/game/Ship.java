@@ -23,11 +23,8 @@ public class Ship {
     private double health;
     private Good[] cargoList;
     private Stack<Integer> openBays;
-    // private Weapon[] weaponList;
     private List<Weapon> weaponList;
-    // private Shield[] shieldList;
     private List<Shield> shieldList;
-    // private Gadget[] gadgetList;
     private List<Gadget> gadgetList;
     private Mercenary[] crewList;
 
