@@ -18,16 +18,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
  *
  * @author Jack Mueller
+ * @author Alex Liu
  */
 public class DisplayUniverseController extends Controller {
 
@@ -43,7 +47,7 @@ public class DisplayUniverseController extends Controller {
     private int xCoordinate;
     private int yCoordinate;;
 
-    public static final String UNIVERSE_VIEW_FILE = "/displayUniverse.fxml";
+    public static final String UNIVERSE_VIEW_FILE = "/fxml/displayUniverse.fxml";
 
     /**
      * Construct the universe display controller.
@@ -89,6 +93,12 @@ public class DisplayUniverseController extends Controller {
                 "Planets: " + system.getPlanets().size()
             );
             Tooltip.install(circle, t);
+
+            circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    travelTo(system);
+                }
+            });
             nodes.add(circle);
         }
     }
@@ -118,4 +128,19 @@ public class DisplayUniverseController extends Controller {
         circle.toBack();
     }
 
+    /**
+     * Sets the current planet and solar system to the save file, then changes to
+     * the PlanetController scene
+     * @param sys
+     */
+    private void travelTo(SolarSystem sys) {
+        SaveFile current = LastAdventures.getCurrentSaveFile();
+        current.setSolarSystem(sys);
+
+        //Random planet from solar system selected
+        //@TODO Player not actually travelling to this planet, implement later!!
+        current.setCurrentPlanet(sys.getPlanets().get(0));
+
+        LastAdventures.swap(new PlanetController());
+    }
 }

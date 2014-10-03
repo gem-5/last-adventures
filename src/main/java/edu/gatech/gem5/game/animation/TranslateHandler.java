@@ -1,4 +1,4 @@
-package edu.gatech.gem5.game.controllers;
+package edu.gatech.gem5.game.animation;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;

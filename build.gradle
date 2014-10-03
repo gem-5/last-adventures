@@ -8,6 +8,7 @@ repositories {
 
 dependencies {
 	compile 'com.google.code.gson:gson:2.3'
+	compile 'org.controlsfx:controlsfx:8.20.7'
 	testCompile 'junit:junit:4.+'
 }
 

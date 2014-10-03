@@ -7,25 +7,24 @@ package edu.gatech.gem5.game.controllers;
  */
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
-import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.SolarSystem;
+import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.data.ShipType;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialogs;
 
 /**
  * FXML Controller class
@@ -91,7 +90,7 @@ public class CharacterCreateController extends Controller {
     private Button[] incButtons, decButtons;
     private Label[] values, skillNames;
 
-    public static final String CREATE_VIEW_FILE = "/create.fxml";
+    public static final String CREATE_VIEW_FILE = "/fxml/create.fxml";
 
     /**
      * Construct the character creation controller.
@@ -101,7 +100,7 @@ public class CharacterCreateController extends Controller {
         super(CREATE_VIEW_FILE);
         // Create a new save file
         game.createNewSaveFile();
-
+        addTextLimiter(name, 8);
         values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
         incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
         decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
@@ -115,9 +114,24 @@ public class CharacterCreateController extends Controller {
      */
     @FXML
     public void confirmCharacter(ActionEvent event) throws Exception {
+
+        // If not all points are allocated, show warning message.
         if (validate(name.getText().trim())) {
-            beginNewGame(createCharacter(), createUniverse());
-            LastAdventures.swap(new CharacterStatusController());
+            if (Integer.parseInt(remainingValue.getText()) > 0) {
+                Action response = Dialogs.create()
+                        .owner(root)
+                        .title("Warning")
+                        .masthead("Warning")
+                        .message("Are you sure that you want to continue without allotcating all points?")
+                        .showConfirm();
+                if (response.toString().equals("DialogAction.YES")) {
+                    beginNewGame(createCharacter(), createUniverse());
+                    LastAdventures.swap(new CharacterStatusController());
+                }
+            } else {
+                beginNewGame(createCharacter(), createUniverse());
+                LastAdventures.swap(new CharacterStatusController());
+            } 
         }
     }
 
@@ -143,14 +157,14 @@ public class CharacterCreateController extends Controller {
     private Character createCharacter() {
         Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
         return new Character(
-            name.getText().trim(),
-            Integer.parseInt(pilotValue.getText()),
-            Integer.parseInt(fighterValue.getText()),
-            Integer.parseInt(traderValue.getText()),
-            Integer.parseInt(engineerValue.getText()),
-            Integer.parseInt(investorValue.getText()),
-            // default ship
-            new Ship(ships.get("vagabond")));
+                name.getText().trim(),
+                Integer.parseInt(pilotValue.getText()),
+                Integer.parseInt(fighterValue.getText()),
+                Integer.parseInt(traderValue.getText()),
+                Integer.parseInt(engineerValue.getText()),
+                Integer.parseInt(investorValue.getText()),
+                // default ship
+                new Ship(ships.get("vagabond")));
     }
 
     private Universe createUniverse() {
@@ -158,13 +172,13 @@ public class CharacterCreateController extends Controller {
     }
 
     private void beginNewGame(Character player, Universe uni) {
-        LastAdventures.getCurrentSaveFile().addCharacter(player);
-        LastAdventures.getCurrentSaveFile().addUniverse(uni);
+        final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();
+        currentSaveFile.addCharacter(player);
+        currentSaveFile.addUniverse(uni);
         List<SolarSystem> systems = uni.getUniverse();
         SolarSystem start = systems.get(new Random().nextInt(systems.size()));
-        LastAdventures.getCurrentSaveFile().setCurrentPlanet(
-            start.getPlanets().get(0)
-        );
+        currentSaveFile.setSolarSystem(start);
+        currentSaveFile.setCurrentPlanet(start.getPlanets().get(0));
     }
 
     /**
@@ -184,7 +198,6 @@ public class CharacterCreateController extends Controller {
             }
             remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) - 1));
         }
-
     }
 
     /**
@@ -205,6 +218,7 @@ public class CharacterCreateController extends Controller {
 
     /**
      * Limits the length of a text field
+     *
      * @param tf A text field
      * @param maxLength The maximum number of characters allowed
      */

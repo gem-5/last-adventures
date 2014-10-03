@@ -5,6 +5,7 @@ import edu.gatech.gem5.game.data.WeaponType;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
 import edu.gatech.gem5.game.data.GoodType;
+import edu.gatech.gem5.game.Planet;
 import java.util.Random;
 
 public class Encounter {
@@ -27,11 +28,17 @@ public class Encounter {
 
     private static final Random r = new Random();
 
-    public void getEncounter() {
-        int seed = LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth();
+    /**
+     * Randomly generates a pirate, police, or trader encounter
+     * @param p The planet the player is currently travelling to.
+     *
+     */
+    public void getEncounter(Planet p) {
+        int seed = Math.max(LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth(), 1);
+        getEncounter(seed, p);
     }
 
-    private void getEncounter(int seed) {
+    private void getEncounter(int seed, Planet p) {
         Human spawn = null;
         int encounter = r.nextInt(3);
         switch (encounter) {
@@ -124,7 +131,7 @@ public class Encounter {
     public static void main(String[] args) {
         Encounter e = new Encounter();
         for (int i = 1; i < 20; i++) {
-            e.getEncounter(1000 * i);
+            e.getEncounter(1000 * i, null);
         }
 
 

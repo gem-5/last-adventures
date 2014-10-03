@@ -43,7 +43,7 @@ public class BuyBar extends HBox {
      */
     public BuyBar() {
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/buybar.fxml")
+            getClass().getResource("/fxml/buybar.fxml")
         );
         loader.setRoot(this);
         loader.setController(this);
@@ -65,7 +65,7 @@ public class BuyBar extends HBox {
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
-                lblQuantity.setText(newValue.toString());
+                lblQuantity.setText(((Integer) newValue.intValue()).toString());
             }
         });
     }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox>
+            <Button onAction="#goBack" text="Back" />
+            <Region prefWidth="10" />
+            <Label text="Player Cash: " />
+            <Region prefWidth="10" />
+            <Label fx:id="lblCash" />
+            <Region HBox.Hgrow="always" />
+            <Label text="Inventory Slots: " />
+            <Region prefWidth="10" />
+            <Label fx:id="lblSlots" />
+        </HBox>
+    </top>
+    <center>
+        <HBox>
+            <VBox HBox.Hgrow="always">
+                <Label>Planet Goods</Label>
+                <ListView fx:id="buyGoods" VBox.Vgrow="always"/>
+            </VBox>
+            <VBox HBox.Hgrow="always">
+                <Label>Your Goods</Label>
+                <ListView fx:id="sellGoods" VBox.Vgrow="always"/>
+            </VBox>
+        </HBox>
+    </center>
+    <bottom>
+        <VBox>
+            <HBox>
+                <Button onAction="#makePurchase" text="Purchase" />
+                <Region HBox.Hgrow="always" />
+                <Button id="sell" onAction="#makeSale" text="Sell" />
+            </HBox>
+        <Label fx:id="errorLabel" />
+        </VBox>
+    </bottom>
+</BorderPane>

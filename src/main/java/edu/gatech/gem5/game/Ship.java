@@ -21,14 +21,12 @@ public class Ship {
 
     private final ShipType type;
     private double health;
-    private Good[] cargoList;
-    private Stack<Integer> openBays;
-    // private Weapon[] weaponList;
+
+    private Map<String, Integer> cargoList;
     private List<Weapon> weaponList;
-    // private Shield[] shieldList;
     private List<Shield> shieldList;
-    // private Gadget[] gadgetList;
     private List<Gadget> gadgetList;
+
     private Mercenary[] crewList;
 
     /**
@@ -38,11 +36,7 @@ public class Ship {
      */
     public Ship(ShipType ship) {
         this.type = ship;
-        this.cargoList = new Good[ship.getCargoSlots()];
-        this.openBays = new Stack<>();
-        for (int i = 0; i < cargoList.length; i++) {
-            openBays.push(i); // all bays are open at the beginning
-        }
+        this.cargoList = new TreeMap<String, Integer>();
         this.weaponList = new ArrayList<>(ship.getWeaponSlots());
         this.shieldList = new ArrayList<>(ship.getShieldSlots());
         this.gadgetList = new ArrayList<>(ship.getGadgetSlots());
@@ -59,39 +53,44 @@ public class Ship {
     /**
      * @return the cargoList
      */
-    public Good[] getCargoList() {
+    public Map<String, Integer> getCargoList() {
         return cargoList;
     }
 
     /**
-     * @param cargoList the cargoList to set
+     * Add cargo to this ship
+     *
+     * @param good the key of the good to add
+     * @param quantity the amount to add
      */
-    public void setCargoList(Good[] cargoList) {
-        this.cargoList = cargoList;
+    public void addCargo(String good, int quantity) {
+        if (!cargoList.containsKey(good)) {
+            cargoList.put(good, 0);
+        }
+        cargoList.put(good, cargoList.get(good) + quantity);
     }
 
     /**
-     * OpenBays is sent to Transaction class to tell it which bays to put
-     * the cargo in.
-     * @return the open bays
+     * Take cargo from this ship
+     *
+     * @param good the key of the good to take
+     * @param quantity the amount to take
      */
-    public Stack<Integer> getOpenBays() {
-        return openBays;
+    public void takeCargo(String good, int quantity) {
+        cargoList.put(good, cargoList.get(good) - quantity);
     }
 
     /**
-     * OpenBays is received from Transaction class once it has filled some bays.
-     * @param openBays the open bays
+     * Return the number of available cargo slots.
+     *
+     * @return int the number of slots available
      */
-    public void setOpenBays(Stack<Integer> openBays) {
-        this.openBays = openBays;
-    }
-
-    /**
-     * @param bay the bay to open
-     */
-    public void openNewBay(int bay) {
-        openBays.push(bay);
+    public int getOpenBays() {
+        int sum = 0;
+        for (int i : cargoList.values()) {
+            sum += i;
+        }
+        return getType().getCargoSlots() - sum;
     }
 
     public int getNetWorth() {
@@ -125,26 +124,14 @@ public class Ship {
         return this.gadgetList;
     }
 
-    public Map<GoodType, Integer> getCargoCounts() {
-        Map<GoodType, Integer> goodMap = new TreeMap<>();
-        for (Good g: cargoList) {
-            if (g != null) {
-                if (goodMap.get(g.getType()) == null) {
-                    goodMap.put(g.getType(), 1);
-                } else {
-                    goodMap.put(g.getType(), goodMap.get(g.getType()) + 1);
-                }
-            }
-        }
-        return goodMap;
-    }
-
     public String toString() {
         String result = "Ship: ";
         result += this.type.getName();
         result += "\n  Cargo:";
-        for (Map.Entry<GoodType, Integer> kv: getCargoCounts().entrySet()) {
-            result += String.format("%n\t%s  %d", kv.getKey().getName(), kv.getValue());
+        for (Map.Entry<String, Integer> kv: this.cargoList.entrySet()) {
+            String goodName =
+                ((GoodType) LastAdventures.data.get(GoodType.KEY).get(kv.getKey())).getName();
+            result += String.format("%n\t%s  %d", goodName, kv.getValue());
         }
         result += "\n  Weapons:";
         for (Weapon w: weaponList) {

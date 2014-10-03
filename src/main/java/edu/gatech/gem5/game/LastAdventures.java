@@ -10,10 +10,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import javafx.scene.transform.Scale;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 import edu.gatech.gem5.game.readers.*;
 import edu.gatech.gem5.game.data.*;
 
-import edu.gatech.gem5.game.controllers.*;
+import edu.gatech.gem5.game.controllers.Controller;
+import edu.gatech.gem5.game.controllers.TitleController;
 
 /**
  *
@@ -51,8 +56,8 @@ public class LastAdventures extends Application {
     @Override
     public void start(Stage stage) {
         this.stage = stage;
-        swap(new TitleController());
         stage.show();
+        swap(new TitleController());
         // stage.setFullScreen(true);
     }
 
@@ -64,7 +69,16 @@ public class LastAdventures extends Application {
      */
     public static void swap(Controller c) {
         Scene scene = c.getScene();
+        Pane oldRoot = (Pane) getRoot();
+
         root = scene.getRoot();
+
+        // make the new scene the same size
+        if (oldRoot != null) {
+            ((Pane) root).setPrefWidth(oldRoot.getWidth());
+            ((Pane) root).setPrefHeight(oldRoot.getHeight());
+        }
+
         stage.setScene(scene);
     }
 
@@ -99,9 +113,10 @@ public class LastAdventures extends Application {
         data.add(EnvironmentType.KEY, new
         EnvironmentReader().load("/data/Environments.json"));
         data.add(TechType.KEY, new TechReader().load("/data/TechLevels.json"));
+        data.add(StoryText.KEY, new StoryReader().load("/data/Story.json"));
 
         // Universe.main(new String[0]);
-        Encounter.main(new String[0]);
+        // Encounter.main(new String[0]);
         launch(args);
 
 
@@ -141,4 +156,55 @@ public class LastAdventures extends Application {
     public static SaveFile getCurrentSaveFile() {
         return saveFiles.get(currentFile);
     }
+
+    private static void letterbox(final Scene scene, final Pane contentPane) {
+        final double initWidth  = scene.getWidth();
+        final double initHeight = scene.getHeight();
+        final double ratio      = initWidth / initHeight;
+
+        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+        scene.widthProperty().addListener(sizeListener);
+        scene.heightProperty().addListener(sizeListener);
+    }
+
+    private static class SceneSizeChangeListener implements ChangeListener<Number> {
+        private final Scene scene;
+        private final double ratio;
+        private final double initHeight;
+        private final double initWidth;
+        private final Pane contentPane;
+
+        public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth, Pane contentPane) {
+            this.scene = scene;
+            this.ratio = ratio;
+            this.initHeight = initHeight;
+            this.initWidth = initWidth;
+            this.contentPane = contentPane;
+        }
+
+        @Override
+        public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+            final double newWidth  = scene.getWidth();
+            final double newHeight = scene.getHeight();
+
+            double scaleFactor =
+                   newWidth / newHeight > ratio
+                   ? newHeight / initHeight
+                   : newWidth / initWidth;
+
+            if (scaleFactor >= 1) {
+                Scale scale = new Scale(scaleFactor, scaleFactor);
+                scale.setPivotX(0);
+                scale.setPivotY(0);
+                scene.getRoot().getTransforms().setAll(scale);
+
+                contentPane.setPrefWidth (newWidth  / scaleFactor);
+                contentPane.setPrefHeight(newHeight / scaleFactor);
+            } else {
+                contentPane.setPrefWidth (Math.max(initWidth,  newWidth));
+                contentPane.setPrefHeight(Math.max(initHeight, newHeight));
+            }
+        }
+    }
+
 }

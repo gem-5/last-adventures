@@ -36,7 +36,7 @@ public class TitleController extends Controller {
     @FXML
     private GridPane gridPane;
 
-    public static final String TITLE_VIEW_FILE = "/title.fxml" ;
+    public static final String TITLE_VIEW_FILE = "/fxml/title.fxml" ;
 
     /**
      * Construct the title controller.
