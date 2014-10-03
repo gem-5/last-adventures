@@ -16,9 +16,9 @@
 }
 
 .button, .button:default, .button:cancel, .button:armed {
-    -fx-text-fill: green;
+    -fx-text-fill: white;
     -fx-font-size: 20;
-    -fx-background-color: rgba(255,0,0,0);
+    -fx-background-color: rgba(0,0,0,0);
     -fx-border: none;
     -fx-padding: 0;
     -fx-margin: 0;
