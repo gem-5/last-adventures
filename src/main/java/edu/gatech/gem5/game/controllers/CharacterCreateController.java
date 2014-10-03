@@ -100,7 +100,7 @@ public class CharacterCreateController extends Controller {
         super(CREATE_VIEW_FILE);
         // Create a new save file
         game.createNewSaveFile();
-
+        addTextLimiter(name, 8);
         values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
         incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
         decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
@@ -133,25 +133,6 @@ public class CharacterCreateController extends Controller {
                 LastAdventures.swap(new CharacterStatusController());
             } 
         }
-//        if (Integer.parseInt(remainingValue.getText()) > 0) {
-//            Action response = Dialogs.create()
-//                    .owner(root)
-//                    .title("Warning")
-//                    .masthead("Warning")
-//                    .message("Are you sure that you want to continue without allotcating all points?")
-//                    .showConfirm();
-//            if (response.toString().equals("DialogAction.YES")) {
-//                if (validate(name.getText().trim())) {
-//                    beginNewGame(createCharacter(), createUniverse());
-//                    LastAdventures.swap(new CharacterStatusController());
-//                }
-//            }
-//        } else {
-//            if (validate(name.getText().trim())) {
-//                beginNewGame(createCharacter(), createUniverse());
-//                LastAdventures.swap(new CharacterStatusController());
-//            }
-//        }
     }
 
     /**
