@@ -7,7 +7,7 @@ import java.util.Map;
  * Super class for Humans in Last Adventures
  * @author Sam Blumenthal
  */
-public class Human {
+public abstract class Human {
 
 
     private String name;

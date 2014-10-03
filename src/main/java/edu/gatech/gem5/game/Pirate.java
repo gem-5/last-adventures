@@ -10,7 +10,7 @@ import java.util.Random;
  *
  */
 
-public class Pirate extends Human {
+public class Pirate extends NPC {
 
     private Pirate(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);

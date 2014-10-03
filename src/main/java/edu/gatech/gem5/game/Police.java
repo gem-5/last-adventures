@@ -10,7 +10,7 @@ import java.util.Random;
  *
  */
 
-public class Police extends Human {
+public class Police extends NPC {
 
     private Police(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
