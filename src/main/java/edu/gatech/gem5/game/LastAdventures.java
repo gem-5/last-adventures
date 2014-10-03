@@ -17,7 +17,8 @@ import javafx.beans.value.ObservableValue;
 import edu.gatech.gem5.game.readers.*;
 import edu.gatech.gem5.game.data.*;
 
-import edu.gatech.gem5.game.controllers.*;
+import edu.gatech.gem5.game.controllers.Controller;
+import edu.gatech.gem5.game.controllers.TitleController;
 
 /**
  *
@@ -112,6 +113,7 @@ public class LastAdventures extends Application {
         data.add(EnvironmentType.KEY, new
         EnvironmentReader().load("/data/Environments.json"));
         data.add(TechType.KEY, new TechReader().load("/data/TechLevels.json"));
+        data.add(StoryText.KEY, new StoryReader().load("/data/Story.json"));
 
         launch(args);
     }

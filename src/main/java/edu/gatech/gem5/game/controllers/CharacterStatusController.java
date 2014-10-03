@@ -3,6 +3,7 @@ package edu.gatech.gem5.game.controllers;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Universe;
+import edu.gatech.gem5.game.data.StoryText;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
+
 
 /**
  * FXML Controller Class
@@ -43,6 +46,9 @@ public class CharacterStatusController extends Controller {
     @FXML
     Button returnToCreate;
 
+    @FXML
+    Text dialog;
+
     public static final String STATUS_VIEW_FILE = "/fxml/status.fxml";
 
     /**
@@ -62,6 +68,10 @@ public class CharacterStatusController extends Controller {
         traderValue.setText("Trader: " + player.getTrader());
         engineerValue.setText("Engineer: " + player.getEngineer());
         investorValue.setText("Investor: " + player.getInvestor());
+
+        String msg = LastAdventures
+                     .data.get(StoryText.KEY).get("intro").toString();
+        dialog.setText(msg);
     }
 
     /**

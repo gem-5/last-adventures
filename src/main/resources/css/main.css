@@ -1,0 +1,74 @@
+@font-face {
+	/* This only seems to work when running a jar. */
+	font-family: "Bowlby One SC";
+	src: url("/font/BowlbyOne.ttf");
+}
+
+@font-face {
+	font-family: "Nova Square";
+	src: url("/font/NovaSquare.ttf");
+}
+
+@font-face {
+	font-family: "Prosto One";
+	src: url("/font/ProstoOne.ttf");
+}
+
+@font-face {
+	font-family: "Monofett";
+	src: url("/font/Monofett.ttf");
+}
+
+.root {
+    -fx-background-image: url("/img/star_tile.png");
+    -fx-background-repeat: repeat;
+    -fx-font-family: "Prosto One";
+    -fx-padding: 10px;
+}
+
+.blocktext {
+    -fx-fill: rgb(210,210,210);
+    -fx-font: 20px "Prosto One";
+}
+
+.button, .button:default, .button:cancel, .button:armed {
+    -fx-text-fill: #eeeeee;
+    -fx-font-size: 50;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border: none;
+    -fx-padding: 0;
+    -fx-margin: 0;
+	-fx-cursor: hand;
+    -fx-font-family: "Monofett";
+}
+
+.button:armed, .button:hover {
+    -fx-text-fill: #d2d2d2;
+}
+
+.label {
+    -fx-text-fill: #eeeeee;
+    -fx-font-size: 20;
+    -fx-font-family: "Prosto One"
+}
+
+#title {
+    -fx-font-size: 30;
+    -fx-font-family: "Bowlby One SC";
+}
+
+#header {
+    -fx-font-size: 25;
+    -fx-font-family: "Nova Square";
+    -fx-text-fill: #a4a3a3;
+}
+
+.text-field {
+    -fx-text-fill: #eeeeee;
+    -fx-font-size: 30;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-color: #eeeeee;
+    -fx-border-width: 0 0 2px 0;
+    -fx-padding: 5px;
+}
+
