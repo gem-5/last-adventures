@@ -115,26 +115,43 @@ public class CharacterCreateController extends Controller {
     @FXML
     public void confirmCharacter(ActionEvent event) throws Exception {
 
-        // If not all points are allotcated, show warning message.
-        if (Integer.parseInt(remainingValue.getText()) > -1) {
-            Action response = Dialogs.create()
-                    .owner(root)
-                    .title("Warning")
-                    .masthead("Warning")
-                    .message("Are you sure that you want to continue without allotcating all points?")
-                    .showConfirm();
-            if (response.toString().equals("DialogAction.YES")) {
-                if (validate(name.getText().trim())) {
+        // If not all points are allocated, show warning message.
+        if (validate(name.getText().trim())) {
+            if (Integer.parseInt(remainingValue.getText()) > 0) {
+                Action response = Dialogs.create()
+                        .owner(root)
+                        .title("Warning")
+                        .masthead("Warning")
+                        .message("Are you sure that you want to continue without allotcating all points?")
+                        .showConfirm();
+                if (response.toString().equals("DialogAction.YES")) {
                     beginNewGame(createCharacter(), createUniverse());
                     LastAdventures.swap(new CharacterStatusController());
                 }
-            }
-        } else {
-            if (validate(name.getText().trim())) {
+            } else {
                 beginNewGame(createCharacter(), createUniverse());
                 LastAdventures.swap(new CharacterStatusController());
-            }
+            } 
         }
+//        if (Integer.parseInt(remainingValue.getText()) > 0) {
+//            Action response = Dialogs.create()
+//                    .owner(root)
+//                    .title("Warning")
+//                    .masthead("Warning")
+//                    .message("Are you sure that you want to continue without allotcating all points?")
+//                    .showConfirm();
+//            if (response.toString().equals("DialogAction.YES")) {
+//                if (validate(name.getText().trim())) {
+//                    beginNewGame(createCharacter(), createUniverse());
+//                    LastAdventures.swap(new CharacterStatusController());
+//                }
+//            }
+//        } else {
+//            if (validate(name.getText().trim())) {
+//                beginNewGame(createCharacter(), createUniverse());
+//                LastAdventures.swap(new CharacterStatusController());
+//            }
+//        }
     }
 
     /**
