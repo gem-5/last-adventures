@@ -141,16 +141,9 @@ public class DisplayUniverseController extends Controller {
         int x1 = curSS.getXCoordinate();
         int y1 = curSS.getYCoordinate();
         int x2 = sys.getXCoordinate();
-        int y2 = sys.getXCoordinate();
+        int y2 = sys.getYCoordinate();
 
-        //Test code, remove later
-        System.out.println("Range: " + Double.toString(range));
-        System.out.println("x1 = " + Integer.toString(x1) + ", y1 = " + Integer.toString(y1));
-        System.out.println("x2 = " + Integer.toString(x2) + ", y2 = " + Integer.toString(y2));
-        System.out.println("Distance: " + Double.toString(sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2))));
-        System.out.println();
-
-        if (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)) <= range) {
+        if (sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2)) <= range) {
             SaveFile current = LastAdventures.getCurrentSaveFile();
             current.setSolarSystem(sys);
 
