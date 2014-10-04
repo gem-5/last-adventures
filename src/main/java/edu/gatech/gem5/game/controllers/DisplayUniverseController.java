@@ -6,6 +6,8 @@ import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 import java.util.List;
 import java.util.Random;
 import javafx.collections.ObservableList;
@@ -134,13 +136,31 @@ public class DisplayUniverseController extends Controller {
      * @param sys
      */
     private void travelTo(SolarSystem sys) {
-        SaveFile current = LastAdventures.getCurrentSaveFile();
-        current.setSolarSystem(sys);
+        double range = save.getCharacter().getShip().getType().getRange();
+        SolarSystem curSS = save.getSolarSystem();
+        int x1 = curSS.getXCoordinate();
+        int y1 = curSS.getYCoordinate();
+        int x2 = sys.getXCoordinate();
+        int y2 = sys.getXCoordinate();
 
-        //Random planet from solar system selected
-        //@TODO Player not actually travelling to this planet, implement later!!
-        current.setCurrentPlanet(sys.getPlanets().get(0));
+        //Test code, remove later
+        System.out.println("Range: " + Double.toString(range));
+        System.out.println("x1 = " + Integer.toString(x1) + ", y1 = " + Integer.toString(y1));
+        System.out.println("x2 = " + Integer.toString(x2) + ", y2 = " + Integer.toString(y2));
+        System.out.println("Distance: " + Double.toString(sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2))));
+        System.out.println();
 
-        LastAdventures.swap(new PlanetController());
+        if (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)) <= range) {
+            SaveFile current = LastAdventures.getCurrentSaveFile();
+            current.setSolarSystem(sys);
+
+            //Random planet from solar system selected
+            //@TODO Player not actually travelling to this planet, implement later!!
+            current.setCurrentPlanet(sys.getPlanets().get(0));
+
+            LastAdventures.swap(new PlanetController());
+        } else {
+            System.out.println("Not in range.");
+        }
     }
 }
