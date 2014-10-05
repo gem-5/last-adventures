@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.data.CompanyType;
+import edu.gatech.gem5.game.data.ConditionType;
 
 /**
  *
@@ -56,7 +57,7 @@ public class PlanetController extends Controller {
         this.lblCompanies.setText(buildCompanyString());
         this.lblEnvironment.setText(planet.getEnvironment().getName());
         this.lblGovernment.setText(planet.getGovernment().getName());
-        //this.lblCondition.setText(planet.getCondition().getName());
+        this.lblCondition.setText(planet.getCondition().getName());
     }
 
     private String buildCompanyString() {

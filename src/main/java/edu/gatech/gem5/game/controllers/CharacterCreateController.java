@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 
 /**
@@ -116,14 +117,14 @@ public class CharacterCreateController extends Controller {
     public void confirmCharacter(ActionEvent event) throws Exception {
 
         // If not all points are allotcated, show warning message.
-        if (Integer.parseInt(remainingValue.getText()) > -1) {
+        if (Integer.parseInt(remainingValue.getText()) > 0) {
             Action response = Dialogs.create()
                     .owner(root)
                     .title("Warning")
                     .masthead("Warning")
                     .message("Are you sure that you want to continue without allotcating all points?")
                     .showConfirm();
-            if (response.toString().equals("DialogAction.YES")) {
+            if (response == Dialog.ACTION_YES) {
                 if (validate(name.getText().trim())) {
                     beginNewGame(createCharacter(), createUniverse());
                     LastAdventures.swap(new CharacterStatusController());

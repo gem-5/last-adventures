@@ -6,6 +6,7 @@ import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
+import edu.gatech.gem5.game.Turn;
 import java.util.List;
 import java.util.Random;
 import javafx.collections.ObservableList;
@@ -140,7 +141,8 @@ public class DisplayUniverseController extends Controller {
         //Random planet from solar system selected
         //@TODO Player not actually travelling to this planet, implement later!!
         current.setCurrentPlanet(sys.getPlanets().get(0));
-
+        Turn turn = new Turn();
+        turn.pass();
         LastAdventures.swap(new PlanetController());
     }
 }

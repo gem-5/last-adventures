@@ -33,7 +33,8 @@ public class Planet {
     private List<String> companyList;
     private String condition;
     private SolarSystem solarSystem;
-    private Map<String, Integer> stock;
+    private Map<String, Integer> currentStock;
+    private final Map<String, Integer> maxStock;
 
     private static final double COMPETITION_FACTOR = 0.75;
 
@@ -49,9 +50,9 @@ public class Planet {
         this.environment = chooseEnvironment();
         this.government = chooseGovernment();
         this.companyList = chooseCompanies();
-        // TODO: a new condition should be applied every turn
-        // some conditions should last longer than one turn.
-        this.condition = null;
+        this.maxStock = getMaxStock();
+        this.currentStock = maxStock;
+        this.condition = "none"; //no condition on the first turn
     }
 
     /**
@@ -94,11 +95,29 @@ public class Planet {
         LastAdventures.data.get(GovernmentType.KEY);
         return governments.get(this.government);
     }
+    
+    /**
+     * 
+     * @param condition the key of the condition for this planet
+     */
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+    
+    /**
+     * 
+     * @return the condition type of the planet
+     */
+    public ConditionType getCondition() {
+        Map<String, ConditionType> conditions =
+        LastAdventures.data.get(ConditionType.KEY);
+        return conditions.get(this.condition);
+    }
 
     /**
      * Get the list of companies.
      *
-     * @return the company list.
+     * @return the company list.getCon
      */
     public List<CompanyType> getCompanies() {
         List<CompanyType> out = new ArrayList<>();
@@ -109,6 +128,8 @@ public class Planet {
         }
         return out;
     }
+    
+    
 
     /**
      * Get a list of shields that this planet sells.
@@ -165,26 +186,32 @@ public class Planet {
      * @return the map
      */
     public Map<String, Integer> getStock() {
-        if (stock == null) {
-            // only generate the stock once
-            Map<String, Integer> out = new TreeMap<>();
-            for (CompanyType c : getCompanies()) {
-                for (String s : c.getProducts()) {
-                    if (!out.containsKey(s)) out.put(s, 0);
-                    Random rng = new Random();
-                    GoodType g = (GoodType)
-                                 LastAdventures.data.get(GoodType.KEY).get(s);
-                    int amt = g.getMinStock() +
-                              rng.nextInt(g.getMaxStock() -g.getMinStock() + 1);
-                    // adds more stock when several companies sell the same thing
-                    out.put(s, out.get(s) + amt);
-                }
+        return currentStock;
+    }
+    
+    private Map<String, Integer> getMaxStock() {
+        // only generate the stock once
+        Map<String, Integer> out = new TreeMap<>();
+        for (CompanyType c : getCompanies()) {
+            for (String s : c.getProducts()) {
+                if (!out.containsKey(s)) out.put(s, 0);
+                GoodType g = (GoodType)
+                             LastAdventures.data.get(GoodType.KEY).get(s);
+                int amt =  g.getMaxStock();
+                // adds more stock when several companies sell the same thing
+                out.put(s, out.get(s) + amt);
             }
-            stock = out;
         }
-        return stock;
+        currentStock = out;
+        return currentStock;
     }
 
+    public void increaseStock() {
+        for (Map.Entry<String, Integer> entry : getMaxStock().entrySet() ) {
+            //increase stock somehow
+        }
+    }
+    
     /**
      * Get a map of goods and their prices sold by this planet.
      *
@@ -340,4 +367,7 @@ public class Planet {
         result += "Compnies: " + this.companyList;
         return result;
     }
+
+
+
 }

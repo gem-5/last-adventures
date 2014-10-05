@@ -12,7 +12,7 @@ public class Character extends Human {
     private LastAdventures game;
 
     public Character(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship) {
-        super(name, pilot, fighter, trader, engineer, investor, ship, 1000);
+        super(name, pilot, fighter, trader, engineer, investor, ship, 100000);
     }
 
     public String toString() {
