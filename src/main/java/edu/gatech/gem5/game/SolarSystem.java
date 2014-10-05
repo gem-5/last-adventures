@@ -73,7 +73,6 @@ public class SolarSystem {
             double roll = random.nextDouble();
             if (roll <= p)
                 num++;
-                // orbits.add(new Planet(this));
             else break; // stop generating planets as soon as a roll fails
         }
         // gives each planet a proper name based on the system name

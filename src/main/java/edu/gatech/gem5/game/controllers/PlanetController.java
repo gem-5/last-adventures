@@ -7,20 +7,13 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.data.CompanyType;
-import edu.gatech.gem5.game.data.ConditionType;
 
 /**
  *
@@ -59,7 +52,7 @@ public class PlanetController extends Controller {
         SaveFile save = LastAdventures.getCurrentSaveFile();
         planet = save.getPlanet();
 
-        this.title.setText("Somebody bring back planet names.");
+        this.title.setText(planet.getName());
         this.lblCompanies.setText(buildCompanyString());
         this.lblEnvironment.setText(planet.getEnvironment().getName());
         this.lblGovernment.setText(planet.getGovernment().getName());

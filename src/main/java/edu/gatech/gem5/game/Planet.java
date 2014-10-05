@@ -211,8 +211,12 @@ public class Planet {
     }
 
     public void increaseStock() {
-        for (Map.Entry<String, Integer> entry : getMaxStock().entrySet() ) {
-            //increase stock somehow
+        for (Map.Entry<String, Integer> entry : currentStock.entrySet() ) {
+            int maxOfGood = maxStock.get(entry.getKey());
+            Random random = new Random();
+            currentStock.put(entry.getKey(), Math.max(
+                    entry.getValue() + random.nextInt(4), maxOfGood));
+            
         }
     }
     
