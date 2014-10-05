@@ -53,7 +53,7 @@ public class Planet {
         this.companyList = chooseCompanies();
         this.maxStock = getMaxStock();
         this.currentStock = maxStock;
-        this.condition = "none"; //no condition on the first turn
+        this.condition = setCondition();
         this.name = name;
 
     }
@@ -379,6 +379,18 @@ public class Planet {
         return result;
     }
 
-
-
+    public String setCondition() {
+        //set new condition
+        Random random = new Random();
+        double conditionNumber = random.nextDouble();
+        Map<String, ConditionType> conditions = LastAdventures.data.get(ConditionType.KEY);
+        for( Map.Entry<String, ConditionType> entry : conditions.entrySet()) {
+            conditionNumber -= entry.getValue().getOccurrence();
+            if (conditionNumber <= 0) {
+                return (String) entry.getKey();
+            }
+        }
+        return null; // this should never happen unless 
+        // sum(conditions.valueSet().getOccurance()) > 1.0
+    }
 }

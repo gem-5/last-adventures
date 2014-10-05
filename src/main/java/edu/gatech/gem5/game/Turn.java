@@ -24,18 +24,12 @@ public class Turn {
             for (Planet planet : system.getPlanets()) {
                 //update planet's stock
                 planet.increaseStock();
-                
-                //set new condition
-                double conditionNumber = random.nextDouble();
-                Map<String, ConditionType> conditions = LastAdventures.data.get(ConditionType.KEY);
-                for( Map.Entry<String, ConditionType> entry : conditions.entrySet()) {
-                    conditionNumber -= entry.getValue().getOccurrence();
-                    if (conditionNumber <= 0) {
-                        planet.setCondition(entry.getKey());
-                    }
-                }
+                //set the condition every turn
+                planet.setCondition();
             }
         }
     }
+
+
     
 }
