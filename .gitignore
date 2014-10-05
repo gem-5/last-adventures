@@ -11,3 +11,4 @@ build/*
 
 # ignore netbeans stuff?
 /nbproject/private/
+/nbproject/
