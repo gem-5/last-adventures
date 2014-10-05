@@ -2,9 +2,13 @@ package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.ShipType;
+import edu.gatech.gem5.game.data.ShieldType;
+import edu.gatech.gem5.game.data.GadgetType;
 import java.util.Stack;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class for ship objects owned by players/NPCs.
@@ -17,10 +21,12 @@ public class Ship {
 
     private final ShipType type;
     private double health;
+
     private Map<String, Integer> cargoList;
-    private Weapon[] weaponList;
-    private Shield[] shieldList;
-    private Gadget[] gadgetList;
+    private List<Weapon> weaponList;
+    private List<Shield> shieldList;
+    private List<Gadget> gadgetList;
+
     private Mercenary[] crewList;
 
     /**
@@ -31,9 +37,9 @@ public class Ship {
     public Ship(ShipType ship) {
         this.type = ship;
         this.cargoList = new TreeMap<String, Integer>();
-        this.weaponList = new Weapon[ship.getWeaponSlots()];
-        this.shieldList = new Shield[ship.getShieldSlots()];
-        this.gadgetList = new Gadget[ship.getGadgetSlots()];
+        this.weaponList = new ArrayList<>(ship.getWeaponSlots());
+        this.shieldList = new ArrayList<>(ship.getShieldSlots());
+        this.gadgetList = new ArrayList<>(ship.getGadgetSlots());
         this.crewList = new Mercenary[ship.getCrewSlots()];
     }
 
@@ -103,6 +109,49 @@ public class Ship {
         }
 
         return worth;
+
+    }
+
+    public List<Weapon> getWeaponList() {
+        return this.weaponList;
+    }
+
+    public List<Shield> getShieldList() {
+        return this.shieldList;
+    }
+
+    public List<Gadget> getGadgetList() {
+        return this.gadgetList;
+    }
+
+    public String toString() {
+        String result = "Ship: ";
+        result += this.type.getName();
+        result += "\n  Cargo:";
+        for (Map.Entry<String, Integer> kv: this.cargoList.entrySet()) {
+            String goodName =
+                ((GoodType) LastAdventures.data.get(GoodType.KEY).get(kv.getKey())).getName();
+            result += String.format("%n\t%s  %d", goodName, kv.getValue());
+        }
+        result += "\n  Weapons:";
+        for (Weapon w: weaponList) {
+            if (w != null) {
+                result += String.format("%n\t%s", w.getType().getName());
+            }
+        }
+        result += "\n  Shields:";
+        for (Shield s: shieldList) {
+            if (s != null) {
+                result += String.format("%n\t%s", s.getType().getName());
+            }
+        }
+        result += "\n  Gadgets:";
+        for (Gadget g: gadgetList) {
+            if (g != null) {
+                result += String.format("%n\t%s", g.getType().getName());
+            }
+        }
+        return result;
 
     }
 

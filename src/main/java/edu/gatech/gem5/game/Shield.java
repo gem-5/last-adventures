@@ -25,4 +25,8 @@ public class Shield {
         return this.type.getPrice();
     }
 
+    public ShieldType getType() {
+        return this.type;
+    }
+
 }

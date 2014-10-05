@@ -32,11 +32,16 @@ public class PlanetController extends Controller {
     private Parent root;
 
     @FXML
+    private Label title;
+
+    @FXML
     private Label lblCompanies;
     @FXML
     private Label lblEnvironment;
     @FXML
     private Label lblGovernment;
+    @FXML
+    private Label lblTechnology;
     @FXML
     private Label lblCondition;
 
@@ -54,10 +59,13 @@ public class PlanetController extends Controller {
         SaveFile save = LastAdventures.getCurrentSaveFile();
         planet = save.getPlanet();
 
+        this.title.setText("Somebody bring back planet names.");
         this.lblCompanies.setText(buildCompanyString());
         this.lblEnvironment.setText(planet.getEnvironment().getName());
         this.lblGovernment.setText(planet.getGovernment().getName());
         this.lblCondition.setText(planet.getCondition().getName());
+        this.lblTechnology.setText(planet.getTechLevel().getName());
+        
     }
 
     private String buildCompanyString() {

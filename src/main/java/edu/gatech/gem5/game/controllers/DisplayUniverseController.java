@@ -7,6 +7,8 @@ import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Turn;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 import java.util.List;
 import java.util.Random;
 import javafx.collections.ObservableList;
@@ -135,14 +137,31 @@ public class DisplayUniverseController extends Controller {
      * @param sys
      */
     private void travelTo(SolarSystem sys) {
-        SaveFile current = LastAdventures.getCurrentSaveFile();
-        current.setSolarSystem(sys);
+        double range = save.getCharacter().getShip().getType().getRange();
+        SolarSystem curSS = save.getSolarSystem();
+        int x1 = curSS.getXCoordinate();
+        int y1 = curSS.getYCoordinate();
+        int x2 = sys.getXCoordinate();
+        int y2 = sys.getYCoordinate();
+        
+        if (sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2)) <= range) {
+            SaveFile current = LastAdventures.getCurrentSaveFile();
+            current.setSolarSystem(sys);
 
         //Random planet from solar system selected
         //@TODO Player not actually travelling to this planet, implement later!!
         current.setCurrentPlanet(sys.getPlanets().get(0));
+
+            LastAdventures.swap(new PlanetController());
+        } else {
+            System.out.println("Not in range.");
+        }
+
+
         Turn turn = new Turn();
         turn.pass();
         LastAdventures.swap(new PlanetController());
+
+        
     }
 }

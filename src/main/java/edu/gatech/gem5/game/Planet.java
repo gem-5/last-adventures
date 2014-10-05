@@ -35,6 +35,7 @@ public class Planet {
     private SolarSystem solarSystem;
     private Map<String, Integer> currentStock;
     private final Map<String, Integer> maxStock;
+    private String name;
 
     private static final double COMPETITION_FACTOR = 0.75;
 
@@ -44,7 +45,7 @@ public class Planet {
      *
      * @param sys The solar system that contains this planet.
      */
-    public Planet(SolarSystem sys) {
+    public Planet(SolarSystem sys, String name) {
         this.solarSystem = sys;
         this.techLevel = chooseTechLevel();
         this.environment = chooseEnvironment();
@@ -53,6 +54,8 @@ public class Planet {
         this.maxStock = getMaxStock();
         this.currentStock = maxStock;
         this.condition = "none"; //no condition on the first turn
+        this.name = name;
+
     }
 
     /**
@@ -73,6 +76,7 @@ public class Planet {
         Map<Integer, TechType> techs = LastAdventures.data.get(TechType.KEY);
         return techs.get(this.techLevel);
     }
+
 
     /**
      * Get the environment type.
@@ -355,9 +359,16 @@ public class Planet {
         return out;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+
     @Override
     public String toString() {
         String result = "";
+        result += "Name: " + this.name;
+        result += "\n";
         result += "Tech Level: " + this.techLevel;
         result += "\n";
         result += "Environment: " + this.environment;

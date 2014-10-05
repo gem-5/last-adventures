@@ -101,7 +101,7 @@ public class CharacterCreateController extends Controller {
         super(CREATE_VIEW_FILE);
         // Create a new save file
         game.createNewSaveFile();
-
+        addTextLimiter(name, 8);
         values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
         incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
         decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
@@ -116,6 +116,7 @@ public class CharacterCreateController extends Controller {
     @FXML
     public void confirmCharacter(ActionEvent event) throws Exception {
 
+
         // If not all points are allotcated, show warning message.
         if (Integer.parseInt(remainingValue.getText()) > 0) {
             Action response = Dialogs.create()
@@ -129,12 +130,10 @@ public class CharacterCreateController extends Controller {
                     beginNewGame(createCharacter(), createUniverse());
                     LastAdventures.swap(new CharacterStatusController());
                 }
-            }
-        } else {
-            if (validate(name.getText().trim())) {
+            } else {
                 beginNewGame(createCharacter(), createUniverse());
                 LastAdventures.swap(new CharacterStatusController());
-            }
+            } 
         }
     }
 

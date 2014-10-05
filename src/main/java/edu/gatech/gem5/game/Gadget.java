@@ -21,6 +21,10 @@ public class Gadget {
         this.type = type;
     }
 
+    public GadgetType getType() {
+        return this.type;
+    }
+
     public int getWorth() {
         return this.type.getPrice();
     }

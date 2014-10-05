@@ -12,6 +12,7 @@
 
 <BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
+        <URL value="@/css/main.css" />
         <URL value="@/css/create.css" />
     </stylesheets>
     <top>
@@ -24,12 +25,19 @@
         </HBox>
     </top>
     <center>
-        <HBox>
-            <children>
+        <VBox>
+            <Region VBox.Vgrow="always"/>
+            <HBox>
                 <Region HBox.Hgrow="always" />
-                <GridPane layoutX="50" layoutY="50">
+                <GridPane>
                     <vgap>10.0</vgap>
                     <hgap>10.0</hgap>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10" prefWidth="50" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10" prefWidth="30" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10" prefWidth="50" />
+                    </columnConstraints>
                     <children>
                         <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                         <TextField fx:id="name" prefHeight="24.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0">
@@ -54,36 +62,23 @@
                         <Button id="investor" fx:id="investorDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label fx:id="investorValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                         <Button id="investor" fx:id="investorInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                        <Label fx:id="remaining" text="SP Remaining:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                        <Label fx:id="remaining" text="Skill Points:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                         <Label fx:id="remainingValue" text="20" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-
-                        <Button id="back" cancelButton="true" mnemonicParsing="false" onAction="#goBack" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                        </Button>
-                        <Button fx:id="confirm" mnemonicParsing="false" onAction="#confirmCharacter" text="Confirm" GridPane.columnIndex="0" GridPane.rowIndex="7">
-                        </Button>
                         <Label fx:id="errorMessage" text="" GridPane.columnIndex="5" GridPane.rowIndex="0" />
                     </children>
-                    <columnConstraints>
-                        <ColumnConstraints />
-                        <ColumnConstraints />
-                        <ColumnConstraints />
-                        <ColumnConstraints />
-                        <ColumnConstraints />
-                        <ColumnConstraints />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                        <RowConstraints />
-                    </rowConstraints>
                 </GridPane>
                 <Region HBox.Hgrow="always" />
-            </children>
-        </HBox>
+            </HBox>
+            <Region VBox.Vgrow="always"/>
+        </VBox>
     </center>
+    <bottom>
+        <HBox>
+            <Region HBox.Hgrow="always" />
+                <Button fx:id="confirm" mnemonicParsing="false" onAction="#confirmCharacter" text="Confirm" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <Region minWidth="50" />
+                <Button id="back" cancelButton="true" mnemonicParsing="false" onAction="#goBack" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Region HBox.Hgrow="always" />
+        </HBox>
+    </bottom>
 </BorderPane>
