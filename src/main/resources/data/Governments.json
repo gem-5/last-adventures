@@ -12,7 +12,7 @@
         "demand" : {"food" : 1.25},
         "supply" : {},
         "forbidden" : [],
-        "occurrence" : 0.08823529
+        "occurrence" : 0.07
     },
 
 	"capitalist" : {
@@ -28,7 +28,7 @@
 		"demand" : {"ore" : 3.0},
 		"supply" : {},
 		"forbidden" : [],
-		"occurrence" : 0.10294118
+		"occurrence" : 0.09
 	},
 
 	"communism" : {
@@ -44,7 +44,7 @@
 		"demand" : {"drugs" : 1.5},
 		"supply" : {},
 		"forbidden" : [],
-		"occurrence" : 0.05882353
+		"occurrence" : 0.06
 	},
 
 	"confederacy" : {
@@ -60,8 +60,24 @@
 		"demand" : {"games" : 1.5},
 		"supply" : {},
 		"forbidden" : [],
-		"occurrence" : 0.08823529
+		"occurrence" : 0.03
 	},
+
+    "corporate" : {
+        "name" : "Corporate",
+        "description" : "",
+        "police" : 0.9,
+        "corruption" : 0.1,
+        "traders" : 0.9,
+        "pirates" : 0.1,
+        "minTech" : 5,
+        "maxTech" : 7,
+        "wealth" : 1.0,
+        "demand" : {"robots" : 1.5},
+        "supply" : {},
+        "forbidden" : [],
+        "occurrence" : 0.06
+    },
 
 	"cybernetic" : {
 		"name" : "Cybernetic",
@@ -76,7 +92,7 @@
 		"demand" : {"ore" : 5.0},
 		"supply" : {"robots" : 0.5},
 		"forbidden" : ["drugs", "firearms"],
-		"occurrence" : 0.08823529
+		"occurrence" : 0.07
 	},
 
 	"democracy" : {
@@ -92,7 +108,7 @@
 		"demand" : {"games" : 3.0},
 		"supply" : {},
 		"forbidden" : [],
-		"occurrence" : 0.01470588
+		"occurrence" : 0.09
 	},
 
 	"dictatorship" : {
@@ -108,7 +124,7 @@
 		"demand" : {},
 		"supply" : {},
 		"forbidden" : [],
-		"occurrence" : 0.04411765
+		"occurrence" : 0.06
 	},
 
 	"fascist" : {
@@ -124,7 +140,7 @@
 		"demand" : {"machines" : 1.5},
 		"supply" : {},
 		"forbidden" : ["drugs"],
-		"occurrence" : 0.02941176
+		"occurrence" : 0.05
 	},
 
 	"feudal" : {
@@ -140,7 +156,7 @@
 		"demand" : {"firearms" : 1.5},
 		"supply" : {},
 		"forbidden" : [],
-		"occurrence" : 0.08823529
+		"occurrence" : 0.07
 	},
 
 	"military" : {
@@ -156,7 +172,7 @@
 		"demand" : {"robots" : 2.0},
 		"supply" : {},
 		"forbidden" : ["drugs"],
-		"occurrence" : 0.05882353
+		"occurrence" : 0.07
 	},
 
 	"monarchy" : {
@@ -172,7 +188,7 @@
 		"demand" : {"medicine" : 1.5},
 		"supply" : {},
 		"forbidden" : [],
-		"occurrence" : 0.08823529
+		"occurrence" : 0.08
 	},
 
 	"pacifist" : {
@@ -188,7 +204,7 @@
 		"demand" : {"furs" : 1.5, "ore" : 1.5, "gems" : 1.5, "machines" : 0.5, "robots": 0.5},
 		"supply" : {},
 		"forbidden" : ["firearms"],
-		"occurrence" : 0.05882353
+		"occurrence" : 0.04
 	},
 
 	"socialist" : {
@@ -204,7 +220,7 @@
 		"demand" : {"drugs" : 1.5},
 		"supply" : {},
 		"forbidden" : [],
-		"occurrence" : 0.05882353
+		"occurrence" : 0.05
 	},
 
 	"satori" : {
@@ -220,7 +236,7 @@
 		"demand" : {"machines" : 0.5, "robots" : 0.5},
 		"supply" : {},
 		"forbidden" : [],
-		"occurrence" : 0.02941176
+		"occurrence" : 0.03
 	},
 
 	"technocracy" : {
@@ -236,7 +252,7 @@
 		"demand" : {"water" : 5},
 		"supply" : {"machines" : 0.5, "robots" : 0.5},
 		"forbidden" : [],
-		"occurrence" : 0.07352941
+		"occurrence" : 0.05
 	},
 
 	"theocracy" : {
@@ -252,7 +268,7 @@
 		"demand" : {"drugs" : 2},
 		"supply" : {},
 		"forbidden" : ["firearms"],
-		"occurrence" : 0.01470588
+		"occurrence" : 0.03
 	}
 }
 
