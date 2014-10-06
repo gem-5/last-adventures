@@ -92,6 +92,7 @@ public class CharacterCreateController extends Controller {
     private Label[] values, skillNames;
 
     public static final String CREATE_VIEW_FILE = "/fxml/create.fxml";
+    public static final int MAX_NAME_LENGTH = 8;
 
     /**
      * Construct the character creation controller.
@@ -101,7 +102,7 @@ public class CharacterCreateController extends Controller {
         super(CREATE_VIEW_FILE);
         // Create a new save file
         game.createNewSaveFile();
-        addTextLimiter(name, 8);
+        addTextLimiter(name, MAX_NAME_LENGTH);
         values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
         incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
         decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
@@ -133,7 +134,7 @@ public class CharacterCreateController extends Controller {
             } else {
                 beginNewGame(createCharacter(), createUniverse());
                 LastAdventures.swap(new CharacterStatusController());
-            } 
+            }
         }
     }
 

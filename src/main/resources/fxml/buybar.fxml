@@ -6,9 +6,18 @@
 <?import javafx.scene.layout.*?>
 
 <fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
-    <Label fx:id="lblItem"/>
-    <Label fx:id="lblPrice"/>
-    <Region HBox.Hgrow="always"/>
-    <Label fx:id="lblQuantity"/>
-    <Slider fx:id="sldQuantity"/>
+    <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="120" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="50" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="120" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="50" />
+        </columnConstraints>
+        <Label fx:id="lblItem" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="lblPrice" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label fx:id="lblQuantity" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <Slider fx:id="sldQuantity" prefWidth="120" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+        <Label fx:id="lblMax" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+    </GridPane>
 </fx:root>
