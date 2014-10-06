@@ -143,25 +143,24 @@ public class DisplayUniverseController extends Controller {
         int y1 = curSS.getYCoordinate();
         int x2 = sys.getXCoordinate();
         int y2 = sys.getYCoordinate();
+        double distance = sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
         
-        if (sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2)) <= range) {
+        if ( distance > .0001 && distance <= range) {
             SaveFile current = LastAdventures.getCurrentSaveFile();
             current.setSolarSystem(sys);
-
-        //Random planet from solar system selected
-        //@TODO Player not actually travelling to this planet, implement later!!
-        current.setCurrentPlanet(sys.getPlanets().get(0));
-
+            
+            //Random planet from solar system selected
+            //@TODO Player not actually travelling to this planet, implement later!!
+            current.setCurrentPlanet(sys.getPlanets().get(0));
+            Turn turn = new Turn();
+            turn.pass();
+            LastAdventures.swap(new PlanetController());
+        } else if (distance < .0001) {
+            //no need to pass a turn since we're already at this system.
             LastAdventures.swap(new PlanetController());
         } else {
+            //@TODO printing to an error label should go here
             System.out.println("Not in range.");
         }
-
-
-        Turn turn = new Turn();
-        turn.pass();
-        LastAdventures.swap(new PlanetController());
-
-        
     }
 }
