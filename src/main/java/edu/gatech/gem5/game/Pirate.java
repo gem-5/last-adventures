@@ -27,6 +27,13 @@ public class Pirate extends NPC {
                                "Pirate Fleet Commander",
                                "Master Chief Commander of Pirates"};
 
+    /**
+     * A factory function used to create new pirates.
+     * @param seed The seed used to determine pirate stats and rank
+     * @param ship The ship that the new pirate will spawn with
+     * @return a new instance of the Pirate class
+     */
+
     public static Pirate createPirate(int seed, Ship ship) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
@@ -74,14 +81,14 @@ public class Pirate extends NPC {
     // public void processEncounter() {
     //     LastAdventures.swap(new EncounterController(this));
     // }
-
+    @Override
     public String getEncounterMessage() {
         String msg = super.getEncounterMessage();
         msg += this.toString();
         msg += "\n\nHowever combat is not yet implemented, so the Pirate flees in confusion.";
         return msg;
     }
-
+    @Override
     public void processEncounter() {
         LastAdventures.swap(new EncounterController(this));
     }

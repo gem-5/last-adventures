@@ -27,7 +27,12 @@ public class Police extends NPC {
                                              "Deputy Sheriff",
                                              "Sheriff"
     };
-
+    /**
+     * A factory function used to create new police.
+     * @param seed The seed used to determine police stats and rank
+     * @param ship The ship that the new police will spawn with
+     * @return a new instance of the Police class
+     */
     public static Police createPolice(int seed, Ship ship) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
@@ -71,10 +76,12 @@ public class Police extends NPC {
     //         System.out.println(bob);
     //     }
     // }
+    @Override
     public void processEncounter() {
         LastAdventures.swap(new EncounterController(this));
     }
 
+    @Override
         public String getEncounterMessage() {
         String msg = super.getEncounterMessage();
         msg += this.toString();

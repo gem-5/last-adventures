@@ -78,6 +78,7 @@ public class CharacterStatusController extends Controller {
      * Continue to the planet screen.
      *
      * @param event a button press
+     * @throws Exception propogates any JavaFX Exception
      */
     @FXML
     public void startGame(ActionEvent event) throws Exception {
@@ -88,6 +89,7 @@ public class CharacterStatusController extends Controller {
      * Go back to create a new character.
      *
      * @param event a button press
+     * @throws Exception propogates any JavaFX Exception
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {

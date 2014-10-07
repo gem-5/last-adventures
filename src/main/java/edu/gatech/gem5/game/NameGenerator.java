@@ -2,6 +2,10 @@ package edu.gatech.gem5.game;
 
 import java.util.Random;
 
+/**
+ * A class for generating Random Names for multiple objects in Last Adventures
+ * @author Sam Blumenthal
+ */
 public class NameGenerator {
 
 
@@ -92,16 +96,13 @@ public class NameGenerator {
         }
         return name;
     }
-    /**
-     * Method to generate new names from a given min and max length
-     * @param minLength The minimum length of the name to be generated
-     * @param maxLength The maximum length of the name to be generated
-     * @return the newly generated name
-     */
-    public String[] planetNames(int numberOfPlanets) {
-        return planetNames(numberOfPlanets, newName());
-    }
 
+    /**
+     * Function to name planets in an already named Solar System.
+     * @param numberOfPlanets the total number of Planets in the Solar System.
+     * @param solarSystemName the name of the Solar System
+     * @return an array of randomly generated planet names with Greek Characters in alphabetic order.
+     */
     public String[] planetNames(int numberOfPlanets, String solarSystemName) {
         String[] names = new String[numberOfPlanets];
         String name = solarSystemName;
@@ -113,11 +114,19 @@ public class NameGenerator {
         return names;
     }
 
+    /**
+     * Function to create new random human names in the form of: Firstname Lastname.
+     * @return the newly generated Human name as a String.
+     */
     public String newHumanName() {
         return String.format("%s %s", newName(4,6), newName(4,8));
     }
 
 
+    /**
+     * A test function for testing the generation of different names.
+     * @param args commandline arguments.
+     */
     public static void main(String[] args) {
         NameGenerator n = new NameGenerator(true);
         // System.out.println("Random Names:");

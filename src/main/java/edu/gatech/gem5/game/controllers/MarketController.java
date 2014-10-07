@@ -56,7 +56,7 @@ public class MarketController extends Controller {
 
     @FXML
     private Label errorLabel;
-    
+
     @FXML
     private Button refuelButton;
 
@@ -146,7 +146,7 @@ public class MarketController extends Controller {
             errorLabel.setText(t.getErrorMessage());
         }
     }
-    
+
     @FXML
     /**
      * Max out the fuel in your ship.
@@ -157,7 +157,7 @@ public class MarketController extends Controller {
     public void refuel(ActionEvent event) throws Exception {
         Character player = LastAdventures.getCurrentSaveFile().getCharacter();
         Ship ship = player.getShip();
-        player.setMoney(player.getMoney() -  (ship.getType().getRange() - 
+        player.setMoney(player.getMoney() -  (ship.getType().getRange() -
                 ship.getFuel()) * ship.getType().getFuelCost() );
         ship.setFuel(ship.getType().getRange());
         fillLabels();
@@ -167,7 +167,7 @@ public class MarketController extends Controller {
      * Go back to the planet screen.
      *
      * @param event A button press attempting to change scenes
-     * @throws Exception
+     * @throws Exception propagates javaFX exceptions
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -268,13 +268,4 @@ public class MarketController extends Controller {
         sellGoods.setItems(listGoods);
     }
 
-    public void changeScenes(ActionEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        String id = ((Button)(event.getSource())).idProperty().get();
-        if (id.equals("universe")) {
-            root = FXMLLoader.load(getClass().getResource("/displayUniverse.fxml"));
-
-            stage.setScene(new Scene((Pane) root));
-        }
-    }
 }

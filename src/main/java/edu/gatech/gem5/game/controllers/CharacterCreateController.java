@@ -113,6 +113,7 @@ public class CharacterCreateController extends Controller {
      * Move to the confirm screen.
      *
      * @param event a button press
+     * @throws Exception propogates any JavaFX Exception
      */
     @FXML
     public void confirmCharacter(ActionEvent event) throws Exception {
@@ -146,6 +147,7 @@ public class CharacterCreateController extends Controller {
      * Go back to the title screen.
      *
      * @param event a button press
+     * @throws Exception propogates any JavaFX Exception
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -241,5 +243,6 @@ public class CharacterCreateController extends Controller {
             }
         });
     }
+
 
 }
