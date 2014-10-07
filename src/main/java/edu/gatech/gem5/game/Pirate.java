@@ -1,5 +1,6 @@
 package edu.gatech.gem5.game;
 
+import edu.gatech.gem5.game.controllers.EncounterController;
 import edu.gatech.gem5.game.NameGenerator;
 import java.util.Random;
 
@@ -10,11 +11,21 @@ import java.util.Random;
  *
  */
 
-public class Pirate extends Human {
+public class Pirate extends NPC {
 
     private Pirate(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
+
+    private static final String[] titles = {"Spaceman Recruit",
+                               "Deckhand",
+                               "Spaceman",
+                               "2nd Mate",
+                               "1st Mate",
+                               "Chief Mate",
+                               "Pirate Captain",
+                               "Pirate Fleet Commander",
+                               "Master Chief Commander of Pirates"};
 
     public static Pirate createPirate(int seed, Ship ship) {
         Random r = new Random();
@@ -24,6 +35,8 @@ public class Pirate extends Human {
         int statTotal = (r.nextInt(seed) + 1) / 1500;
         int loot = r.nextInt(seed) / 100;
         int[] stats = {1, 1, 1, 1, 1};
+        int titleIndex = Math.min((int) Math.sqrt(statTotal), titles.length - 1);
+        String title = titles[titleIndex];
 
         for (int i = 0; i < statTotal; i++) {
             int n = r.nextInt(100);
@@ -40,7 +53,7 @@ public class Pirate extends Human {
 
         }
 
-        String name = rand.newHumanName();
+        String name = title + " " + rand.newHumanName();
 
         return new Pirate(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
@@ -57,6 +70,21 @@ public class Pirate extends Human {
     //         System.out.println(bob);
     //     }
     // }
+
+    // public void processEncounter() {
+    //     LastAdventures.swap(new EncounterController(this));
+    // }
+
+    public String getEncounterMessage() {
+        String msg = super.getEncounterMessage();
+        msg += this.toString();
+        msg += "\n\nHowever combat is not yet implemented, so the Pirate flees in confusion.";
+        return msg;
+    }
+
+    public void processEncounter() {
+        LastAdventures.swap(new EncounterController(this));
+    }
 
     @Override
     public String toString() {
