@@ -23,7 +23,7 @@ public class CompanyType extends DataType {
     private double wealth;
     private Map<String, Double> environments;
     private Map<String, Double> governments;
-    
+
     public static final String KEY = "company";
 
     /**

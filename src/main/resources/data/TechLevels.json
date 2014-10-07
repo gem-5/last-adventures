@@ -1,13 +1,13 @@
 {
     "0":{
-        "name" : "Pre-agriculture",
+        "name" : "Pre-agricultural",
         "rank" : 0,
         "occurrence" : 0.3,
         "wealth" : 0.3
     },
 
     "1":{
-        "name" : "Agriculture",
+        "name" : "Agricultural",
         "rank" : 1,
         "occurrence" : 0.2,
         "wealth" : 0.4

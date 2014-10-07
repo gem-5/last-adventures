@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane
+    prefWidth="1280"
+    prefHeight="720"
+    xmlns:fx="http://javafx.com/fxml/1"
+>
+    <center>
+        <VBox maxWidth="759">
+            <Region VBox.Vgrow="always"/>
+            <ImageView>
+                <image>
+                    <Image url="@/img/title.png" />
+                </image>
+            </ImageView>
+            <Region minHeight="50" />
+            <HBox>
+                <Region HBox.Hgrow="always"/>
+                <GridPane fx:id="gridPane">
+                    <vgap>10.0</vgap>
+                    <Button text="New"
+                            id="newButton"
+                            GridPane.columnIndex="0"
+                            GridPane.rowIndex="1"
+                            onAction="#startNewGame"
+                    />
+                    <Button text="Continue"
+                            id="continueButton"
+                            GridPane.columnIndex="0"
+                            GridPane.rowIndex="2"
+                            onAction="#continueGame"
+                    />
+                    <Button text="Load"
+                            id="loadButton"
+                            GridPane.columnIndex="0"
+                            GridPane.rowIndex="3"
+                            onAction="#loadGame"
+                    />
+                </GridPane>
+            </HBox>
+            <Region VBox.Vgrow="always"/>
+        </VBox>
+    </center>
+
+    <stylesheets>
+        <URL value="@/css/main.css" />
+        <URL value="@/css/title.css" />
+    </stylesheets>
+</BorderPane>

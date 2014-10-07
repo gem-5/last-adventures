@@ -1,11 +1,15 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Encounter;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
+import edu.gatech.gem5.game.Turn;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 import java.util.List;
 import java.util.Random;
 import javafx.collections.ObservableList;
@@ -18,16 +22,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
  *
  * @author Jack Mueller
+ * @author Alex Liu
  */
 public class DisplayUniverseController extends Controller {
 
@@ -43,7 +51,7 @@ public class DisplayUniverseController extends Controller {
     private int xCoordinate;
     private int yCoordinate;;
 
-    public static final String UNIVERSE_VIEW_FILE = "/displayUniverse.fxml";
+    public static final String UNIVERSE_VIEW_FILE = "/fxml/displayUniverse.fxml";
 
     /**
      * Construct the universe display controller.
@@ -89,6 +97,12 @@ public class DisplayUniverseController extends Controller {
                 "Planets: " + system.getPlanets().size()
             );
             Tooltip.install(circle, t);
+
+            circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    travelTo(system);
+                }
+            });
             nodes.add(circle);
         }
     }
@@ -118,4 +132,39 @@ public class DisplayUniverseController extends Controller {
         circle.toBack();
     }
 
+    /**
+     * Sets the current planet and solar system to the save file, then changes to
+     * the PlanetController scene
+     * @param sys
+     */
+    private void travelTo(SolarSystem sys) {
+        double range = save.getCharacter().getShip().getType().getRange();
+        SolarSystem curSS = save.getSolarSystem();
+        int x1 = curSS.getXCoordinate();
+        int y1 = curSS.getYCoordinate();
+        int x2 = sys.getXCoordinate();
+        int y2 = sys.getYCoordinate();
+
+        double distance = sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
+        if ( distance <= range && distance > 0.001) {
+            SaveFile current = LastAdventures.getCurrentSaveFile();
+            current.setSolarSystem(sys);
+
+            //Random planet from solar system selected
+            //@TODO Player not actually travelling to this planet, implement later!!
+            Planet p = sys.getPlanets().get(0);
+            current.setCurrentPlanet(p);
+
+            Encounter e = new Encounter();
+
+            Turn turn = new Turn();
+            turn.pass();
+            e.getEncounter(p);
+            // LastAdventures.swap(new PlanetController());
+        } else {
+            System.out.println("Not in range.");
+        }
+
+
+    }
 }

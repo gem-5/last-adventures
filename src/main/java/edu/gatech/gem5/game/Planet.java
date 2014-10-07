@@ -33,6 +33,8 @@ public class Planet {
     private List<String> companyList;
     private String condition;
     private SolarSystem solarSystem;
+    private Map<String, Integer> currentStock;
+    private final Map<String, Integer> maxStock;
     private String name;
 
     private static final double COMPETITION_FACTOR = 0.75;
@@ -49,10 +51,11 @@ public class Planet {
         this.environment = chooseEnvironment();
         this.government = chooseGovernment();
         this.companyList = chooseCompanies();
+        this.maxStock = getMaxStock();
+        this.currentStock = maxStock;
+        this.condition = setCondition();
         this.name = name;
-        // TODO: a new condition should be applied every turn
-        // some conditions should last longer than one turn.
-        this.condition = null;
+
     }
 
     /**
@@ -96,11 +99,29 @@ public class Planet {
         LastAdventures.data.get(GovernmentType.KEY);
         return governments.get(this.government);
     }
+    
+    /**
+     * 
+     * @param condition the key of the condition for this planet
+     */
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+    
+    /**
+     * 
+     * @return the condition type of the planet
+     */
+    public ConditionType getCondition() {
+        Map<String, ConditionType> conditions =
+        LastAdventures.data.get(ConditionType.KEY);
+        return conditions.get(this.condition);
+    }
 
     /**
      * Get the list of companies.
      *
-     * @return the company list.
+     * @return the company list.getCon
      */
     public List<CompanyType> getCompanies() {
         List<CompanyType> out = new ArrayList<>();
@@ -111,6 +132,8 @@ public class Planet {
         }
         return out;
     }
+    
+    
 
     /**
      * Get a list of shields that this planet sells.
@@ -167,22 +190,36 @@ public class Planet {
      * @return the map
      */
     public Map<String, Integer> getStock() {
+        return currentStock;
+    }
+    
+    private Map<String, Integer> getMaxStock() {
+        // only generate the stock once
         Map<String, Integer> out = new TreeMap<>();
         for (CompanyType c : getCompanies()) {
             for (String s : c.getProducts()) {
                 if (!out.containsKey(s)) out.put(s, 0);
-                Random rng = new Random();
                 GoodType g = (GoodType)
                              LastAdventures.data.get(GoodType.KEY).get(s);
-                int amt = g.getMinStock() +
-                          rng.nextInt(g.getMaxStock() -g.getMinStock() + 1);
+                int amt =  g.getMaxStock();
                 // adds more stock when several companies sell the same thing
                 out.put(s, out.get(s) + amt);
             }
         }
-        return out;
+        currentStock = out;
+        return currentStock;
     }
 
+    public void increaseStock() {
+        for (Map.Entry<String, Integer> entry : currentStock.entrySet() ) {
+            int maxOfGood = maxStock.get(entry.getKey());
+            Random random = new Random();
+            currentStock.put(entry.getKey(), Math.max(
+                    entry.getValue() + random.nextInt(4), maxOfGood));
+            
+        }
+    }
+    
     /**
      * Get a map of goods and their prices sold by this planet.
      *
@@ -223,31 +260,26 @@ public class Planet {
     public Map<String, Integer> getDemand() {
         Map<String, Integer> in = new TreeMap<>();
         Ship playerShip = LastAdventures.getCurrentSaveFile().getCharacter().getShip();
-        for (Good g : playerShip.getCargoList()) {
-            if (g != null) { //there is cargo at this spot
-                GoodType gt = g.getType();
-                double value = gt.getValue();
-                String s = gt.getKey();
+        for (String g : playerShip.getCargoList().keySet()) {
+            GoodType gt = (GoodType) LastAdventures.data.get(GoodType.KEY).get(g);
+            double value = gt.getValue();
+            String s = gt.getKey();
 
-                Map<String, Double> govMap = getGovernment().getDemand();
-                if (govMap.get(s) != null) {
-                    value *= govMap.get(s);
-                }
-                Map<String, Double> envMap = getEnvironment().getDemand();
-                if (envMap.get(s) != null) {
-                    value *= envMap.get(s);
-                }
-                // If any company produces the good, it sells for less
-                Map<String, Integer> f = getCompetitions();
-                if (f.get(s) != null) {
-                    value *= COMPETITION_FACTOR;
-                }
-
-                in.put(s, (int) Math.round(value));
+            Map<String, Double> govMap = getGovernment().getDemand();
+            if (govMap.get(s) != null) {
+                value *= govMap.get(s);
+            }
+            Map<String, Double> envMap = getEnvironment().getDemand();
+            if (envMap.get(s) != null) {
+                value *= envMap.get(s);
+            }
+            // If any company produces the good, it sells for less
+            Map<String, Integer> f = getCompetitions();
+            if (f.get(s) != null) {
+                value *= COMPETITION_FACTOR;
             }
 
-
-
+            in.put(s, (int) Math.round(value));
         }
         return in;
     }
@@ -349,5 +381,20 @@ public class Planet {
         result += "\n";
         result += "Compnies: " + this.companyList;
         return result;
+    }
+
+    public String setCondition() {
+        //set new condition
+        Random random = new Random();
+        double conditionNumber = random.nextDouble();
+        Map<String, ConditionType> conditions = LastAdventures.data.get(ConditionType.KEY);
+        for( Map.Entry<String, ConditionType> entry : conditions.entrySet()) {
+            conditionNumber -= entry.getValue().getOccurrence();
+            if (conditionNumber <= 0) {
+                return (String) entry.getKey();
+            }
+        }
+        return null; // this should never happen unless 
+        // sum(conditions.valueSet().getOccurance()) > 1.0
     }
 }

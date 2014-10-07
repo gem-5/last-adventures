@@ -38,12 +38,15 @@ public class BuyBar extends HBox {
     @FXML
     private Slider sldQuantity;
 
+    @FXML
+    private Label lblMax;
+
     /**
      * Construct and set the root of this custom control.
      */
     public BuyBar() {
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/buybar.fxml")
+            getClass().getResource("/fxml/buybar.fxml")
         );
         loader.setRoot(this);
         loader.setController(this);
@@ -54,18 +57,17 @@ public class BuyBar extends HBox {
             throw new RuntimeException(exception);
         }
 
-        sldQuantity.setShowTickMarks(true);
-        sldQuantity.setShowTickLabels(true);
+        sldQuantity.setShowTickMarks(false);
+        sldQuantity.setShowTickLabels(false);
         sldQuantity.setMajorTickUnit(1);
         sldQuantity.setBlockIncrement(1);
         sldQuantity.setSnapToTicks(true);
-        sldQuantity.setMinorTickCount(0);
 
         sldQuantity.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
-                lblQuantity.setText(newValue.toString());
+                lblQuantity.setText(((Integer) newValue.intValue()).toString());
             }
         });
     }
@@ -98,6 +100,8 @@ public class BuyBar extends HBox {
         this.quantity = q;
         sldQuantity.setMin(0);
         sldQuantity.setMax(q);
+        lblQuantity.setText("0");
+        lblMax.setText(((Integer) q).toString());
     }
 
     /**

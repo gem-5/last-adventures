@@ -23,7 +23,7 @@ public abstract class Human {
     private int money;
 
 
-    public Human(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int money) {
+    protected Human(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int money) {
         this.name = name;
         this.pilot = pilot;
         this.fighter = fighter;
@@ -172,10 +172,10 @@ public abstract class Human {
      */
     public String toString() {
         if (this.ship == null) {
-            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: None%nNet Worth: %d",
+            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t%d%n\tTrader\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: None%nNet Worth: %d",
                                  name, pilot, fighter, trader, engineer, investor, this.getNetWorth());
         } else {
-            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t\t%d%n\tTrader\t\t%d%n\tEngineer\t%d%n\tInvestor\t%d%nShip: %s%nNet Worth: %d",
+            return String.format("Character name: %s%nSkills:%n\tPilot\t\t%d%n\tFighter\t%d%n\tTrader\t%d%n\tEngineer\t%d%n\tInvestor\t%d%n%s%nNet Worth: %d",
                                  name, pilot, fighter, trader, engineer, investor, ship.toString(), this.getNetWorth());
         }
 
