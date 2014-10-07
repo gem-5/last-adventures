@@ -9,6 +9,10 @@ import edu.gatech.gem5.game.data.GovernmentType;
 import edu.gatech.gem5.game.Planet;
 import java.util.Random;
 
+/**
+ * Controller class to handle the logic behind processing Encounters
+ *
+ */
 public class Encounter {
 
     //TODO: Find a way to properly get these to cast.
@@ -142,6 +146,9 @@ public class Encounter {
 
     }
 
+    /**
+     * Test function to test spawning encounters.
+     */
     public static void main(String[] args) {
         Encounter e = new Encounter();
         for (int i = 1; i < 20; i++) {

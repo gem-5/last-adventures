@@ -28,22 +28,9 @@ import javafx.scene.text.Text;
 public class EncounterController extends Controller {
 
     Parent root;
-    // @FXML
-    // Label playerName;
-    // @FXML
-    // Label pilotValue;
-    // @FXML
-    // Label fighterValue;
-    // @FXML
-    // Label traderValue;
-    // @FXML
-    // Label engineerValue;
-    // @FXML
-    // Label investorValue;
+
     @FXML
     Button cont;
-    // @FXML
-    // Button returnToCreate;
 
     private NPC enemy;
 
@@ -59,18 +46,7 @@ public class EncounterController extends Controller {
         // load the view or throw an exception
         super(STATUS_VIEW_FILE);
         this.enemy = enemy;
-        System.out.println("EncounterController created!");
-
-        // Character player = LastAdventures.getCurrentSaveFile().getCharacter();
-
-        // Label[] labels = {playerName, pilotValue, fighterValue, traderValue, engineerValue, investorValue};
-
-        // playerName.setText("Name: " + player.getName());
-        // pilotValue.setText("Pilot: " + player.getPilot());
-        // fighterValue.setText("Fighter: " + player.getFighter());
-        // traderValue.setText("Trader: " + player.getTrader());
-        // engineerValue.setText("Engineer: " + player.getEngineer());
-        // investorValue.setText("Investor: " + player.getInvestor());
+        // System.out.println("EncounterController created!");
 
         String msg = enemy.getEncounterMessage();
         dialog.setText(msg);
@@ -87,14 +63,5 @@ public class EncounterController extends Controller {
         LastAdventures.swap(new PlanetController());
     }
 
-    // /**
-    //  * Go back to create a new character.
-    //  *
-    //  * @param event a button press
-    //  */
-    // @FXML
-    // public void goBack(ActionEvent event) throws Exception {
-    //     LastAdventures.swap(new CharacterCreateController());
-    // }
 
 }
