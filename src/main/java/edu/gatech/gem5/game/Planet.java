@@ -44,6 +44,7 @@ public class Planet {
      * and list of companies based on the data files.
      *
      * @param sys The solar system that contains this planet.
+     * @param name the name of the Planet
      */
     public Planet(SolarSystem sys, String name) {
         this.solarSystem = sys;
@@ -99,17 +100,17 @@ public class Planet {
         LastAdventures.data.get(GovernmentType.KEY);
         return governments.get(this.government);
     }
-    
+
     /**
-     * 
+     *
      * @param condition the key of the condition for this planet
      */
     public void setCondition(String condition) {
         this.condition = condition;
     }
-    
+
     /**
-     * 
+     *
      * @return the condition type of the planet
      */
     public ConditionType getCondition() {
@@ -132,8 +133,8 @@ public class Planet {
         }
         return out;
     }
-    
-    
+
+
 
     /**
      * Get a list of shields that this planet sells.
@@ -192,7 +193,7 @@ public class Planet {
     public Map<String, Integer> getStock() {
         return currentStock;
     }
-    
+
     private Map<String, Integer> getMaxStock() {
         // only generate the stock once
         Map<String, Integer> out = new TreeMap<>();
@@ -216,10 +217,10 @@ public class Planet {
             Random random = new Random();
             currentStock.put(entry.getKey(), Math.max(
                     entry.getValue() + random.nextInt(4), maxOfGood));
-            
+
         }
     }
-    
+
     /**
      * Get a map of goods and their prices sold by this planet.
      *
@@ -254,8 +255,9 @@ public class Planet {
         return out;
     }
     /**
+     * Get a map of goods and their prices bought by this planet.
      *
-     * @return
+     * @return the map
      */
     public Map<String, Integer> getDemand() {
         Map<String, Integer> in = new TreeMap<>();
@@ -394,7 +396,7 @@ public class Planet {
                 return (String) entry.getKey();
             }
         }
-        return null; // this should never happen unless 
+        return null; // this should never happen unless
         // sum(conditions.valueSet().getOccurance()) > 1.0
     }
 }

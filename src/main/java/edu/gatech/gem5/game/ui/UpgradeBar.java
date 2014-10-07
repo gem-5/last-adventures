@@ -70,7 +70,7 @@ public class UpgradeBar extends HBox {
     /**
      * Set the label text.
      *
-     * @param the label text
+     * @param text the label text
      */
     public void setText(String text) {
         this.lblItem.setText(text);

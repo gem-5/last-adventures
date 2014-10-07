@@ -41,8 +41,9 @@ public class EncounterController extends Controller {
 
     /**
      * Construct the encounter controller.
+     * @param encounter the NPC that the Character has encountered.
      */
-    public EncounterController(NPC enemy) {
+    public EncounterController(NPC encounter) {
         // load the view or throw an exception
         super(STATUS_VIEW_FILE);
         this.enemy = enemy;
