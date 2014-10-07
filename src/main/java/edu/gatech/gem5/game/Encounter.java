@@ -31,7 +31,7 @@ public class Encounter {
 
     /**
      * Randomly generates a pirate, police, or trader encounter
-     * @param p The planet the player is currently travelling to.
+     * @param p The planet the player is currently traveling to.
      *
      */
     public void getEncounter(Planet p) {
@@ -41,18 +41,6 @@ public class Encounter {
 
     private void getEncounter(int seed, Planet p) {
         NPC spawn = null;
-        // System.out.println("Testing for spawn...");
-        // switch (encounter) {
-        // case 0:
-        //     spawn = traderEncounter(seed);
-        //     break;
-        // case 1:
-        //     spawn = policeEncounter(seed);
-        //     break;
-        // case 2:
-        //     spawn = pirateEncounter(seed);
-        //     break;
-        // }
         GovernmentType gov = p.getGovernment();
         int policeChance = (int) (gov.getPolice() * 10);
         int traderChance = (int) (gov.getTraders() * 10);
@@ -65,7 +53,6 @@ public class Encounter {
         } else {
             spawn = pirateEncounter(seed);
         }
-        // System.out.printf("Encounter with: %s%n", spawn.toString());
         spawn.processEncounter();
 
     }

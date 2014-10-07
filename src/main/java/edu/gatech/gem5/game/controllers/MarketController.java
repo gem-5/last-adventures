@@ -30,7 +30,6 @@ import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -57,6 +56,9 @@ public class MarketController extends Controller {
 
     @FXML
     private Label errorLabel;
+    
+    @FXML
+    private Button refuelButton;
 
     @FXML
     private ListView<BuyBar> buyGoods;
@@ -144,6 +146,22 @@ public class MarketController extends Controller {
             errorLabel.setText(t.getErrorMessage());
         }
     }
+    
+    @FXML
+    /**
+     * Max out the fuel in your ship.
+     *
+     * @param event A button press attempting to refuel
+     * @throws Exception
+     */
+    public void refuel(ActionEvent event) throws Exception {
+        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
+        Ship ship = player.getShip();
+        player.setMoney(player.getMoney() -  (ship.getType().getRange() - 
+                ship.getFuel()) * ship.getType().getFuelCost() );
+        ship.setFuel(ship.getType().getRange());
+        fillLabels();
+    }
 
     /**
      * Go back to the planet screen.
@@ -166,6 +184,7 @@ public class MarketController extends Controller {
             ((Integer) s.getOpenBays()).toString()
         );
         errorLabel.setText("");
+        refuelButton.setText("Refuel " + (s.getType().getRange() - s.getFuel()) * s.getType().getFuelCost());
     }
     /*
     private void buildShipList() {
@@ -244,9 +263,6 @@ public class MarketController extends Controller {
             b.setQuantity(s.getValue());
             b.setPrice(planet.getDemand().get(s.getKey()));
             b.setText(g.getName());
-            // b.setText(
-            //           ((GoodType) goods.get(g.getKey())).getName()
-            //           );
             listGoods.add(b);
         }
         sellGoods.setItems(listGoods);

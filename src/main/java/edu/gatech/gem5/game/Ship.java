@@ -21,6 +21,7 @@ public class Ship {
 
     private final ShipType type;
     private double health;
+    private int fuel;
 
     private Map<String, Integer> cargoList;
     private List<Weapon> weaponList;
@@ -36,7 +37,8 @@ public class Ship {
      */
     public Ship(ShipType ship) {
         this.type = ship;
-        this.cargoList = new TreeMap<String, Integer>();
+        this.fuel = ship.getRange(); // range == max fuel
+        this.cargoList = new TreeMap<>();
         this.weaponList = new ArrayList<>(ship.getWeaponSlots());
         this.shieldList = new ArrayList<>(ship.getShieldSlots());
         this.gadgetList = new ArrayList<>(ship.getGadgetSlots());
@@ -153,6 +155,14 @@ public class Ship {
         }
         return result;
 
+    }
+
+    public void setFuel(int fuel) {
+        this.fuel = fuel;
+    }
+
+    public int getFuel() {
+        return this.fuel;
     }
 
 }

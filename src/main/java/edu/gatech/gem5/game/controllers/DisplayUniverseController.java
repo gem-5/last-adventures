@@ -92,9 +92,16 @@ public class DisplayUniverseController extends Controller {
             circle.setRadius(2.0 * system.getPlanets().size());
             circle.setFill(Color.WHITE);
             circle.setCursor(Cursor.HAND);
+            SolarSystem curSS = save.getSolarSystem();
+            int x1 = curSS.getXCoordinate();
+            int y1 = curSS.getYCoordinate();
+            int x2 = system.getXCoordinate();
+            int y2 = system.getYCoordinate();
+            int distance = (int) sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
             Tooltip t = new Tooltip(
                 system.getName() + "\n" +
-                "Planets: " + system.getPlanets().size()
+                "Planets: " + system.getPlanets().size() + "\n" +
+                "Travel Cost: " + distance + " fuel" 
             );
             Tooltip.install(circle, t);
 
@@ -121,7 +128,7 @@ public class DisplayUniverseController extends Controller {
     private void drawShipRange() {
         // show the ship range
         Ship s = save.getCharacter().getShip();
-        double range = s.getType().getRange();
+        int range = s.getFuel();
         Circle circle = new Circle();
         circle.setCenterX(xCoordinate * widthRatio);
         circle.setCenterY(yCoordinate * heightRatio);
@@ -138,29 +145,29 @@ public class DisplayUniverseController extends Controller {
      * @param sys
      */
     private void travelTo(SolarSystem sys) {
-        double range = save.getCharacter().getShip().getType().getRange();
+        Ship ship = save.getCharacter().getShip();
+        int range = ship.getFuel();
         SolarSystem curSS = save.getSolarSystem();
         int x1 = curSS.getXCoordinate();
         int y1 = curSS.getYCoordinate();
         int x2 = sys.getXCoordinate();
         int y2 = sys.getYCoordinate();
 
-        double distance = sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
-        if ( distance <= range && distance > 0.001) {
-            SaveFile current = LastAdventures.getCurrentSaveFile();
-            current.setSolarSystem(sys);
 
+        int distance = (int) sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
+        if ( distance <= range && distance > 0.001) {
+            save.setSolarSystem(sys);
+            ship.setFuel(ship.getFuel() - distance);
             //Random planet from solar system selected
             //@TODO Player not actually travelling to this planet, implement later!!
             Planet p = sys.getPlanets().get(0);
-            current.setCurrentPlanet(p);
+            save.setCurrentPlanet(p);
 
             Encounter e = new Encounter();
 
             Turn turn = new Turn();
             turn.pass();
             e.getEncounter(p);
-            // LastAdventures.swap(new PlanetController());
         } else {
             //@TODO printing to an error label should go here
             System.out.println("Not in range.");
