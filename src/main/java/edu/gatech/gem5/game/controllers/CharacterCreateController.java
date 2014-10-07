@@ -124,7 +124,7 @@ public class CharacterCreateController extends Controller {
                     .owner(root)
                     .title("Warning")
                     .masthead("Warning")
-                    .message("Are you sure that you want to continue without allotcating all points?")
+                    .message("Are you sure that you want to continue without allocating all points?")
                     .showConfirm();
             if (response == Dialog.ACTION_YES) {
                 // System.out.println("I got a success.");
@@ -132,8 +132,10 @@ public class CharacterCreateController extends Controller {
                     beginNewGame(createCharacter(), createUniverse());
                     LastAdventures.swap(new CharacterStatusController());
                 }
-            } else {
-                System.out.println("All points allocated.");
+            }
+        } else {
+            // System.out.println("All points allocated.");
+            if (validate(name.getText().trim())) {
                 beginNewGame(createCharacter(), createUniverse());
                 LastAdventures.swap(new CharacterStatusController());
             }
