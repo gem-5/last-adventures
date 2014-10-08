@@ -51,7 +51,6 @@ public class LastAdventures extends Application {
      * Start the game.
      *
      * @param stage The stage to start with
-     * @throws Exception when something bad happens
      */
     @Override
     public void start(Stage stage) {
@@ -65,7 +64,6 @@ public class LastAdventures extends Application {
      * Changes the controller to something fresh.
      *
      * @param c The new controller to load.
-     * @throws IOException if there was an error loading a file.
      */
     public static void swap(Controller c) {
         Scene scene = c.getScene();

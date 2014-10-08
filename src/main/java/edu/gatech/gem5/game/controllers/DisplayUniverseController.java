@@ -74,6 +74,7 @@ public class DisplayUniverseController extends Controller {
      * Returns to the planet screen.
      *
      * @param event A button press attempting to change scenes
+     * @throws Exception propogates any JavaFX Exception
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -101,7 +102,7 @@ public class DisplayUniverseController extends Controller {
             Tooltip t = new Tooltip(
                 system.getName() + "\n" +
                 "Planets: " + system.getPlanets().size() + "\n" +
-                "Travel Cost: " + distance + " fuel" 
+                "Travel Cost: " + distance + " fuel"
             );
             Tooltip.install(circle, t);
 

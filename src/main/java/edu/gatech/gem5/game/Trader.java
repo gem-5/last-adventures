@@ -29,6 +29,12 @@ public class Trader extends NPC {
 
     };
 
+    /**
+     * A factory function used to create new traders.
+     * @param seed The seed used to determine trader stats and rank
+     * @param ship The ship that the new trader will spawn with
+     * @return a new instance of the Trader class
+     */
     public static Trader createTrader(int seed, Ship ship) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
@@ -60,22 +66,13 @@ public class Trader extends NPC {
         return new Trader(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
 
-    // private static Trader createTrader() {
-    //     int seed = LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth();
-    //     return createTrader(seed, null);
-    // }
 
-    // public static void main(String[] args) {
-
-    //     for (int i = 1; i < 100; i++) {
-    //         Trader bob = createTrader((1000 * i % 50000) + 1);
-    //         System.out.println(bob);
-    //     }
-    // }
+    @Override
     public void processEncounter() {
         LastAdventures.swap(new EncounterController(this));
     }
 
+    @Override
     public String getEncounterMessage() {
         String msg = super.getEncounterMessage();
         msg += this.toString();

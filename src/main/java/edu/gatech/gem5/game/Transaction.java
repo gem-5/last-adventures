@@ -71,6 +71,7 @@ public class Transaction {
      * Check if a purchase is possible.
      *
      * @param purchases A map of goods and their quantities to purchase.
+     * @return true if possible, false otherwise
      */
     public boolean validateBuy(Map<String, Integer> purchases) {
         int total = 0;
@@ -106,6 +107,7 @@ public class Transaction {
      * Check if the sale is possible.
      *
      * @param sales A map of goods and their quantities to sell.
+     * @return true if possible, false otherwise
      */
     public boolean validateSell(Map<String, Integer> sales) {
         //int wealth get the planets wealth here

@@ -58,7 +58,7 @@ public class PlanetController extends Controller {
         this.lblGovernment.setText(planet.getGovernment().getName());
         this.lblCondition.setText(planet.getCondition().getName());
         this.lblTechnology.setText(planet.getTechLevel().getName());
-        
+
     }
 
     private String buildCompanyString() {
@@ -73,6 +73,7 @@ public class PlanetController extends Controller {
      * Changes the scene based on the button pressed.
      *
      * @param event a button press
+     * @throws Exception propogates any JavaFX Exception
      */
     @FXML
     private void changeScenes(ActionEvent event) throws Exception {

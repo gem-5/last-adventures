@@ -19,10 +19,11 @@ import javafx.scene.text.Text;
 public class EncounterController extends Controller {
 
     Parent root;
+
     @FXML
     Button cont;
 
-    private NPC enemy;
+    private NPC encounter;
 
     @FXML
     Text dialog;
@@ -31,13 +32,15 @@ public class EncounterController extends Controller {
 
     /**
      * Construct the encounter controller.
+     * @param encounter the NPC that the Character has encountered.
      */
-    public EncounterController(NPC enemy) {
+    public EncounterController(NPC encounter) {
         // load the view or throw an exception
         super(STATUS_VIEW_FILE);
-        this.enemy = enemy;
+        this.encounter = encounter;
+        // System.out.println("EncounterController created!");
 
-        String msg = enemy.getEncounterMessage();
+        String msg = encounter.getEncounterMessage();
         dialog.setText(msg);
     }
 
@@ -45,10 +48,12 @@ public class EncounterController extends Controller {
      * Continue to the new planet screen.
      *
      * @param event a button press
-
+     * @throws Exception propogates JavaFX exceptions.
      */
     @FXML
     public void continueToPlanet(ActionEvent event) throws Exception {
         LastAdventures.swap(new PlanetController());
     }
+
+
 }
