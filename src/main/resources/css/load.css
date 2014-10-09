@@ -1,0 +1,10 @@
+.save-box {
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-cursor: hand;
+    -fx-padding: 15;
+}
+
+.tile-pane {
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+}

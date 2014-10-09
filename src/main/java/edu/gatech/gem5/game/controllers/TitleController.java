@@ -6,6 +6,7 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.SaveFile;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -73,6 +74,6 @@ public class TitleController extends Controller {
      */
     @FXML
     private void loadGame(ActionEvent event) throws Exception {
-        LastAdventures.swap(this); // go nowhere
+       LastAdventures.swap(new LoadGameController());
     }
 }

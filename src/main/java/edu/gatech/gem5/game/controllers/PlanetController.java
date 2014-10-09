@@ -6,6 +6,8 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Character;
+import edu.gatech.gem5.game.Ship;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -37,6 +39,11 @@ public class PlanetController extends Controller {
     private Label lblTechnology;
     @FXML
     private Label lblCondition;
+    @FXML
+    private Button btnSave;
+    @FXML
+    private Button refuelButton;
+
 
     Planet planet;
 
@@ -59,6 +66,7 @@ public class PlanetController extends Controller {
         this.lblCondition.setText(planet.getCondition().getName());
         this.lblTechnology.setText(planet.getTechLevel().getName());
 
+        updateLabels();
     }
 
     private String buildCompanyString() {
@@ -84,6 +92,41 @@ public class PlanetController extends Controller {
         } else if (id.equals("travel")) {
             LastAdventures.swap(new DisplayUniverseController());
         }
+    }
+
+    /**
+     * Saves the game.
+     *
+     * @param event a button press
+     */
+    @FXML
+    private void save(ActionEvent event) throws Exception {
+        LastAdventures.getCurrentSaveFile().save();
+        btnSave.setDisable(true); // don't save again...
+    }
+
+    @FXML
+    /**
+     * Max out the fuel in your ship.
+     *
+     * @param event A button press attempting to refuel
+     * @throws Exception
+     */
+    public void refuel(ActionEvent event) throws Exception {
+        // TODO: Don't let player money go negative
+        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
+        Ship s = player.getShip();
+        player.setMoney(player.getMoney() -  (s.getType().getRange() -
+                s.getFuel()) * s.getType().getFuelCost() );
+        s.setFuel(s.getType().getRange());
+        updateLabels();
+    }
+
+    private void updateLabels() {
+        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
+        Ship s = player.getShip();
+        // update cost to refuel
+        refuelButton.setText("Refuel " + (s.getType().getRange() - s.getFuel()) * s.getType().getFuelCost());
     }
 
 }

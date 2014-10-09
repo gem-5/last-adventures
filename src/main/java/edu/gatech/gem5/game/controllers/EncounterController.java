@@ -28,7 +28,7 @@ public class EncounterController extends Controller {
     @FXML
     Text dialog;
 
-    public static final String STATUS_VIEW_FILE = "/fxml/encounter.fxml";
+    public static final String ENCOUNTER_VIEW_FILE = "/fxml/encounter.fxml";
 
     /**
      * Construct the encounter controller.
@@ -36,7 +36,7 @@ public class EncounterController extends Controller {
      */
     public EncounterController(NPC encounter) {
         // load the view or throw an exception
-        super(STATUS_VIEW_FILE);
+        super(ENCOUNTER_VIEW_FILE);
         this.encounter = encounter;
         // System.out.println("EncounterController created!");
 

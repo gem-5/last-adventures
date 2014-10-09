@@ -81,12 +81,21 @@ public class LastAdventures extends Application {
     }
 
     /**
+     * Return the game root element.
+     *
+     * @return the root
+     */
+    public static Parent getRoot() {
+        return root;
+    }
+
+    /**
      * Return the game stage.
      *
      * @return the stage
      */
-    public static Parent getRoot() {
-        return root;
+    public static Stage getStage() {
+        return stage;
     }
 
     /**
@@ -130,6 +139,18 @@ public class LastAdventures extends Application {
     }
 
     /**
+     * Set the current save file.
+     *
+     * @param save The save file.
+     */
+    public static void setSaveFile(SaveFile save) {
+        // TODO: this is bullshit
+        saveFiles.clear();
+        saveFiles.add(save);
+        currentFile = 0;
+    }
+
+    /**
      * Deletes a specified save file.
      *
      * @param file the save file to be deleted
@@ -154,55 +175,4 @@ public class LastAdventures extends Application {
     public static SaveFile getCurrentSaveFile() {
         return saveFiles.get(currentFile);
     }
-
-    private static void letterbox(final Scene scene, final Pane contentPane) {
-        final double initWidth  = scene.getWidth();
-        final double initHeight = scene.getHeight();
-        final double ratio      = initWidth / initHeight;
-
-        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
-        scene.widthProperty().addListener(sizeListener);
-        scene.heightProperty().addListener(sizeListener);
-    }
-
-    private static class SceneSizeChangeListener implements ChangeListener<Number> {
-        private final Scene scene;
-        private final double ratio;
-        private final double initHeight;
-        private final double initWidth;
-        private final Pane contentPane;
-
-        public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth, Pane contentPane) {
-            this.scene = scene;
-            this.ratio = ratio;
-            this.initHeight = initHeight;
-            this.initWidth = initWidth;
-            this.contentPane = contentPane;
-        }
-
-        @Override
-        public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-            final double newWidth  = scene.getWidth();
-            final double newHeight = scene.getHeight();
-
-            double scaleFactor =
-                   newWidth / newHeight > ratio
-                   ? newHeight / initHeight
-                   : newWidth / initWidth;
-
-            if (scaleFactor >= 1) {
-                Scale scale = new Scale(scaleFactor, scaleFactor);
-                scale.setPivotX(0);
-                scale.setPivotY(0);
-                scene.getRoot().getTransforms().setAll(scale);
-
-                contentPane.setPrefWidth (newWidth  / scaleFactor);
-                contentPane.setPrefHeight(newHeight / scaleFactor);
-            } else {
-                contentPane.setPrefWidth (Math.max(initWidth,  newWidth));
-                contentPane.setPrefHeight(Math.max(initHeight, newHeight));
-            }
-        }
-    }
-
 }

@@ -21,7 +21,6 @@ import edu.gatech.gem5.game.Good;
 import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.ui.BuyBar;
-import edu.gatech.gem5.game.ui.UpgradeBar;
 import edu.gatech.gem5.game.data.DataType;
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.ShipType;
@@ -56,9 +55,6 @@ public class MarketController extends Controller {
 
     @FXML
     private Label errorLabel;
-
-    @FXML
-    private Button refuelButton;
 
     @FXML
     private ListView<BuyBar> buyGoods;
@@ -147,22 +143,6 @@ public class MarketController extends Controller {
         }
     }
 
-    @FXML
-    /**
-     * Max out the fuel in your ship.
-     *
-     * @param event A button press attempting to refuel
-     * @throws Exception
-     */
-    public void refuel(ActionEvent event) throws Exception {
-        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
-        Ship ship = player.getShip();
-        player.setMoney(player.getMoney() -  (ship.getType().getRange() -
-                ship.getFuel()) * ship.getType().getFuelCost() );
-        ship.setFuel(ship.getType().getRange());
-        fillLabels();
-    }
-
     /**
      * Go back to the planet screen.
      *
@@ -184,25 +164,8 @@ public class MarketController extends Controller {
             ((Integer) s.getOpenBays()).toString()
         );
         errorLabel.setText("");
-        refuelButton.setText("Refuel " + (s.getType().getRange() - s.getFuel()) * s.getType().getFuelCost());
     }
     /*
-    private void buildShipList() {
-        // this is the tab for ships that the planet sells
-        ObservableList<UpgradeBar> lstShips
-                = FXCollections.observableArrayList();
-        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
-        for (String x : planet.getShips()) {
-            UpgradeBar b = new UpgradeBar();
-            ShipType ship = (ShipType) ships.get(x);
-            b.setKey(x);
-            b.setPrice(ship.getPrice());
-            b.setText(ship.getName());
-            lstShips.add(b);
-        }
-        upShips.setItems(lstShips);
-    }
-
     private void buildWeaponList() {
         // this is the tab for weapons that the planet sells
         ObservableList<UpgradeBar> lstWeapons

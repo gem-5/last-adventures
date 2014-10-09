@@ -94,6 +94,13 @@
            </children>
         </HBox>
     </center>
+    <bottom>
+        <HBox>
+            <Button fx:id="btnSave" text="Save" onAction="#save" />
+            <Region HBox.Hgrow="always" />
+            <Button fx:id="refuelButton" onAction="#refuel" text="Refuel " />
+        </HBox>
+    </bottom>
 
     <stylesheets>
         <URL value="@/css/main.css" />

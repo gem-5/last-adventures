@@ -22,9 +22,14 @@
         </AnchorPane>
     </center>
     <bottom>
-        <Button onAction="#goBack" text="Return to Planet"/>
+        <HBox>
+            <Region HBox.Hgrow="always" />
+            <Button onAction="#goBack" text="Return to Planet"/>
+            <Region HBox.Hgrow="always" />
+        </HBox>
     </bottom>
     <stylesheets>
+        <URL value="@/css/main.css"/>
         <URL value="@/css/displayUniverse.css"/>
     </stylesheets>
 

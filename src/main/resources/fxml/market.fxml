@@ -38,8 +38,6 @@
             <HBox>
                 <Button onAction="#makePurchase" text="Purchase" />
                 <Region HBox.Hgrow="always" />
-                <Button fx:id="refuelButton" onAction="#refuel" text="Refuel " />
-                <Region HBox.Hgrow="always" />
                 <Button onAction="#goBack" text="Back" />
                 <Region HBox.Hgrow="always" />
                 <Button id="sell" onAction="#makeSale" text="Sell" />

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/css/main.css" />
+        <URL value="@/css/load.css" />
+    </stylesheets>
+    <top>
+        <HBox>
+            <children>
+                <Region HBox.Hgrow="always" />
+                <Label fx:id="title" text="Continue your journey..." />
+                <Region HBox.Hgrow="always" />
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <HBox>
+            <Region HBox.Hgrow="always" />
+            <TilePane fx:id="tileGames" styleClass="tile-pane" />
+            <Region HBox.Hgrow="always" />
+        </HBox>
+    </center>
+    <bottom>
+        <HBox>
+            <Region HBox.Hgrow="always" />
+            <Button text="Back" onAction="#goBack" />
+            <Region HBox.Hgrow="always" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

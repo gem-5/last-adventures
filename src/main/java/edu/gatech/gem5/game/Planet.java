@@ -32,7 +32,6 @@ public class Planet {
     private String government;
     private List<String> companyList;
     private String condition;
-    private SolarSystem solarSystem;
     private Map<String, Integer> currentStock;
     private final Map<String, Integer> maxStock;
     private String name;
@@ -46,8 +45,7 @@ public class Planet {
      * @param sys The solar system that contains this planet.
      * @param name the name of the Planet
      */
-    public Planet(SolarSystem sys, String name) {
-        this.solarSystem = sys;
+    public Planet(String name) {
         this.techLevel = chooseTechLevel();
         this.environment = chooseEnvironment();
         this.government = chooseGovernment();
@@ -59,15 +57,6 @@ public class Planet {
 
     }
 
-    /**
-     * Get the solar system that contains this planet.
-     *
-     * @return the solar system.
-     */
-    public SolarSystem getSolarySystem() {
-        return this.solarSystem;
-    }
-
    /**
      * Get the tech level.
      *
@@ -77,7 +66,6 @@ public class Planet {
         Map<Integer, TechType> techs = LastAdventures.data.get(TechType.KEY);
         return techs.get(this.techLevel);
     }
-
 
     /**
      * Get the environment type.

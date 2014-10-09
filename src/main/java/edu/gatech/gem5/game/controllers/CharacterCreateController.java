@@ -187,7 +187,6 @@ public class CharacterCreateController extends Controller {
         List<SolarSystem> systems = uni.getUniverse();
         SolarSystem start = systems.get(new Random().nextInt(systems.size()));
         currentSaveFile.setSolarSystem(start);
-        currentSaveFile.setCurrentPlanet(start.getPlanets().get(0));
     }
 
     /**
