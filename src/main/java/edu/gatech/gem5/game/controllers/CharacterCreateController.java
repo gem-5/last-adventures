@@ -113,41 +113,40 @@ public class CharacterCreateController extends Controller {
      * Move to the confirm screen.
      *
      * @param event a button press
-     * @throws Exception propogates any JavaFX Exception
+     * @throws Exception propagates any JavaFX Exception
      */
     @FXML
     public void confirmCharacter(ActionEvent event) throws Exception {
-
-
-        // If not all points are allotcated, show warning message.
-        if (Integer.parseInt(remainingValue.getText()) > 0) {
-            Action response = Dialogs.create()
-                    .owner(root)
-                    .title("Warning")
-                    .masthead("Warning")
-                    .message("Are you sure that you want to continue without allocating all points?")
-                    .showConfirm();
-            if (response == Dialog.ACTION_YES) {
-                // System.out.println("I got a success.");
-                if (validate(name.getText().trim())) {
-                    beginNewGame(createCharacter(), createUniverse());
-                    LastAdventures.swap(new CharacterStatusController());
+        // System.out.println("All points allocated.");
+        if (validate(name.getText().trim())) {
+            // If not all points are allotcated, show warning message.
+            if (Integer.parseInt(remainingValue.getText()) > 0) {
+                Action response = Dialogs.create()
+                        .owner(root)
+                        .title("Warning")
+                        .masthead("Warning")
+                        .message("Are you sure that you want to continue without allocating all points?")
+                        .showConfirm();
+                if (response == Dialog.ACTION_YES) {
+                    // System.out.println("I got a success.");
+                    if (validate(name.getText().trim())) {
+                        beginNewGame(createCharacter(), createUniverse());
+                        LastAdventures.swap(new CharacterStatusController());
+                    }
                 }
-            }
-        } else {
-            // System.out.println("All points allocated.");
-            if (validate(name.getText().trim())) {
+            } else {
                 beginNewGame(createCharacter(), createUniverse());
                 LastAdventures.swap(new CharacterStatusController());
             }
         }
+        
     }
 
     /**
      * Go back to the title screen.
      *
      * @param event a button press
-     * @throws Exception propogates any JavaFX Exception
+     * @throws Exception propagates any JavaFX Exception
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {

@@ -158,7 +158,7 @@ public class DisplayUniverseController extends Controller {
 
         int distance = (int) sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
         // TODO: distance > 0.001...what....Just check if destination == current
-        if ( distance <= range && distance > 0.001) {
+        if ( distance <= range && sys != curSS) {
             save.setSolarSystem(sys);
             ship.setFuel(ship.getFuel() - distance);
             // PSA: save.setSolarSystem() updates the current planet to the
@@ -169,7 +169,7 @@ public class DisplayUniverseController extends Controller {
             Turn turn = new Turn();
             turn.pass();
             e.getEncounter(save.getPlanet());
-        } else if (distance  < 0.001) {
+        } else if (curSS == sys) {
             //no need to take a turn, we're already here
             LastAdventures.swap(new PlanetController());
         } else {
