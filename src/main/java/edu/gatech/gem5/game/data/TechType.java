@@ -1,5 +1,7 @@
 package edu.gatech.gem5.game.data;
 
+import java.util.Map;
+
 /**
  * A container class for data of the various tech level types.
  *
@@ -12,6 +14,7 @@ public class TechType extends DataType {
     private int rank;
     private double occurrence;
     private double wealth;
+    private Map<String, Double> governments;
 
     public static final String KEY = "tech";
 
@@ -49,6 +52,15 @@ public class TechType extends DataType {
      */
     public double getWealth() {
         return this.wealth;
+    }
+
+    /**
+     * Get map of governments and their probabilities of spawning.
+     *
+     * @return the map
+     */
+    public Map<String, Double> getGovernments() {
+        return this.governments;
     }
 
 }

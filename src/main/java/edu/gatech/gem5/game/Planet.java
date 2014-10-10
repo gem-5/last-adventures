@@ -231,7 +231,11 @@ public class Planet {
                 if (envMap.get(s) != null) {
                     value *= envMap.get(s);
                 }
-                // TODO: Apply Condition multipliers
+                // Apply condition multipliers
+                Map<String, Double> conMap = getCondition().getSupply();
+                if (conMap.get(s) != null) {
+                    value *= conMap.get(s);
+                }
                 // Apply competition factor
                 Map<String, Integer> f = getCompetitions();
                 if (f.get(s) != null && f.get(s) > 1) {
@@ -263,9 +267,13 @@ public class Planet {
             if (envMap.get(s) != null) {
                 value *= envMap.get(s);
             }
-            // If any company produces the good, it sells for less
+            Map<String, Double> conMap = getCondition().getDemand();
+            if (conMap.get(s) != null) {
+                value *= conMap.get(s);
+            }
+            // If more than one company produces the good, it sells for less
             Map<String, Integer> f = getCompetitions();
-            if (f.get(s) != null) {
+            if (f.get(s) != null && f.get(s) > 1) {
                 value *= COMPETITION_FACTOR;
             }
 
@@ -313,15 +321,11 @@ public class Planet {
     }
 
     private String chooseGovernment() {
-        // TODO:
-        //.. this is a bit repetative, I can probably consilidate these into
-        //a single private method if all these types have the same interface
-        Map<String, GovernmentType> list =
-        LastAdventures.data.get(GovernmentType.KEY);
+        Map<String, Double> govs = getTechLevel().getGovernments();
         double roll = new Random().nextDouble();
         double sum = 0;
-        for (Map.Entry<String, GovernmentType> t : list.entrySet()) {
-            sum += t.getValue().getOccurrence();
+        for (Map.Entry<String, Double> t : govs.entrySet()) {
+            sum += t.getValue();
             if (roll <= sum) return t.getKey();
         }
         // this should never happen unless max(sum) < 1.0
