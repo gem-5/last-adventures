@@ -23,7 +23,7 @@ public class Character extends Human {
 
     /**
      * 
-     * @return true if refuel was successful
+     * @return true if refuel was successful, false if not enough money
      */
     public boolean refuel() {
         Ship s = getShip();
