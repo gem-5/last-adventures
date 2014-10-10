@@ -99,7 +99,7 @@
            <children>
                <Button fx:id="btnSave" onAction="#save" text="Save" />
             <Region prefHeight="25.0" prefWidth="23.0" />
-            <Button mnemonicParsing="false" onAction="#quit" text="Quit" />
+            <Button fx:id="quitButton" mnemonicParsing="false" onAction="#quit" text="Quit" />
                <Region HBox.Hgrow="always" />
                <Button fx:id="refuelButton" onAction="#refuel" text="Refuel " />
            </children>

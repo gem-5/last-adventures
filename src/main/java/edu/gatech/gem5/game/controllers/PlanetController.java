@@ -16,6 +16,11 @@ import javafx.scene.control.Label;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.data.CompanyType;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
@@ -26,8 +31,6 @@ import org.controlsfx.dialog.Dialogs;
  */
 public class PlanetController extends Controller {
 
-    @FXML
-    private Parent root;
 
     @FXML
     private Label title;
@@ -46,6 +49,8 @@ public class PlanetController extends Controller {
     private Button btnSave;
     @FXML
     private Button refuelButton;
+    @FXML
+    private Button quitButton;
 
 
     Planet planet;
@@ -68,8 +73,18 @@ public class PlanetController extends Controller {
         this.lblGovernment.setText(planet.getGovernment().getName());
         this.lblCondition.setText(planet.getCondition().getName());
         this.lblTechnology.setText(planet.getTechLevel().getName());
-
-        updateLabels();
+        Ship ship = save.getCharacter().getShip();
+        //sets the number to the amount of credits needed to fully refuel
+        this.refuelButton.setText("Refuel " +(ship.getType().getRange() - 
+                ship.getFuel()) * ship.getType().getFuelCost());
+        
+        //set hotkey for saving to Control + S
+        root.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+            if (new KeyCodeCombination(KeyCode.S, 
+                    KeyCombination.CONTROL_DOWN).match(event)) {
+                saveAndQuit();            
+            }
+        });
     }
 
     private String buildCompanyString() {
@@ -104,7 +119,7 @@ public class PlanetController extends Controller {
      * @throws Exception exception with javafx
      */
     @FXML
-    private void save() throws Exception {
+    private void save() {
         LastAdventures.getCurrentSaveFile().save();
         btnSave.setDisable(true); // don't save again...
     }
@@ -113,11 +128,9 @@ public class PlanetController extends Controller {
      * Quits to the title screen, if the player has not saved yet, it prompts
      * them to.
      * 
-     * @param event pressing the quit button
-     * @throws Exception exception with javafx
      */
     @FXML
-    private void quit(ActionEvent event) throws Exception {
+    private void quit() {
         if(!btnSave.disabledProperty().get()) {
             Action response = Dialogs.create()
                         .owner(root)
@@ -131,7 +144,18 @@ public class PlanetController extends Controller {
             } else if (response == Dialog.ACTION_NO) {
                 LastAdventures.swap(new TitleController());
             }
+        } else {
+            LastAdventures.swap(new TitleController());
         }
+    }
+
+    /**
+     * Combines the saving and quiting method into one. Is invoked by pressing
+     * Control + S
+     */
+    private void saveAndQuit() {
+        save();
+        quit();
     }
 
     @FXML
@@ -142,20 +166,10 @@ public class PlanetController extends Controller {
      * @throws Exception
      */
     public void refuel(ActionEvent event) throws Exception {
-        // TODO: Don't let player money go negative
-        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
-        Ship s = player.getShip();
-        player.setMoney(player.getMoney() -  (s.getType().getRange() -
-                s.getFuel()) * s.getType().getFuelCost() );
-        s.setFuel(s.getType().getRange());
-        updateLabels();
-    }
-
-    private void updateLabels() {
-        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
-        Ship s = player.getShip();
-        // update cost to refuel
-        refuelButton.setText("Refuel " + (s.getType().getRange() - s.getFuel()) * s.getType().getFuelCost());
-    }
-
+        if(LastAdventures.getCurrentSaveFile().getCharacter().refuel()) {
+            refuelButton.setText("Refuel 0");
+        } else {
+            refuelButton.setText("Not enough credits");
+        }
+    }    
 }
