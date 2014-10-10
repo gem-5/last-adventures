@@ -231,7 +231,8 @@ public class Planet {
                 if (envMap.get(s) != null) {
                     value *= envMap.get(s);
                 }
-                // TODO: Apply Condition multipliers
+                // TODO: Apply Condition multiplier
+
                 // Apply competition factor
                 Map<String, Integer> f = getCompetitions();
                 if (f.get(s) != null && f.get(s) > 1) {
@@ -254,14 +255,20 @@ public class Planet {
             GoodType gt = (GoodType) LastAdventures.data.get(GoodType.KEY).get(g);
             double value = gt.getValue();
             String s = gt.getKey();
-
+            // Apply government multipliers
             Map<String, Double> govMap = getGovernment().getDemand();
             if (govMap.get(s) != null) {
                 value *= govMap.get(s);
             }
+            // Apply environment multipliers
             Map<String, Double> envMap = getEnvironment().getDemand();
             if (envMap.get(s) != null) {
                 value *= envMap.get(s);
+            }
+            // Apply condition multipliers
+            Map<String, Double> conMap = getCondition().getDemand();
+            if (conMap.get(s) != null) {
+                value *= conMap.get(s);
             }
             // If any company produces the good, it sells for less
             Map<String, Integer> f = getCompetitions();
