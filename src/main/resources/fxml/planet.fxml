@@ -7,113 +7,104 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane
-    prefWidth="1280"
-    prefHeight="720"
-    xmlns:fx="http://javafx.com/fxml/1"
-    fx:id="defaultScene"
->
+<BorderPane fx:id="defaultScene" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <HBox>
-            <Region HBox.Hgrow="always"/>
-            <Label
-                fx:id="title"
-                id="title"
-            />
-            <Region HBox.Hgrow="always"/>
+           <children>
+               <Region HBox.Hgrow="always" />
+               <Label id="title" fx:id="title" />
+               <Region HBox.Hgrow="always" />
+           </children>
         </HBox>
     </top>
 
     <center>
         <HBox>
-            <Region HBox.Hgrow="always"/>
-            <VBox>
-                <Region VBox.Vgrow="always"/>
-                <HBox>
-                    <VBox>
-                        <Label text="Planet Services" id="header" />
-                        <GridPane id="service-grid">
-                            <vgap>10.0</vgap>
-                            <Button text="Market Place"
-                                    id="market"
-                                    GridPane.columnIndex="0"
-                                    GridPane.rowIndex="1"
-                                    onAction="#changeScenes"
-                            />
-                            <Button text="News"
-                                    id="news"
-                                    GridPane.columnIndex="0"
-                                    GridPane.rowIndex="2"
-                                    onAction="#changeScenes"
-                            />
-                            <Button text="Stock Exchange"
-                                    id="stock"
-                                    GridPane.columnIndex="0"
-                                    GridPane.rowIndex="3"
-                                    onAction="#changeScenes"
-                            />
-                            <Button text="Travel"
-                                    id="travel"
-                                    GridPane.columnIndex="0"
-                                    GridPane.rowIndex="4"
-                                    onAction="#changeScenes"
-                            />
-                        </GridPane>
-                    </VBox>
-                    <Region minWidth="50" />
-                    <VBox>
-                        <Label text="Planet Information" id="header" />
-                        <GridPane id="info-grid">
-                            <vgap>10.0</vgap>
-                            <hgap>10.0</hgap>
-                            <Label text="Companies"
-                                   GridPane.columnIndex="0"
-                                   GridPane.rowIndex="0"
-                            />
-                            <Label fx:id="lblCompanies"
-                                   GridPane.columnIndex="1"
-                                   GridPane.rowIndex="0"
-                            />
-                            <Label text="Environment"
-                                   GridPane.columnIndex="0"
-                                   GridPane.rowIndex="1"
-                            />
-                            <Label fx:id="lblEnvironment"
-                                   GridPane.columnIndex="1"
-                                   GridPane.rowIndex="1"
-                            />
-                            <Label text="Government"
-                                   GridPane.columnIndex="0"
-                                   GridPane.rowIndex="2"
-                            />
-                            <Label fx:id="lblGovernment"
-                                   GridPane.columnIndex="1"
-                                   GridPane.rowIndex="2"
-                            />
-                            <Label text="Tech Level"
-                                   GridPane.columnIndex="0"
-                                   GridPane.rowIndex="3"
-                            />
-                            <Label fx:id="lblTechnology"
-                                   GridPane.columnIndex="1"
-                                   GridPane.rowIndex="3"
-                            />
-                            <Label text="Condition"
-                                   GridPane.columnIndex="0"
-                                   GridPane.rowIndex="4"
-                            />
-                            <Label fx:id="lblCondition"
-                                   GridPane.columnIndex="1"
-                                   GridPane.rowIndex="4"
-                            />
-                        </GridPane>
-                    </VBox>
-                </HBox>
-                <Region VBox.Vgrow="always"/>
-            </VBox>
-            <Region HBox.Hgrow="always"/>
+           <children>
+               <Region HBox.Hgrow="always" />
+               <VBox>
+                  <children>
+                      <Region VBox.Vgrow="always" />
+                      <HBox>
+                         <children>
+                             <VBox>
+                                <children>
+                                    <Label id="header" text="Planet Services" />
+                                    <GridPane id="service-grid">
+                                        <vgap>10.0</vgap>
+                                       <children>
+                                    <Button id="shipyard" onAction="#changeScenes" text="Shipyard" GridPane.rowIndex="1" />
+                                           <Button id="market" onAction="#changeScenes" text="Market Place" GridPane.columnIndex="0" />
+                                           <Button id="news" onAction="#changeScenes" text="News" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                           <Button id="stock" onAction="#changeScenes" text="Stock Exchange" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                           <Button id="travel" onAction="#changeScenes" text="Travel" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                       </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                 </rowConstraints>
+                                    </GridPane>
+                                </children>
+                             </VBox>
+                             <Region minWidth="50" />
+                             <VBox>
+                                <children>
+                                    <Label id="header" text="Planet Information" />
+                                    <GridPane id="info-grid">
+                                        <vgap>10.0</vgap>
+                                        <hgap>10.0</hgap>
+                                       <children>
+                                           <Label alignment="TOP_LEFT" text="Companies" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                           <Label fx:id="lblCompanies" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                           <Label text="Environment" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                           <Label fx:id="lblEnvironment" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                           <Label text="Government" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                           <Label fx:id="lblGovernment" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                           <Label text="Tech Level" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                           <Label fx:id="lblTechnology" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                           <Label text="Condition" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                           <Label fx:id="lblCondition" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                       </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                 </rowConstraints>
+                                    </GridPane>
+                                </children>
+                             </VBox>
+                         </children>
+                      </HBox>
+                      <Region VBox.Vgrow="always" />
+                  </children>
+               </VBox>
+               <Region HBox.Hgrow="always" />
+           </children>
         </HBox>
     </center>
+    <bottom>
+        <HBox>
+           <children>
+               <Button fx:id="btnSave" onAction="#save" text="Save" />
+            <Region prefHeight="25.0" prefWidth="23.0" />
+            <Button fx:id="quitButton" mnemonicParsing="false" onAction="#quit" text="Quit" />
+               <Region HBox.Hgrow="always" />
+               <Button fx:id="refuelButton" onAction="#refuel" text="Refuel " />
+           </children>
+        </HBox>
+    </bottom>
 
     <stylesheets>
         <URL value="@/css/main.css" />

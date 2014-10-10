@@ -29,6 +29,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -41,6 +43,8 @@ public class DisplayUniverseController extends Controller {
 
     @FXML
     AnchorPane map;
+    @FXML
+    TextField errorLabel;
 
     private Pane root;
     private Universe universe;
@@ -64,8 +68,8 @@ public class DisplayUniverseController extends Controller {
         widthRatio = root.getPrefWidth() / universe.getWidth();
         heightRatio = root.getPrefHeight() / universe.getHeight();
         save = LastAdventures.getCurrentSaveFile();
-        xCoordinate = save.getPlanet().getSolarySystem().getXCoordinate();
-        yCoordinate = save.getPlanet().getSolarySystem().getYCoordinate();
+        xCoordinate = save.getSolarSystem().getXCoordinate();
+        yCoordinate = save.getSolarSystem().getYCoordinate();
         drawUniverse();
         drawSystemMarker();
         drawShipRange();
@@ -74,11 +78,10 @@ public class DisplayUniverseController extends Controller {
      * Returns to the planet screen.
      *
      * @param event A button press attempting to change scenes
-     * @throws Exception propogates any JavaFX Exception
+     * @throws Exception propagates any JavaFX Exception
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        System.out.println("World");
         LastAdventures.swap(new PlanetController());
     }
 
@@ -143,7 +146,8 @@ public class DisplayUniverseController extends Controller {
     /**
      * Sets the current planet and solar system to the save file, then changes to
      * the PlanetController scene
-     * @param sys
+     *
+     * @param sys The destination system.
      */
     private void travelTo(SolarSystem sys) {
         Ship ship = save.getCharacter().getShip();
@@ -156,27 +160,22 @@ public class DisplayUniverseController extends Controller {
 
 
         int distance = (int) sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
-        if ( distance <= range && distance > 0.001) {
+        if ( distance <= range && sys != curSS) {
             save.setSolarSystem(sys);
             ship.setFuel(ship.getFuel() - distance);
-            //Random planet from solar system selected
-            //@TODO Player not actually travelling to this planet, implement later!!
-            Planet p = sys.getPlanets().get(0);
-            save.setCurrentPlanet(p);
+            // PSA: save.setSolarSystem() updates the current planet to the
+            // first one in the solar system
 
             Encounter e = new Encounter();
 
             Turn turn = new Turn();
             turn.pass();
-            e.getEncounter(p);
-        } else if (distance <= 0.001) {
-            // return to current planet, no turn passes.
-            System.out.println("World");
+            e.getEncounter(save.getPlanet());
+        } else if (curSS == sys) {
+            //no need to take a turn, we're already here
             LastAdventures.swap(new PlanetController());
         } else {
-            //@TODO printing to an error label should go here
-            System.out.println("Not in range.");
+           errorLabel.setText("Out of Range");
         }
-
     }
 }

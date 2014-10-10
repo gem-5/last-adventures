@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import java.net.*?>
@@ -7,12 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane
-    xmlns:fx="http://javafx.com/fxml/1"
-    prefHeight="720"
-    prefWidth="1280"
-    fx:id="root"
->
+<BorderPane fx:id="root" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <Label text="Other planets in the system could go here." />
     </top>
@@ -22,10 +19,17 @@
         </AnchorPane>
     </center>
     <bottom>
-        <Button onAction="#goBack" text="Return to Planet"/>
+        <HBox>
+           <children>
+            <TextField fx:id="errorLabel" editable="false" minWidth="0.0" prefWidth="0.0" style="-fx-text-fill: red;" HBox.hgrow="ALWAYS" />
+               <Button onAction="#goBack" text="Return to Planet" HBox.hgrow="NEVER" />
+               <Region HBox.Hgrow="ALWAYS" />
+           </children>
+        </HBox>
     </bottom>
     <stylesheets>
-        <URL value="@/css/displayUniverse.css"/>
+        <URL value="@/css/main.css" />
+        <URL value="@/css/displayUniverse.css" />
     </stylesheets>
 
 </BorderPane>

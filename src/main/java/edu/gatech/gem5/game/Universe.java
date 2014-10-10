@@ -18,8 +18,8 @@ import java.util.Random;
  * @author James
  */
 public class Universe {
-    private final ArrayList<SolarSystem> universe;
-    //size on screen in pixels
+    private final List<SolarSystem> universe;
+
     private final int width;
     private final int height;
     private final int numberOfPlanets;
@@ -31,21 +31,21 @@ public class Universe {
         this.numberOfPlanets = num;
         this.nameGen = new NameGenerator();
         //places systems appropriate distance from each other
-        ArrayList<Point> layout = layoutUniverse(min, max, numberOfPlanets);
+        List<Point> layout = layoutUniverse(min, max, numberOfPlanets);
 
         this.universe = new ArrayList<>();
-        for (int i = 0; i < layout.size(); i++) {
+        for (Point p : layout) {
             universe.add(
                 new SolarSystem(
                     nameGen.newName(),
-                    layout.get(i).xCoordinate,
-                    layout.get(i).yCoordinate
+                    p.xCoordinate,
+                    p.yCoordinate
                 )
             );
         }
     }
 
-    private ArrayList<Point> layoutUniverse(int min, int max, int num) {
+    private List<Point> layoutUniverse(int min, int max, int num) {
         Random rng = new Random();
         ArrayList<Point> locations = new ArrayList<>();
 
@@ -90,6 +90,8 @@ public class Universe {
     }
 
     /**
+     * Gets a list of all the solar systems in the universe.
+     *
      * @return the list of systems in the universe
      */
     public List<SolarSystem> getUniverse() {
@@ -97,6 +99,8 @@ public class Universe {
     }
 
     /**
+     * The width of the universe in arbitrary units.
+     *
      * @return the width
      */
     public int getWidth() {
@@ -104,10 +108,33 @@ public class Universe {
     }
 
     /**
-     * @return the width
+     * The height of the universe in arbitrary units.
+     *
+     * @return the height
      */
     public int getHeight() {
         return height;
+    }
+
+    /**
+     * Get a single solar system at the given x and y coordinates.
+     *
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @throws IndexOutOfBoundsException if no solar system exists
+     */
+    public SolarSystem getSolarSystemAt(int x, int y) {
+        // TODO: really this should be made to be O(1) with a map or something
+        for (SolarSystem s : getUniverse()) {
+            if (s.getXCoordinate() == x && s.getYCoordinate() == y) {
+                return s;
+            }
+        }
+
+        throw new IndexOutOfBoundsException(
+            "No system at: " + ((Integer) x).toString() + ", " +
+                               ((Integer) y).toString()
+        );
     }
 
     @Override

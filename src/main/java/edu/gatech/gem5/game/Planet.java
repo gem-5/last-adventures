@@ -32,7 +32,6 @@ public class Planet implements Traderable {
     private String government;
     private List<String> companyList;
     private String condition;
-    private SolarSystem solarSystem;
     private Map<String, Integer> currentStock;
     private final Map<String, Integer> maxStock;
     private String name;
@@ -46,8 +45,7 @@ public class Planet implements Traderable {
      * @param sys The solar system that contains this planet.
      * @param name the name of the Planet
      */
-    public Planet(SolarSystem sys, String name) {
-        this.solarSystem = sys;
+    public Planet(String name) {
         this.techLevel = chooseTechLevel();
         this.environment = chooseEnvironment();
         this.government = chooseGovernment();
@@ -59,15 +57,6 @@ public class Planet implements Traderable {
 
     }
 
-    /**
-     * Get the solar system that contains this planet.
-     *
-     * @return the solar system.
-     */
-    public SolarSystem getSolarySystem() {
-        return this.solarSystem;
-    }
-
    /**
      * Get the tech level.
      *
@@ -77,7 +66,6 @@ public class Planet implements Traderable {
         Map<Integer, TechType> techs = LastAdventures.data.get(TechType.KEY);
         return techs.get(this.techLevel);
     }
-
 
     /**
      * Get the environment type.
@@ -235,7 +223,11 @@ public class Planet implements Traderable {
                 if (envMap.get(s) != null) {
                     value *= envMap.get(s);
                 }
-                // TODO: Apply Condition multipliers
+                // Apply condition multipliers
+                Map<String, Double> conMap = getCondition().getSupply();
+                if (conMap.get(s) != null) {
+                    value *= conMap.get(s);
+                }
                 // Apply competition factor
                 Map<String, Integer> f = getCompetitions();
                 if (f.get(s) != null && f.get(s) > 1) {
@@ -264,9 +256,13 @@ public class Planet implements Traderable {
             if (envMap.get(s) != null) {
                 value *= envMap.get(s);
             }
-            // If any company produces the good, it sells for less
+            Map<String, Double> conMap = getCondition().getDemand();
+            if (conMap.get(s) != null) {
+                value *= conMap.get(s);
+            }
+            // If more than one company produces the good, it sells for less
             Map<String, Integer> f = getCompetitions();
-            if (f.get(s) != null) {
+            if (f.get(s) != null && f.get(s) > 1) {
                 value *= COMPETITION_FACTOR;
             }
 
@@ -314,15 +310,11 @@ public class Planet implements Traderable {
     }
 
     private String chooseGovernment() {
-        // TODO:
-        //.. this is a bit repetative, I can probably consilidate these into
-        //a single private method if all these types have the same interface
-        Map<String, GovernmentType> list =
-        LastAdventures.data.get(GovernmentType.KEY);
+        Map<String, Double> govs = getTechLevel().getGovernments();
         double roll = new Random().nextDouble();
         double sum = 0;
-        for (Map.Entry<String, GovernmentType> t : list.entrySet()) {
-            sum += t.getValue().getOccurrence();
+        for (Map.Entry<String, Double> t : govs.entrySet()) {
+            sum += t.getValue();
             if (roll <= sum) return t.getKey();
         }
         // this should never happen unless max(sum) < 1.0

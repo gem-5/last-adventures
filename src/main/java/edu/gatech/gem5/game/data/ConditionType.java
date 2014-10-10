@@ -12,6 +12,7 @@ public class ConditionType extends DataType {
 
     private String name;
     private Map<String, Double> demand;
+    private Map<String, Double> supply;
     private double occurrence;
 
     public static final String KEY = "condition";
@@ -32,6 +33,15 @@ public class ConditionType extends DataType {
      */
     public Map<String, Double> getDemand() {
         return this.demand;
+    }
+
+    /**
+     * Get the map of supply multipliers of this condition.
+     *
+     * @return the demands
+     */
+    public Map<String, Double> getSupply() {
+        return this.supply;
     }
 
     /**

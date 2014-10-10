@@ -2,6 +2,7 @@ package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.ShipType;
+import edu.gatech.gem5.game.data.WeaponType;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
 import java.util.Stack;
@@ -24,9 +25,9 @@ public class Ship {
     private int fuel;
 
     private Map<String, Integer> cargoList;
-    private List<Weapon> weaponList;
-    private List<Shield> shieldList;
-    private List<Gadget> gadgetList;
+    private List<String> weaponList;
+    private List<String> shieldList;
+    private List<String> gadgetList;
 
     private Mercenary[] crewList;
 
@@ -98,32 +99,47 @@ public class Ship {
     public int getNetWorth() {
         int worth = type.getPrice();
 
-        for (Weapon w: weaponList) {
-            worth += w.getWorth();
+        for (WeaponType w: getWeaponList()) {
+            worth += w.getPrice();
         }
 
-        for (Shield s: shieldList) {
-            worth += s.getWorth();
+        for (ShieldType s: getShieldList()) {
+            worth += s.getPrice();
         }
 
-        for (Gadget g: gadgetList) {
-            worth += g.getWorth();
+        for (GadgetType g: getGadgetList()) {
+            worth += g.getPrice();
         }
 
         return worth;
 
     }
 
-    public List<Weapon> getWeaponList() {
-        return this.weaponList;
+    public List<WeaponType> getWeaponList() {
+        List<WeaponType> out = new ArrayList<>();
+        Map weps = LastAdventures.data.get(WeaponType.KEY);
+        for (String s : this.weaponList) {
+            out.add((WeaponType) weps.get(s));
+        }
+        return out;
     }
 
-    public List<Shield> getShieldList() {
-        return this.shieldList;
+    public List<ShieldType> getShieldList() {
+        List<ShieldType> out = new ArrayList<>();
+        Map shields = LastAdventures.data.get(ShieldType.KEY);
+        for (String s : this.shieldList) {
+            out.add((ShieldType) shields.get(s));
+        }
+        return out;
     }
 
-    public List<Gadget> getGadgetList() {
-        return this.gadgetList;
+    public List<GadgetType> getGadgetList() {
+        List<GadgetType> out = new ArrayList<>();
+        Map gadgets = LastAdventures.data.get(GadgetType.KEY);
+        for (String s : this.gadgetList) {
+            out.add((GadgetType) gadgets.get(s));
+        }
+        return out;
     }
 
     public String toString() {
@@ -136,21 +152,21 @@ public class Ship {
             result += String.format("%n\t%s  %d", goodName, kv.getValue());
         }
         result += "\n  Weapons:";
-        for (Weapon w: weaponList) {
+        for (WeaponType w: getWeaponList()) {
             if (w != null) {
-                result += String.format("%n\t%s", w.getType().getName());
+                result += String.format("%n\t%s", w.getName());
             }
         }
         result += "\n  Shields:";
-        for (Shield s: shieldList) {
+        for (ShieldType s: getShieldList()) {
             if (s != null) {
-                result += String.format("%n\t%s", s.getType().getName());
+                result += String.format("%n\t%s", s.getName());
             }
         }
         result += "\n  Gadgets:";
-        for (Gadget g: gadgetList) {
+        for (GadgetType g: getGadgetList()) {
             if (g != null) {
-                result += String.format("%n\t%s", g.getType().getName());
+                result += String.format("%n\t%s", g.getName());
             }
         }
         return result;

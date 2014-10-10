@@ -137,6 +137,4 @@ public class BuyBar extends HBox {
     public String getProduct() {
         return this.product;
     }
-
-
 }

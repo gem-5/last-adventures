@@ -12,3 +12,6 @@ build/*
 # ignore netbeans stuff?
 /nbproject/private/
 /nbproject/
+
+# don't share your save files
+/saves/

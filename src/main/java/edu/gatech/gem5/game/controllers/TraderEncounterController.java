@@ -22,14 +22,14 @@ public class TraderEncounterController extends EncounterController {
     Button trade;
 
 
-    public static final String STATUS_VIEW_FILE = "/fxml/traderencounter.fxml";
+    public static final String TRADER_VIEW_FILE = "/fxml/traderencounter.fxml";
 
     /**
      * Contruct the trader encounter controller
      * @param t the Trader that the Character has encountered.
      */
     public TraderEncounterController(Trader t) {
-        super(t, STATUS_VIEW_FILE);
+        super(t, TRADER_VIEW_FILE);
     }
 
 

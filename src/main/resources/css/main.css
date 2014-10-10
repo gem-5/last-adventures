@@ -46,6 +46,11 @@
     -fx-text-fill: #d2d2d2;
 }
 
+.button:disabled {
+    -fx-text-fill: #d2d2d2;
+    -fx-cursor: default;
+}
+
 .label {
     -fx-text-fill: #eeeeee;
     -fx-font-size: 20;
@@ -70,4 +75,8 @@
     -fx-border-color: #eeeeee;
     -fx-border-width: 0 0 2px 0;
     -fx-padding: 5px;
+}
+
+.list-cell, .list-view {
+    -fx-background-color: rgba(0,0,0,0);
 }
