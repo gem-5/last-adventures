@@ -169,6 +169,10 @@ public class DisplayUniverseController extends Controller {
             Turn turn = new Turn();
             turn.pass();
             e.getEncounter(p);
+        } else if (distance <= 0.001) {
+            // return to current planet, no turn passes.
+            System.out.println("World");
+            LastAdventures.swap(new PlanetController());
         } else {
             //@TODO printing to an error label should go here
             System.out.println("Not in range.");
