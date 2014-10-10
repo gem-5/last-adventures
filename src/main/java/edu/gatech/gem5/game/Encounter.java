@@ -57,6 +57,7 @@ public class Encounter {
         } else {
             spawn = pirateEncounter(seed);
         }
+        spawn = traderEncounter(seed);
         spawn.processEncounter();
 
     }

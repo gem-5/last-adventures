@@ -1,6 +1,6 @@
 package edu.gatech.gem5.game;
 
-import edu.gatech.gem5.game.controllers.EncounterController;
+import edu.gatech.gem5.game.controllers.TraderEncounterController;
 import edu.gatech.gem5.game.NameGenerator;
 import edu.gatech.gem5.game.data.GoodType;
 import java.util.Random;
@@ -73,14 +73,14 @@ public class Trader extends NPC implements Traderable {
 
     @Override
     public void processEncounter() {
-        LastAdventures.swap(new EncounterController(this));
+        LastAdventures.swap(new TraderEncounterController(this));
     }
 
     @Override
     public String getEncounterMessage() {
         String msg = super.getEncounterMessage();
-        msg += this.toString();
-        msg += "\n\nHowever human to human trading is not yet implemented, so the Trader flees in confusion.";
+        msg += this.getName();
+        msg += "\n\n\"Why, it is a pleasure to meet a fellow trader on such rough space as this. Would you care to trade?\"";
         return msg;
     }
 
