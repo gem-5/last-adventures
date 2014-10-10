@@ -3,3 +3,8 @@
     -fx-background-image: none;
 }
 
+.text-field {
+    -fx-text-fill: #ff0000;
+    -fx-border-width: 0;
+}
+

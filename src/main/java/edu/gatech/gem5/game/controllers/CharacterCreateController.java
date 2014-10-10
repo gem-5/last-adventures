@@ -117,7 +117,6 @@ public class CharacterCreateController extends Controller {
      */
     @FXML
     public void confirmCharacter(ActionEvent event) throws Exception {
-        // System.out.println("All points allocated.");
         if (validate(name.getText().trim())) {
             // If not all points are allotcated, show warning message.
             if (Integer.parseInt(remainingValue.getText()) > 0) {
@@ -128,7 +127,6 @@ public class CharacterCreateController extends Controller {
                         .message("Are you sure that you want to continue without allocating all points?")
                         .showConfirm();
                 if (response == Dialog.ACTION_YES) {
-                    // System.out.println("I got a success.");
                     if (validate(name.getText().trim())) {
                         beginNewGame(createCharacter(), createUniverse());
                         LastAdventures.swap(new CharacterStatusController());

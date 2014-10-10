@@ -29,6 +29,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -41,6 +43,8 @@ public class DisplayUniverseController extends Controller {
 
     @FXML
     AnchorPane map;
+    @FXML
+    TextField errorLabel;
 
     private Pane root;
     private Universe universe;
@@ -74,11 +78,10 @@ public class DisplayUniverseController extends Controller {
      * Returns to the planet screen.
      *
      * @param event A button press attempting to change scenes
-     * @throws Exception propogates any JavaFX Exception
+     * @throws Exception propagates any JavaFX Exception
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        System.out.println("World");
         LastAdventures.swap(new PlanetController());
     }
 
@@ -157,7 +160,6 @@ public class DisplayUniverseController extends Controller {
 
 
         int distance = (int) sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
-        // TODO: distance > 0.001...what....Just check if destination == current
         if ( distance <= range && sys != curSS) {
             save.setSolarSystem(sys);
             ship.setFuel(ship.getFuel() - distance);
@@ -173,9 +175,7 @@ public class DisplayUniverseController extends Controller {
             //no need to take a turn, we're already here
             LastAdventures.swap(new PlanetController());
         } else {
-            //@TODO printing to an error label should go here
-            System.out.println("Not in range.");
+           errorLabel.setText("Out of Range");
         }
-
     }
 }

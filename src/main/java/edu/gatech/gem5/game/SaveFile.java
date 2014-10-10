@@ -157,12 +157,18 @@ public class SaveFile {
             Map<String, Object>
         >(){}.getType();
         Gson gson = new Gson();
-        String json = gson.toJson(dict, collectionType);
+        String json = gson.toJson(dict, collectionType);	
         // The name of the file is the character name.
         // This will overwrite files with the same name.
         String name = getCharacter().getName() + SAVE_EXT;
         String path = SAVE_DIR + "/" + name;
         try {
+            File saveDirectory = new File(SAVE_DIR);
+            if (!saveDirectory.exists()) {
+                if (!saveDirectory.mkdir()) {
+                    throw new RuntimeException("Unable to create save directory.");
+                }
+            }
             PrintWriter writer = new PrintWriter(path, SAVE_ENC);
             writer.write(json);
             writer.close();

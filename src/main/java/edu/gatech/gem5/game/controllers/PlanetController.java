@@ -16,6 +16,9 @@ import javafx.scene.control.Label;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.data.CompanyType;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -81,7 +84,7 @@ public class PlanetController extends Controller {
      * Changes the scene based on the button pressed.
      *
      * @param event a button press
-     * @throws Exception propogates any JavaFX Exception
+     * @throws Exception propagates any JavaFX Exception
      */
     @FXML
     private void changeScenes(ActionEvent event) throws Exception {
@@ -97,12 +100,38 @@ public class PlanetController extends Controller {
     /**
      * Saves the game.
      *
-     * @param event a button press
+     * @param event pressing the save button
+     * @throws Exception exception with javafx
      */
     @FXML
-    private void save(ActionEvent event) throws Exception {
+    private void save() throws Exception {
         LastAdventures.getCurrentSaveFile().save();
         btnSave.setDisable(true); // don't save again...
+    }
+    
+    /**
+     * Quits to the title screen, if the player has not saved yet, it prompts
+     * them to.
+     * 
+     * @param event pressing the quit button
+     * @throws Exception exception with javafx
+     */
+    @FXML
+    private void quit(ActionEvent event) throws Exception {
+        if(!btnSave.disabledProperty().get()) {
+            Action response = Dialogs.create()
+                        .owner(root)
+                        .title("Warning")
+                        .masthead("Warning")
+                        .message("Save before quiting?")
+                        .showConfirm();
+            if (response == Dialog.ACTION_YES) {
+                save();
+                LastAdventures.swap(new TitleController());
+            } else if (response == Dialog.ACTION_NO) {
+                LastAdventures.swap(new TitleController());
+            }
+        }
     }
 
     @FXML

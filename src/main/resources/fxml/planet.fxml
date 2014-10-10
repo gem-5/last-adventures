@@ -96,9 +96,13 @@
     </center>
     <bottom>
         <HBox>
-            <Button fx:id="btnSave" text="Save" onAction="#save" />
-            <Region HBox.Hgrow="always" />
-            <Button fx:id="refuelButton" onAction="#refuel" text="Refuel " />
+           <children>
+               <Button fx:id="btnSave" onAction="#save" text="Save" />
+            <Region prefHeight="25.0" prefWidth="23.0" />
+            <Button mnemonicParsing="false" onAction="#quit" text="Quit" />
+               <Region HBox.Hgrow="always" />
+               <Button fx:id="refuelButton" onAction="#refuel" text="Refuel " />
+           </children>
         </HBox>
     </bottom>
 
