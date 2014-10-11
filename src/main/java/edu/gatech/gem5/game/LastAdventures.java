@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game;
 
 import java.util.LinkedList;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,7 +14,8 @@ import edu.gatech.gem5.game.data.*;
 
 import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.controllers.TitleController;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
 /**
  *
  * @author Jack
@@ -22,24 +24,13 @@ import edu.gatech.gem5.game.controllers.TitleController;
  */
 public class LastAdventures extends Application {
 
-    private final static Integer NONE = -1;
 
-    private static LinkedList<SaveFile> saveFiles;
-    private static Integer currentFile;
+    private static SaveFile saveFile;
 
     public static Manager data;
 
     private static Parent root;
     private static Stage stage;
-
-    /**
-     * Default constructor for LastAdventures. Initializes an empty holder for
-     * save files.
-     */
-    public LastAdventures() {
-        saveFiles = new LinkedList<>();
-        currentFile = NONE;
-    }
 
     /**
      * Start the game.
@@ -127,9 +118,7 @@ public class LastAdventures extends Application {
      * Creates a new save file.
      */
     public static void createNewSaveFile() {
-        // puts a new save file in the table at the next "index"
-        saveFiles.add(new SaveFile());
-        currentFile = saveFiles.size() - 1;
+        saveFile = new SaveFile();
     }
 
     /**
@@ -138,10 +127,7 @@ public class LastAdventures extends Application {
      * @param save The save file.
      */
     public static void setSaveFile(SaveFile save) {
-        // TODO: this is bullshit
-        saveFiles.clear();
-        saveFiles.add(save);
-        currentFile = 0;
+        saveFile = save;
     }
 
     /**
@@ -150,15 +136,11 @@ public class LastAdventures extends Application {
      * @param file the save file to be deleted
      */
     public static void deleteSaveFile(SaveFile file) {
-        int index = saveFiles.indexOf(file);
-        if (index == currentFile) {
-            //if we delete the current file, disable continue on title screen
-            currentFile = NONE;
-        } else if (index < currentFile) {
-            //if we delete a file before the current file, update the index
-            currentFile--;
+        try {
+            Files.delete(Paths.get(SaveFile.SAVE_DIR + "/" +file.getCharacter() +".save.json"));
+        } catch (IOException e) {
+            System.err.println("Could not delete save file.");
         }
-        saveFiles.remove(file);
     }
 
     /**
@@ -167,6 +149,6 @@ public class LastAdventures extends Application {
      * @return the currentFile
      */
     public static SaveFile getCurrentSaveFile() {
-        return saveFiles.get(currentFile);
+        return saveFile;
     }
 }

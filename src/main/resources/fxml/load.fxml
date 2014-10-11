@@ -26,17 +26,29 @@
     </top>
     <center>
         <HBox>
-            <Region HBox.Hgrow="always" />
-            <TilePane fx:id="tileGames" styleClass="tile-pane" />
-            <Region HBox.Hgrow="always" />
+           <children>
+               <Region HBox.Hgrow="always" />
+               <TilePane fx:id="tileGames" styleClass="tile-pane" />
+               <Region HBox.Hgrow="always" />
+           </children>
         </HBox>
     </center>
-    <bottom>
-        <HBox>
-            <Region HBox.Hgrow="always" />
-            <Button text="Back" onAction="#goBack" />
-            <Region HBox.Hgrow="always" />
-        </HBox>
-    </bottom>
+   <bottom>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="delete" onAction="#prepareDelete" text="Delete" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+               <Button fx:id="back" onAction="#goBack" text="Back" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+               <Region />
+         </children>
+      </GridPane>
+   </bottom>
 
 </BorderPane>

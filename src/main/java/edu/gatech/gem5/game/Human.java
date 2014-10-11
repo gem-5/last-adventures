@@ -1,8 +1,5 @@
 package edu.gatech.gem5.game;
 
-import edu.gatech.gem5.game.data.ShipType;
-import java.util.Map;
-
 /**
  * Super class for Humans in Last Adventures
  * @author Sam Blumenthal

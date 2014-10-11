@@ -49,8 +49,6 @@ public class PlanetController extends Controller {
     private Button btnSave;
     @FXML
     private Button refuelButton;
-    @FXML
-    private Button quitButton;
 
 
     Planet planet;
