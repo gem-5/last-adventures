@@ -1,5 +1,6 @@
 package edu.gatech.gem5.game;
 
+import java.util.LinkedList;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Parent;

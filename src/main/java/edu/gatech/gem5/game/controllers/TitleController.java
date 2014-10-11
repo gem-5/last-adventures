@@ -1,25 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.animation.FadeHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 /**
  *
@@ -27,9 +16,6 @@ import javafx.stage.Stage;
  * @author James Jong Han Park
  */
 public class TitleController extends Controller {
-
-    @FXML
-    private Parent root;
 
     @FXML
     private BorderPane defaultScene;
@@ -45,6 +31,28 @@ public class TitleController extends Controller {
     public TitleController() {
         // load the view or throw an exception
         super(TITLE_VIEW_FILE);
+        
+        // Set opacity 0 initially, so that animation will run smoothly.
+        gridPane.setOpacity(0);
+        
+        // Adds fade-in animation when mouse enters the screen.
+        defaultScene.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                new FadeHandler(gridPane);
+
+            }
+        });
+
+        // Adds fade-out animation when mouse leaves the screen.
+        defaultScene.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                new FadeHandler(gridPane, 0, .5, 1, 0);
+            }
+        });
     }
 
     /**

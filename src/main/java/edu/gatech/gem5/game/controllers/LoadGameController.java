@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.gatech.gem5.game.controllers;
 
 import com.sun.prism.paint.Color;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.animation.FadeHandler;
 import edu.gatech.gem5.game.ui.SaveBox;
 
 import javafx.event.ActionEvent;
@@ -16,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.TilePane;
 import javafx.scene.input.MouseEvent;
+
 import javafx.scene.control.Button;
 import javafx.collections.ObservableList;
 
@@ -32,19 +29,20 @@ import java.util.List;
  * A controller for the load game screen.
  *
  * @author Creston Bunch
+ * @author James Jong Han Park
  */
 public class LoadGameController extends Controller {
 
     @FXML
-    private TilePane tileGames;
-    
-    @FXML
-    private Button delete, back;
-    
-    private boolean deleting;
-    private List<SaveBox> deleteList;
+    private TilePane           tileGames;
 
-    public static final String LOAD_GAME_VIEW_FILE = "/fxml/load.fxml" ;
+    @FXML
+    private Button             delete, back;
+
+    private boolean            deleting;
+    private List<SaveBox>      deleteList;
+
+    public static final String LOAD_GAME_VIEW_FILE = "/fxml/load.fxml";
 
     /**
      * Construct the title controller.
@@ -65,11 +63,12 @@ public class LoadGameController extends Controller {
             queueForDelete(box);
         }
     }
-    
+
     /**
      * Load the selected game.
      *
-     * @param event a button press
+     * @param event
+     *            a button press
      */
     @FXML
     private void loadGame(SaveBox box) {
@@ -95,7 +94,7 @@ public class LoadGameController extends Controller {
         obsList.clear();
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(path)) {
             for (Path child : ds) {
-                SaveBox box = new SaveBox();
+                final SaveBox box = new SaveBox();
                 String name = child.getFileName().toString();
                 String nameNoExt = name.substring(0, name.indexOf('.'));
                 box.setLabel(nameNoExt);
@@ -107,16 +106,28 @@ public class LoadGameController extends Controller {
                         select(box);
                     }
                 });
+
+                // Hide the boxe for animation
+                box.setOpacity(0);
+
                 obsList.add(box);
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        // Create fade-in animation
+        int x = 0;
+        for (Node n : tileGames.getChildren()) {
+            new FadeHandler(n, x / 8.0);
+            x++;
+        }
+
     }
-    
+
     /**
-     * Notifies the user that they are in deleting mode, not selecting mode, 
-     * and changes the functions of the buttons to accomplish this.
+     * Notifies the user that they are in deleting mode, not selecting mode, and
+     * changes the functions of the buttons to accomplish this.
      */
     public void prepareDelete() {
         deleting = true;
@@ -135,9 +146,9 @@ public class LoadGameController extends Controller {
             }
         });
     }
-    
+
     /**
-     *  Returns back, delete, and saveBox buttons to there normal function
+     * Returns back, delete, and saveBox buttons to there normal function
      */
     private void cancelDelete() {
         deleting = false;
@@ -159,14 +170,14 @@ public class LoadGameController extends Controller {
         });
         createList();
     }
-    
+
     private void queueForDelete(SaveBox box) {
         deleteList.add(box);
         box.setStyle("-fx-background-color: red;");
     }
-    
+
     private void delete() {
-        for(SaveBox box : deleteList) {
+        for (SaveBox box : deleteList) {
             try {
                 String path = box.getPath();
                 Files.delete(Paths.get(path));
@@ -175,6 +186,6 @@ public class LoadGameController extends Controller {
             }
         }
         cancelDelete();
-    }  
-    
+    }
+
 }
