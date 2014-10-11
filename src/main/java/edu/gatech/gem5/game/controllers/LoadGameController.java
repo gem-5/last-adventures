@@ -1,22 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.animation.FadeHandler;
 import edu.gatech.gem5.game.ui.SaveBox;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.Node;
 import javafx.scene.layout.TilePane;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
 import javafx.collections.ObservableList;
 
 import java.io.File;
@@ -30,6 +24,7 @@ import java.nio.file.DirectoryStream;
  * A controller for the load game screen.
  *
  * @author Creston Bunch
+ * @author James Jong Han Park
  */
 public class LoadGameController extends Controller {
 
@@ -45,6 +40,14 @@ public class LoadGameController extends Controller {
         // load the view or throw an exception
         super(LOAD_GAME_VIEW_FILE);
         createList();
+        
+        // Create fade-in animation
+        int x = 0;
+        for (Node n: tileGames.getChildren()) {
+            new FadeHandler(n, x / 2);
+            x++;
+        }
+        
     }
 
     /**
@@ -75,7 +78,7 @@ public class LoadGameController extends Controller {
         ObservableList<Node> obsList = tileGames.getChildren();
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(path)) {
             for (Path child : ds) {
-                SaveBox box = new SaveBox();
+                final SaveBox box = new SaveBox();
                 String name = child.getFileName().toString();
                 String nameNoExt = name.substring(0, name.indexOf('.'));
                 box.setLabel(nameNoExt);
@@ -87,6 +90,10 @@ public class LoadGameController extends Controller {
                         loadGame(box);
                     }
                 });
+                
+                // Hide the boxe for animation
+                box.setOpacity(0);
+                
                 obsList.add(box);
             }
         } catch(IOException e) {
