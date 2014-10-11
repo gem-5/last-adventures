@@ -44,7 +44,7 @@ public class LoadGameController extends Controller {
         // Create fade-in animation
         int x = 0;
         for (Node n: tileGames.getChildren()) {
-            new FadeHandler(n, x / 2);
+            new FadeHandler(n, x / 8.0);
             x++;
         }
         
