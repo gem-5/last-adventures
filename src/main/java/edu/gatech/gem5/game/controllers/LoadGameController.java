@@ -34,15 +34,15 @@ import java.util.List;
 public class LoadGameController extends Controller {
 
     @FXML
-    private TilePane tileGames;
-    
-    @FXML
-    private Button delete, back;
-    
-    private boolean deleting;
-    private List<SaveBox> deleteList;
+    private TilePane           tileGames;
 
-    public static final String LOAD_GAME_VIEW_FILE = "/fxml/load.fxml" ;
+    @FXML
+    private Button             delete, back;
+
+    private boolean            deleting;
+    private List<SaveBox>      deleteList;
+
+    public static final String LOAD_GAME_VIEW_FILE = "/fxml/load.fxml";
 
     /**
      * Construct the title controller.
@@ -51,13 +51,6 @@ public class LoadGameController extends Controller {
         // load the view or throw an exception
         super(LOAD_GAME_VIEW_FILE);
         createList();
-        
-        // Create fade-in animation
-        int x = 0;
-        for (Node n: tileGames.getChildren()) {
-            new FadeHandler(n, x / 8.0);
-            x++;
-        }
         deleting = false;
         deleteList = new ArrayList<>();
     }
@@ -70,11 +63,12 @@ public class LoadGameController extends Controller {
             queueForDelete(box);
         }
     }
-    
+
     /**
      * Load the selected game.
      *
-     * @param event a button press
+     * @param event
+     *            a button press
      */
     @FXML
     private void loadGame(SaveBox box) {
@@ -112,20 +106,28 @@ public class LoadGameController extends Controller {
                         select(box);
                     }
                 });
-                
+
                 // Hide the boxe for animation
                 box.setOpacity(0);
-                
+
                 obsList.add(box);
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        // Create fade-in animation
+        int x = 0;
+        for (Node n : tileGames.getChildren()) {
+            new FadeHandler(n, x / 8.0);
+            x++;
+        }
+
     }
-    
+
     /**
-     * Notifies the user that they are in deleting mode, not selecting mode, 
-     * and changes the functions of the buttons to accomplish this.
+     * Notifies the user that they are in deleting mode, not selecting mode, and
+     * changes the functions of the buttons to accomplish this.
      */
     public void prepareDelete() {
         deleting = true;
@@ -144,9 +146,9 @@ public class LoadGameController extends Controller {
             }
         });
     }
-    
+
     /**
-     *  Returns back, delete, and saveBox buttons to there normal function
+     * Returns back, delete, and saveBox buttons to there normal function
      */
     private void cancelDelete() {
         deleting = false;
@@ -168,14 +170,14 @@ public class LoadGameController extends Controller {
         });
         createList();
     }
-    
+
     private void queueForDelete(SaveBox box) {
         deleteList.add(box);
         box.setStyle("-fx-background-color: red;");
     }
-    
+
     private void delete() {
-        for(SaveBox box : deleteList) {
+        for (SaveBox box : deleteList) {
             try {
                 String path = box.getPath();
                 Files.delete(Paths.get(path));
@@ -184,6 +186,6 @@ public class LoadGameController extends Controller {
             }
         }
         cancelDelete();
-    }  
-    
+    }
+
 }
