@@ -2,8 +2,6 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.animation.FadeHandler;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,9 +18,6 @@ import javafx.scene.layout.GridPane;
 public class TitleController extends Controller {
 
     @FXML
-    private Parent root;
-
-    @FXML
     private BorderPane defaultScene;
 
     @FXML
@@ -36,17 +31,6 @@ public class TitleController extends Controller {
     public TitleController() {
         // load the view or throw an exception
         super(TITLE_VIEW_FILE);
-    }
-    
-    /**
-     * Initialize
-     *
-     * @param url The location to resolve all relative paths for the root
-     * object.
-     * @param rb The resources used to localize the root object.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
         
         // Set opacity 0 initially, so that animation will run smoothly.
         gridPane.setOpacity(0);
@@ -69,7 +53,6 @@ public class TitleController extends Controller {
                 new FadeHandler(gridPane, 0, .5, 1, 0);
             }
         });
-        
     }
 
     /**
