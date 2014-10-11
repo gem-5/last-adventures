@@ -1,18 +1,12 @@
 package edu.gatech.gem5.game;
 
 import java.util.LinkedList;
-import java.util.Map;
-import java.io.IOException;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import javafx.scene.transform.Scale;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 import edu.gatech.gem5.game.readers.*;
 import edu.gatech.gem5.game.data.*;
