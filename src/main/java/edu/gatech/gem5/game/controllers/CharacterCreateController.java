@@ -1,16 +1,13 @@
 package edu.gatech.gem5.game.controllers;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
+import edu.gatech.gem5.game.animation.FadeHandler;
+import edu.gatech.gem5.game.animation.TranslateHandler;
 import edu.gatech.gem5.game.data.ShipType;
 import java.util.List;
 import java.util.Map;
@@ -103,28 +100,72 @@ public class CharacterCreateController extends Controller {
         // Create a new save file
         game.createNewSaveFile();
         addTextLimiter(name, MAX_NAME_LENGTH);
-        values = new Label[]{pilotValue, fighterValue, traderValue, engineerValue, investorValue};
-        incButtons = new Button[]{pilotInc, fighterInc, traderInc, engineerInc, investorInc};
-        decButtons = new Button[]{pilotDec, fighterDec, traderDec, engineerDec, investorDec};
-        skillNames = new Label[]{pilot, fighter, trader, engineer, investor, remaining};
+
+        values = new Label[] { pilotValue, fighterValue, traderValue,
+                engineerValue, investorValue };
+        incButtons = new Button[] { pilotInc, fighterInc, traderInc,
+                engineerInc, investorInc };
+        decButtons = new Button[] { pilotDec, fighterDec, traderDec,
+                engineerDec, investorDec };
+        skillNames = new Label[] { pilot, fighter, trader, engineer, investor,
+                remaining };
+
+        // ******************************************************** ANIMATION
+
+        // TODO values, decButtons, incButtons can be grouped using a pane in
+        // the fxml. It is not necessary, but it will make this chunk of the
+        // code simpler. All of these are grouped under a single GridPane;
+        // therefore I did not take an immediate action. - James
+        
+        // Hide labels and buttons (used for animation)
+        for (int x = 0; x < values.length; x++) {
+            skillNames[x].setTranslateX(-150);
+            skillNames[x].setOpacity(0);
+            values[x].setOpacity(0);
+            incButtons[x].setOpacity(0);
+            decButtons[x].setOpacity(0);
+        }
+        remainingValue.setTranslateX(-150);
+        remaining.setTranslateX(-150);
+
+        // Apply transition animation
+        for (int x = 0; x < skillNames.length; x++) {
+            new TranslateHandler(skillNames[x], x / 5.0, .7, 0, 0, -150, 0);
+            new FadeHandler(skillNames[x], x / 5.0);
+        }
+        new TranslateHandler(remainingValue, skillNames.length / 5.0, .7, 0, 0,
+                -150, 0);
+        new FadeHandler(remainingValue, skillNames.length / 5.0);
+        // Apply fade-in animation
+        for (int x = 0; x < values.length; x++) {
+            new FadeHandler(values[x], skillNames.length / 5.0 + 1.1);
+            new FadeHandler(incButtons[x], skillNames.length / 5.0 + 1);
+            new FadeHandler(decButtons[x], skillNames.length / 5.0 + 1);
+        }
+
+        // ***************************************************** END ANIMATION
     }
 
     /**
      * Move to the confirm screen.
      *
-     * @param event a button press
-     * @throws Exception propagates any JavaFX Exception
+     * @param event
+     *            a button press
+     * @throws Exception
+     *             propagates any JavaFX Exception
      */
     @FXML
     public void confirmCharacter(ActionEvent event) throws Exception {
         if (validate(name.getText().trim())) {
             // If not all points are allotcated, show warning message.
             if (Integer.parseInt(remainingValue.getText()) > 0) {
-                Action response = Dialogs.create()
+                Action response = Dialogs
+                        .create()
                         .owner(root)
                         .title("Warning")
                         .masthead("Warning")
-                        .message("Are you sure that you want to continue without allocating all points?")
+                        .message(
+                                "Are you sure that you want to continue without allocating all points?")
                         .showConfirm();
                 if (response == Dialog.ACTION_YES) {
                     if (validate(name.getText().trim())) {
@@ -137,14 +178,16 @@ public class CharacterCreateController extends Controller {
                 LastAdventures.swap(new CharacterStatusController());
             }
         }
-        
+
     }
 
     /**
      * Go back to the title screen.
      *
-     * @param event a button press
-     * @throws Exception propagates any JavaFX Exception
+     * @param event
+     *            a button press
+     * @throws Exception
+     *             propagates any JavaFX Exception
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -162,10 +205,8 @@ public class CharacterCreateController extends Controller {
 
     private Character createCharacter() {
         Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
-        return new Character(
-                name.getText().trim(),
-                Integer.parseInt(pilotValue.getText()),
-                Integer.parseInt(fighterValue.getText()),
+        return new Character(name.getText().trim(), Integer.parseInt(pilotValue
+                .getText()), Integer.parseInt(fighterValue.getText()),
                 Integer.parseInt(traderValue.getText()),
                 Integer.parseInt(engineerValue.getText()),
                 Integer.parseInt(investorValue.getText()),
@@ -187,8 +228,8 @@ public class CharacterCreateController extends Controller {
     }
 
     /**
-     *
-     * @param event a incrementor button press
+     * @param event
+     *            a incrementor button press
      */
     @FXML
     public void increment(ActionEvent event) {
@@ -198,25 +239,30 @@ public class CharacterCreateController extends Controller {
 
             for (int count = 0; count < incButtons.length; count++) {
                 if (incButtons[count] == buttonName) {
-                    values[count].setText("" + (Integer.parseInt(values[count].getText()) + 1));
+                    values[count].setText(""
+                            + (Integer.parseInt(values[count].getText()) + 1));
                 }
             }
-            remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) - 1));
+            remainingValue.setText(""
+                    + (Integer.parseInt(remainingValue.getText()) - 1));
         }
     }
 
     /**
-     *
-     * @param event a decrementor button press
+     * @param event
+     *            a decrementor button press
      */
     @FXML
     public void decrement(ActionEvent event) {
         Button buttonName = (Button) event.getSource();
 
         for (int count = 0; count < decButtons.length; count++) {
-            if (decButtons[count] == buttonName && Integer.parseInt(values[count].getText()) != 1) {
-                values[count].setText("" + (Integer.parseInt(values[count].getText()) - 1));
-                remainingValue.setText("" + (Integer.parseInt(remainingValue.getText()) + 1));
+            if (decButtons[count] == buttonName
+                    && Integer.parseInt(values[count].getText()) != 1) {
+                values[count].setText(""
+                        + (Integer.parseInt(values[count].getText()) - 1));
+                remainingValue.setText(""
+                        + (Integer.parseInt(remainingValue.getText()) + 1));
             }
         }
     }
@@ -224,8 +270,10 @@ public class CharacterCreateController extends Controller {
     /**
      * Limits the length of a text field
      *
-     * @param tf A text field
-     * @param maxLength The maximum number of characters allowed
+     * @param tf
+     *            A text field
+     * @param maxLength
+     *            The maximum number of characters allowed
      */
     public static void addTextLimiter(final TextField tf, final int maxLength) {
         tf.textProperty().addListener(new ChangeListener<String>() {
@@ -239,6 +287,5 @@ public class CharacterCreateController extends Controller {
             }
         });
     }
-
 
 }
