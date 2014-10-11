@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Map;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
