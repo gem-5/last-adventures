@@ -18,7 +18,7 @@
     "mineral_rich" : {
         "name" : "Mineral Rich",
         "supply" : {"ore" : 0.5},
-        "demand" : {},
+        "demand" : {"ore" : 0.5},
         "occurrence" : 0.07692308,
         "wealth" : 1.5
     },
@@ -34,7 +34,7 @@
     "sweet_water" : {
         "name" : "Sweet Water",
         "supply" : {"water" : 0.5},
-        "demand" : {},
+        "demand" : {"water" : 0.5},
         "occurrence" : 0.07692308,
         "wealth" : 1.5
     },
@@ -50,7 +50,7 @@
     "rich_soil" : {
         "name" : "Rich Soil",
         "supply" : {"food" : 0.5},
-        "demand" : {},
+        "demand" : {"food" : 0.5},
         "occurrence" : 0.07692308,
         "wealth" : 1.5
     },
@@ -66,7 +66,7 @@
     "rich_fauna" : {
         "name" : "Rich Fauna",
         "supply" : {"furs" : 0.5},
-        "demand" : {},
+        "demand" : {"furs" : 0.5},
         "occurrence" : 0.03846154,
         "wealth" : 1.5
     },
@@ -74,7 +74,7 @@
     "weird_mushrooms" : {
         "name" : "Weird Mushrooms",
         "supply" : {"drugs" : 0.5},
-        "demand" : {},
+        "demand" : {"drugs" : 0.5},
         "occurrence" : 0.03846154,
         "wealth" : 1.5
     },
@@ -82,7 +82,7 @@
     "special_herbs" : {
         "name" : "Special Herbs",
         "supply" : {"medicine" : 0.5},
-        "demand" : {},
+        "demand" : {"medicine" : 0.5},
         "occurrence" : 0.03846154,
         "wealth" : 1.5
     },
