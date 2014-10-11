@@ -45,7 +45,7 @@ public class DisplayUniverseController extends Controller {
     @FXML
     TextField errorLabel;
     @FXML
-    GridPane planetsInfo;
+    GridPane overlay, planetsInfo;
 
     private Pane root;
     private Universe universe;
@@ -55,6 +55,8 @@ public class DisplayUniverseController extends Controller {
     private double heightRatio;
     private int xCoordinate;
     private int yCoordinate;;
+    
+    private SolarSystem selected;
 
     public static final String UNIVERSE_VIEW_FILE = "/fxml/displayUniverse.fxml";
 
@@ -74,7 +76,7 @@ public class DisplayUniverseController extends Controller {
         drawUniverse();
         drawSystemMarker();
         drawShipRange();
-        hidePlanetInfo();
+        hidePlanetsInfo();
     }
     /**
      * Returns to the planet screen.
@@ -112,22 +114,12 @@ public class DisplayUniverseController extends Controller {
             Tooltip.install(circle, t);
 
             circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent event) {
-                    travelTo(system);
-                }
-            });
-            circle.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     showPlanetsInfo(system);
                 }
             });
-            circle.setOnMouseExited(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    hidePlanetInfo();
-                }
-            });
+
             nodes.add(circle);
         }
     }
@@ -161,21 +153,21 @@ public class DisplayUniverseController extends Controller {
      * Sets the current planet and solar system to the save file, then changes to
      * the PlanetController scene
      *
-     * @param sys The destination system.
      */
-    private void travelTo(SolarSystem sys) {
+    @FXML
+    private void travelTo() {
         Ship ship = save.getCharacter().getShip();
         int range = ship.getFuel();
         SolarSystem curSS = save.getSolarSystem();
         int x1 = curSS.getXCoordinate();
         int y1 = curSS.getYCoordinate();
-        int x2 = sys.getXCoordinate();
-        int y2 = sys.getYCoordinate();
+        int x2 = selected.getXCoordinate();
+        int y2 = selected.getYCoordinate();
 
 
         int distance = (int) sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
-        if ( distance <= range && sys != curSS) {
-            save.setSolarSystem(sys);
+        if ( distance <= range && selected != curSS) {
+            save.setSolarSystem(selected);
             ship.setFuel(ship.getFuel() - distance);
             // PSA: save.setSolarSystem() updates the current planet to the
             // first one in the solar system
@@ -187,7 +179,7 @@ public class DisplayUniverseController extends Controller {
             
             e.getEncounter(save.getPlanet());
             
-        } else if (curSS == sys) {
+        } else if (curSS == selected) {
             //no need to take a turn, we're already here
             LastAdventures.swap(new PlanetController());
         } else {
@@ -196,10 +188,12 @@ public class DisplayUniverseController extends Controller {
     }
     
     private void showPlanetsInfo(SolarSystem system) {
+        hidePlanetsInfo();//so two sets of planets are not on top of eachother
+        selected = system;
         List<Planet> planets = system.getPlanets();
-        planetsInfo.setHgap(10);
-        planetsInfo.setAlignment(Pos.CENTER);
+        planetsInfo.getChildren();
         for (int i = 0; i < planets.size(); i++) {
+            
             Label planetName = new Label(planets.get(i).getName());
 
             planetsInfo.add(planetName, i, 0);
@@ -210,8 +204,12 @@ public class DisplayUniverseController extends Controller {
             planetsInfo.add(new Label(planets.get(i).getGovernment().getName()), i, 3);
             planetsInfo.add(new Label(planets.get(i).getTechLevel().getName()), i, 4);
         }
+        overlay.setVisible(true);   //shows overlay
     }
-    private void hidePlanetInfo() {
-        planetsInfo.getChildren().retainAll(); //retains nothing i.e. remove all
+    
+    @FXML
+    private void hidePlanetsInfo() {
+        overlay.setVisible(false);  //hides hide/go buttons as well
+        planetsInfo.getChildren().retainAll();  //retain nothing
     }
 }
