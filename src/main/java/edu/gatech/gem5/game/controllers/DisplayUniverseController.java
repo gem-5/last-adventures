@@ -11,27 +11,26 @@ import edu.gatech.gem5.game.Turn;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import java.util.List;
-import java.util.Random;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -45,6 +44,8 @@ public class DisplayUniverseController extends Controller {
     AnchorPane map;
     @FXML
     TextField errorLabel;
+    @FXML
+    GridPane planetsInfo;
 
     private Pane root;
     private Universe universe;
@@ -73,6 +74,7 @@ public class DisplayUniverseController extends Controller {
         drawUniverse();
         drawSystemMarker();
         drawShipRange();
+        hidePlanetInfo();
     }
     /**
      * Returns to the planet screen.
@@ -112,6 +114,18 @@ public class DisplayUniverseController extends Controller {
             circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
                     travelTo(system);
+                }
+            });
+            circle.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    showPlanetsInfo(system);
+                }
+            });
+            circle.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    hidePlanetInfo();
                 }
             });
             nodes.add(circle);
@@ -170,12 +184,34 @@ public class DisplayUniverseController extends Controller {
 
             Turn turn = new Turn();
             turn.pass();
+            
             e.getEncounter(save.getPlanet());
+            
         } else if (curSS == sys) {
             //no need to take a turn, we're already here
             LastAdventures.swap(new PlanetController());
         } else {
            errorLabel.setText("Out of Range");
         }
+    }
+    
+    private void showPlanetsInfo(SolarSystem system) {
+        List<Planet> planets = system.getPlanets();
+        planetsInfo.setHgap(10);
+        planetsInfo.setAlignment(Pos.CENTER);
+        for (int i = 0; i < planets.size(); i++) {
+            Label planetName = new Label(planets.get(i).getName());
+
+            planetsInfo.add(planetName, i, 0);
+            Circle circle = new Circle(30);
+            circle.setFill(Color.RED);
+            planetsInfo.add(circle, i, 1);
+            planetsInfo.add(new Label(planets.get(i).getEnvironment().getName()), i, 2);
+            planetsInfo.add(new Label(planets.get(i).getGovernment().getName()), i, 3);
+            planetsInfo.add(new Label(planets.get(i).getTechLevel().getName()), i, 4);
+        }
+    }
+    private void hidePlanetInfo() {
+        planetsInfo.getChildren().retainAll(); //retains nothing i.e. remove all
     }
 }
