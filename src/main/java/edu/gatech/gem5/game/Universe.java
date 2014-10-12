@@ -25,13 +25,13 @@ public class Universe {
     private final int numberOfPlanets;
     private final NameGenerator nameGen;
 
-    public Universe(int num, int min, int max) {
+    public Universe(int num) {
         this.width = 100;
         this.height = 150;
         this.numberOfPlanets = num;
         this.nameGen = new NameGenerator();
         //places systems appropriate distance from each other
-        List<Point> layout = layoutUniverse(min, max, numberOfPlanets);
+        List<Point> layout = layoutUniverse(numberOfPlanets);
 
         this.universe = new ArrayList<>();
         for (Point p : layout) {
@@ -45,7 +45,7 @@ public class Universe {
         }
     }
 
-    private List<Point> layoutUniverse(int min, int max, int num) {
+    private List<Point> layoutUniverse(int num) {
         Random rng = new Random();
         ArrayList<Point> locations = new ArrayList<>();
 
@@ -57,6 +57,7 @@ public class Universe {
         double dr = (rMax / armCapacity) * 0.95;
         double b = 0.5;
         double distanceThreshold = 1;
+        double highThreshhold = 5;
 
         // let's go around in a circle and make spirals
         for (int j = 0; j < numArms; j++) {
@@ -72,14 +73,20 @@ public class Universe {
 
                 Point p = new Point(x, y);
                 // ensure the point is valid
-                boolean valid = true;
+                boolean valid = false;
                 for (Point q : locations) {
+                    //close enough to another system?
+                    if (!valid && q.distance(p) <= highThreshhold) {
+                        valid = true;
+                    }
+                    //to close to another system
                     if (q.distance(p) <= distanceThreshold || p.equals(q)) {
                         valid = false;
                         break;
                     }
+                    
                 }
-                if (valid) {
+                if (valid || i== 0 ) {//always add first in arm
                     locations.add(p);
                     r -= dr;
                 }
@@ -147,7 +154,7 @@ public class Universe {
     }
 
     public static void main(String[] args) {
-        Universe uni = new Universe(120, 4, 13);
+        Universe uni = new Universe(120);
         System.out.println(uni);
     }
 

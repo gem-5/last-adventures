@@ -173,12 +173,12 @@ public class CharacterCreateController extends Controller {
                         .showConfirm();
                 if (response == Dialog.ACTION_YES) {
                     if (validate(name.getText().trim())) {
-                        beginNewGame(createCharacter(), createUniverse());
+                        LastAdventures.initializeGame(createCharacter(), createUniverse());
                         LastAdventures.swap(new CharacterStatusController());
                     }
                 }
             } else {
-                beginNewGame(createCharacter(), createUniverse());
+                LastAdventures.initializeGame(createCharacter(), createUniverse());
                 LastAdventures.swap(new CharacterStatusController());
             }
         }
@@ -219,16 +219,7 @@ public class CharacterCreateController extends Controller {
     }
 
     private Universe createUniverse() {
-        return new Universe(120, 4, 13);
-    }
-
-    private void beginNewGame(Character player, Universe uni) {
-        final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();
-        currentSaveFile.addCharacter(player);
-        currentSaveFile.addUniverse(uni);
-        List<SolarSystem> systems = uni.getUniverse();
-        SolarSystem start = systems.get(new Random().nextInt(systems.size()));
-        currentSaveFile.setSolarSystem(start);
+        return new Universe(120);
     }
 
     /**

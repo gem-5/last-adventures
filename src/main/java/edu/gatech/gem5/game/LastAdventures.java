@@ -16,6 +16,8 @@ import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.controllers.TitleController;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Random;
 /**
  *
  * @author Jack
@@ -114,6 +116,18 @@ public class LastAdventures extends Application {
 
     }
 
+    
+    public static void initializeGame(Character player, Universe uni) {
+        final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();
+        currentSaveFile.addCharacter(player);
+        currentSaveFile.addUniverse(uni);
+        List<SolarSystem> systems = uni.getUniverse();
+        //for now, easiest to start in the
+        //middle of the solarsystem, so pick a ((k * 30) + 29) where 0 <= k < 4
+        SolarSystem start = systems.get(new Random().nextInt(4) * 30 + 29);
+        currentSaveFile.setSolarSystem(start);
+    }
+    
     /**
      * Creates a new save file.
      */
