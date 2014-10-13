@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
@@ -187,29 +188,70 @@ public class DisplayUniverseController extends Controller {
         }
     }
     
+    /**
+     * Makes the overlay GridPane visible which has the planets info GridPane
+     * inside of it.
+     * 
+     * @param system the system whose planets to show information about
+     */
     private void showPlanetsInfo(SolarSystem system) {
         hidePlanetsInfo();//so two sets of planets are not on top of eachother
         selected = system;
+        double screenWidth = root.getPrefWidth();
+        if(system.getXCoordinate() * widthRatio > screenWidth / 2 ) {
+            //set to left side of the screen
+            AnchorPane.setLeftAnchor(overlay, 0.0);
+            AnchorPane.setRightAnchor(overlay, null);
+        } else {
+            //set to right side of the screen
+            AnchorPane.setLeftAnchor(overlay, null);
+            AnchorPane.setRightAnchor(overlay, 0.0);
+        }
         List<Planet> planets = system.getPlanets();
-        planetsInfo.getChildren();
+        Circle circleNode;
+        
         for (int i = 0; i < planets.size(); i++) {
             
-            Label planetName = new Label(planets.get(i).getName());
+            //planetName in first row
+            addLabelToInfo(planets.get(i).getName(), i, 0);
+            
+            circleNode = new Circle(30);
+            circleNode.setFill(Color.RED);
+            //planeImage in second row
+            addPlanetToInfo(circleNode, i, 1);
+            
+            //environment in third row
+            addLabelToInfo(planets.get(i).getEnvironment().getName(), i, 2);            
+            
+            //government in forth row
+            addLabelToInfo(planets.get(i).getGovernment().getName(), i, 3);
+            
+            //tech level in fifth row
+            addLabelToInfo(planets.get(i).getTechLevel().getName(), i, 4);
 
-            planetsInfo.add(planetName, i, 0);
-            Circle circle = new Circle(30);
-            circle.setFill(Color.RED);
-            planetsInfo.add(circle, i, 1);
-            planetsInfo.add(new Label(planets.get(i).getEnvironment().getName()), i, 2);
-            planetsInfo.add(new Label(planets.get(i).getGovernment().getName()), i, 3);
-            planetsInfo.add(new Label(planets.get(i).getTechLevel().getName()), i, 4);
         }
         overlay.setVisible(true);   //shows overlay
+        overlay.toFront();
     }
     
     @FXML
     private void hidePlanetsInfo() {
         overlay.setVisible(false);  //hides hide/go buttons as well
         planetsInfo.getChildren().retainAll();  //retain nothing
+        errorLabel.setText(""); //reset error message
     }
+
+    private void addLabelToInfo(String text, int col, int row) {
+        Label labelNode;
+        labelNode = new Label(text);
+        labelNode.getStyleClass().add("overlayLabel");
+        GridPane.setConstraints(labelNode, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
+        planetsInfo.add(labelNode, col, row);             
+    }
+    
+    private void addPlanetToInfo(Node circle, int col, int row) {
+        GridPane.setConstraints(circle, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
+        planetsInfo.add(circle, col, row);             
+    }
+            
 }

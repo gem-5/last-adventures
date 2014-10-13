@@ -8,3 +8,15 @@
     -fx-border-width: 0;
 }
 
+button {
+    -fx-text-fill: #000000;
+    -fx-background: #ffffff;
+}
+
+.overlayButton {
+    -fx-text-fill: white;
+}
+
+.overlayLabel {
+    -fx-text-fill: black;
+}
