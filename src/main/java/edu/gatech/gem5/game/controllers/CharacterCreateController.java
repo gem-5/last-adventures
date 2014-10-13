@@ -82,8 +82,6 @@ public class CharacterCreateController extends Controller {
     Button confirm;
     @FXML
     Label remaining;
-    @FXML
-    Label errorMessage;
 
     private Button[] incButtons, decButtons;
     private Label[] values, skillNames;
@@ -195,13 +193,12 @@ public class CharacterCreateController extends Controller {
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        LastAdventures.deleteSaveFile(LastAdventures.getCurrentSaveFile());
         LastAdventures.swap(new TitleController());
     }
 
     private boolean validate(String str) {
         if (str.isEmpty()) {
-            errorMessage.setText("Please enter a name.");
+            name.setPromptText("Name");
             return false;
         }
         return true;

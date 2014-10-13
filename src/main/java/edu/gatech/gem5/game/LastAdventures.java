@@ -114,10 +114,8 @@ public class LastAdventures extends Application {
         // Encounter.main(new String[0]);
         launch(args);
 
-
     }
 
-    
     public static void initializeGame(Character player, Universe uni) {
         final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();
         currentSaveFile.addCharacter(player);
