@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package edu.gatech.gem5.game;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -18,7 +12,7 @@ import java.util.Random;
  * @author James
  */
 public class Universe {
-    private final List<SolarSystem> universe;
+    private final Map<String, SolarSystem> universe;
 
     private final int width;
     private final int height;
@@ -33,11 +27,11 @@ public class Universe {
         //places systems appropriate distance from each other
         List<Point> layout = layoutUniverse(numberOfPlanets);
 
-        this.universe = new ArrayList<>();
+        this.universe = new HashMap<>();
         for (Point p : layout) {
-            universe.add(
-                new SolarSystem(
-                    nameGen.newName(),
+            String name = nameGen.newName();
+            universe.put(name, new SolarSystem( 
+                    name,
                     p.xCoordinate,
                     p.yCoordinate
                 )
@@ -101,7 +95,7 @@ public class Universe {
      *
      * @return the list of systems in the universe
      */
-    public List<SolarSystem> getUniverse() {
+    public Map<String, SolarSystem> getUniverse() {
         return universe;
     }
 
@@ -126,28 +120,17 @@ public class Universe {
     /**
      * Get a single solar system at the given x and y coordinates.
      *
-     * @param x The x coordinate.
-     * @param y The y coordinate.
-     * @throws IndexOutOfBoundsException if no solar system exists
+     * @param name name of the desired Solar System
+     * @return a solar system with a matching name
      */
-    public SolarSystem getSolarSystemAt(int x, int y) {
-        // TODO: really this should be made to be O(1) with a map or something
-        for (SolarSystem s : getUniverse()) {
-            if (s.getXCoordinate() == x && s.getYCoordinate() == y) {
-                return s;
-            }
-        }
-
-        throw new IndexOutOfBoundsException(
-            "No system at: " + ((Integer) x).toString() + ", " +
-                               ((Integer) y).toString()
-        );
+    public SolarSystem getSolarSystemByName(String name) {
+       return universe.get(name);
     }
 
     @Override
     public String toString() {
         String result = "";
-        for (SolarSystem system : universe) {
+        for (SolarSystem system : universe.values()) {
            result += system.toString() + "\n";
         }
         return result;

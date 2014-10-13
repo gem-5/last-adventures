@@ -19,8 +19,8 @@ public class Turn {
     
     public void pass() {
         Random random = new Random();
-        List<SolarSystem> systems = universe.getUniverse();
-        for (SolarSystem system : systems) {
+        Map<String, SolarSystem> systems = universe.getUniverse();
+        for (SolarSystem system : systems.values()) {
             for (Planet planet : system.getPlanets()) {
                 //update planet's stock
                 planet.increaseStock();

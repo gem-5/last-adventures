@@ -11,6 +11,7 @@ import edu.gatech.gem5.game.Turn;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import java.util.List;
+import java.util.Map;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -91,8 +92,8 @@ public class DisplayUniverseController extends Controller {
     }
 
     private void drawUniverse() {
-        List<SolarSystem> systems = universe.getUniverse();
-        for (SolarSystem system : systems) {
+        Map<String, SolarSystem> systems = universe.getUniverse();
+        for (SolarSystem system : systems.values()) {
             Circle circle = new Circle();
             int xCoordinate = system.getXCoordinate();
             int yCoordinate = system.getYCoordinate();

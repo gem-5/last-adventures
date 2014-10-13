@@ -30,10 +30,12 @@ public class SaveFile {
     private Universe universe;
     @SerializedName("planet_index")
     private int currentPlanetIndex;
-    @SerializedName("sys_x")
+    @SerializedName("sys_x") //x and y are no longer needed to be saved
     private int currentSystemX;
     @SerializedName("sys_y")
     private int currentSystemY;
+    @SerializedName("sys_name")
+    private String currentSystemName;
 
     public static final String SAVE_DIR = System.getProperty("user.dir") +
                                           "/saves";
@@ -49,6 +51,7 @@ public class SaveFile {
         this.currentPlanetIndex = 0;
         this.currentSystemX = 0;
         this.currentSystemY = 0;
+        this.currentSystemName = null;
     }
 
     /**
@@ -109,7 +112,8 @@ public class SaveFile {
      * @return the planet currently being visited.
      */
     public Planet getPlanet() {
-        return getSolarSystem().getPlanetAt(currentPlanetIndex);
+        SolarSystem solarSystem = getSolarSystem();
+        return solarSystem.getPlanetAt(currentPlanetIndex);
     }
 
     /**
@@ -118,7 +122,7 @@ public class SaveFile {
      * @return the solar system currently being visited.
      */
     public SolarSystem getSolarSystem() {
-        return universe.getSolarSystemAt(currentSystemX, currentSystemY);
+        return universe.getSolarSystemByName(currentSystemName);
     }
 
     /**
@@ -140,6 +144,7 @@ public class SaveFile {
     public void setSolarSystem(SolarSystem sys) {
         this.currentSystemX = sys.getXCoordinate();
         this.currentSystemY = sys.getYCoordinate();
+        this.currentSystemName = sys.getName();
         setCurrentPlanet(0);
     }
 
@@ -153,6 +158,7 @@ public class SaveFile {
         dict.put("planet_index", currentPlanetIndex);
         dict.put("sys_x", currentSystemX);
         dict.put("sys_y", currentSystemY);
+        dict.put("sys_name", currentSystemName);
         Type collectionType = new TypeToken<
             Map<String, Object>
         >(){}.getType();
