@@ -122,10 +122,13 @@ public class LastAdventures extends Application {
         final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();
         currentSaveFile.addCharacter(player);
         currentSaveFile.addUniverse(uni);
-        Map<String, SolarSystem> systems = uni.getUniverse();
-        //for now, easiest to start in the
-        //middle of the solarsystem, so pick a ((k * 30) + 29) where 0 <= k < 4
-        SolarSystem start = (SolarSystem) systems.values().toArray()[1];
+
+        Random random = new Random();        
+        int randomX = random.nextInt(16) - 8;
+        int randomY = random.nextInt(16) - 8;
+        //for now, easiest to start near middle of the universe
+        SolarSystem start = Universe.getSolarSystemNear(uni, 
+                randomX + uni.getWidth()/2, randomY + uni.getHeight() /2);
         currentSaveFile.setSolarSystem(start);
     }
     
