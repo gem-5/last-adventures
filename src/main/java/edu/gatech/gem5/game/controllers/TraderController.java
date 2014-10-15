@@ -58,8 +58,8 @@ public class TraderController extends Controller {
     @FXML
     private Label errorLabel;
 
-    @FXML
-    private Button refuelButton;
+    // @FXML
+    // private Button refuelButton;
 
     @FXML
     private ListView<BuyBar> buyGoods;
@@ -149,21 +149,21 @@ public class TraderController extends Controller {
         }
     }
 
-    @FXML
-    /**
-     * Max out the fuel in your ship.
-     *
-     * @param event A button press attempting to refuel
-     * @throws Exception
-     */
-    public void refuel(ActionEvent event) throws Exception {
-        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
-        Ship ship = player.getShip();
-        player.setMoney(player.getMoney() -  (ship.getType().getRange() -
-                ship.getFuel()) * ship.getType().getFuelCost() );
-        ship.setFuel(ship.getType().getRange());
-        fillLabels();
-    }
+    // @FXML
+    // /**
+    //  * Max out the fuel in your ship.
+    //  *
+    //  * @param event A button press attempting to refuel
+    //  * @throws Exception
+    //  */
+    // public void refuel(ActionEvent event) throws Exception {
+    //     Character player = LastAdventures.getCurrentSaveFile().getCharacter();
+    //     Ship ship = player.getShip();
+    //     player.setMoney(player.getMoney() -  (ship.getType().getRange() -
+    //             ship.getFuel()) * ship.getType().getFuelCost() );
+    //     ship.setFuel(ship.getType().getRange());
+    //     fillLabels();
+    // }
 
     /**
      * Go back to the planet screen.
@@ -186,7 +186,6 @@ public class TraderController extends Controller {
             ((Integer) s.getOpenBays()).toString()
         );
         errorLabel.setText("");
-        refuelButton.setText("Refuel " + (s.getType().getRange() - s.getFuel()) * s.getType().getFuelCost());
     }
     /*
     private void buildShipList() {
