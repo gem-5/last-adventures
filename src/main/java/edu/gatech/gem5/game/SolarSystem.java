@@ -14,7 +14,6 @@ public class SolarSystem {
     private final int yCoordinate;
     private List<Planet> planets;
 
-    // max(planets.size()) == PROBABILITIES.length
     // each entry n represents the probability of an nth planet existing
     private static final double[] PROBABILITIES = {1, 1, 0.66, 0.2};
 

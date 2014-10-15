@@ -2,18 +2,13 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.data.StoryText;
+import java.net.URL;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 
 
@@ -28,7 +23,6 @@ import javafx.scene.text.Text;
  */
 public class CharacterStatusController extends Controller {
 
-    Parent root;
     @FXML
     Label playerName;
     @FXML
@@ -51,6 +45,7 @@ public class CharacterStatusController extends Controller {
 
     public static final String STATUS_VIEW_FILE = "/fxml/status.fxml";
 
+    private final AudioClip audioClip;
     /**
      * Construct the character status controller.
      */
@@ -72,6 +67,12 @@ public class CharacterStatusController extends Controller {
         String msg = LastAdventures
                      .data.get(StoryText.KEY).get("intro").toString();
         dialog.setText(msg);
+        
+        // Play audio
+        final URL soundURL = getClass().getResource("/sound/characterStatus.wav");
+        audioClip = new AudioClip(soundURL.toString());
+        audioClip.play(1.0);
+        
     }
 
     /**
@@ -82,6 +83,10 @@ public class CharacterStatusController extends Controller {
      */
     @FXML
     public void startGame(ActionEvent event) throws Exception {
+        
+        // End audio, because we are switching scenes.
+        audioClip.stop();
+        
         LastAdventures.swap(new PlanetController());
     }
 
@@ -93,6 +98,10 @@ public class CharacterStatusController extends Controller {
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
+        
+        // End audio, because we are switching scenes.
+        audioClip.stop();
+        
         LastAdventures.swap(new CharacterCreateController());
     }
 

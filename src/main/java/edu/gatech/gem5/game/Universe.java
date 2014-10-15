@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package edu.gatech.gem5.game;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -18,26 +13,26 @@ import java.util.Random;
  * @author James
  */
 public class Universe {
-    private final List<SolarSystem> universe;
+    private final Map<String, SolarSystem> universe;
 
     private final int width;
     private final int height;
     private final int numberOfPlanets;
     private final NameGenerator nameGen;
 
-    public Universe(int num, int min, int max) {
+    public Universe(int num) {
         this.width = 100;
         this.height = 150;
         this.numberOfPlanets = num;
         this.nameGen = new NameGenerator();
         //places systems appropriate distance from each other
-        List<Point> layout = layoutUniverse(min, max, numberOfPlanets);
+        List<Point> layout = layoutUniverse(numberOfPlanets);
 
-        this.universe = new ArrayList<>();
+        this.universe = new HashMap<>();
         for (Point p : layout) {
-            universe.add(
-                new SolarSystem(
-                    nameGen.newName(),
+            String name = nameGen.newName();
+            universe.put(name, new SolarSystem( 
+                    name,
                     p.xCoordinate,
                     p.yCoordinate
                 )
@@ -45,7 +40,7 @@ public class Universe {
         }
     }
 
-    private List<Point> layoutUniverse(int min, int max, int num) {
+    private List<Point> layoutUniverse(int num) {
         Random rng = new Random();
         ArrayList<Point> locations = new ArrayList<>();
 
@@ -57,6 +52,7 @@ public class Universe {
         double dr = (rMax / armCapacity) * 0.95;
         double b = 0.5;
         double distanceThreshold = 1;
+        double highThreshhold = 5;
 
         // let's go around in a circle and make spirals
         for (int j = 0; j < numArms; j++) {
@@ -72,14 +68,20 @@ public class Universe {
 
                 Point p = new Point(x, y);
                 // ensure the point is valid
-                boolean valid = true;
+                boolean valid = false;
                 for (Point q : locations) {
+                    //close enough to another system?
+                    if (!valid && q.distance(p) <= highThreshhold) {
+                        valid = true;
+                    }
+                    //to close to another system
                     if (q.distance(p) <= distanceThreshold || p.equals(q)) {
                         valid = false;
                         break;
                     }
+                    
                 }
-                if (valid) {
+                if (valid || i== 0 ) {//always add first in arm
                     locations.add(p);
                     r -= dr;
                 }
@@ -94,7 +96,7 @@ public class Universe {
      *
      * @return the list of systems in the universe
      */
-    public List<SolarSystem> getUniverse() {
+    public Map<String, SolarSystem> getUniverse() {
         return universe;
     }
 
@@ -119,35 +121,95 @@ public class Universe {
     /**
      * Get a single solar system at the given x and y coordinates.
      *
+     * @param name name of the desired Solar System
+     * @return a solar system with a matching name
+     */
+    public SolarSystem getSolarSystemByName(String name) {
+       return universe.get(name);
+    }
+    
+    /**
+     * Get a single solar system at the given x and y coordinates.
+     *
      * @param x The x coordinate.
      * @param y The y coordinate.
-     * @throws IndexOutOfBoundsException if no solar system exists
+     * @return A solar system, if such a system exists in this universe
      */
-    public SolarSystem getSolarSystemAt(int x, int y) {
+    public Optional<SolarSystem> getSolarSystem(int x, int y) {
         // TODO: really this should be made to be O(1) with a map or something
-        for (SolarSystem s : getUniverse()) {
+        for (SolarSystem s : getUniverse().values()) {
             if (s.getXCoordinate() == x && s.getYCoordinate() == y) {
-                return s;
+                
+                return Optional.of(s);
             }
         }
-
-        throw new IndexOutOfBoundsException(
-            "No system at: " + ((Integer) x).toString() + ", " +
-                               ((Integer) y).toString()
-        );
+        return Optional.empty();
     }
-
+    
+    private SolarSystem[][] getSolarSystemField() {
+        SolarSystem[][] field = new SolarSystem[width][height];
+        for (SolarSystem system : universe.values()) {
+            int xCoordinate = system.getXCoordinate();
+            int yCoordinate = system.getYCoordinate();
+            if(xCoordinate >= 0 && yCoordinate >= 0 && 
+               xCoordinate < width && yCoordinate < height) {
+                // @TODO the above check shouldn't be necessary, universe
+                //generation is creating some invalid system locations
+                field[xCoordinate][yCoordinate] = system;
+            }
+        }
+        return field;
+    }
+    
+    /**
+     * Probes for a solar system near the given coordinates. Chooses a random
+     * direction and makes a circle before expanding the search radius
+     * 
+     * @param universe universe that you are searching in
+     * @param x x coordinate of location this system should be near
+     * @param y y coordinate of location this system should be near
+     * @return one of the closest solar system to the given location
+     */
+    public static SolarSystem getSolarSystemNear(Universe universe, int x, 
+            int y) {
+        SolarSystem[][] field = universe.getSolarSystemField();
+        int radius = 1;
+        double thetaStart = new Random().nextDouble() * 2 * Math.PI;
+        SolarSystem close = null;
+        
+        while (close == null) {
+            SolarSystem check;
+            //goes from a random direction around in a circle, checks 180
+            //directions, snaps to integer grid, so there are redundant checks
+            //unless the radius expands too far
+            for (double theta = thetaStart; 
+                    theta < thetaStart + 2*Math.PI;theta += 2 * Math.PI / 180) {
+                int xCheck = x + (int) (radius * Math.cos(theta));
+                int yCheck = y + (int) (radius * Math.sin(theta));
+                check = field[xCheck][yCheck];
+                
+                if(check != null) {
+                    close = check;
+                }
+            }
+            //this expands the search radius if nothing close enough was found
+            radius++;          
+        }
+        
+        return close;
+    }
+    
     @Override
     public String toString() {
         String result = "";
-        for (SolarSystem system : universe) {
+        for (SolarSystem system : universe.values()) {
            result += system.toString() + "\n";
         }
         return result;
     }
 
     public static void main(String[] args) {
-        Universe uni = new Universe(120, 4, 13);
+        Universe uni = new Universe(120);
         System.out.println(uni);
     }
 

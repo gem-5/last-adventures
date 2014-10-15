@@ -11,27 +11,28 @@ import edu.gatech.gem5.game.Turn;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Tooltip;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -45,6 +46,8 @@ public class DisplayUniverseController extends Controller {
     AnchorPane map;
     @FXML
     TextField errorLabel;
+    @FXML
+    GridPane overlay, planetsInfo;
 
     private Pane root;
     private Universe universe;
@@ -54,6 +57,8 @@ public class DisplayUniverseController extends Controller {
     private double heightRatio;
     private int xCoordinate;
     private int yCoordinate;;
+    
+    private SolarSystem selected;
 
     public static final String UNIVERSE_VIEW_FILE = "/fxml/displayUniverse.fxml";
 
@@ -73,6 +78,7 @@ public class DisplayUniverseController extends Controller {
         drawUniverse();
         drawSystemMarker();
         drawShipRange();
+        hidePlanetsInfo();
     }
     /**
      * Returns to the planet screen.
@@ -86,8 +92,8 @@ public class DisplayUniverseController extends Controller {
     }
 
     private void drawUniverse() {
-        List<SolarSystem> systems = universe.getUniverse();
-        for (SolarSystem system : systems) {
+        Map<String, SolarSystem> systems = universe.getUniverse();
+        for (SolarSystem system : systems.values()) {
             Circle circle = new Circle();
             int xCoordinate = system.getXCoordinate();
             int yCoordinate = system.getYCoordinate();
@@ -110,10 +116,12 @@ public class DisplayUniverseController extends Controller {
             Tooltip.install(circle, t);
 
             circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
                 public void handle(MouseEvent event) {
-                    travelTo(system);
+                    showPlanetsInfo(system);
                 }
             });
+
             nodes.add(circle);
         }
     }
@@ -147,21 +155,21 @@ public class DisplayUniverseController extends Controller {
      * Sets the current planet and solar system to the save file, then changes to
      * the PlanetController scene
      *
-     * @param sys The destination system.
      */
-    private void travelTo(SolarSystem sys) {
+    @FXML
+    private void travelTo() {
         Ship ship = save.getCharacter().getShip();
         int range = ship.getFuel();
         SolarSystem curSS = save.getSolarSystem();
         int x1 = curSS.getXCoordinate();
         int y1 = curSS.getYCoordinate();
-        int x2 = sys.getXCoordinate();
-        int y2 = sys.getYCoordinate();
+        int x2 = selected.getXCoordinate();
+        int y2 = selected.getYCoordinate();
 
 
         int distance = (int) sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
-        if ( distance <= range && sys != curSS) {
-            save.setSolarSystem(sys);
+        if ( distance <= range && selected != curSS) {
+            save.setSolarSystem(selected);
             ship.setFuel(ship.getFuel() - distance);
             // PSA: save.setSolarSystem() updates the current planet to the
             // first one in the solar system
@@ -170,12 +178,81 @@ public class DisplayUniverseController extends Controller {
 
             Turn turn = new Turn();
             turn.pass();
+            
             e.getEncounter(save.getPlanet());
-        } else if (curSS == sys) {
+            
+        } else if (curSS == selected) {
             //no need to take a turn, we're already here
             LastAdventures.swap(new PlanetController());
         } else {
            errorLabel.setText("Out of Range");
         }
     }
+    
+    /**
+     * Makes the overlay GridPane visible which has the planets info GridPane
+     * inside of it.
+     * 
+     * @param system the system whose planets to show information about
+     */
+    private void showPlanetsInfo(SolarSystem system) {
+        hidePlanetsInfo();//so two sets of planets are not on top of eachother
+        selected = system;
+        double screenWidth = root.getPrefWidth();
+        if(system.getXCoordinate() * widthRatio > screenWidth / 2 ) {
+            //set to left side of the screen
+            AnchorPane.setLeftAnchor(overlay, 0.0);
+            AnchorPane.setRightAnchor(overlay, null);
+        } else {
+            //set to right side of the screen
+            AnchorPane.setLeftAnchor(overlay, null);
+            AnchorPane.setRightAnchor(overlay, 0.0);
+        }
+        List<Planet> planets = system.getPlanets();
+        Circle circleNode;
+        
+        for (int i = 0; i < planets.size(); i++) {
+            
+            //planetName in first row
+            addLabelToInfo(planets.get(i).getName(), i, 0);
+            
+            circleNode = new Circle(30);
+            circleNode.setFill(Color.RED);
+            //planeImage in second row
+            addPlanetToInfo(circleNode, i, 1);
+            
+            //environment in third row
+            addLabelToInfo(planets.get(i).getEnvironment().getName(), i, 2);            
+            
+            //government in forth row
+            addLabelToInfo(planets.get(i).getGovernment().getName(), i, 3);
+            
+            //tech level in fifth row
+            addLabelToInfo(planets.get(i).getTechLevel().getName(), i, 4);
+
+        }
+        overlay.setVisible(true);   //shows overlay
+        overlay.toFront();
+    }
+    
+    @FXML
+    private void hidePlanetsInfo() {
+        overlay.setVisible(false);  //hides hide/go buttons as well
+        planetsInfo.getChildren().retainAll();  //retain nothing
+        errorLabel.setText(""); //reset error message
+    }
+
+    private void addLabelToInfo(String text, int col, int row) {
+        Label labelNode;
+        labelNode = new Label(text);
+        labelNode.getStyleClass().add("overlayLabel");
+        GridPane.setConstraints(labelNode, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
+        planetsInfo.add(labelNode, col, row);             
+    }
+    
+    private void addPlanetToInfo(Node circle, int col, int row) {
+        GridPane.setConstraints(circle, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
+        planetsInfo.add(circle, col, row);             
+    }
+            
 }

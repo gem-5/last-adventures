@@ -247,11 +247,12 @@ public class Planet implements Traderable {
             GoodType gt = (GoodType) LastAdventures.data.get(GoodType.KEY).get(g);
             double value = gt.getValue();
             String s = gt.getKey();
-
+            // Apply government multipliers
             Map<String, Double> govMap = getGovernment().getDemand();
             if (govMap.get(s) != null) {
                 value *= govMap.get(s);
             }
+            // Apply environment multipliers
             Map<String, Double> envMap = getEnvironment().getDemand();
             if (envMap.get(s) != null) {
                 value *= envMap.get(s);

@@ -8,45 +8,41 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<BorderPane
-    prefWidth="1280"
-    prefHeight="720"
-    xmlns:fx="http://javafx.com/fxml/1"
->
+<BorderPane fx:id="defaultScene" prefHeight="720" prefWidth="1280" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
     <center>
         <VBox maxWidth="759">
-            <Region VBox.Vgrow="always"/>
-            <ImageView>
-                <image>
-                    <Image url="@/img/title.png" />
-                </image>
-            </ImageView>
-            <Region minHeight="50" />
-            <HBox>
-                <Region HBox.Hgrow="always"/>
-                <GridPane fx:id="gridPane">
-                    <vgap>10.0</vgap>
-                    <Button text="New"
-                            id="newButton"
-                            GridPane.columnIndex="0"
-                            GridPane.rowIndex="1"
-                            onAction="#startNewGame"
-                    />
-                    <Button text="Continue"
-                            id="continueButton"
-                            GridPane.columnIndex="0"
-                            GridPane.rowIndex="2"
-                            onAction="#continueGame"
-                    />
-                    <Button text="Load"
-                            id="loadButton"
-                            GridPane.columnIndex="0"
-                            GridPane.rowIndex="3"
-                            onAction="#loadGame"
-                    />
-                </GridPane>
-            </HBox>
-            <Region VBox.Vgrow="always"/>
+           <children>
+               <Region VBox.Vgrow="always" />
+               <ImageView>
+                   <image>
+                       <Image url="@/img/title.png" />
+                   </image>
+               </ImageView>
+               <Region minHeight="50" />
+               <HBox>
+                  <children>
+                      <Region HBox.Hgrow="always" />
+                      <GridPane fx:id="gridPane">
+                          <vgap>10.0</vgap>
+                         <children>
+                             <Button id="newButton" onAction="#startNewGame" text="New" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                             <Button id="continueButton" onAction="#continueGame" text="Continue" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                             <Button id="loadButton" onAction="#loadGame" text="Load" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                         </children>
+                     <columnConstraints>
+                        <ColumnConstraints />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+                      </GridPane>
+                  </children>
+               </HBox>
+               <Region VBox.Vgrow="always" />
+           </children>
         </VBox>
     </center>
 
