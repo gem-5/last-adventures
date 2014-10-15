@@ -96,6 +96,7 @@ public class Ship {
         return getType().getCargoSlots() - sum;
     }
 
+
     public int getNetWorth() {
         int worth = type.getPrice();
 
