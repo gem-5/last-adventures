@@ -68,7 +68,7 @@ public class TraderController extends Controller {
 
 
     private Trader trader;
-    public static final String MARKET_VIEW_FILE = "/fxml/market.fxml";
+    public static final String MARKET_VIEW_FILE = "/fxml/trader.fxml";
 
     /**
      * Construct the trader controller.
@@ -166,13 +166,13 @@ public class TraderController extends Controller {
     // }
 
     /**
-     * Go back to the planet screen.
+     * Continue to the planet screen.
      *
      * @param event A button press attempting to change scenes
      * @throws Exception propagates javaFX exceptions
      */
     @FXML
-    public void goBack(ActionEvent event) throws Exception {
+    public void continueToPlanet(ActionEvent event) throws Exception {
         LastAdventures.swap(new PlanetController());
     }
 
