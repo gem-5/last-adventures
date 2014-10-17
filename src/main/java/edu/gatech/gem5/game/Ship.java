@@ -34,16 +34,16 @@ public class Ship {
     /**
      * Construct the ship from a given ship type.
      *
-     * @param ship The ShipBase to copy.
+     * @param type The ShipType to use
      */
-    public Ship(ShipType ship) {
-        this.type = ship;
-        this.fuel = ship.getRange(); // range == max fuel
+    public Ship(ShipType type) {
+        this.type = type;
+        this.fuel = type.getRange(); // range == max fuel
         this.cargoList = new TreeMap<>();
-        this.weaponList = new ArrayList<>(ship.getWeaponSlots());
-        this.shieldList = new ArrayList<>(ship.getShieldSlots());
-        this.gadgetList = new ArrayList<>(ship.getGadgetSlots());
-        this.crewList = new Mercenary[ship.getCrewSlots()];
+        this.weaponList = new ArrayList<>(type.getWeaponSlots());
+        this.shieldList = new ArrayList<>(type.getShieldSlots());
+        this.gadgetList = new ArrayList<>(type.getGadgetSlots());
+        this.crewList = new Mercenary[type.getCrewSlots()];
     }
 
     /**
@@ -95,6 +95,7 @@ public class Ship {
         }
         return getType().getCargoSlots() - sum;
     }
+
 
     public int getNetWorth() {
         int worth = type.getPrice();

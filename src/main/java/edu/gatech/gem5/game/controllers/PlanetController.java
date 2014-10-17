@@ -64,14 +64,14 @@ public class PlanetController extends Controller {
         this.lblTechnology.setText(planet.getTechLevel().getName());
         Ship ship = save.getCharacter().getShip();
         //sets the number to the amount of credits needed to fully refuel
-        this.refuelButton.setText("Refuel " +(ship.getType().getRange() - 
+        this.refuelButton.setText("Refuel " +(ship.getType().getRange() -
                 ship.getFuel()) * ship.getType().getFuelCost());
-        
+
         //set hotkey for saving to Control + S
         root.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (new KeyCodeCombination(KeyCode.S, 
+            if (new KeyCodeCombination(KeyCode.S,
                     KeyCombination.CONTROL_DOWN).match(event)) {
-                saveAndQuit();            
+                saveAndQuit();
             }
         });
     }
@@ -97,7 +97,7 @@ public class PlanetController extends Controller {
         if (id.equals("market")) {
             LastAdventures.swap(new MarketController());
         } else if (id.equals("travel")) {
-            LastAdventures.swap(new DisplayUniverseController());
+            LastAdventures.swap(new DisplaySystemController());
         }
     }
 
@@ -112,11 +112,11 @@ public class PlanetController extends Controller {
         LastAdventures.getCurrentSaveFile().save();
         btnSave.setDisable(true); // don't save again...
     }
-    
+
     /**
      * Quits to the title screen, if the player has not saved yet, it prompts
      * them to.
-     * 
+     *
      */
     @FXML
     private void quit() {
@@ -160,5 +160,5 @@ public class PlanetController extends Controller {
         } else {
             refuelButton.setText("Not enough credits");
         }
-    }    
+    }
 }

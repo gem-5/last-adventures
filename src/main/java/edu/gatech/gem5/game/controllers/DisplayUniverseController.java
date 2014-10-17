@@ -7,79 +7,82 @@ import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
+import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Turn;
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
+import edu.gatech.gem5.game.ui.UniverseDisplay;
+import edu.gatech.gem5.game.ui.ExplorableDisplay;
+import edu.gatech.gem5.game.ui.SolarIcon;
 import java.util.List;
 import java.util.Map;
+
+import java.util.Random;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
+import javafx.scene.input.MouseEvent;
 
-import javafx.scene.shape.Circle;
-import javafx.scene.paint.Color;
-import javafx.scene.control.Tooltip;
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 /**
  * FXML Controller class
  *
  * @author Jack Mueller
  * @author Alex Liu
+ * @author Creston Bunch
  */
 public class DisplayUniverseController extends Controller {
 
     @FXML
-    AnchorPane map;
-    @FXML
     TextField errorLabel;
     @FXML
-    GridPane overlay, planetsInfo;
-
     private Pane root;
-    private Universe universe;
-    private ObservableList<Node> nodes;
-    private SaveFile save;
-    private double widthRatio;
-    private double heightRatio;
-    private int xCoordinate;
-    private int yCoordinate;;
-    
-    private SolarSystem selected;
 
-    public static final String UNIVERSE_VIEW_FILE = "/fxml/displayUniverse.fxml";
+    private ExplorableDisplay map;
+    private Universe universe;
+    private SaveFile save;
+    private UpdateListener updateListener;
+
+    public static final String UNIVERSE_VIEW_FILE = "/fxml/travel.fxml";
 
     /**
      * Construct the universe display controller.
      */
     public DisplayUniverseController() {
         super(UNIVERSE_VIEW_FILE);
-        universe = LastAdventures.getCurrentSaveFile().getUniverse();
-        root = (Pane) LastAdventures.getRoot();
-        nodes = map.getChildren();
-        widthRatio = root.getPrefWidth() / universe.getWidth();
-        heightRatio = root.getPrefHeight() / universe.getHeight();
         save = LastAdventures.getCurrentSaveFile();
-        xCoordinate = save.getSolarSystem().getXCoordinate();
-        yCoordinate = save.getSolarSystem().getYCoordinate();
-        drawUniverse();
-        drawSystemMarker();
-        drawShipRange();
-        hidePlanetsInfo();
+        universe = save.getUniverse();
+        // construct a universe display
+        map = new UniverseDisplay(save);
+        // add the map to the scene
+        ((BorderPane) root).setCenter(map);
+
+        updateListener = new UpdateListener();
+        addListeners();
     }
+
+    public void finish() {
+        // populate the universe display
+        for (SolarSystem s : universe.getUniverse().values()) {
+            int x = s.getXCoordinate();
+            int y = s.getYCoordinate();
+            int size = s.getPlanets().size();
+            // Load an image to represent the solar system
+            SolarIcon sys = new SolarIcon(s);
+            sys.setOnMouseClicked(new TravelHandler(s));
+            // add the system to the map
+            map.addNode(x, y, sys);
+            // TODO: custom tooltips
+        }
+        map.update();
+    }
+
     /**
      * Returns to the planet screen.
      *
@@ -88,171 +91,52 @@ public class DisplayUniverseController extends Controller {
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        LastAdventures.swap(new PlanetController());
+        removeListeners();
+        LastAdventures.swap(new DisplaySystemController());
     }
 
-    private void drawUniverse() {
-        Map<String, SolarSystem> systems = universe.getUniverse();
-        for (SolarSystem system : systems.values()) {
-            Circle circle = new Circle();
-            int xCoordinate = system.getXCoordinate();
-            int yCoordinate = system.getYCoordinate();
-            circle.setCenterX(xCoordinate * widthRatio);
-            circle.setCenterY(yCoordinate * heightRatio);
-            circle.setRadius(2.0 * system.getPlanets().size());
-            circle.setFill(Color.WHITE);
-            circle.setCursor(Cursor.HAND);
-            SolarSystem curSS = save.getSolarSystem();
-            int x1 = curSS.getXCoordinate();
-            int y1 = curSS.getYCoordinate();
-            int x2 = system.getXCoordinate();
-            int y2 = system.getYCoordinate();
-            int distance = (int) sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
-            Tooltip t = new Tooltip(
-                system.getName() + "\n" +
-                "Planets: " + system.getPlanets().size() + "\n" +
-                "Travel Cost: " + distance + " fuel"
-            );
-            Tooltip.install(circle, t);
+    private void addListeners() {
+        LastAdventures.getScene().widthProperty().addListener(updateListener);
+        LastAdventures.getScene().heightProperty().addListener(updateListener);
+    }
+    private void removeListeners() {
+        LastAdventures.getScene().widthProperty().addListener(updateListener);
+        LastAdventures.getScene().heightProperty().addListener(updateListener);
+    }
+    private class UpdateListener implements ChangeListener<Object> {
+        @Override
+        public void changed(ObservableValue<? extends Object> obs,
+                            Object oldValue,
+                            Object newValue) {
+            map.update();
+        }
+    };
 
-            circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    showPlanetsInfo(system);
-                }
-            });
+    private class TravelHandler implements EventHandler<MouseEvent> {
+        private SolarSystem sys;
 
-            nodes.add(circle);
+        public TravelHandler(SolarSystem sys) {
+            this.sys = sys;
+        }
+
+        @Override
+        public void handle(MouseEvent e) {
+            Ship ship = save.getCharacter().getShip();
+            int range = ship.getFuel();
+            if (distance() <= range) {
+                LastAdventures.swap(new DisplaySystemController(sys));
+            } else {
+                errorLabel.setText("Out of Range");
+            }
+        }
+
+        private double distance() {
+            SolarSystem here = save.getSolarSystem();
+            SolarSystem there = sys;
+            int dx = there.getXCoordinate() - here.getXCoordinate();
+            int dy = there.getYCoordinate() - here.getYCoordinate();
+            return Math.sqrt(dx*dx + dy*dy);
         }
     }
 
-    private void drawSystemMarker() {
-        Image img = new Image("img/currentSystem.png");
-        int dx = (int) img.getWidth() / 2;
-        int dy = (int) img.getHeight() / 2;
-            ImageView imgView = new ImageView(img);
-            imgView.setLayoutX(xCoordinate * widthRatio - dx);
-            imgView.setLayoutY(yCoordinate * heightRatio - dy);
-            nodes.add(imgView);
-            imgView.toBack();
-    }
-
-    private void drawShipRange() {
-        // show the ship range
-        Ship s = save.getCharacter().getShip();
-        int range = s.getFuel();
-        Circle circle = new Circle();
-        circle.setCenterX(xCoordinate * widthRatio);
-        circle.setCenterY(yCoordinate * heightRatio);
-        circle.setRadius(range);
-        circle.setStroke(Color.GREEN);
-        circle.setFill(Color.TRANSPARENT);
-        nodes.add(circle);
-        circle.toBack();
-    }
-
-    /**
-     * Sets the current planet and solar system to the save file, then changes to
-     * the PlanetController scene
-     *
-     */
-    @FXML
-    private void travelTo() {
-        Ship ship = save.getCharacter().getShip();
-        int range = ship.getFuel();
-        SolarSystem curSS = save.getSolarSystem();
-        int x1 = curSS.getXCoordinate();
-        int y1 = curSS.getYCoordinate();
-        int x2 = selected.getXCoordinate();
-        int y2 = selected.getYCoordinate();
-
-
-        int distance = (int) sqrt(pow((x2 - x1) * widthRatio, 2) + pow((y2 - y1) * heightRatio, 2));
-        if ( distance <= range && selected != curSS) {
-            save.setSolarSystem(selected);
-            ship.setFuel(ship.getFuel() - distance);
-            // PSA: save.setSolarSystem() updates the current planet to the
-            // first one in the solar system
-
-            Encounter e = new Encounter();
-
-            Turn turn = new Turn();
-            turn.pass();
-            
-            e.getEncounter(save.getPlanet());
-            
-        } else if (curSS == selected) {
-            //no need to take a turn, we're already here
-            LastAdventures.swap(new PlanetController());
-        } else {
-           errorLabel.setText("Out of Range");
-        }
-    }
-    
-    /**
-     * Makes the overlay GridPane visible which has the planets info GridPane
-     * inside of it.
-     * 
-     * @param system the system whose planets to show information about
-     */
-    private void showPlanetsInfo(SolarSystem system) {
-        hidePlanetsInfo();//so two sets of planets are not on top of eachother
-        selected = system;
-        double screenWidth = root.getPrefWidth();
-        if(system.getXCoordinate() * widthRatio > screenWidth / 2 ) {
-            //set to left side of the screen
-            AnchorPane.setLeftAnchor(overlay, 0.0);
-            AnchorPane.setRightAnchor(overlay, null);
-        } else {
-            //set to right side of the screen
-            AnchorPane.setLeftAnchor(overlay, null);
-            AnchorPane.setRightAnchor(overlay, 0.0);
-        }
-        List<Planet> planets = system.getPlanets();
-        Circle circleNode;
-        
-        for (int i = 0; i < planets.size(); i++) {
-            
-            //planetName in first row
-            addLabelToInfo(planets.get(i).getName(), i, 0);
-            
-            circleNode = new Circle(30);
-            circleNode.setFill(Color.RED);
-            //planeImage in second row
-            addPlanetToInfo(circleNode, i, 1);
-            
-            //environment in third row
-            addLabelToInfo(planets.get(i).getEnvironment().getName(), i, 2);            
-            
-            //government in forth row
-            addLabelToInfo(planets.get(i).getGovernment().getName(), i, 3);
-            
-            //tech level in fifth row
-            addLabelToInfo(planets.get(i).getTechLevel().getName(), i, 4);
-
-        }
-        overlay.setVisible(true);   //shows overlay
-        overlay.toFront();
-    }
-    
-    @FXML
-    private void hidePlanetsInfo() {
-        overlay.setVisible(false);  //hides hide/go buttons as well
-        planetsInfo.getChildren().retainAll();  //retain nothing
-        errorLabel.setText(""); //reset error message
-    }
-
-    private void addLabelToInfo(String text, int col, int row) {
-        Label labelNode;
-        labelNode = new Label(text);
-        labelNode.getStyleClass().add("overlayLabel");
-        GridPane.setConstraints(labelNode, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
-        planetsInfo.add(labelNode, col, row);             
-    }
-    
-    private void addPlanetToInfo(Node circle, int col, int row) {
-        GridPane.setConstraints(circle, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
-        planetsInfo.add(circle, col, row);             
-    }
-            
 }

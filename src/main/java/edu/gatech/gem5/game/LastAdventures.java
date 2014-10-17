@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
 import edu.gatech.gem5.game.readers.*;
 import edu.gatech.gem5.game.data.*;
 
@@ -51,10 +50,9 @@ public class LastAdventures extends Application {
      * @param c The new controller to load.
      */
     public static void swap(Controller c) {
-        Scene scene = c.getScene();
         Pane oldRoot = (Pane) getRoot();
-
-        root = scene.getRoot();
+        Scene scene = stage.getScene();
+        root = c.getRoot();
 
         // make the new scene the same size
         if (oldRoot != null) {
@@ -62,7 +60,15 @@ public class LastAdventures extends Application {
             ((Pane) root).setPrefHeight(oldRoot.getHeight());
         }
 
-        stage.setScene(scene);
+        if (scene == null) {
+            scene = new Scene(root);
+            stage.setScene(scene);
+        } else {
+            scene.setRoot(root);
+        }
+        scene.getWindow().sizeToScene();
+
+        c.finish(); // do something after the scene change
     }
 
     /**
@@ -81,6 +87,15 @@ public class LastAdventures extends Application {
      */
     public static Stage getStage() {
         return stage;
+    }
+
+    /**
+     * Return the game scene.
+     *
+     * @return the scene
+     */
+    public static Scene getScene() {
+        return stage.getScene();
     }
 
     /**
@@ -109,23 +124,22 @@ public class LastAdventures extends Application {
         //data.add(EventType.KEY, new EventReader().load("/data/Events.json"));
 
         launch(args);
-
-    }
+   }
 
     public static void initializeGame(Character player, Universe uni) {
         final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();
         currentSaveFile.addCharacter(player);
         currentSaveFile.addUniverse(uni);
 
-        Random random = new Random();        
+        Random random = new Random();
         int randomX = random.nextInt(16) - 8;
         int randomY = random.nextInt(16) - 8;
         //for now, easiest to start near middle of the universe
-        SolarSystem start = Universe.getSolarSystemNear(uni, 
+        SolarSystem start = Universe.getSolarSystemNear(uni,
                 randomX + uni.getWidth()/2, randomY + uni.getHeight() /2);
         currentSaveFile.setSolarSystem(start);
     }
-    
+
     /**
      * Creates a new save file.
      */
