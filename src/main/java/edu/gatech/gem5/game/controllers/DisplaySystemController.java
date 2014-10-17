@@ -49,7 +49,14 @@ public class DisplaySystemController extends Controller {
     @FXML
     Label title;
 
-    public static final String SYSTEM_VIEW_FILE = "/fxml/travel.fxml";
+    public static final String SYSTEM_VIEW_FILE = "/fxml/system.fxml";
+
+    /**
+     * No arg constructor
+     */
+    public DisplaySystemController() {
+        this(LastAdventures.getCurrentSaveFile().getSolarSystem());
+    }
 
     /**
      * Construct the solar system display controller.
@@ -88,10 +95,7 @@ public class DisplaySystemController extends Controller {
             int x = (int) Math.round(Math.cos(theta) * r);
             int y = (int) Math.round(Math.sin(theta) * r);
             // create the visual planet representation
-            PlanetIcon p = new PlanetIcon();
-            p.setCursor(Cursor.HAND);
-            p.setPrefWidth(10);
-            p.setPrefHeight(10);
+            PlanetIcon p = new PlanetIcon(s);
             p.setOnMouseClicked(new TravelHandler(sys, i));
             // add it to the map
             map.addNode(x, y, p);
@@ -109,7 +113,7 @@ public class DisplaySystemController extends Controller {
     @FXML
     public void goBack(ActionEvent event) throws Exception {
         removeListeners();
-        LastAdventures.swap(new PlanetController());
+        LastAdventures.swap(new DisplayUniverseController());
     }
     /**
      * Sets the current planet and solar system to the save file, then changes to
@@ -193,8 +197,13 @@ public class DisplaySystemController extends Controller {
 
             Encounter enc = new Encounter();
 
-            Turn turn = new Turn();
-            turn.pass();
+            SolarSystem here = DisplaySystemController.this.sys;
+            SolarSystem there = save.getSolarSystem();
+            // only make a turn when switching solar systems
+            if (here != there) {
+                Turn turn = new Turn();
+                turn.pass();
+            }
 
             enc.getEncounter(save.getPlanet());
 

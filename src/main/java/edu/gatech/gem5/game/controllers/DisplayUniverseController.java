@@ -92,7 +92,7 @@ public class DisplayUniverseController extends Controller {
     @FXML
     public void goBack(ActionEvent event) throws Exception {
         removeListeners();
-        LastAdventures.swap(new PlanetController());
+        LastAdventures.swap(new DisplaySystemController());
     }
 
     private void addListeners() {

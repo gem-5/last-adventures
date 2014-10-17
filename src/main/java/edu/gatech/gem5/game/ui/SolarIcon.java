@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
+import javafx.scene.text.Text;
+import javafx.scene.text.Font;
 
 import edu.gatech.gem5.game.SolarSystem;
 
@@ -33,7 +35,6 @@ public class SolarIcon extends Region {
         shape.centerYProperty().bind(this.heightProperty().divide(2));
         shape.setFill(Color.WHITE);
         getChildren().add(shape);
-
     }
 
     /**
