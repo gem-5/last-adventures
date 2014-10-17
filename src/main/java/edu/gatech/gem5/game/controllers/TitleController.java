@@ -18,9 +18,6 @@ import javafx.scene.layout.GridPane;
 public class TitleController extends Controller {
 
     @FXML
-    private BorderPane defaultScene;
-
-    @FXML
     private GridPane gridPane;
 
     public static final String TITLE_VIEW_FILE = "/fxml/title.fxml" ;
@@ -31,28 +28,6 @@ public class TitleController extends Controller {
     public TitleController() {
         // load the view or throw an exception
         super(TITLE_VIEW_FILE);
-        
-        // Set opacity 0 initially, so that animation will run smoothly.
-        gridPane.setOpacity(0);
-        
-        // Adds fade-in animation when mouse enters the screen.
-        defaultScene.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                new FadeHandler(gridPane);
-
-            }
-        });
-
-        // Adds fade-out animation when mouse leaves the screen.
-        defaultScene.setOnMouseExited(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                new FadeHandler(gridPane, 0, .5, 1, 0);
-            }
-        });
     }
 
     /**
