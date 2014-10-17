@@ -7,6 +7,8 @@ import edu.gatech.gem5.game.data.GadgetType;
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.GovernmentType;
 import edu.gatech.gem5.game.Planet;
+import edu.gatech.gem5.game.controllers.EncounterController;
+import edu.gatech.gem5.game.controllers.PlanetController;
 import java.util.Random;
 
 /**
@@ -31,7 +33,11 @@ public class Encounter {
     private static final Object[] goods =
         LastAdventures.data.get(GoodType.KEY).values().toArray();
 
+    private static final double NOTHING = 1;
+    private static final double NPC = 0;
+    private static final double EVENT = .1;
     private static final Random r = new Random();
+    
 
     /**
      * Randomly generates a pirate, police, or trader encounter
@@ -39,8 +45,19 @@ public class Encounter {
      *
      */
     public void getEncounter(Planet p) {
-        int seed = Math.max(LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth(), 1);
-        getEncounter(seed, p);
+        double encounterType = r.nextDouble();
+        if (encounterType > NOTHING) {
+            //skip the encounter
+            LastAdventures.swap(new PlanetController());
+        } else if (encounterType > NPC) {
+            //encounter with a random NPC
+            int seed = Math.max(LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth(), 1);
+            getEncounter(seed, p);
+        } else if (encounterType > EVENT) {
+            //choose randomly from a list of events
+            
+        }
+
     }
 
     private void getEncounter(int seed, Planet p) {
@@ -55,8 +72,9 @@ public class Encounter {
         } else if (encounter <= traderChance) {
             spawn = traderEncounter(seed);
         } else {
-            spawn = pirateEncounter(seed);
+            spawn = pirateEncounter(seed);   
         }
+        //LastAdventures.swap(new EncounterController(this));
         spawn.processEncounter();
 
     }
