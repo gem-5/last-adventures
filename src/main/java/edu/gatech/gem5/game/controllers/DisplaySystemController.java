@@ -207,7 +207,7 @@ public class DisplaySystemController extends Controller {
 
             enc.getEncounter(save.getPlanet());
 
-            LastAdventures.swap(new PlanetController());
+            // LastAdventures.swap(new PlanetController());
         }
 
         private double distance() {
