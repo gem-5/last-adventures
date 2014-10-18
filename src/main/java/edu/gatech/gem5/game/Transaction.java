@@ -16,19 +16,19 @@ import java.util.stream.IntStream;
 public class Transaction {
 
     private Character player;
-    //the planet that this character is doing business on
-    private Planet planet;
+    //the trader that this character is doing business with
+    private Traderable trader;
     private String errorMessage;
 
     /**
-     * This transaction is between a player and a planet
+     * This transaction is between a player and a trader
      *
      * @param player The player making the transaction.
-     * @param planet The planet making the transaction.
+     * @param trader The trader making the transaction.
      */
-    public Transaction(Character player, Planet planet) {
+    public Transaction(Character player, Traderable trader) {
         this.player = player;
-        this.planet = planet;
+        this.trader = trader;
         this.errorMessage = "";
     }
 
@@ -39,13 +39,13 @@ public class Transaction {
      */
     public void buy(Map<String, Integer> purchases) {
         for (Map.Entry<String, Integer> p : purchases.entrySet()) {
-            int unitPrice = planet.getSupply().get(p.getKey());
+            int unitPrice = trader.getSupply().get(p.getKey());
             int sumTotal = unitPrice * p.getValue();
             // player loses money, gains cargo
             player.setMoney(player.getMoney() - sumTotal);
             player.getShip().addCargo(p.getKey(), p.getValue());
-            // planet loses stock
-            Map<String, Integer> stock = planet.getStock();
+            // trader loses stock
+            Map<String, Integer> stock = trader.getStock();
             stock.put(p.getKey(), stock.get(p.getKey()) - p.getValue());
         }
     }
@@ -57,10 +57,10 @@ public class Transaction {
      */
     public void sell(Map<String, Integer> sales) {
         for(Map.Entry<String, Integer> s : sales.entrySet()) {
-            int unitPrice = planet.getDemand().get(s.getKey());
+            int unitPrice = trader.getDemand().get(s.getKey());
             int sumTotal = unitPrice * s.getValue();
-            // planet loses money, player gains money
-            // TODO: take money from the planet
+            // trader loses money, player gains money
+            // TODO: take money from the trader
             player.setMoney(player.getMoney() + sumTotal);
             // player loses cargo
             player.getShip().takeCargo(s.getKey(), s.getValue());
@@ -77,11 +77,11 @@ public class Transaction {
         int total = 0;
         int count = 0;
         for (Map.Entry<String, Integer> p : purchases.entrySet()) {
-            int unitPrice = planet.getSupply().get(p.getKey());
+            int unitPrice = trader.getSupply().get(p.getKey());
             total += p.getValue() * unitPrice;
             count += p.getValue();
             // planet does not have enough stock
-            if (p.getValue() > planet.getStock().get(p.getKey())) {
+            if (p.getValue() > trader.getStock().get(p.getKey())) {
                 errorMessage = "The planet does not have that much in stock.";
                 return false;
             }

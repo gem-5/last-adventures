@@ -1,2 +1,4 @@
-
+.button, .button:default, .button:cancel, .button:armed {
+    -fx-font-size: 40;
+}
 

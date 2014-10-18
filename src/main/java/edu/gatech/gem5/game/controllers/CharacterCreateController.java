@@ -107,45 +107,6 @@ public class CharacterCreateController extends Controller {
                 engineerDec, investorDec };
         skillNames = new Label[] { pilot, fighter, trader, engineer, investor,
                 remaining };
-
-        // ******************************************************** ANIMATION
-
-        // TODO values, decButtons, incButtons can be grouped using a pane in
-        // the fxml. It is not necessary, but it will make this chunk of the
-        // code simpler. All of these are grouped under a single GridPane;
-        // therefore I did not take an immediate action. - James
-
-        // Hide labels and buttons (used for animation)
-        for (int x = 0; x < values.length; x++) {
-            skillNames[x].setTranslateX(-150);
-            skillNames[x].setOpacity(0);
-            values[x].setOpacity(0);
-            incButtons[x].setOpacity(0);
-            decButtons[x].setOpacity(0);
-        }
-
-        remainingValue.setTranslateX(-150);
-        remaining.setTranslateX(-150);
-        remainingValue.setOpacity(0);
-        remaining.setOpacity(0);
-        confirm.setOpacity(0);
-
-        // Apply transition animation
-        for (int x = 0; x < skillNames.length; x++) {
-            new TranslateHandler(skillNames[x], x / 5.0, .7, 0, 0, -150, 0);
-            new FadeHandler(skillNames[x], x / 5.0);
-        }
-        new TranslateHandler(remainingValue, skillNames.length / 5.0, .7, 0, 0,
-                -150, 0);
-        new FadeHandler(remainingValue, skillNames.length / 5.0);
-        // Apply fade-in animation
-        for (int x = 0; x < values.length; x++) {
-            new FadeHandler(values[x], skillNames.length / 5.0 + 1);
-            new FadeHandler(incButtons[x], skillNames.length / 5.0 + 1);
-            new FadeHandler(decButtons[x], skillNames.length / 5.0 + 1);
-        }
-        new FadeHandler(confirm, skillNames.length / 5.0 + 1.4);
-        // ***************************************************** END ANIMATION
     }
 
     /**
@@ -216,7 +177,7 @@ public class CharacterCreateController extends Controller {
     }
 
     private Universe createUniverse() {
-        return new Universe(120);
+        return new Universe();
     }
 
     /**

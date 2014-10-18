@@ -1,21 +1,23 @@
 package edu.gatech.gem5.game;
 
 import java.util.Random;
+import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+
+import edu.gatech.gem5.game.data.StarType;
 
 /**
  *
  * @author Jack
+ * @author Creston Bunch
  */
 public class SolarSystem {
     private final String name;
+    private final String type;
     private final int xCoordinate;
     private final int yCoordinate;
     private List<Planet> planets;
-
-    // each entry n represents the probability of an nth planet existing
-    private static final double[] PROBABILITIES = {1, 1, 0.66, 0.2};
 
     /**
      * Construct a solar system with a name, x, and y coordinate.
@@ -30,7 +32,8 @@ public class SolarSystem {
         this.name = name;
         this.xCoordinate = x;
         this.yCoordinate = y;
-        planets = determinePlanets();
+        this.type = determineType();
+        this.planets = determinePlanets();
     }
 
     /**
@@ -40,6 +43,15 @@ public class SolarSystem {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Get the type of the system.
+     *
+     * @return the star type
+     */
+    public StarType getType() {
+        return (StarType) LastAdventures.data.get(StarType.KEY).get(type);
     }
 
     /**
@@ -94,6 +106,24 @@ public class SolarSystem {
     }
 
     /**
+     * Choose the type of this solar system.
+     */
+    private String determineType() {
+        Map<String, StarType> stars = (Map<String, StarType>)
+            LastAdventures.data.get(StarType.KEY);
+
+        double roll = new Random().nextDouble();
+        double sum = 0;
+        for (Map.Entry<String, StarType> t : stars.entrySet()) {
+            sum += t.getValue().getOccurrence();
+            if (roll <= sum) return t.getKey();
+        }
+
+        // this should never happen unless max(sum) < 1.0
+        return null;
+    }
+
+    /**
      * Randomly creates a list of planets based on factors.
      */
     private List<Planet> determinePlanets() {
@@ -101,9 +131,10 @@ public class SolarSystem {
         NameGenerator nameGen = new NameGenerator(true);
         List<Planet> orbits = new ArrayList<>();
         int num = 0;
+        double[] probs = getType().getPlanetProbabilities();
         // roll through the list of probabilities
-        for (int i = 0; i < PROBABILITIES.length; i++) {
-            double p = PROBABILITIES[i];
+        for (int i = 0; i < probs.length; i++) {
+            double p = probs[i];
             double roll = random.nextDouble();
             if (roll <= p) num++;
             else break; // stop generating planets as soon as a roll fails

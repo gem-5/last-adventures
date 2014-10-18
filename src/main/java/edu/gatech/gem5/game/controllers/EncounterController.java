@@ -23,7 +23,7 @@ public class EncounterController extends Controller {
     @FXML
     Button cont;
 
-    private NPC encounter;
+    protected NPC encounter;
 
     @FXML
     Text dialog;
@@ -36,9 +36,12 @@ public class EncounterController extends Controller {
      */
     public EncounterController(NPC encounter) {
         // load the view or throw an exception
-        super(ENCOUNTER_VIEW_FILE);
+        this(encounter, ENCOUNTER_VIEW_FILE);
+    }
+
+    protected EncounterController(NPC encounter, String encounterFile) {
+        super(encounterFile);
         this.encounter = encounter;
-        // System.out.println("EncounterController created!");
 
         String msg = encounter.getEncounterMessage();
         dialog.setText(msg);

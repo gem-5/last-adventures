@@ -32,14 +32,14 @@
 }
 
 .button, .button:default, .button:cancel, .button:armed {
-    -fx-text-fill: #eeeeee;
-    -fx-font-size: 50;
+    -fx-text-fill: #2a9b17;
+    -fx-font-size: 25;
     -fx-background-color: rgba(0,0,0,0);
     -fx-border: none;
     -fx-padding: 0;
     -fx-margin: 0;
 	-fx-cursor: hand;
-    -fx-font-family: "Monofett";
+    -fx-font-family: "Nova Square";
 }
 
 .button:armed, .button:hover {
@@ -63,7 +63,7 @@
 }
 
 #header {
-    -fx-font-size: 25;
+    -fx-font-size: 30;
     -fx-font-family: "Nova Square";
     -fx-text-fill: #a4a3a3;
 }

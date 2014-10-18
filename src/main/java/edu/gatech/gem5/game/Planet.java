@@ -25,7 +25,7 @@ import java.util.TreeMap;
  * @author Jack
  * @author Creston
  */
-public class Planet {
+public class Planet implements Traderable {
 
     private int techLevel;
     private String environment;
@@ -173,11 +173,7 @@ public class Planet {
         return out;
     }
 
-    /**
-     * Get a map of goods and their quantities sold by this planet.
-     *
-     * @return the map
-     */
+    @Override
     public Map<String, Integer> getStock() {
         return currentStock;
     }
@@ -209,11 +205,7 @@ public class Planet {
         }
     }
 
-    /**
-     * Get a map of goods and their prices sold by this planet.
-     *
-     * @return the map
-     */
+    @Override
     public Map<String, Integer> getSupply() {
         Map<String, Integer> out = new TreeMap<>();
         for (CompanyType c : getCompanies()) {
@@ -246,11 +238,8 @@ public class Planet {
         }
         return out;
     }
-    /**
-     * Get a map of goods and their prices bought by this planet.
-     *
-     * @return the map
-     */
+
+    @Override
     public Map<String, Integer> getDemand() {
         Map<String, Integer> in = new TreeMap<>();
         Ship playerShip = LastAdventures.getCurrentSaveFile().getCharacter().getShip();

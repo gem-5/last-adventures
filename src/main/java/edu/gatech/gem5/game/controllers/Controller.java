@@ -46,8 +46,8 @@ public abstract class Controller implements Initializable {
      *
      * @return the view
      */
-    public Scene getScene() {
-        return new Scene(this.root);
+    public Parent getRoot() {
+        return this.root;
     }
 
     /**
@@ -61,5 +61,11 @@ public abstract class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // do nothing
     }
+
+    /**
+     * Run this after the scene has been updated. Useful when you need to know
+     * node sizes.
+     */
+    public void finish() { }
 
 }

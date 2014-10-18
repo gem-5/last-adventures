@@ -8,6 +8,9 @@ import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.GovernmentType;
 import edu.gatech.gem5.game.Planet;
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Controller class to handle the logic behind processing Encounters
@@ -103,6 +106,33 @@ public class Encounter {
         int gadgetsNum = Math.min(r.nextInt(seed) / 10000, shipT.getGadgetSlots() - 1);
         for (int i = 0; i < gadgetsNum; i++) {
             ship.getGadgetList().add((GadgetType) gadgets[i]);
+        }
+
+        // Traders also get trade goods in their inventory
+        int cargoSize = shipT.getCargoSlots();
+
+        Object[] goods = LastAdventures.data.get(GoodType.KEY).values().toArray();
+        List<GoodType> legalGoods = new ArrayList<>(); // Traders only carry legal goods
+        for (Object g: goods) {
+            GoodType gt = (GoodType) g;
+            if (gt.isLegal()) {
+                legalGoods.add(gt);
+            }
+        }
+
+        // TODO: Sort goods according to their value, then fill up cargo bays w/ loot based on seed
+        legalGoods.sort(new Comparator<GoodType>(){
+                public int compare(GoodType g1, GoodType g2) {
+                    return g1.getValue() - g2.getValue();
+                }
+            });
+
+        int goodsIndex = Math.min(r.nextInt(seed) / 20000, legalGoods.size() - 3);
+        int maxValue = seed;
+
+        for (int i = 0; i < 3; i++) {
+            GoodType good = legalGoods.get(goodsIndex + i);
+            ship.addCargo(good.getKey(), r.nextInt(maxValue / good.getValue()));
         }
 
         return Trader.createTrader(seed, ship);
