@@ -1,0 +1,28 @@
+@font-face {
+	font-family: "Nova Square";
+	src: url("/font/NovaSquare.ttf");
+}
+
+@font-face {
+	font-family: "Prosto One";
+	src: url("/font/ProstoOne.ttf");
+}
+
+.root {
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-font-family: "Prosto One";
+    -fx-padding: 10px;
+}
+
+.label {
+    -fx-text-fill: #eeeeee;
+    -fx-font-size: 10;
+    -fx-font-family: "Prosto One"
+}
+
+#title {
+    -fx-font-size: 20;
+    -fx-font-family: "Prosto One";
+}
+
+

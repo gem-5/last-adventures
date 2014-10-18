@@ -124,6 +124,7 @@ public class LastAdventures extends Application {
         EnvironmentReader().load("/data/Environments.json"));
         data.add(TechType.KEY, new TechReader().load("/data/TechLevels.json"));
         data.add(StoryText.KEY, new StoryReader().load("/data/Story.json"));
+        data.add(StarType.KEY, new StarReader().load("/data/Stars.json"));
 
         // Universe.main(new String[0]);
         // Encounter.main(new String[0]);
