@@ -1,19 +1,21 @@
 package edu.gatech.gem5.game.ui;
 
-import java.io.IOException;
+import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Planet;
+import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.Ship;
+import edu.gatech.gem5.game.data.ShipType;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.beans.property.StringProperty;
+import java.io.IOException;
+import java.util.Map;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
-import javafx.scene.input.MouseEvent;
 
-import edu.gatech.gem5.game.data.DataType;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 
 /**
  * BuyBar custom FXML element controller class
@@ -75,6 +77,19 @@ public class UpgradeBar extends HBox {
     public void setText(String text) {
         this.lblItem.setText(text);
     }
-
-
+    
+    @FXML
+    private void makeSale(ActionEvent event) throws Exception {
+        SaveFile save = LastAdventures.getCurrentSaveFile();
+        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
+        ShipType ship = ships.get(product);
+        int playerCash = save.getCharacter().getMoney();
+        if (playerCash < price) {
+            
+        } else {
+            Ship newShip = new Ship(ship);
+            save.getCharacter().setShip(newShip);
+            save.getCharacter().setMoney(playerCash - price);
+        }
+    }
 }

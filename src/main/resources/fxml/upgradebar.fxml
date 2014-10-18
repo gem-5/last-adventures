@@ -9,4 +9,5 @@
     <Label fx:id="lblItem"/>
     <Region HBox.Hgrow="always"/>
     <Label fx:id="lblPrice"/>
+    <Button id="buyShip" onAction="#makeSale" text="Buy"/>
 </fx:root>

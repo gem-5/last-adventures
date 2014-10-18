@@ -107,6 +107,8 @@ public class PlanetController extends Controller {
             LastAdventures.swap(new MarketController());
         } else if (id.equals("travel")) {
             LastAdventures.swap(new DisplayUniverseController());
+        } else if (id.equals("shipyard")) {
+            LastAdventures.swap(new ShipyardController());
         }
     }
 
