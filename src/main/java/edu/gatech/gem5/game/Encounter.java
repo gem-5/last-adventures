@@ -76,7 +76,7 @@ public class Encounter {
 
         int shieldsNum = Math.min(r.nextInt(seed) / 15000, shipT.getShieldSlots() - 1);
         for (int i = 0; i < shieldsNum; i++) {
-            ship.getShieldList().add((ShieldType) shields[i]);
+            ship.getShieldList().add(new Shield((ShieldType) shields[i]));
         }
 
         int gadgetsNum = Math.min(r.nextInt(seed) / 20000, shipT.getGadgetSlots() - 1);
@@ -100,7 +100,7 @@ public class Encounter {
 
         int shieldsNum = Math.min(r.nextInt(seed) / 15000, shipT.getShieldSlots() - 1);
         for (int i = 0; i < shieldsNum; i++) {
-            ship.getShieldList().add((ShieldType) shields[i]);
+            ship.getShieldList().add(new Shield((ShieldType) shields[i]));
         }
 
         int gadgetsNum = Math.min(r.nextInt(seed) / 10000, shipT.getGadgetSlots() - 1);
@@ -151,7 +151,7 @@ public class Encounter {
 
         int shieldsNum = Math.min(r.nextInt(seed) / 10000, shipT.getShieldSlots() - 1);
         for (int i = 0; i < shieldsNum; i++) {
-            ship.getShieldList().add((ShieldType) shields[i]);
+            ship.getShieldList().add(new Shield((ShieldType) shields[i]));
         }
 
         int gadgetsNum = Math.min(r.nextInt(seed) / 20000, shipT.getGadgetSlots() - 1);

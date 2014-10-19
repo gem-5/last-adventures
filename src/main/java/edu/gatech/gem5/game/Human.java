@@ -177,4 +177,15 @@ public abstract class Human {
         }
 
     }
+
+    public double getOffensiveMultiplier() {
+        return this.fighter / 100.0;
+    }
+
+    public void attackShip(Ship s) {
+        double damage = this.ship.calcWeaponDamage();
+        damage *= getOffensiveMultiplier();
+
+        s.receiveDamage(damage);
+    }
 }
