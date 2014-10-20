@@ -21,6 +21,7 @@ public class Shield {
 
     public void decrementHealth(double damage) {
         this.remainingIntegrity -= damage;
+        this.remainingIntegrity = Math.max(0, remainingIntegrity);
     }
 
     public double maxHealth() {

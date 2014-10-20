@@ -211,16 +211,34 @@ public class Ship {
                 }
             }
         }
+        // You can do some minimal damage without a ship
+        if (getWeaponList().size() == 0) {
+            damage = 50 * r.nextInt(2);
+        }
         return damage;
 
     }
 
-    public void receiveDamage(double damage) {
+    public String receiveDamage(double damage) {
+        String result = "";
         for (Shield s: getShieldList()) {
-            // TODO: implement logic towards using shields as damage buffers
+            if (s.getHealth() != 0 && damage > 0.01) {
+                double newDamage = damage - s.getHealth();
+                s.decrementHealth(damage);
+                result += String.format("Shield %s absorbs the blow, %2f / %2f health remains.%n",
+                                        s.getHealth(), s.maxHealth());
+                damage = Math.max(newDamage, 0);
+            }
         }
         this.health = Math.max(0, this.health - damage);
+        if (damage > 0.01) {
+            result += String.format("The attack pierces the hull, dealing %2f damage.%n"
+                                    + "Remaining Hull Strength: %2f / %2f.%n", damage,
+                                    this.health, this.type.getHullStrength());
+        }
         this.destroyed = this.health == 0;
+
+        return result;
     }
 
 }
