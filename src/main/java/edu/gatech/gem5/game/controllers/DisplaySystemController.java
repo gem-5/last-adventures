@@ -8,12 +8,15 @@ import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Character;
+import edu.gatech.gem5.game.EncounterManager;
+import edu.gatech.gem5.game.Encounterable;
 import edu.gatech.gem5.game.Turn;
 import edu.gatech.gem5.game.ui.SolarSystemDisplay;
 import edu.gatech.gem5.game.ui.ExplorableDisplay;
 import edu.gatech.gem5.game.ui.SolarIcon;
 import edu.gatech.gem5.game.ui.PlanetIcon;
 import edu.gatech.gem5.game.ui.HoverBox;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -52,8 +55,11 @@ public class DisplaySystemController extends Controller {
 
     @FXML
     Label title;
+    
+    public static final int encounterNumber = 5;
 
     public static final String SYSTEM_VIEW_FILE = "/fxml/system.fxml";
+    
 
     /**
      * No arg constructor
@@ -196,23 +202,23 @@ public class DisplaySystemController extends Controller {
             int cost = (int) Math.floor(distance());
             ship.setFuel(ship.getFuel() - cost);
 
+            // cache current solar system in this snazzy variable
+            SolarSystem here =  save.getSolarSystem();
+            
             // update save file
             save.setSolarSystem(sys);
             save.setCurrentPlanet(p);
-
-            Encounter enc = new Encounter();
-
-            SolarSystem here = DisplaySystemController.this.sys;
+            
             SolarSystem there = save.getSolarSystem();
             // only make a turn when switching solar systems
             if (here != there) {
                 Turn turn = new Turn();
                 turn.pass();
+                EncounterManager trip = new EncounterManager();
+                trip.nextEncounter();
+            } else {
+                LastAdventures.swap(new PlanetController());
             }
-
-            enc.getEncounter(save.getPlanet());
-
-            LastAdventures.swap(new PlanetController());
         }
 
         private double distance() {

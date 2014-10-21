@@ -1,5 +1,6 @@
 package edu.gatech.gem5.game;
 
+import java.util.LinkedList;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -14,6 +15,8 @@ import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.controllers.TitleController;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 /**
  *
@@ -121,10 +124,10 @@ public class LastAdventures extends Application {
         EnvironmentReader().load("/data/Environments.json"));
         data.add(TechType.KEY, new TechReader().load("/data/TechLevels.json"));
         data.add(StoryText.KEY, new StoryReader().load("/data/Story.json"));
-        //data.add(EventType.KEY, new EventReader().load("/data/Events.json"));
         data.add(StarType.KEY, new StarReader().load("/data/Stars.json"));
 
-
+        // Universe.main(new String[0]);
+        // Encounter.main(new String[0]);
         launch(args);
    }
 

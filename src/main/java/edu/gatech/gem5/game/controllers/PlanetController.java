@@ -1,14 +1,17 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Ship;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.data.CompanyType;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -26,6 +29,7 @@ public class PlanetController extends Controller {
 
     @FXML
     private Label title;
+
     @FXML
     private Label lblCompanies;
     @FXML
@@ -97,7 +101,7 @@ public class PlanetController extends Controller {
         if (id.equals("market")) {
             LastAdventures.swap(new MarketController());
         } else if (id.equals("travel")) {
-            LastAdventures.swap(new DisplaySystemController());
+            LastAdventures.swap(new DisplayUniverseController());
         } else if (id.equals("shipyard")) {
             LastAdventures.swap(new ShipyardController());
         }
@@ -164,3 +168,4 @@ public class PlanetController extends Controller {
         }
     }
 }
+
