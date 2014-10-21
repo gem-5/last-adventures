@@ -11,7 +11,7 @@ import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Turn;
 import edu.gatech.gem5.game.ui.UniverseDisplay;
 import edu.gatech.gem5.game.ui.ExplorableDisplay;
-import edu.gatech.gem5.game.ui.SolarIcon;
+import edu.gatech.gem5.game.ui.StarIcon;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +24,8 @@ import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.Cursor;
+import javafx.scene.control.Tooltip;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -74,7 +76,8 @@ public class DisplayUniverseController extends Controller {
             int y = s.getYCoordinate();
             int size = s.getPlanets().size();
             // Load an image to represent the solar system
-            SolarIcon sys = new SolarIcon(s);
+            StarIcon sys = new StarIcon(s);
+            sys.setCursor(Cursor.HAND);
             sys.setOnMouseClicked(new TravelHandler(s));
             // add the system to the map
             map.addNode(x, y, sys);

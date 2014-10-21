@@ -13,6 +13,7 @@ import edu.gatech.gem5.game.ui.SolarSystemDisplay;
 import edu.gatech.gem5.game.ui.ExplorableDisplay;
 import edu.gatech.gem5.game.ui.SolarIcon;
 import edu.gatech.gem5.game.ui.PlanetIcon;
+import edu.gatech.gem5.game.ui.HoverBox;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -25,9 +26,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.Tooltip;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -45,6 +43,12 @@ public class DisplaySystemController extends Controller {
     private ExplorableDisplay map;
     private UpdateListener updateListener;
     private SaveFile save;
+
+    @FXML
+    Pane root;
+
+    @FXML
+    Pane content;
 
     @FXML
     Label title;
@@ -80,9 +84,9 @@ public class DisplaySystemController extends Controller {
 
     public void finish() {
         // add a sun
-        SolarIcon sun = new SolarIcon();
-        sun.setPrefWidth(50);
-        sun.setPrefHeight(50);
+        SolarIcon sun = new SolarIcon(sys);
+        sun.setPrefWidth(100);
+        sun.setPrefHeight(100);
         map.addNode(0,0, sun);
         // add planets
         double theta = 0;
@@ -97,6 +101,7 @@ public class DisplaySystemController extends Controller {
             // create the visual planet representation
             PlanetIcon p = new PlanetIcon(s);
             p.setOnMouseClicked(new TravelHandler(sys, i));
+
             // add it to the map
             map.addNode(x, y, p);
             i++;

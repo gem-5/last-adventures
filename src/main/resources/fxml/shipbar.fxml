@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.*?>
 
 <fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
+    <RadioButton fx:id="rdbSelect" />
     <Label fx:id="lblItem"/>
     <Region HBox.Hgrow="always"/>
     <Label fx:id="lblPrice"/>
-    <Button id="buyShip" onAction="#makeSale" text="Buy"/>
 </fx:root>

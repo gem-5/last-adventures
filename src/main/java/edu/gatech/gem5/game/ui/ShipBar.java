@@ -12,17 +12,19 @@ import java.util.Map;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 /**
- * BuyBar custom FXML element controller class
+ * ShipBar custom FXML element controller class
  *
  * @author Creston Bunch
  */
-public class UpgradeBar extends HBox {
+public class ShipBar extends HBox {
 
     private String product;
     private int price;
@@ -33,12 +35,15 @@ public class UpgradeBar extends HBox {
     @FXML
     private Label lblPrice;
 
+    @FXML
+    private RadioButton rdbSelect;
+
     /**
      * Construct and set the root of this custom control.
      */
-    public UpgradeBar() {
+    public ShipBar() {
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/fxml/upgradebar.fxml")
+            getClass().getResource("/fxml/shipbar.fxml")
         );
         loader.setRoot(this);
         loader.setController(this);
@@ -60,6 +65,15 @@ public class UpgradeBar extends HBox {
     }
 
     /**
+     * Return the key for the item sold.
+     *
+     * @return the key
+     */
+    public String getKey() {
+        return this.product;
+    }
+
+    /**
      * Set the price of the item sold.
      *
      * @param p the price
@@ -77,19 +91,22 @@ public class UpgradeBar extends HBox {
     public void setText(String text) {
         this.lblItem.setText(text);
     }
-    
-    @FXML
-    private void makeSale(ActionEvent event) throws Exception {
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
-        ShipType ship = ships.get(product);
-        int playerCash = save.getCharacter().getMoney();
-        if (playerCash < price) {
-            
-        } else {
-            Ship newShip = new Ship(ship);
-            save.getCharacter().setShip(newShip);
-            save.getCharacter().setMoney(playerCash - price);
-        }
+
+    /**
+     * Set the toggle group for the radio button.
+     *
+     * @param group the group
+     */
+    public void setToggleGroup(ToggleGroup group) {
+        this.rdbSelect.setToggleGroup(group);
+    }
+
+    /**
+     * Check if the radiobutton is selected.
+     *
+     * @return true or false.
+     */
+    public boolean isSelected() {
+        return this.rdbSelect.isSelected();
     }
 }

@@ -122,7 +122,6 @@ public class LoadGameController extends Controller {
             new FadeHandler(n, x / 8.0);
             x++;
         }
-
     }
 
     /**
