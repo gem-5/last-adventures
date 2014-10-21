@@ -6,9 +6,7 @@ import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.GovernmentType;
-import edu.gatech.gem5.game.Planet;
-import edu.gatech.gem5.game.controllers.EncounterController;
-import edu.gatech.gem5.game.controllers.PlanetController;
+import edu.gatech.gem5.game.controllers.EncounterManager;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
@@ -36,35 +34,27 @@ public class Encounter {
     private static final Object[] goods =
         LastAdventures.data.get(GoodType.KEY).values().toArray();
 
-    private static final double NOTHING = 1;
-    private static final double NPC = 0;
-    private static final double EVENT = .1;
     private static final Random r = new Random();
+
+    private EncounterManager trip;
     
+    public Encounter(EncounterManager trip) {
+        this.trip = trip;
+    }
 
     /**
      * Randomly generates a pirate, police, or trader encounter
      * @param p The planet the player is currently traveling to.
+     * @return any type of object encounterable on a trip
      *
      */
-    public void getEncounter(Planet p) {
-        double encounterType = r.nextDouble();
-        if (encounterType > NOTHING) {
-            //skip the encounter
-            LastAdventures.swap(new PlanetController());
-        } else if (encounterType > NPC) {
-            //encounter with a random NPC
-            int seed = Math.max(LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth(), 1);
-            getEncounter(seed, p);
-        } else if (encounterType > EVENT) {
-            //choose randomly from a list of events
-            
-        }
-
+    public Encounterable getType(Planet p) {
+        int seed = Math.max(LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth(), 1);
+        return getType(seed, p);
     }
 
-    private void getEncounter(int seed, Planet p) {
-        NPC spawn = null;
+    private Encounterable getType(int seed, Planet p) {
+        Encounterable spawn = null;
         GovernmentType gov = p.getGovernment();
         int policeChance = (int) (gov.getPolice() * 10);
         int traderChance = (int) (gov.getTraders() * 10);
@@ -75,10 +65,10 @@ public class Encounter {
         } else if (encounter <= traderChance) {
             spawn = traderEncounter(seed);
         } else {
-            spawn = pirateEncounter(seed);   
+            spawn = pirateEncounter(seed);
         }
-        //LastAdventures.swap(new EncounterController(this));
-        spawn.processEncounter();
+        spawn.setManager(trip);
+        return spawn;
 
     }
 
@@ -186,9 +176,9 @@ public class Encounter {
      * @param args commandline arguments.
      */
     public static void main(String[] args) {
-        Encounter e = new Encounter();
+        Encounter e = new Encounter(new EncounterManager());
         for (int i = 1; i < 20; i++) {
-            e.getEncounter(100000 * i, null);
+            e.getType(100000 * i, null);
         }
 
     }

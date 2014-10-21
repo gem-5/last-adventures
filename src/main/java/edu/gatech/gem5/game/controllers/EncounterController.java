@@ -1,11 +1,14 @@
 package edu.gatech.gem5.game.controllers;
 
+import edu.gatech.gem5.game.Encounterable;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.NPC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
 
@@ -23,7 +26,7 @@ public class EncounterController extends Controller {
     @FXML
     Button cont;
 
-    protected NPC encounter;
+    protected Encounterable encounter;
 
     @FXML
     Text dialog;
@@ -34,19 +37,15 @@ public class EncounterController extends Controller {
      * Construct the encounter controller.
      * @param encounter the NPC that the Character has encountered.
      */
-    public EncounterController(NPC encounter) {
+    public EncounterController(Encounterable encounter) {
         // load the view or throw an exception
-        this(encounter, ENCOUNTER_VIEW_FILE);
-    }
-
-    protected EncounterController(NPC encounter, String encounterFile) {
-        super(encounterFile);
+        super(encounter.getViewFile());
         this.encounter = encounter;
-
         String msg = encounter.getEncounterMessage();
         dialog.setText(msg);
     }
 
+    
     /**
      * Continue to the new planet screen.
      *
@@ -55,7 +54,9 @@ public class EncounterController extends Controller {
      */
     @FXML
     public void continueToPlanet(ActionEvent event) throws Exception {
-        LastAdventures.swap(new PlanetController());
+        //"continue to planet" in sense of get further along in your trip
+        encounter.getManager().nextEncounter();
+
     }
 
 
