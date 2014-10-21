@@ -33,6 +33,7 @@
     <bottom>
         <VBox>
             <HBox>
+                <Button id="buyShip" onAction="#makeSale" text="Buy"/>
                 <Region HBox.Hgrow="always" />
                 <Button onAction="#goBack" text="Back" />
             </HBox>
