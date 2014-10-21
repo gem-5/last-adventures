@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game.ui;
 
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
@@ -77,15 +78,15 @@ public class UpgradeBar extends HBox {
     public void setText(String text) {
         this.lblItem.setText(text);
     }
-    
+
     @FXML
     private void makeSale(ActionEvent event) throws Exception {
         SaveFile save = LastAdventures.getCurrentSaveFile();
-        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
+        Map<String, ShipType> ships = Data.SHIPS.get();
         ShipType ship = ships.get(product);
         int playerCash = save.getCharacter().getMoney();
         if (playerCash < price) {
-            
+
         } else {
             Ship newShip = new Ship(ship);
             save.getCharacter().setShip(newShip);

@@ -18,21 +18,11 @@ import java.util.Comparator;
  */
 public class Encounter {
 
-    //TODO: Find a way to properly get these to cast.
-    private static final Object[] ships =
-        LastAdventures.data.get(ShipType.KEY).values().toArray();
-
-    private static final Object[] weapons =
-        LastAdventures.data.get(WeaponType.KEY).values().toArray();
-
-    private static final Object[] shields =
-        LastAdventures.data.get(ShieldType.KEY).values().toArray();
-
-    private static final Object[] gadgets =
-        LastAdventures.data.get(GadgetType.KEY).values().toArray();
-
-    private static final Object[] goods =
-        LastAdventures.data.get(GoodType.KEY).values().toArray();
+    private static final ShipType[] ships = Data.SHIPS.get().values().toArray(new ShipType[0]);
+    private static final WeaponType[] weapons = Data.WEAPONS.get().values().toArray(new WeaponType[0]);
+    private static final ShieldType[] shields = Data.SHIELDS.get().values().toArray(new ShieldType[0]);
+    private static final GadgetType[] gadgets = Data.GADGETS.get().values().toArray(new GadgetType[0]);
+    private static final GoodType[] goods = Data.GOODS.get().values().toArray(new GoodType[0]);
 
     private static final Random r = new Random();
 
@@ -66,22 +56,22 @@ public class Encounter {
 
     private Pirate pirateEncounter(int seed) {
         int shipIndex = Math.min(r.nextInt(seed) / 7500, ships.length - 1);
-        ShipType shipT = (ShipType) ships[shipIndex];
+        ShipType shipT = ships[shipIndex];
         Ship ship = new Ship(shipT);
 
         int weaponsNum = Math.min(r.nextInt(seed) / 10000, shipT.getWeaponSlots() - 1);
         for (int i = 0; i < weaponsNum; i++) {
-            ship.getWeaponList().add((WeaponType) weapons[i]);
+            ship.getWeaponList().add(weapons[i]);
         }
 
         int shieldsNum = Math.min(r.nextInt(seed) / 15000, shipT.getShieldSlots() - 1);
         for (int i = 0; i < shieldsNum; i++) {
-            ship.getShieldList().add((ShieldType) shields[i]);
+            ship.getShieldList().add(shields[i]);
         }
 
         int gadgetsNum = Math.min(r.nextInt(seed) / 20000, shipT.getGadgetSlots() - 1);
         for (int i = 0; i < gadgetsNum; i++) {
-            ship.getGadgetList().add((GadgetType) gadgets[i]);
+            ship.getGadgetList().add(gadgets[i]);
         }
 
         return Pirate.createPirate(seed, ship);
@@ -90,33 +80,31 @@ public class Encounter {
 
     private Trader traderEncounter(int seed) {
         int shipIndex = Math.min(r.nextInt(seed) / 10000, ships.length - 1);
-        ShipType shipT = (ShipType) ships[shipIndex];
+        ShipType shipT = ships[shipIndex];
         Ship ship = new Ship(shipT);
 
         int weaponsNum = Math.min(r.nextInt(seed) / 20000, shipT.getWeaponSlots() - 1);
         for (int i = 0; i < weaponsNum; i++) {
-            ship.getWeaponList().add((WeaponType) weapons[i]);
+            ship.getWeaponList().add(weapons[i]);
         }
 
         int shieldsNum = Math.min(r.nextInt(seed) / 15000, shipT.getShieldSlots() - 1);
         for (int i = 0; i < shieldsNum; i++) {
-            ship.getShieldList().add((ShieldType) shields[i]);
+            ship.getShieldList().add(shields[i]);
         }
 
         int gadgetsNum = Math.min(r.nextInt(seed) / 10000, shipT.getGadgetSlots() - 1);
         for (int i = 0; i < gadgetsNum; i++) {
-            ship.getGadgetList().add((GadgetType) gadgets[i]);
+            ship.getGadgetList().add(gadgets[i]);
         }
 
         // Traders also get trade goods in their inventory
         int cargoSize = shipT.getCargoSlots();
 
-        Object[] goods = LastAdventures.data.get(GoodType.KEY).values().toArray();
         List<GoodType> legalGoods = new ArrayList<>(); // Traders only carry legal goods
-        for (Object g: goods) {
-            GoodType gt = (GoodType) g;
-            if (gt.isLegal()) {
-                legalGoods.add(gt);
+        for (GoodType g: goods) {
+            if (g.isLegal()) {
+                legalGoods.add(g);
             }
         }
 
@@ -141,22 +129,22 @@ public class Encounter {
 
     private Police policeEncounter(int seed) {
         int shipIndex = Math.min(r.nextInt(seed) / 5000, ships.length - 1);
-        ShipType shipT = (ShipType) ships[shipIndex];
+        ShipType shipT = ships[shipIndex];
         Ship ship = new Ship(shipT);
 
         int weaponsNum = Math.min(r.nextInt(seed) / 15000, shipT.getWeaponSlots() - 1);
         for (int i = 0; i < weaponsNum; i++) {
-            ship.getWeaponList().add((WeaponType) weapons[i]);
+            ship.getWeaponList().add(weapons[i]);
         }
 
         int shieldsNum = Math.min(r.nextInt(seed) / 10000, shipT.getShieldSlots() - 1);
         for (int i = 0; i < shieldsNum; i++) {
-            ship.getShieldList().add((ShieldType) shields[i]);
+            ship.getShieldList().add(shields[i]);
         }
 
         int gadgetsNum = Math.min(r.nextInt(seed) / 20000, shipT.getGadgetSlots() - 1);
         for (int i = 0; i < gadgetsNum; i++) {
-            ship.getGadgetList().add((GadgetType) gadgets[i]);
+            ship.getGadgetList().add(gadgets[i]);
         }
 
         return Police.createPolice(seed, ship);

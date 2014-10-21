@@ -96,8 +96,7 @@ public class Trader extends NPC implements Traderable {
         Character player = LastAdventures.getCurrentSaveFile().getCharacter();
         double multiplier = (this.getTrader() - player.getTrader() + 100) / 100.0;
         for (String s: cargo) {
-            GoodType g = (GoodType)
-                LastAdventures.data.get(GoodType.KEY).get(s);
+            GoodType g = Data.GOODS.get(s);
             double value = g.getValue() * multiplier;
             out.put(s, (int) Math.round(value));
         }
@@ -111,7 +110,7 @@ public class Trader extends NPC implements Traderable {
         Ship playerShip = player.getShip();
         double multiplier = (player.getTrader() - this.getTrader() + 100) / 100.0;
         for (String g : playerShip.getCargoList().keySet()) {
-            GoodType gt = (GoodType) LastAdventures.data.get(GoodType.KEY).get(g);
+            GoodType gt = Data.GOODS.get(g);
             double value = gt.getValue() * multiplier;
             in.put(g, (int) Math.round(value));
         }

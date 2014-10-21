@@ -2,6 +2,7 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.data.StoryText;
 import java.net.URL;
 import javafx.event.ActionEvent;
@@ -61,8 +62,7 @@ public class CharacterStatusController extends Controller {
         engineerValue.setText("Engineer: " + player.getEngineer());
         investorValue.setText("Investor: " + player.getInvestor());
 
-        String msg = LastAdventures
-                     .data.get(StoryText.KEY).get("intro").toString();
+        String msg = Data.STORY.get("intro").toString();
         dialog.setText(msg);
     }
 

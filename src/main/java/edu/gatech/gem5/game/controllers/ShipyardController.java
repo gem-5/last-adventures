@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
@@ -63,7 +64,7 @@ public class ShipyardController extends Controller {
         // and then we can use ToggleGroup.getSelectedToggle()
         // rather than this shit
         SaveFile save = LastAdventures.getCurrentSaveFile();
-        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
+        Map<String, ShipType> ships = Data.SHIPS.get();
         for (ShipBar bar : buyShips.getItems()) {
             if (bar.isSelected()) {
                 ShipType ship = ships.get(bar.getKey());
@@ -103,7 +104,7 @@ public class ShipyardController extends Controller {
 
     private void buildShipsList() {
         ObservableList<ShipBar> lstShips = FXCollections.observableArrayList();
-        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
+        Map<String, ShipType> ships = Data.SHIPS.get();
         for (String s : planet.getShips()) {
             ShipType ship = ships.get(s);
             ShipBar u = new ShipBar();
