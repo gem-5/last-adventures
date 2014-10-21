@@ -6,7 +6,7 @@ import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.GovernmentType;
-import edu.gatech.gem5.game.controllers.EncounterManager;
+import edu.gatech.gem5.game.EncounterManager;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;

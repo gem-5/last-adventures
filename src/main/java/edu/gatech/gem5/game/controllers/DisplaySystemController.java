@@ -8,6 +8,7 @@ import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Character;
+import edu.gatech.gem5.game.EncounterManager;
 import edu.gatech.gem5.game.Encounterable;
 import edu.gatech.gem5.game.Turn;
 import edu.gatech.gem5.game.ui.SolarSystemDisplay;

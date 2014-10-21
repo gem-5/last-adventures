@@ -1,7 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.EncounterController;
-import edu.gatech.gem5.game.controllers.EncounterManager;
+import edu.gatech.gem5.game.EncounterManager;
 
 
 /**
@@ -34,6 +34,7 @@ public abstract class NPC extends Human implements Encounterable {
         return manager;
     }
     
+    @Override
     public void setManager(EncounterManager manager) {
         this.manager = manager;
     }
