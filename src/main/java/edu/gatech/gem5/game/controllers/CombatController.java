@@ -23,7 +23,11 @@ public class CombatController extends Controller {
 
     @FXML
     Button attack;
+    @FXML
     Button flee;
+
+    @FXML
+    Button cont;
 
     Character player;
     NPC enemy;
@@ -43,6 +47,8 @@ public class CombatController extends Controller {
         super(COMBAT_VIEW_FILE);
         this.player = p;
         this.enemy = e;
+
+        cont.setVisible(false);
 
         enactCombat();
     }
@@ -68,12 +74,18 @@ public class CombatController extends Controller {
                                     + "You loot %d off their corpse.",
                                     enemy.getName(), enemy.getMoney());
             player.setMoney(player.getMoney() + enemy.getMoney());
+            attack.setVisible(false);
+            flee.setVisible(false);
+            cont.setVisible(true);
         } else {
             result += this.enemy.attackShip(player.getShip());
             if (player.getShip().isDestroyed()) {
                 result += String.format("With that last blow, the enemy, %s, has destroyed your Ship.%n"
                                         + "You escape to the planet, but without a Ship or any cargo.",
                                         enemy.getName());
+                attack.setVisible(false);
+                flee.setVisible(false);
+                cont.setVisible(true);
             }
         }
         dialog.setText(result);
@@ -85,5 +97,9 @@ public class CombatController extends Controller {
         variation += r.nextInt(h2.getPilot() / 10) - h2.getPilot() / 20;
 
         return h1.getPilot() + variation > h2.getPilot();
+    }
+
+    public void continueToPlanet(ActionEvent event) throws Exception {
+        enemy.getManager().nextEncounter();
     }
 }

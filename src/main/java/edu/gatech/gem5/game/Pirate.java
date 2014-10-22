@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class Pirate extends NPC {
 
-    public final String VIEW_FILE = "/fxml/encounter.fxml";
+    public final String VIEW_FILE = "/fxml/pirateencounter.fxml";
 
     private Pirate(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
@@ -90,7 +90,8 @@ public class Pirate extends NPC {
     public String getEncounterMessage() {
         String msg = super.getEncounterMessage();
         msg += this.toString();
-        msg += "\n\nHowever combat is not yet implemented, so the Pirate flees in confusion.";
+        // msg += "\n\nHowever combat is not yet implemented, so the Pirate flees in confusion.";
+        msg += "\n\n The Pirate attacks, prepare for battle!";
         return msg;
     }
     @Override

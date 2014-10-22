@@ -34,9 +34,10 @@
   <bottom>
     <HBox>
       <Region HBox.Hgrow="always" />
-      <Button mnemonicParsing="false" onAction="#attackEnemy" text="Attack" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" fx:id="attack" onAction="#attackEnemy" text="Attack" GridPane.columnIndex="0" GridPane.rowIndex="7" />
       <Region minWidth="50" />
-      <Button mnemonicParsing="false" onAction="#flee" text="Flee" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" fx:id="flee" onAction="#flee" text="Flee" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" fx:id="cont" onAction="#continueToPlanet" text="Continue" GridPane.columnIndex="0" GridPane.rowIndex="7" />
       <Region HBox.Hgrow="always" />
     </HBox>
   </bottom>

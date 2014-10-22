@@ -23,7 +23,7 @@ public class TraderEncounterController extends EncounterController {
     Button trade;
 
 
-    public static final String TRADER_VIEW_FILE = "/fxml/traderencounter.fxml";
+    // public static final String TRADER_VIEW_FILE = "/fxml/traderencounter.fxml";
 
     public TraderEncounterController(Encounterable encounter) {
         super(encounter);
@@ -42,7 +42,7 @@ public class TraderEncounterController extends EncounterController {
         LastAdventures.swap(new TraderController((Trader) encounter));
     }
 
-    public void attackEnemy(ActionEvent event) throws Exception {
-        // not yet implemented
-    }
+    // public void attackEnemy(ActionEvent event) throws Exception {
+    //     // not yet implemented
+    // }
 }

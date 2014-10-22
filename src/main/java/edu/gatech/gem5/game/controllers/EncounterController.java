@@ -31,7 +31,10 @@ public class EncounterController extends Controller {
     @FXML
     Text dialog;
 
-    public static final String ENCOUNTER_VIEW_FILE = "/fxml/encounter.fxml";
+    @FXML
+    Button attack;
+
+    // public static final String ENCOUNTER_VIEW_FILE = "/fxml/encounter.fxml";
 
     /**
      * Construct the encounter controller.
@@ -45,7 +48,7 @@ public class EncounterController extends Controller {
         dialog.setText(msg);
     }
 
-    
+
     /**
      * Continue to the new planet screen.
      *
@@ -59,5 +62,9 @@ public class EncounterController extends Controller {
 
     }
 
+    public void attackEnemy(ActionEvent event) throws Exception {
+        LastAdventures.swap(new CombatController(LastAdventures.getCurrentSaveFile().getCharacter(),
+                                                 (NPC) encounter));
+    }
 
 }

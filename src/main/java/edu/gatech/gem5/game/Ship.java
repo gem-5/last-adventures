@@ -46,6 +46,7 @@ public class Ship {
         this.shieldList = new ArrayList<>(type.getShieldSlots());
         this.gadgetList = new ArrayList<>(type.getGadgetSlots());
         this.crewList = new Mercenary[type.getCrewSlots()];
+        this.health = (double) type.getHullStrength();
     }
 
     /**
@@ -225,15 +226,16 @@ public class Ship {
             if (s.getHealth() != 0 && damage > 0.01) {
                 double newDamage = damage - s.getHealth();
                 s.decrementHealth(damage);
-                result += String.format("Shield %s absorbs the blow, %2f / %2f health remains.%n",
-                                        s.getHealth(), s.maxHealth());
+                result += String.format("Shield: %s absorbs the blow, %.2f / %.2f health remains.%n",
+                                        s.getType().getName(), s.getHealth(), s.maxHealth());
                 damage = Math.max(newDamage, 0);
             }
         }
         this.health = Math.max(0, this.health - damage);
+        // this.health = this.health - damage;
         if (damage > 0.01) {
-            result += String.format("The attack pierces the hull, dealing %2f damage.%n"
-                                    + "Remaining Hull Strength: %2f / %2f.%n", damage,
+            result += String.format("The attack pierces the hull, dealing %.2f damage.%n"
+                                    + "Remaining Hull Strength: %.2f / %d%n", damage,
                                     this.health, this.type.getHullStrength());
         }
         this.destroyed = this.health == 0;
