@@ -1,5 +1,6 @@
 package edu.gatech.gem5.game.controllers;
 
+import edu.gatech.gem5.game.Encounterable;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Trader;
 import javafx.event.ActionEvent;
@@ -24,15 +25,19 @@ public class TraderEncounterController extends EncounterController {
 
     public static final String TRADER_VIEW_FILE = "/fxml/traderencounter.fxml";
 
+    public TraderEncounterController(Encounterable encounter) {
+        super(encounter);
+    }
+
     /**
      * Contruct the trader encounter controller
      * @param t the Trader that the Character has encountered.
      */
-    public TraderEncounterController(Trader t) {
-        super(t, TRADER_VIEW_FILE);
-    }
+    //public TraderEncounterController(Trader t) {
+        //super(t, TRADER_VIEW_FILE);
+    //}
 
-
+    @FXML
     public void tradeWithTrader(ActionEvent event) throws Exception {
         LastAdventures.swap(new TraderController((Trader) encounter));
     }

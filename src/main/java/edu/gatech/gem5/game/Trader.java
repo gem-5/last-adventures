@@ -16,6 +16,9 @@ import java.util.TreeMap;
  */
 
 public class Trader extends NPC implements Traderable {
+    
+    public final String VIEW_FILE = "/fxml/traderencounter.fxml";
+
 
     private Trader(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
@@ -70,7 +73,9 @@ public class Trader extends NPC implements Traderable {
         return new Trader(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
 
-
+    /**
+     * Avoids the generic encounter controller so functionality can be added.
+     */
     @Override
     public void processEncounter() {
         LastAdventures.swap(new TraderEncounterController(this));
@@ -96,8 +101,7 @@ public class Trader extends NPC implements Traderable {
         Character player = LastAdventures.getCurrentSaveFile().getCharacter();
         double multiplier = (this.getTrader() - player.getTrader() + 100) / 100.0;
         for (String s: cargo) {
-            GoodType g = (GoodType)
-                LastAdventures.data.get(GoodType.KEY).get(s);
+            GoodType g = Data.GOODS.get(s);
             double value = g.getValue() * multiplier;
             out.put(s, (int) Math.round(value));
         }
@@ -111,7 +115,7 @@ public class Trader extends NPC implements Traderable {
         Ship playerShip = player.getShip();
         double multiplier = (player.getTrader() - this.getTrader() + 100) / 100.0;
         for (String g : playerShip.getCargoList().keySet()) {
-            GoodType gt = (GoodType) LastAdventures.data.get(GoodType.KEY).get(g);
+            GoodType gt = Data.GOODS.get(g);
             double value = gt.getValue() * multiplier;
             in.put(g, (int) Math.round(value));
         }
@@ -122,5 +126,15 @@ public class Trader extends NPC implements Traderable {
     @Override
     public String toString() {
         return "*TRADER*\n" + super.toString();
+    }
+
+    /**
+     * 
+     * @return The FXML to be shown that is specific to this type of encounter
+     * after the initial encounter screen.
+     */
+    @Override
+    public String getViewFile() {
+        return VIEW_FILE;
     }
 }

@@ -29,8 +29,6 @@ public class LastAdventures extends Application {
 
     private static SaveFile saveFile;
 
-    public static Manager data;
-
     private static Parent root;
     private static Stage stage;
 
@@ -107,26 +105,8 @@ public class LastAdventures extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        data = new Manager();
-
-        data.add(ShipType.KEY, new ShipReader().load("/data/Ships.json"));
-        data.add(GadgetType.KEY, new GadgetReader().load("/data/Gadgets.json"));
-        data.add(GoodType.KEY, new GoodReader().load("/data/Goods.json"));
-        data.add(ShieldType.KEY, new ShieldReader().load("/data/Shields.json"));
-        data.add(WeaponType.KEY, new WeaponReader().load("/data/Weapons.json"));
-        data.add(CompanyType.KEY, new
-        CompanyReader().load("/data/Companies.json"));
-        data.add(GovernmentType.KEY, new
-        GovernmentReader().load("/data/Governments.json"));
-        data.add(ConditionType.KEY, new
-        ConditionReader().load("/data/Conditions.json"));
-        data.add(EnvironmentType.KEY, new
-        EnvironmentReader().load("/data/Environments.json"));
-        data.add(TechType.KEY, new TechReader().load("/data/TechLevels.json"));
-        data.add(StoryText.KEY, new StoryReader().load("/data/Story.json"));
-
-        // Universe.main(new String[0]);
-        // Encounter.main(new String[0]);
+        //Universe.main(new String[0]);
+        //Encounter.main(new String[0]);
         launch(args);
    }
 

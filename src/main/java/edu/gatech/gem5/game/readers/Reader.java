@@ -8,23 +8,57 @@ import java.nio.file.Paths;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.HashMap;
+
+import com.google.gson.Gson;
+import java.lang.reflect.Type;
+
+import edu.gatech.gem5.game.data.*;
 
 /**
  * An abstract class for parsing JSON dictionary data files into Java Maps.
  *
  * @author  Creston Bunch
- * @version 1.0.0
+ * @version 1.1.0
  */
 
-abstract public class Reader<T> {
-    
+public abstract class Reader<K, T> {
+
+    protected Map<K, T> map;
+
+    public Reader(String path, Type collectionType) {
+        Map<K, T> map = new HashMap<>();
+        InputStream stream = getClass().getResourceAsStream(path);
+        String json = readStream(stream);
+        this.map = new Gson().fromJson(json, collectionType);
+    }
+
+    /**
+     * Get the whole map.
+     *
+     * @return the data map
+     */
+    public Map<K, T> get() {
+        return this.map;
+    }
+
+    /**
+     * Get a value from the data map.
+     *
+     * @param key The key to search for.
+     * @return the associated value
+     */
+    public T get(K key) {
+        return map.get(key);
+    }
+
     /**
      * Read a stream into a string.
      *
      * @param stream The input stream.
      * @return The contents of the stream as a string.
      */
-    protected String readStream(InputStream stream) {
+    private String readStream(InputStream stream) {
         String out = "";
         Scanner scanner = new Scanner(stream);
         while (scanner.hasNext()) {
@@ -32,41 +66,5 @@ abstract public class Reader<T> {
         }
         return out;
     }
-
-    /**
-     * Read a file into a string.
-     *
-     * @param filename The path of the file to read.
-     * @return The contents of the file as a UTF-8 string.
-     */
-    protected String readFile(String filename) {
-        // default to UTF-8
-        return readFile(filename, StandardCharsets.UTF_8);
-    }
-
-    /**
-     * Read a file into a string.
-     *
-     * @param path The path of the file to read.
-     * @param enc The encoding of the file.
-     * @return The contents of the file in the specified encoding.
-     */
-    protected String readFile(String path, Charset enc) {
-        try {
-            byte[] encoded = Files.readAllBytes(Paths.get(path));
-            return new String(encoded, enc);
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-        return "";
-    }
-
-    /**
-     * Load the JSON dictionary into a Map object.
-     *
-     * @param path The path of the data file to load.
-     * @return A map with the ids and corresponding objects.
-     */
-    abstract public Map<? extends Object, T> load(String path);
 
 }

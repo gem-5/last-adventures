@@ -13,6 +13,8 @@ import java.util.Random;
 
 public class Pirate extends NPC {
 
+    public final String VIEW_FILE = "/fxml/encounter.fxml";
+    
     private Pirate(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
@@ -96,5 +98,15 @@ public class Pirate extends NPC {
     @Override
     public String toString() {
         return "*PIRATE*\n" + super.toString();
+    }
+    
+    /**
+     * 
+     * @return The FXML to be shown that is specific to this type of encounter
+     * after the initial encounter screen.
+     */
+    @Override
+    public String getViewFile() {
+        return VIEW_FILE;
     }
 }

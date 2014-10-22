@@ -13,6 +13,8 @@ import java.util.Random;
 
 public class Police extends NPC {
 
+    public final String VIEW_FILE = "/fxml/encounter.fxml";
+    
     private Police(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
@@ -80,6 +82,7 @@ public class Police extends NPC {
     public void processEncounter() {
         LastAdventures.swap(new EncounterController(this));
     }
+    
 
     @Override
         public String getEncounterMessage() {
@@ -92,5 +95,10 @@ public class Police extends NPC {
     @Override
     public String toString() {
         return "*POLICE*\n" + super.toString();
+    }
+
+    @Override
+    public String getViewFile() {
+        return VIEW_FILE;
     }
 }

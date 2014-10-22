@@ -1,0 +1,34 @@
+{
+    "gainmoney" : {
+        "key" : "gainmoney",
+        "title" : "Found some valuable space metals!",
+        "description" : {
+            "general" : "While cruising to your destination, your ship some hunks of rare asteroids.",
+            "success" : "You find you're able to sell this metal for 1000 credits."
+        },
+        "effects" : {
+            "money" : {
+                "min" : 1000,
+                "max" : 1000
+            }
+        },
+        "forced" : true,
+        "occurrence" : 0.5
+    },
+    "losemoney" : {
+        "key" : "losemoney",
+        "title" : "Rocky asteroid field!",
+        "description" : {
+            "general" : "This part of the trip is particularly rough!",
+            "success" : "The damage to your ship will take an extra 1000 credits to repair when you dock."
+        },
+        "effects" : {
+            "money" : {
+                "min" : -1000,
+                "max" : -1000
+            }
+        },
+        "forced" : true,
+        "occurrence" : 0.5
+    }
+}

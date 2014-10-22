@@ -13,9 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Shape;
-import javafx.scene.shape.Circle;
-import javafx.scene.paint.Color;
+import javafx.scene.image.ImageView;
 
 import edu.gatech.gem5.game.SaveFile;
 
@@ -29,8 +27,10 @@ public class UniverseDisplay extends ExplorableDisplay {
     private SaveFile save;
     private int locX;
     private int locY;
-    private double range;
-    private Shape marker;
+    private int range;
+    private ImageView marker;
+
+    public static final String MARKER_PATH = "/img/marker.png";
 
     /**
      * Update the universe display with a save file.
@@ -48,30 +48,10 @@ public class UniverseDisplay extends ExplorableDisplay {
         locY = save.getSolarSystem().getYCoordinate();
         range = save.getCharacter().getShip().getFuel();
         this.camera = new Camera(locX, locY, 10.0);
-        this.marker = marker(range);
+        this.marker = new ImageView(MARKER_PATH);
+        this.marker.setFitWidth(range * 2);
+        this.marker.setFitHeight(range * 2);
+        this.marker.setMouseTransparent(true);
         this.addNode(locX, locY, marker);
     }
-
-    @Override
-    protected void updatePositions() {
-        marker.toBack();
-        super.updatePositions();
-    }
-
-    @Override
-    protected void updateSizes() {
-        marker.toBack();
-        // don't scale the stroke
-        marker.setStrokeWidth(2.0 / camera.getZoom());
-        super.updateSizes();
-    }
-
-    private Shape marker(double r) {
-        Circle c = new Circle();
-        c.setRadius(r);
-        c.setFill(Color.TRANSPARENT);
-        c.setStroke(Color.GREEN);
-        return c;
-    }
-
 }

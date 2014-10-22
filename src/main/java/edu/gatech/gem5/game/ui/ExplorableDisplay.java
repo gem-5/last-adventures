@@ -106,15 +106,6 @@ public abstract class ExplorableDisplay extends Pane {
         updateSizes();
     }
 
-    /**
-     * Return the camera associated with this display.
-     *
-     * @return the camera
-     */
-    public Camera getCamera() {
-        return this.camera;
-    }
-
     /** Update node positions only **/
     protected void updatePositions() {
         for (Node child : this.getChildren()) {
@@ -147,6 +138,10 @@ public abstract class ExplorableDisplay extends Pane {
         private double x;
         private double y;
         private double zoom;
+
+
+        private static final double MAX_ZOOM = 20.0;
+        private static final double MIN_ZOOM = 1.0;
 
         /**
          * Construct the camera with initial x, y coordinates and zoom factor.
@@ -195,7 +190,7 @@ public abstract class ExplorableDisplay extends Pane {
          * @param zoom The zoom factor to set.
          */
         public void setZoom(double zoom) {
-            this.zoom = Math.max(Math.min(zoom, 10.0), 1.0);
+            this.zoom = Math.max(Math.min(zoom, MAX_ZOOM), MIN_ZOOM);
         }
 
         /**
@@ -431,9 +426,9 @@ public abstract class ExplorableDisplay extends Pane {
             } else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
                 if (dragging) {
                     if (prevX >= 0 && prevY >= 0) {
-                        double dx = (e.getX() - prevX) / getCamera().getZoom();
-                        double dy = (e.getY() - prevY) / getCamera().getZoom();
-                        getCamera().pan(-dx, -dy);
+                        double dx = (e.getX() - prevX) / camera.getZoom();
+                        double dy = (e.getY() - prevY) / camera.getZoom();
+                        camera.pan(-dx, -dy);
                     }
                     this.prevX = e.getX();
                     this.prevY = e.getY();
