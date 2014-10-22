@@ -6,6 +6,8 @@ import edu.gatech.gem5.game.data.GoodType;
 import java.util.Random;
 import java.util.Set;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 /**
@@ -16,7 +18,7 @@ import java.util.TreeMap;
  */
 
 public class Trader extends NPC implements Traderable {
-    
+
     public final String VIEW_FILE = "/fxml/traderencounter.fxml";
 
 
@@ -42,7 +44,7 @@ public class Trader extends NPC implements Traderable {
      * @param ship The ship that the new trader will spawn with
      * @return a new instance of the Trader class
      */
-    public static Trader createTrader(int seed, Ship ship) {
+    public static Trader createTrader(int seed) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
 
@@ -69,6 +71,9 @@ public class Trader extends NPC implements Traderable {
         }
 
         String name = title + " " + rand.newHumanName();
+
+        // create the ship
+        Ship ship = createShip(seed, 10000, 20000, 15000, 10000, true);
 
         return new Trader(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
@@ -122,6 +127,38 @@ public class Trader extends NPC implements Traderable {
         return in;
     }
 
+    // protected static Ship createShip(int seed, int ship_divider, int weapon_divider,
+    //                           int shield_divider, int gadget_divider) {
+    //     Ship ship = super(seed, ship_divider, weapon_divider, shield_divider, gadget_divider);
+    //     Random r = new Random();
+    //     GoodType[] goods = Data.GOODS.get().values().toArray(new GoodType[0]);
+    //     // Traders also get trade goods in their inventory
+    //     int cargoSize = ship.getType().getCargoSlots();
+
+    //     List<GoodType> legalGoods = new ArrayList<>(); // Traders only carry legal goods
+    //     for (GoodType g: goods) {
+    //         if (g.isLegal()) {
+    //             legalGoods.add(g);
+    //         }
+    //     }
+
+    //     // sort goods by price
+    //     legalGoods.sort(new Comparator<GoodType>(){
+    //             public int compare(GoodType g1, GoodType g2) {
+    //                 return g1.getValue() - g2.getValue();
+    //             }
+    //         });
+
+    //     int goodsIndex = Math.min(r.nextInt(seed) / 20000, legalGoods.size() - 3);
+    //     int maxValue = seed;
+
+    //     for (int i = 0; i < 3; i++) {
+    //         GoodType good = legalGoods.get(goodsIndex + i);
+    //         ship.addCargo(good.getKey(), r.nextInt(maxValue / good.getValue()));
+    //     }
+    // }
+
+
 
     @Override
     public String toString() {
@@ -129,7 +166,7 @@ public class Trader extends NPC implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return The FXML to be shown that is specific to this type of encounter
      * after the initial encounter screen.
      */

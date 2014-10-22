@@ -14,7 +14,7 @@ import java.util.Random;
 public class Pirate extends NPC {
 
     public final String VIEW_FILE = "/fxml/encounter.fxml";
-    
+
     private Pirate(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
@@ -36,7 +36,7 @@ public class Pirate extends NPC {
      * @return a new instance of the Pirate class
      */
 
-    public static Pirate createPirate(int seed, Ship ship) {
+    public static Pirate createPirate(int seed) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
 
@@ -63,6 +63,9 @@ public class Pirate extends NPC {
         }
 
         String name = title + " " + rand.newHumanName();
+
+        // create the ship
+        Ship ship = createShip(seed, 7500, 10000, 15000, 20000, false);
 
         return new Pirate(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
@@ -99,9 +102,9 @@ public class Pirate extends NPC {
     public String toString() {
         return "*PIRATE*\n" + super.toString();
     }
-    
+
     /**
-     * 
+     *
      * @return The FXML to be shown that is specific to this type of encounter
      * after the initial encounter screen.
      */
