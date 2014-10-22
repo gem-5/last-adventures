@@ -18,7 +18,7 @@ public class StoryReader extends Reader<String, StoryText> {
 
     public StoryReader(String path) {
         super(path, new TypeToken<
-            Map<String, StoryReader>
+            Map<String, StoryText>
         >(){}.getType());
     }
 }
