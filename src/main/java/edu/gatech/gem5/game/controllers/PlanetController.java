@@ -74,8 +74,9 @@ public class PlanetController extends Controller {
                 ship.getFuel()) * ship.getType().getFuelCost());
 
         if (planet.getShips().isEmpty()) {
-            ((Pane) this.shipyard.getParent()).getChildren()
-                    .remove(this.shipyard);
+//            ((Pane) this.shipyard.getParent()).getChildren()
+//                    .remove(this.shipyard);
+            this.shipyard.setDisable(true);
         }
         //set hotkey for saving to Control + S
         root.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
