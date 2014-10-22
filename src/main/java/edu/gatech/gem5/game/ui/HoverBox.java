@@ -84,12 +84,12 @@ public class HoverBox extends PopupWindow {
         @Override
         public void handle(MouseEvent e) {
             if (e.getEventType() == MouseEvent.MOUSE_ENTERED) {
-                show(node, e.getSceneX() + OFFSET_X, e.getSceneY() + OFFSET_Y);
+                show(node, e.getScreenX() + OFFSET_X, e.getScreenY() + OFFSET_Y);
             } else if (e.getEventType() == MouseEvent.MOUSE_EXITED) {
                 hide();
             } else if (e.getEventType() == MouseEvent.MOUSE_MOVED) {
-                setAnchorX(e.getSceneX() + OFFSET_X);
-                setAnchorY(e.getSceneY() + OFFSET_Y);
+                setAnchorX(e.getScreenX() + OFFSET_X);
+                setAnchorY(e.getScreenY() + OFFSET_Y);
             }
         }
     }
