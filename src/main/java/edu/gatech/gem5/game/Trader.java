@@ -44,7 +44,7 @@ public class Trader extends NPC implements Traderable {
      * @param ship The ship that the new trader will spawn with
      * @return a new instance of the Trader class
      */
-    public Trader createTrader(int seed) {
+    public static Trader createTrader(int seed, Ship ship) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
 
@@ -75,7 +75,7 @@ public class Trader extends NPC implements Traderable {
         // create the ship
         Ship ship = createShip(seed, 10000, 20000, 15000, 10000, true);
 
-        this(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
+        return new Trader(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
 
     /**
