@@ -1,17 +1,15 @@
+
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Ship;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.data.CompanyType;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -23,6 +21,7 @@ import org.controlsfx.dialog.Dialogs;
 /**
  *
  * @author Creston Bunch
+ * @author James Park
  */
 public class PlanetController extends Controller {
 
@@ -98,12 +97,19 @@ public class PlanetController extends Controller {
     private void changeScenes(ActionEvent event) throws Exception {
         String id = ((Button) (event.getSource())).idProperty().get();
         //loads the create FXML file into root
-        if (id.equals("market")) {
-            LastAdventures.swap(new MarketController());
-        } else if (id.equals("travel")) {
-            LastAdventures.swap(new DisplayUniverseController());
-        } else if (id.equals("shipyard")) {
-            LastAdventures.swap(new ShipyardController());
+        switch (id) {
+            case "market":
+                LastAdventures.swap(new MarketController());
+                break;
+            case "travel":
+                LastAdventures.swap(new DisplayUniverseController());
+                break;
+            case "shipyard":
+                LastAdventures.swap(new ShipyardController());
+                break;
+            case "dock":
+                LastAdventures.swap(new DockController());
+                break;
         }
     }
 
