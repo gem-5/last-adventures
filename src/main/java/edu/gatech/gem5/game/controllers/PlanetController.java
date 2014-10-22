@@ -21,6 +21,7 @@ import org.controlsfx.dialog.Dialogs;
 /**
  *
  * @author Creston Bunch
+ * @author James Park
  */
 public class PlanetController extends Controller {
 
@@ -96,12 +97,19 @@ public class PlanetController extends Controller {
     private void changeScenes(ActionEvent event) throws Exception {
         String id = ((Button) (event.getSource())).idProperty().get();
         //loads the create FXML file into root
-        if (id.equals("market")) {
-            LastAdventures.swap(new MarketController());
-        } else if (id.equals("travel")) {
-            LastAdventures.swap(new DisplayUniverseController());
-        } else if (id.equals("shipyard")) {
-            LastAdventures.swap(new ShipyardController());
+        switch (id) {
+            case "market":
+                LastAdventures.swap(new MarketController());
+                break;
+            case "travel":
+                LastAdventures.swap(new DisplayUniverseController());
+                break;
+            case "shipyard":
+                LastAdventures.swap(new ShipyardController());
+                break;
+            case "dock":
+                LastAdventures.swap(new DockController());
+                break;
         }
     }
 
