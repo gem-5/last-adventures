@@ -51,7 +51,7 @@ public class SolarSystem {
      * @return the star type
      */
     public StarType getType() {
-        return (StarType) LastAdventures.data.get(StarType.KEY).get(type);
+        return Data.STARS.get(type);
     }
 
     /**
@@ -109,8 +109,7 @@ public class SolarSystem {
      * Choose the type of this solar system.
      */
     private String determineType() {
-        Map<String, StarType> stars = (Map<String, StarType>)
-            LastAdventures.data.get(StarType.KEY);
+        Map<String, StarType> stars = Data.STARS.get();
 
         double roll = new Random().nextDouble();
         double sum = 0;

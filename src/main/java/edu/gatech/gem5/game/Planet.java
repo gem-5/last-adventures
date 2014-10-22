@@ -63,8 +63,7 @@ public class Planet implements Traderable {
      * @return the tech level.
      */
     public TechType getTechLevel() {
-        Map<Integer, TechType> techs = LastAdventures.data.get(TechType.KEY);
-        return techs.get(this.techLevel);
+        return Data.TECHS.get(this.techLevel);
     }
 
     /**
@@ -73,9 +72,7 @@ public class Planet implements Traderable {
      * @return the environment type
      */
     public EnvironmentType getEnvironment() {
-        Map<String, EnvironmentType> environments =
-        LastAdventures.data.get(EnvironmentType.KEY);
-        return environments.get(this.environment);
+        return Data.ENVIRONMENTS.get(this.environment);
     }
 
     /**
@@ -84,9 +81,7 @@ public class Planet implements Traderable {
      * @return the government type
      */
     public GovernmentType getGovernment() {
-        Map<String, GovernmentType> governments =
-        LastAdventures.data.get(GovernmentType.KEY);
-        return governments.get(this.government);
+        return Data.GOVERNMENTS.get(this.government);
     }
 
     /**
@@ -102,9 +97,7 @@ public class Planet implements Traderable {
      * @return the condition type of the planet
      */
     public ConditionType getCondition() {
-        Map<String, ConditionType> conditions =
-        LastAdventures.data.get(ConditionType.KEY);
-        return conditions.get(this.condition);
+        return Data.CONDITIONS.get(this.condition);
     }
 
     /**
@@ -115,9 +108,7 @@ public class Planet implements Traderable {
     public List<CompanyType> getCompanies() {
         List<CompanyType> out = new ArrayList<>();
         for (String s : this.companyList) {
-            Map<String, CompanyType> companies =
-            LastAdventures.data.get(CompanyType.KEY);
-            out.add(companies.get(s));
+            out.add(Data.COMPANIES.get(s));
         }
         return out;
     }
@@ -184,8 +175,7 @@ public class Planet implements Traderable {
         for (CompanyType c : getCompanies()) {
             for (String s : c.getProducts()) {
                 if (!out.containsKey(s)) out.put(s, 0);
-                GoodType g = (GoodType)
-                             LastAdventures.data.get(GoodType.KEY).get(s);
+                GoodType g =  Data.GOODS.get(s);
                 int amt =  g.getMaxStock();
                 // adds more stock when several companies sell the same thing
                 out.put(s, out.get(s) + amt);
@@ -210,8 +200,7 @@ public class Planet implements Traderable {
         Map<String, Integer> out = new TreeMap<>();
         for (CompanyType c : getCompanies()) {
             for (String s : c.getProducts()) {
-                GoodType g = (GoodType)
-                    LastAdventures.data.get(GoodType.KEY).get(s);
+                GoodType g = Data.GOODS.get(s);
                 double value = g.getValue();
                 // Apply government multipliers
                 Map<String, Double> govMap = getGovernment().getSupply();
@@ -244,7 +233,7 @@ public class Planet implements Traderable {
         Map<String, Integer> in = new TreeMap<>();
         Ship playerShip = LastAdventures.getCurrentSaveFile().getCharacter().getShip();
         for (String g : playerShip.getCargoList().keySet()) {
-            GoodType gt = (GoodType) LastAdventures.data.get(GoodType.KEY).get(g);
+            GoodType gt = Data.GOODS.get(g);
             double value = gt.getValue();
             String s = gt.getKey();
             // Apply government multipliers
@@ -286,7 +275,7 @@ public class Planet implements Traderable {
     }
 
     private int chooseTechLevel() {
-        Map<Integer, TechType> levels = LastAdventures.data.get(TechType.KEY);
+        Map<Integer, TechType> levels = Data.TECHS.get();
         double roll = new Random().nextDouble();
         double sum = 0;
         for (Map.Entry<Integer, TechType> t : levels.entrySet()) {
@@ -298,8 +287,7 @@ public class Planet implements Traderable {
     }
 
     private String chooseEnvironment() {
-        Map<String, EnvironmentType> list =
-        LastAdventures.data.get(EnvironmentType.KEY);
+        Map<String, EnvironmentType> list = Data.ENVIRONMENTS.get();
         double roll = new Random().nextDouble();
         double sum = 0;
         for (Map.Entry<String, EnvironmentType> t : list.entrySet()) {
@@ -323,8 +311,7 @@ public class Planet implements Traderable {
     }
 
     private List<String> chooseCompanies() {
-        Map<String, CompanyType> choices =
-        LastAdventures.data.get(CompanyType.KEY);
+        Map<String, CompanyType> choices = Data.COMPANIES.get();
         List<String> out = new ArrayList<>();
         for (Map.Entry<String, CompanyType> t : choices.entrySet()) {
             if (this.techLevel < t.getValue().getMinTech() ||
@@ -371,7 +358,7 @@ public class Planet implements Traderable {
         //set new condition
         Random random = new Random();
         double conditionNumber = random.nextDouble();
-        Map<String, ConditionType> conditions = LastAdventures.data.get(ConditionType.KEY);
+        Map<String, ConditionType> conditions = Data.CONDITIONS.get();
         for( Map.Entry<String, ConditionType> entry : conditions.entrySet()) {
             conditionNumber -= entry.getValue().getOccurrence();
             if (conditionNumber <= 0) {

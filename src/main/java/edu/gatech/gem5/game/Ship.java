@@ -118,27 +118,24 @@ public class Ship {
 
     public List<WeaponType> getWeaponList() {
         List<WeaponType> out = new ArrayList<>();
-        Map weps = LastAdventures.data.get(WeaponType.KEY);
         for (String s : this.weaponList) {
-            out.add((WeaponType) weps.get(s));
+            out.add(Data.WEAPONS.get(s));
         }
         return out;
     }
 
     public List<ShieldType> getShieldList() {
         List<ShieldType> out = new ArrayList<>();
-        Map shields = LastAdventures.data.get(ShieldType.KEY);
         for (String s : this.shieldList) {
-            out.add((ShieldType) shields.get(s));
+            out.add(Data.SHIELDS.get(s));
         }
         return out;
     }
 
     public List<GadgetType> getGadgetList() {
         List<GadgetType> out = new ArrayList<>();
-        Map gadgets = LastAdventures.data.get(GadgetType.KEY);
         for (String s : this.gadgetList) {
-            out.add((GadgetType) gadgets.get(s));
+            out.add(Data.GADGETS.get(s));
         }
         return out;
     }
@@ -149,7 +146,7 @@ public class Ship {
         result += "\n  Cargo:";
         for (Map.Entry<String, Integer> kv: this.cargoList.entrySet()) {
             String goodName =
-                ((GoodType) LastAdventures.data.get(GoodType.KEY).get(kv.getKey())).getName();
+                (Data.GOODS.get(kv.getKey())).getName();
             result += String.format("%n\t%s  %d", goodName, kv.getValue());
         }
         result += "\n  Weapons:";

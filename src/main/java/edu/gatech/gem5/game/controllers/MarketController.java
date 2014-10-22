@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Good;
@@ -201,7 +202,7 @@ public class MarketController extends Controller {
     private void buildBuyGoodsList() {
         // this is the tab for goods that the planet sells
         ObservableList<BuyBar> lstGoods = FXCollections.observableArrayList();
-        Map<String, GoodType> goods = LastAdventures.data.get(GoodType.KEY);
+        Map<String, GoodType> goods = Data.GOODS.get();
         for (Map.Entry<String, Integer> x : planet.getStock().entrySet()) {
             BuyBar b = new BuyBar();
             b.setKey(x.getKey());
@@ -220,7 +221,7 @@ public class MarketController extends Controller {
         Map<String, Integer> playerGoods = LastAdventures.getCurrentSaveFile().getCharacter().getShip().getCargoList();
         for (Map.Entry<String, Integer> s : playerGoods.entrySet()) {
             if (s.getValue() == 0) continue; // don't bother with these
-            GoodType g = (GoodType) LastAdventures.data.get(GoodType.KEY).get(s.getKey());
+            GoodType g = Data.GOODS.get(s.getKey());
             BuyBar b = new BuyBar();
             b.setKey(s.getKey());
             b.setQuantity(s.getValue());

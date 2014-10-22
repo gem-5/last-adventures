@@ -2,6 +2,7 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.SolarSystem;
@@ -166,14 +167,13 @@ public class CharacterCreateController extends Controller {
     }
 
     private Character createCharacter() {
-        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
         return new Character(name.getText().trim(), Integer.parseInt(pilotValue
                 .getText()), Integer.parseInt(fighterValue.getText()),
                 Integer.parseInt(traderValue.getText()),
                 Integer.parseInt(engineerValue.getText()),
                 Integer.parseInt(investorValue.getText()),
                 // default ship
-                new Ship(ships.get("vagabond")));
+                new Ship(Data.SHIPS.get("vagabond")));
     }
 
     private Universe createUniverse() {
