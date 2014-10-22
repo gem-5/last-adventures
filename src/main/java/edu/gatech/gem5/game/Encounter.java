@@ -47,18 +47,38 @@ public class Encounter {
     private Encounterable getType(int seed, Planet p) {
         Encounterable spawn = null;
         GovernmentType gov = p.getGovernment();
-        int policeChance = (int) (gov.getPolice() * 10);
-        int traderChance = (int) (gov.getTraders() * 10);
-        int pirateChance = (int) (gov.getPirates() * 10);
-        int encounter = r.nextInt(policeChance + traderChance + pirateChance) + 1;
-        if (encounter <= policeChance) {
-            spawn = policeEncounter(seed);
-        } else if (encounter <= traderChance) {
+        //@TODO come up with a better way to randomly select something
+        int totalChance = 0;
+        if(r.nextBoolean()) {
+            /*int policeChance = (int) (gov.getPolice() * 10);
+            totalChance += policeChance;
+            int traderChance = (int) (gov.getTraders() * 10);
+            totalChance += traderChance;
+            int pirateChance = (int) (gov.getPirates() * 10);
+            totalChance += pirateChance;
+
+            int encounter = r.nextInt(totalChance) + 1;
+            if (encounter <= policeChance) {
+                spawn = policeEncounter(seed);
+            } else if (encounter <= traderChance) {
+                spawn = traderEncounter(seed);
+            } else if (encounter <= pirateChance){
+                spawn = pirateEncounter(seed);
+            }*/
             spawn = traderEncounter(seed);
         } else {
-            spawn = pirateEncounter(seed);
+            int gainMoneyChance = (int) (Data.EVENT.get().get("gainmoney").getOccurrence() * 10);
+            totalChance += gainMoneyChance;
+            int loseMoneyChance = (int) (Data.EVENT.get().get("losemoney").getOccurrence() * 10);
+            totalChance += loseMoneyChance;
+            int encounter = r.nextInt(totalChance) + 1;
+
+            if (encounter <= gainMoneyChance) {
+                spawn = new Event(eventEncounter("gainmoney"));
+            } else {
+                spawn = new Event(eventEncounter("losemoney"));
+            }
         }
-        spawn = new Event(eventEncounter());
         spawn.setManager(trip);
         return spawn;
 
@@ -160,8 +180,8 @@ public class Encounter {
         return Police.createPolice(seed, ship);
     }
     
-    private EventType eventEncounter() {
-        return Data.EVENT.get().get("gembeetles");
+    private EventType eventEncounter(String eventKey) {
+        return Data.EVENT.get().get(eventKey);
     }
 
     /**

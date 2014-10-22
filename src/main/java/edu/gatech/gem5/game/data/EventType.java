@@ -28,6 +28,10 @@ public class EventType {
     public String getInitialMessage() {
         return description.get("general");
     }
+    
+    public String getSuccessMessage() {
+        return description.get("success");
+    }
 
     public Map<String, Map> getEffects() {
         return effects;

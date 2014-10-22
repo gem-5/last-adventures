@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -7,38 +8,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane
-    prefWidth="1280"
-    prefHeight="720"
-    xmlns:fx="http://javafx.com/fxml/1"
-    >
+
+<BorderPane prefHeight="720" prefWidth="1280" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
   <top>
-    <HBox><Region HBox.Hgrow="always"/>
-    <Label
-        fx:id="title"
-        text="A Random Encounter!"
-        />
-    <Region HBox.Hgrow="always" /></HBox>
+    <HBox>
+       <children>
+            <Region HBox.Hgrow="always" />
+       <Label fx:id="title" text="A Random Encounter!" />
+       <Region HBox.Hgrow="always" />
+       </children></HBox>
   </top>
 
   <center>
     <VBox>
       <padding><Insets left="250" /></padding>
-      <Region VBox.Vgrow="always"/>
-      <TextFlow>
-        <Text styleClass="blocktext" fx:id="dialog" />
-      </TextFlow>
-      <Region VBox.Vgrow="always"/>
+       <children>
+         <Region VBox.Vgrow="always" />
+            <Label fx:id="message" text="Label" />
+         <TextFlow>
+            <children>
+              <Text fx:id="dialog" styleClass="blocktext" />
+            </children>
+         </TextFlow>
+         <Region VBox.Vgrow="always" />
+       </children>
     </VBox>
   </center>
   <bottom>
     <HBox>
-      <Region HBox.Hgrow="always" />
-      <Button fx:id="continueButton" mnemonicParsing="false" onAction="#resolve" text="Continue" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-      <Region HBox.Hgrow="always" />
+       <children>
+         <Region HBox.Hgrow="always" />
+         <Button fx:id="continueButton" mnemonicParsing="false" onAction="#resolve" text="Continue" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+         <Region HBox.Hgrow="always" />
+       </children>
     </HBox>
   </bottom>
   <stylesheets>
-    <URL value="@/css/main.css"/>
+    <URL value="@/css/main.css" />
   </stylesheets>
 </BorderPane>

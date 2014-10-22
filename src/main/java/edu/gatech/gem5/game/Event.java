@@ -50,5 +50,13 @@ public class Event implements Encounterable {
     public String getKey() {
         return type.getKey();
     }
+    
+    public String getTitle() {
+        return type.getTitle();
+    }
+
+    public String getSuccessMessage() {
+        return type.getSuccessMessage();
+    }
 
 }
