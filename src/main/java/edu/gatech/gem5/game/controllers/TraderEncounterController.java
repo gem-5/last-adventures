@@ -41,4 +41,8 @@ public class TraderEncounterController extends EncounterController {
     public void tradeWithTrader(ActionEvent event) throws Exception {
         LastAdventures.swap(new TraderController((Trader) encounter));
     }
+
+    public void attackEnemy(ActionEvent event) throws Exception {
+        // not yet implemented
+    }
 }
