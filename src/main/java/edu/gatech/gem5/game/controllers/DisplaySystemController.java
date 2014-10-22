@@ -56,8 +56,6 @@ public class DisplaySystemController extends Controller {
     @FXML
     Label title;
     
-    public static final int encounterNumber = 5;
-
     public static final String SYSTEM_VIEW_FILE = "/fxml/system.fxml";
     
 

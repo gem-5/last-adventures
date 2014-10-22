@@ -7,6 +7,7 @@ import edu.gatech.gem5.game.data.GadgetType;
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.GovernmentType;
 import edu.gatech.gem5.game.EncounterManager;
+import edu.gatech.gem5.game.data.EventType;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class Encounter {
         } else {
             spawn = pirateEncounter(seed);
         }
+        spawn = new Event(eventEncounter());
         spawn.setManager(trip);
         return spawn;
 
@@ -156,7 +158,10 @@ public class Encounter {
         }
 
         return Police.createPolice(seed, ship);
-
+    }
+    
+    private EventType eventEncounter() {
+        return Data.EVENT.get().get("gembeetles");
     }
 
     /**

@@ -14,7 +14,7 @@
             }
         },
         "forced" : true,
-        "occurrence" : 0.1
+        "occurrence" : 1
     },
     
     "madscientist" : {

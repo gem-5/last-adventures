@@ -26,6 +26,7 @@ public class Data {
     public static final GoodReader        GOODS        = new GoodReader("/data/Goods.json");
     public static final TechReader        TECHS        = new TechReader("/data/TechLevels.json");
     public static final CompanyReader     COMPANIES    = new CompanyReader("/data/Companies.json");
+    public static final EventReader       EVENT        = new EventReader("/data/Events.json");
 
     // misc data
     public static final StarReader  STARS = new StarReader("/data/Stars.json");
