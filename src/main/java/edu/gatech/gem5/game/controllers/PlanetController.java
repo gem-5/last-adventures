@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
@@ -43,6 +44,8 @@ public class PlanetController extends Controller {
     private Button btnSave;
     @FXML
     private Button refuelButton;
+    @FXML
+    private Button shipyard;
 
 
     Planet planet;
@@ -70,6 +73,10 @@ public class PlanetController extends Controller {
         this.refuelButton.setText("Refuel " +(ship.getType().getRange() -
                 ship.getFuel()) * ship.getType().getFuelCost());
 
+        if (planet.getShips().isEmpty()) {
+            ((Pane) this.shipyard.getParent()).getChildren()
+                    .remove(this.shipyard);
+        }
         //set hotkey for saving to Control + S
         root.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (new KeyCodeCombination(KeyCode.S,
