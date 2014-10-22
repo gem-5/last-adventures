@@ -1,0 +1,76 @@
+{
+    "gembeetles" : {
+        "key" : "gembeetles",
+        "title" : "Gem Beetle Swarm!",
+        "description" : {
+            "general" : "While cruising to @system, your ship encouters a swarm of space gem beetles.",
+            "success" : "They are able to eat @number1 gems.",
+            "failure" : "Luckily, you don't have any gems on this trip. You fly on through them unnoticed."
+        },
+        "effects" : {
+            "gem" : {
+                "min" : -5,
+                "max" : -40
+            }
+        },
+        "forced" : true,
+        "occurrence" : 0.1
+    },
+    
+    "madscientist" : {
+        "key" : "madscientist", 
+        "title" : "A Mad Scientist Stowed Away",
+        "description" : {
+            "general" : "You find a mad scientist that stowed away on your ship. He says in exchange for safe passage to @system and @money credits, he will upgrade one of your ship's weapon slots.",
+            "success" : "Happily taking the money, the crazy looking scientist upgrades your @old1 to a @new1.",
+            "failure" : "Refusing this crazy man's offer, you keep him contained until you reach @system.",
+            "money" : "Because you didn't have enough money to match his terms, you sheepishly offer to drop him off at the nearest planet.",
+            "noweapons" : "However, once you tell the scientist that you have nothing to improve, he requests to be transffered to the nearest ship that will take him as soon as possible.",
+            "maxweapons" : "However, once you tell the scientist that you have the best equipment available, he begins to act frightened and pleads that you drop him off at the nearest planet."
+        },
+        "effects" : {
+            "weapon" : {
+                "upgrade" : true
+            },
+            "money" : {
+                "min" : -2000,
+                "max" : -2000
+            }
+            
+        },
+        "forced" : false,
+        "occurrence" : 0.1
+    },
+    "spaceprostitutes" : {
+        "key" : "spaceprostitutes", 
+        "title" : "Generic Random Event",
+        "description" : {
+            "general" : "Text presented every time.",
+            "success" : "Text presented on normal execution.",
+            "failure" : "Text presented on abnormal execution.",
+            "other" : "Any text needed for other cases."
+        },
+        "effects" : {
+            "health" : {
+                "min" : 4,
+                "max" : 4
+            },
+            "fuel" : {
+                "min" : -4,
+                "max" : -4
+            },
+            "money" : {
+                "min" : -4,
+                "max" : -10
+            },
+            "goodType" : {
+                "min" : 4,
+                "max" : 9
+            }
+            
+        },
+        "forced" : true,
+        "occurrence" : 0
+    }
+    
+}
