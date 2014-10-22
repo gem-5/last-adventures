@@ -174,7 +174,8 @@ public class TraderController extends Controller {
      */
     @FXML
     public void continueToPlanet(ActionEvent event) throws Exception {
-        LastAdventures.swap(new PlanetController());
+        //"continue to planet" in sense of get further along in your trip
+        trader.getManager().nextEncounter();
     }
 
     private void fillLabels() {

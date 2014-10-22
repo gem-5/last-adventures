@@ -16,6 +16,9 @@ import java.util.TreeMap;
  */
 
 public class Trader extends NPC implements Traderable {
+    
+    public final String VIEW_FILE = "/fxml/traderencounter.fxml";
+
 
     private Trader(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
@@ -70,7 +73,9 @@ public class Trader extends NPC implements Traderable {
         return new Trader(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
 
-
+    /**
+     * Avoids the generic encounter controller so functionality can be added.
+     */
     @Override
     public void processEncounter() {
         LastAdventures.swap(new TraderEncounterController(this));
@@ -121,5 +126,15 @@ public class Trader extends NPC implements Traderable {
     @Override
     public String toString() {
         return "*TRADER*\n" + super.toString();
+    }
+
+    /**
+     * 
+     * @return The FXML to be shown that is specific to this type of encounter
+     * after the initial encounter screen.
+     */
+    @Override
+    public String getViewFile() {
+        return VIEW_FILE;
     }
 }
