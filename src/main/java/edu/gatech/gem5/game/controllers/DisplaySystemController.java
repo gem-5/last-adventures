@@ -55,9 +55,9 @@ public class DisplaySystemController extends Controller {
 
     @FXML
     Label title;
-    
+
     public static final String SYSTEM_VIEW_FILE = "/fxml/system.fxml";
-    
+
 
     /**
      * No arg constructor
@@ -202,11 +202,11 @@ public class DisplaySystemController extends Controller {
 
             // cache current solar system in this snazzy variable
             SolarSystem here =  save.getSolarSystem();
-            
+
             // update save file
             save.setSolarSystem(sys);
             save.setCurrentPlanet(p);
-            
+
             SolarSystem there = save.getSolarSystem();
             // only make a turn when switching solar systems
             if (here != there) {

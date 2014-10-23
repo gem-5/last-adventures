@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A class for ship objects owned by players/NPCs.
@@ -22,12 +23,13 @@ public class Ship {
 
     private final ShipType type;
     private double health;
+    private boolean destroyed;
     private int fuel;
 
     private Map<String, Integer> cargoList;
-    private List<String> weaponList;
-    private List<String> shieldList;
-    private List<String> gadgetList;
+    private List<WeaponType> weaponList;
+    private List<Shield> shieldList;
+    private List<GadgetType> gadgetList;
 
     private Mercenary[] crewList;
 
@@ -104,8 +106,8 @@ public class Ship {
             worth += w.getPrice();
         }
 
-        for (ShieldType s: getShieldList()) {
-            worth += s.getPrice();
+        for (Shield s: getShieldList()) {
+            worth += s.getType().getPrice();
         }
 
         for (GadgetType g: getGadgetList()) {
@@ -116,28 +118,42 @@ public class Ship {
 
     }
 
+    // public List<WeaponType> getWeaponList() {
+    //     List<WeaponType> out = new ArrayList<>();
+    //     Map weps = LastAdventures.data.get(WeaponType.KEY);
+    //     for (String s : this.weaponList) {
+    //         out.add((WeaponType) weps.get(s));
+    //     }
+    //     return out;
+    // }
     public List<WeaponType> getWeaponList() {
-        List<WeaponType> out = new ArrayList<>();
-        for (String s : this.weaponList) {
-            out.add(Data.WEAPONS.get(s));
-        }
-        return out;
+        return this.weaponList;
     }
 
-    public List<ShieldType> getShieldList() {
-        List<ShieldType> out = new ArrayList<>();
-        for (String s : this.shieldList) {
-            out.add(Data.SHIELDS.get(s));
-        }
-        return out;
+
+    // public List<ShieldType> getShieldList() {
+    //     List<ShieldType> out = new ArrayList<>();
+    //     Map shields = LastAdventures.data.get(ShieldType.KEY);
+    //     for (String s : this.shieldList) {
+    //         out.add((ShieldType) shields.get(s));
+    //     }
+    //     return out;
+    // }
+
+    public List<Shield> getShieldList() {
+        return this.shieldList;
     }
 
+    // public List<GadgetType> getGadgetList() {
+    //     List<GadgetType> out = new ArrayList<>();
+    //     Map gadgets = LastAdventures.data.get(GadgetType.KEY);
+    //     for (String s : this.gadgetList) {
+    //         out.add((GadgetType) gadgets.get(s));
+    //     }
+    //     return out;
+    // }
     public List<GadgetType> getGadgetList() {
-        List<GadgetType> out = new ArrayList<>();
-        for (String s : this.gadgetList) {
-            out.add(Data.GADGETS.get(s));
-        }
-        return out;
+        return this.gadgetList;
     }
 
     public String toString() {
@@ -156,9 +172,9 @@ public class Ship {
             }
         }
         result += "\n  Shields:";
-        for (ShieldType s: getShieldList()) {
+        for (Shield s: getShieldList()) {
             if (s != null) {
-                result += String.format("%n\t%s", s.getName());
+                result += String.format("%n\t%s", s.getType().getName());
             }
         }
         result += "\n  Gadgets:";
@@ -177,6 +193,52 @@ public class Ship {
 
     public int getFuel() {
         return this.fuel;
+    }
+
+    public boolean isDestroyed() {
+        return this.destroyed;
+    }
+
+    public double calcWeaponDamage() {
+        double damage = 0;
+        Random r = new Random();
+        double hitChance = r.nextDouble();
+        for (WeaponType wt: getWeaponList()) {
+            if (wt != null) {
+                double acc = wt.getAccuracy();
+                if (acc > hitChance) {
+                    damage += wt.getDamage() * wt.getRate();
+                }
+            }
+        }
+        // You can do some minimal damage without a ship
+        if (getWeaponList().size() == 0) {
+            damage = 50 * r.nextInt(2);
+        }
+        return damage;
+
+    }
+
+    public String receiveDamage(double damage) {
+        String result = "";
+        for (Shield s: getShieldList()) {
+            if (s.getHealth() != 0 && damage > 0.01) {
+                double newDamage = damage - s.getHealth();
+                s.decrementHealth(damage);
+                result += String.format("Shield %s absorbs the blow, %2f / %2f health remains.%n",
+                                        s.getHealth(), s.maxHealth());
+                damage = Math.max(newDamage, 0);
+            }
+        }
+        this.health = Math.max(0, this.health - damage);
+        if (damage > 0.01) {
+            result += String.format("The attack pierces the hull, dealing %2f damage.%n"
+                                    + "Remaining Hull Strength: %2f / %2f.%n", damage,
+                                    this.health, this.type.getHullStrength());
+        }
+        this.destroyed = this.health == 0;
+
+        return result;
     }
 
 }

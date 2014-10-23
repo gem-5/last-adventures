@@ -6,6 +6,8 @@ import edu.gatech.gem5.game.data.GoodType;
 import java.util.Random;
 import java.util.Set;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 /**
@@ -16,7 +18,7 @@ import java.util.TreeMap;
  */
 
 public class Trader extends NPC implements Traderable {
-    
+
     public final String VIEW_FILE = "/fxml/traderencounter.fxml";
 
 
@@ -42,7 +44,7 @@ public class Trader extends NPC implements Traderable {
      * @param ship The ship that the new trader will spawn with
      * @return a new instance of the Trader class
      */
-    public static Trader createTrader(int seed, Ship ship) {
+    public static Trader createTrader(int seed) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
 
@@ -69,6 +71,9 @@ public class Trader extends NPC implements Traderable {
         }
 
         String name = title + " " + rand.newHumanName();
+
+        // create the ship
+        Ship ship = createShip(seed, 10000, 20000, 15000, 10000, true);
 
         return new Trader(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
@@ -122,14 +127,13 @@ public class Trader extends NPC implements Traderable {
         return in;
     }
 
-
     @Override
     public String toString() {
         return "*TRADER*\n" + super.toString();
     }
 
     /**
-     * 
+     *
      * @return The FXML to be shown that is specific to this type of encounter
      * after the initial encounter screen.
      */
