@@ -130,6 +130,17 @@ public class Ship {
     public List<WeaponType> getWeaponList() {
         return this.weaponList;
     }
+    /**
+     * Adds a weapon to the ship's weapon list
+     * @param wt the Weapon Type being added to the ship
+     * @return true if successfully added, false otherwise
+     */
+    public boolean addWeapon(WeaponType wt) {
+        if (weaponList.size() < type.getWeaponSlots()) {
+            return weaponList.add(wt);
+        }
+        return false;
+    }
 
 
     // public List<ShieldType> getShieldList() {
@@ -145,6 +156,18 @@ public class Ship {
         return this.shieldList;
     }
 
+    /**
+     * Adds a shield to the ship's shield list
+     * @param s the Shield being added to the ship
+     * @return true if successfully added, false otherwise
+     */
+    public boolean addShield(Shield s) {
+        if (shieldList.size() < type.getShieldSlots()) {
+            return shieldList.add(s);
+        }
+        return false;
+    }
+
     // public List<GadgetType> getGadgetList() {
     //     List<GadgetType> out = new ArrayList<>();
     //     Map gadgets = LastAdventures.data.get(GadgetType.KEY);
@@ -155,6 +178,17 @@ public class Ship {
     // }
     public List<GadgetType> getGadgetList() {
         return this.gadgetList;
+    }
+    /**
+     * Adds a gadget to the ship's gadget list
+     * @param gt the Gadget Type being added to the ship
+     * @return true if successfully added, false otherwise
+     */
+    public boolean addGadget(GadgetType gt) {
+        if (gadgetList.size() < type.getGadgetSlots()) {
+            return gadgetList.add(gt);
+        }
+        return false;
     }
 
     public String toString() {
