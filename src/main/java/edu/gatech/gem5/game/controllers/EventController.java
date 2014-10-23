@@ -2,6 +2,7 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Event;
+import edu.gatech.gem5.game.EventEffectParser;
 import edu.gatech.gem5.game.LastAdventures;
 import java.net.URL;
 import java.util.Map;
@@ -49,13 +50,14 @@ public class EventController extends Controller {
         });
         
         Map<String, Map> effects = event.getEffects();
+        EventEffectParser parser = new EventEffectParser();
         for(Entry<String, Map> entry : effects.entrySet()) {
-            /*if(supportedEffect(entry)) {
-                doEffect(entry.getKey(), entry.getValue());
+            if(parser.isSupportedEffect(entry.getKey())) {
+                parser.doEffect(entry.getKey(), entry.getValue());
             } else {
                 System.err.println("Unsupported Effect in " + this.event.getKey());
-            }*/
-            System.out.println("hello" + entry.getKey());
+            }
+            //System.out.println("hello" + entry.getKey());
             message.setText(event.getSuccessMessage());
             if(entry.getKey().equals("money")) {
                 Character character = LastAdventures.getCurrentSaveFile().getCharacter();
