@@ -10,17 +10,25 @@ import edu.gatech.gem5.game.data.GoodType;
 
 public class Good {
 
+    /**
+     * The data on the nature of this good, including name, value, legality,
+     * etc.
+     */
     private final GoodType type;
 
     /**
      * Construct the good from a good type.
      *
-     * @param type The GoodType to copy.
+     * @param goodType The GoodType to copy.
      */
-    public Good(GoodType type) {
-        this.type = type;
+    public Good(GoodType goodType) {
+        this.type = goodType;
     }
     
+    /**
+     * 
+     * @return returns the type of this good
+     */
     public GoodType getType() {
         return type;
     }

@@ -10,13 +10,23 @@ import java.util.Map;
  */
 public class Event implements Encounterable {
     
+    /**
+     * This encounterable's manager.
+     */
     EncounterManager manager;
+    /**
+     * The data of the nature of this event, including effects, related text,
+     * and metadata.
+     */
     EventType type;
     
-    public Event(EventType type) {
-        this.type = type;
+    /**
+     * 
+     * @param eventType This event's type
+     */
+    public Event(EventType eventType) {
+        this.type = eventType;
     }
-    
     
     @Override
     public EncounterManager getManager() {
@@ -24,8 +34,8 @@ public class Event implements Encounterable {
     }
 
     @Override
-    public void setManager(EncounterManager manager) {
-        this.manager = manager;
+    public void setManager(EncounterManager encounterManager) {
+        this.manager = encounterManager;
     }
 
     @Override
@@ -43,20 +53,35 @@ public class Event implements Encounterable {
         return "/fxml/event.fxml";
     }
 
+    /**
+     * 
+     * @return Get the GSON generated map of Effects for this Event.
+     */
     public Map<String, Map> getEffects() {
         return type.getEffects();
     }
     
+    /**
+     * 
+     * @return Get the associated EventType's JSON key
+     */
     public String getKey() {
         return type.getKey();
     }
     
+    /**
+     * 
+     * @return The text for the title screen of this Event.
+     */
     public String getTitle() {
         return type.getTitle();
     }
 
+    /**
+     * 
+     * @return the text to be shown after main path execution of this Event
+     */
     public String getSuccessMessage() {
         return type.getSuccessMessage();
     }
-
 }

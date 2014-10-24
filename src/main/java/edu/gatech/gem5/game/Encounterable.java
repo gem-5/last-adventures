@@ -1,20 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.gatech.gem5.game;
 
 /**
- *
+ * Defines methods that an Encounterable object should have so that 
+ * EncounterManager can properly manage it and EncounterController can get
+ * needed info.
+ * 
  * @author Jack Mueller
  */
 public interface Encounterable {
-    public EncounterManager getManager();
-    public void setManager(EncounterManager manager);
-    public String getEncounterMessage();
-    public void processEncounter();
-    public String getViewFile();
+
+    /**
+     *
+     * @return the manager for this Encounterable
+     */
+    EncounterManager getManager();
+
+    /**
+     *
+     * @param manager the manager for this Encounterable
+     */
+    void setManager(EncounterManager manager);
+
+    /**
+     *
+     * @return The default message for this encounter
+     */
+    String getEncounterMessage();
+
+    /**
+     * Dispatch method to move control to the correct FXController.
+     */
+    void processEncounter();
+
+    /**
+     *
+     * @return The FXML file needed for this Encounterable
+     */
+    String getViewFile();
 
 
 }
