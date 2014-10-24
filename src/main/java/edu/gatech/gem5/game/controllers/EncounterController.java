@@ -63,8 +63,10 @@ public class EncounterController extends Controller {
     }
 
     public void attackEnemy(ActionEvent event) throws Exception {
-        LastAdventures.swap(new CombatController(LastAdventures.getCurrentSaveFile().getCharacter(),
-                                                 (NPC) encounter));
+        // LastAdventures.swap(new CombatController(LastAdventures.getCurrentSaveFile().getCharacter(),
+        //                                          (NPC) encounter));
+        transitionTo(new CombatController(LastAdventures.getCurrentSaveFile().getCharacter(),
+                                          (NPC) encounter));
     }
 
 }

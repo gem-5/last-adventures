@@ -134,12 +134,14 @@ public class CharacterCreateController extends Controller {
                 if (response == Dialog.ACTION_YES) {
                     if (validate(name.getText().trim())) {
                         LastAdventures.initializeGame(createCharacter(), createUniverse());
-                        LastAdventures.swap(new CharacterStatusController());
+                        // LastAdventures.swap(new CharacterStatusController());
+                        transitionTo(new CharacterStatusController());
                     }
                 }
             } else {
                 LastAdventures.initializeGame(createCharacter(), createUniverse());
-                LastAdventures.swap(new CharacterStatusController());
+                // LastAdventures.swap(new CharacterStatusController());
+                transitionTo(new CharacterStatusController());
             }
         }
 
@@ -155,7 +157,8 @@ public class CharacterCreateController extends Controller {
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        LastAdventures.swap(new TitleController());
+        // LastAdventures.swap(new TitleController());
+        transitionTo(new TitleController());
     }
 
     private boolean validate(String str) {

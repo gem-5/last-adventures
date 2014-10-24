@@ -77,13 +77,15 @@ public class LoadGameController extends Controller {
         if (sel != null) {
             SaveFile save = SaveFile.load(sel);
             LastAdventures.setSaveFile(save);
-            LastAdventures.swap(new PlanetController());
+            // LastAdventures.swap(new PlanetController());
+            transitionTo(new PlanetController());
         }
     }
 
     @FXML
     private void goBack() {
-        LastAdventures.swap(new TitleController());
+        // LastAdventures.swap(new TitleController());
+        transitionTo(new TitleController());
     }
 
     // create a list of saved games

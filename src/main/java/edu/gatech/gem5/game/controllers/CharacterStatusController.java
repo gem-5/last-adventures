@@ -74,7 +74,8 @@ public class CharacterStatusController extends Controller {
      */
     @FXML
     public void startGame(ActionEvent event) throws Exception {
-        LastAdventures.swap(new PlanetController());
+        // LastAdventures.swap(new PlanetController());
+        transitionTo(new PlanetController());
     }
 
     /**
@@ -85,7 +86,8 @@ public class CharacterStatusController extends Controller {
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        LastAdventures.swap(new CharacterCreateController());
+        // LastAdventures.swap(new CharacterCreateController());
+        transitionTo(new CharacterCreateController());
     }
 
 }

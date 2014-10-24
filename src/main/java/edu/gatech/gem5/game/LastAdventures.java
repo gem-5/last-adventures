@@ -50,7 +50,7 @@ public class LastAdventures extends Application {
      *
      * @param c The new controller to load.
      */
-    public static void swap(Controller c) {
+    public  static void swap(Controller c) {
         Pane oldRoot = (Pane) getRoot();
         Scene scene = stage.getScene();
         root = c.getRoot();
@@ -111,11 +111,13 @@ public class LastAdventures extends Application {
    }
 
     public static void setRoot(Parent newRoot) {
-        root = newRoot;
+        LastAdventures.root = newRoot;
     }
 
-    // public static void setStage(Stage newStage)
-    //     this.stage = newStage;
+    public static void setStage(Stage newStage) {
+        LastAdventures.stage = newStage;
+    }
+
 
     public static void initializeGame(Character player, Universe uni) {
         final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();

@@ -71,10 +71,11 @@ public abstract class Controller implements Initializable {
     public void finish() { }
 
     protected void transitionTo(Controller c) {
-        Pane oldRoot = (Pane) getRoot();
+        Pane oldRoot = (Pane) LastAdventures.getRoot();
         Stage stage = LastAdventures.getStage();
         Scene scene = stage.getScene();
-        LastAdventures.setRoot(c.getRoot());
+        // LastAdventures.setRoot(c.getRoot());
+        Parent root = c.getRoot();
 
         // make the new scene the same size
         if (oldRoot != null) {
@@ -89,6 +90,10 @@ public abstract class Controller implements Initializable {
             scene.setRoot(root);
         }
         scene.getWindow().sizeToScene();
+
+        // LastAdventures.setScene(scene);
+        LastAdventures.setRoot(root);
+        LastAdventures.setStage(stage);
 
         c.finish(); // do something after the scene change
     }

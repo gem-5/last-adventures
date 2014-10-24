@@ -39,7 +39,8 @@ public class TraderEncounterController extends EncounterController {
 
     @FXML
     public void tradeWithTrader(ActionEvent event) throws Exception {
-        LastAdventures.swap(new TraderController((Trader) encounter));
+        // LastAdventures.swap(new TraderController((Trader) encounter));
+        transitionTo(new TraderController((Trader) encounter));
     }
 
     // public void attackEnemy(ActionEvent event) throws Exception {
