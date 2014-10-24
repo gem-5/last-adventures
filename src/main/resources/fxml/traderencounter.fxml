@@ -36,6 +36,7 @@
       <Button mnemonicParsing="false" onAction="#tradeWithTrader" text="Trade" GridPane.columnIndex="0" GridPane.rowIndex="7" />
       <Region minWidth="50" />
       <Button mnemonicParsing="false" onAction="#continueToPlanet" text="Continue" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Button mnemonicParsing="false" onAction="#attackEnemy" text="Raid them!" GridPane.columnIndex="3" GridPane.rowIndex="7" />
       <Region HBox.Hgrow="always" />
     </HBox>
   </bottom>

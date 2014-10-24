@@ -107,16 +107,20 @@ public class PlanetController extends Controller {
         //loads the create FXML file into root
         switch (id) {
             case "market":
-                LastAdventures.swap(new MarketController());
+                // LastAdventures.swap(new MarketController());
+                transitionTo(new MarketController());
                 break;
             case "travel":
-                LastAdventures.swap(new DisplayUniverseController());
+                // LastAdventures.swap(new DisplayUniverseController());
+                transitionTo(new DisplayUniverseController());
                 break;
             case "shipyard":
-                LastAdventures.swap(new ShipyardController());
+                // LastAdventures.swap(new ShipyardController());
+                transitionTo(new ShipyardController());
                 break;
             case "dock":
-                LastAdventures.swap(new DockController());
+                // LastAdventures.swap(new DockController());
+                transitionTo(new DockController());
                 break;
         }
     }
@@ -149,12 +153,15 @@ public class PlanetController extends Controller {
                         .showConfirm();
             if (response == Dialog.ACTION_YES) {
                 save();
-                LastAdventures.swap(new TitleController());
+                // LastAdventures.swap(new TitleController());
+                transitionTo(new TitleController());
             } else if (response == Dialog.ACTION_NO) {
-                LastAdventures.swap(new TitleController());
+                // LastAdventures.swap(new TitleController());
+                transitionTo(new TitleController());
             }
         } else {
-            LastAdventures.swap(new TitleController());
+            // LastAdventures.swap(new TitleController());
+            transitionTo(new TitleController());
         }
     }
 
@@ -182,4 +189,3 @@ public class PlanetController extends Controller {
         }
     }
 }
-

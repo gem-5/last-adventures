@@ -46,6 +46,7 @@ public class Ship {
         this.shieldList = new ArrayList<>(type.getShieldSlots());
         this.gadgetList = new ArrayList<>(type.getGadgetSlots());
         this.crewList = new Mercenary[type.getCrewSlots()];
+        this.health = (double) type.getHullStrength();
     }
 
     /**
@@ -98,7 +99,11 @@ public class Ship {
         return getType().getCargoSlots() - sum;
     }
 
-
+    /**
+     * Method to find the net worth of a ship, takes into account ship price and all
+     * wep/shield/gadget prices
+     * @return the net worth of the ship
+     */
     public int getNetWorth() {
         int worth = type.getPrice();
 
@@ -112,6 +117,11 @@ public class Ship {
 
         for (GadgetType g: getGadgetList()) {
             worth += g.getPrice();
+        }
+
+        for (String s: getCargoList().keySet()) {
+            GoodType cargo = Data.GOODS.get(s);
+            worth += cargo.getValue();
         }
 
         return worth;
@@ -129,7 +139,25 @@ public class Ship {
     public List<WeaponType> getWeaponList() {
         return this.weaponList;
     }
+    /**
+     * Adds a weapon to the ship's weapon list
+     * @param wt the Weapon Type being added to the ship
+     * @return true if successfully added, false otherwise
+     */
+    public boolean addUpgrade(WeaponType wt) {
+        if (weaponList.size() < type.getWeaponSlots()) {
+            return weaponList.add(wt);
+        }
+        return false;
+    }
 
+    /**
+     * Method to find the number of available slots for new weapons
+     * @return the number of free weapon slots
+     */
+    public int getOpenWeaponSlots() {
+        return type.getWeaponSlots() - weaponList.size();
+    }
 
     // public List<ShieldType> getShieldList() {
     //     List<ShieldType> out = new ArrayList<>();
@@ -144,6 +172,26 @@ public class Ship {
         return this.shieldList;
     }
 
+    /**
+     * Adds a shield to the ship's shield list
+     * @param s the Shield being added to the ship
+     * @return true if successfully added, false otherwise
+     */
+    public boolean addUpgrade(Shield s) {
+        if (shieldList.size() < type.getShieldSlots()) {
+            return shieldList.add(s);
+        }
+        return false;
+    }
+
+    /**
+     * Method to find the number of available slots for new shields
+     * @return the number of free shield slots
+     */
+    public int getOpenShieldSlots() {
+        return type.getShieldSlots() - shieldList.size();
+    }
+
     // public List<GadgetType> getGadgetList() {
     //     List<GadgetType> out = new ArrayList<>();
     //     Map gadgets = LastAdventures.data.get(GadgetType.KEY);
@@ -155,7 +203,27 @@ public class Ship {
     public List<GadgetType> getGadgetList() {
         return this.gadgetList;
     }
+    /**
+     * Adds a gadget to the ship's gadget list
+     * @param gt the Gadget Type being added to the ship
+     * @return true if successfully added, false otherwise
+     */
+    public boolean addUpgrade(GadgetType gt) {
+        if (gadgetList.size() < type.getGadgetSlots()) {
+            return gadgetList.add(gt);
+        }
+        return false;
+    }
 
+    /**
+     * Method to find the number of available slots for new gadgets
+     * @return the number of free gadget slots
+     */
+    public int getOpenGadgetSlots() {
+        return type.getGadgetSlots() - shieldList.size();
+    }
+
+    @Override
     public String toString() {
         String result = "Ship: ";
         result += this.type.getName();
@@ -225,15 +293,16 @@ public class Ship {
             if (s.getHealth() != 0 && damage > 0.01) {
                 double newDamage = damage - s.getHealth();
                 s.decrementHealth(damage);
-                result += String.format("Shield %s absorbs the blow, %2f / %2f health remains.%n",
-                                        s.getHealth(), s.maxHealth());
+                result += String.format("Shield: %s absorbs the blow, %.2f / %.2f health remains.%n",
+                                        s.getType().getName(), s.getHealth(), s.maxHealth());
                 damage = Math.max(newDamage, 0);
             }
         }
         this.health = Math.max(0, this.health - damage);
+        // this.health = this.health - damage;
         if (damage > 0.01) {
-            result += String.format("The attack pierces the hull, dealing %2f damage.%n"
-                                    + "Remaining Hull Strength: %2f / %2f.%n", damage,
+            result += String.format("The attack pierces the hull, dealing %.2f damage.%n"
+                                    + "Remaining Hull Strength: %.2f / %d%n", damage,
                                     this.health, this.type.getHullStrength());
         }
         this.destroyed = this.health == 0;

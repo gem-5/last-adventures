@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import edu.gatech.gem5.game.LastAdventures;
 
@@ -67,5 +69,38 @@ public abstract class Controller implements Initializable {
      * node sizes.
      */
     public void finish() { }
+
+    /**
+     * Transition to a new Controller
+     *
+     * @param c The new Controller to load.
+     */
+    protected void transitionTo(Controller c) {
+        Pane oldRoot = (Pane) LastAdventures.getRoot();
+        Stage stage = LastAdventures.getStage();
+        Scene scene = stage.getScene();
+        // LastAdventures.setRoot(c.getRoot());
+        Parent root = c.getRoot();
+
+        // make the new scene the same size
+        if (oldRoot != null) {
+            ((Pane) root).setPrefWidth(oldRoot.getWidth());
+            ((Pane) root).setPrefHeight(oldRoot.getHeight());
+        }
+
+        if (scene == null) {
+            scene = new Scene(root);
+            stage.setScene(scene);
+        } else {
+            scene.setRoot(root);
+        }
+        scene.getWindow().sizeToScene();
+
+        // LastAdventures.setScene(scene);
+        LastAdventures.setRoot(root);
+        LastAdventures.setStage(stage);
+
+        c.finish(); // do something after the scene change
+    }
 
 }

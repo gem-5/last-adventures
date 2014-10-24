@@ -1,5 +1,6 @@
 package edu.gatech.gem5.game;
 
+import edu.gatech.gem5.game.controllers.Controller;
 /**
  * Defines methods that an Encounterable object should have so that 
  * EncounterManager can properly manage it and EncounterController can get
@@ -28,15 +29,15 @@ public interface Encounterable {
     String getEncounterMessage();
 
     /**
-     * Dispatch method to move control to the correct FXController.
-     */
-    void processEncounter();
-
-    /**
      *
      * @return The FXML file needed for this Encounterable
      */
     String getViewFile();
-
-
+    
+    //@TODO Javadoc properly...? I don't know what this is for exactly
+    /**
+    * Dispatch method to move control to the correct FXController.
+    * @return ???
+    */
+    public Controller getEncounterController();
 }

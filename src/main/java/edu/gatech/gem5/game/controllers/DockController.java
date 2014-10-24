@@ -89,7 +89,8 @@ public class DockController extends Controller {
 
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        LastAdventures.swap(new PlanetController());
+        // LastAdventures.swap(new PlanetController());
+        transitionTo(new PlanetController());
     }
 
     private void fillLabels() {

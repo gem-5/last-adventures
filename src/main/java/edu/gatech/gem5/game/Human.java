@@ -179,7 +179,7 @@ public abstract class Human {
     }
 
     public double getOffensiveMultiplier() {
-        return this.fighter / 100.0;
+        return this.fighter / 50.0;
     }
 
     public String attackShip(Ship s) {
@@ -190,7 +190,7 @@ public abstract class Human {
         // }
         damage *= getOffensiveMultiplier();
         if (damage < 0.01) {
-            result = "The attack misses the ship.%n";
+            result = "The attack misses the ship.\n";
         } else {
             result = s.receiveDamage(damage);
         }

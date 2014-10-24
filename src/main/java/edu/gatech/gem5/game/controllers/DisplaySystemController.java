@@ -122,7 +122,8 @@ public class DisplaySystemController extends Controller {
     @FXML
     public void goBack(ActionEvent event) throws Exception {
         removeListeners();
-        LastAdventures.swap(new DisplayUniverseController());
+        // LastAdventures.swap(new DisplayUniverseController());
+        transitionTo(new DisplayUniverseController());
     }
     /**
      * Sets the current planet and solar system to the save file, then changes to
@@ -215,7 +216,8 @@ public class DisplaySystemController extends Controller {
                 EncounterManager trip = new EncounterManager();
                 trip.nextEncounter();
             } else {
-                LastAdventures.swap(new PlanetController());
+                // LastAdventures.swap(new PlanetController());
+                transitionTo(new PlanetController());
             }
         }
 

@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.EventController;
+import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.data.EventType;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class Event implements Encounterable {
     public Event(EventType eventType) {
         this.type = eventType;
     }
-    
+
     @Override
     public EncounterManager getManager() {
         return manager;
@@ -44,8 +45,8 @@ public class Event implements Encounterable {
     }
 
     @Override
-    public void processEncounter() {
-        LastAdventures.swap(new EventController(this));
+    public Controller getEncounterController() {
+        return new EventController(this);
     }
 
     @Override
