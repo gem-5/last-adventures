@@ -142,6 +142,13 @@ public class Ship {
         return false;
     }
 
+    /**
+     * Method to find the number of available slots for new weapons
+     * @return the number of free weapon slots
+     */
+    public int getOpenWeaponSlots() {
+        return type.getWeaponSlots() - weaponList.size();
+    }
 
     // public List<ShieldType> getShieldList() {
     //     List<ShieldType> out = new ArrayList<>();
@@ -168,6 +175,14 @@ public class Ship {
         return false;
     }
 
+    /**
+     * Method to find the number of available slots for new shields
+     * @return the number of free shield slots
+     */
+    public int getOpenShieldSlots() {
+        return type.getShieldSlots() - shieldList.size();
+    }
+
     // public List<GadgetType> getGadgetList() {
     //     List<GadgetType> out = new ArrayList<>();
     //     Map gadgets = LastAdventures.data.get(GadgetType.KEY);
@@ -189,6 +204,14 @@ public class Ship {
             return gadgetList.add(gt);
         }
         return false;
+    }
+
+    /**
+     * Method to find the number of available slots for new gadgets
+     * @return the number of free gadget slots
+     */
+    public int getOpenGadgetSlots() {
+        return type.getGadgetSlots() - shieldList.size();
     }
 
     @Override
