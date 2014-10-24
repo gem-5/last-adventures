@@ -74,19 +74,19 @@ public abstract class NPC extends Human implements Encounterable {
         // add some weapons
         int weaponsNum = Math.min(r.nextInt(seed) / 15000, shipT.getWeaponSlots() - 1);
         for (int i = 0; i < weaponsNum; i++) {
-            ship.addWeapon(weapons[i]);
+            ship.addUpgrade(weapons[i]);
         }
 
         // add some shields
         int shieldsNum = Math.min(r.nextInt(seed) / 10000, shipT.getShieldSlots() - 1);
         for (int i = 0; i < shieldsNum; i++) {
-            ship.addShield(new Shield(shields[i]));
+            ship.addUpgrade(new Shield(shields[i]));
         }
 
         // add some gadgets
         int gadgetsNum = Math.min(r.nextInt(seed) / 20000, shipT.getGadgetSlots() - 1);
         for (int i = 0; i < gadgetsNum; i++) {
-            ship.addGadget(gadgets[i]);
+            ship.addUpgrade(gadgets[i]);
         }
 
         if (cargo) {

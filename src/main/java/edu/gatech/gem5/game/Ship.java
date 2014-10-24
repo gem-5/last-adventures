@@ -144,7 +144,7 @@ public class Ship {
      * @param wt the Weapon Type being added to the ship
      * @return true if successfully added, false otherwise
      */
-    public boolean addWeapon(WeaponType wt) {
+    public boolean addUpgrade(WeaponType wt) {
         if (weaponList.size() < type.getWeaponSlots()) {
             return weaponList.add(wt);
         }
@@ -177,7 +177,7 @@ public class Ship {
      * @param s the Shield being added to the ship
      * @return true if successfully added, false otherwise
      */
-    public boolean addShield(Shield s) {
+    public boolean addUpgrade(Shield s) {
         if (shieldList.size() < type.getShieldSlots()) {
             return shieldList.add(s);
         }
@@ -208,7 +208,7 @@ public class Ship {
      * @param gt the Gadget Type being added to the ship
      * @return true if successfully added, false otherwise
      */
-    public boolean addGadget(GadgetType gt) {
+    public boolean addUpgrade(GadgetType gt) {
         if (gadgetList.size() < type.getGadgetSlots()) {
             return gadgetList.add(gt);
         }
