@@ -99,7 +99,11 @@ public class Ship {
         return getType().getCargoSlots() - sum;
     }
 
-
+    /**
+     * Method to find the net worth of a ship, takes into account ship price and all
+     * wep/shield/gadget prices
+     * @return the net worth of the ship
+     */
     public int getNetWorth() {
         int worth = type.getPrice();
 
@@ -113,6 +117,11 @@ public class Ship {
 
         for (GadgetType g: getGadgetList()) {
             worth += g.getPrice();
+        }
+
+        for (String s: getCargoList().keySet()) {
+            GoodType cargo = Data.GOODS.get(s);
+            worth += cargo.getValue();
         }
 
         return worth;
