@@ -70,6 +70,11 @@ public abstract class Controller implements Initializable {
      */
     public void finish() { }
 
+    /**
+     * Transition to a new Controller
+     *
+     * @param c The new Controller to load.
+     */
     protected void transitionTo(Controller c) {
         Pane oldRoot = (Pane) LastAdventures.getRoot();
         Stage stage = LastAdventures.getStage();
