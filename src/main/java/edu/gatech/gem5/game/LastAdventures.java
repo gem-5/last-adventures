@@ -110,6 +110,13 @@ public class LastAdventures extends Application {
         launch(args);
    }
 
+    public static void setRoot(Parent newRoot) {
+        root = newRoot;
+    }
+
+    // public static void setStage(Stage newStage)
+    //     this.stage = newStage;
+
     public static void initializeGame(Character player, Universe uni) {
         final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();
         currentSaveFile.addCharacter(player);

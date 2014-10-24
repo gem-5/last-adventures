@@ -36,7 +36,6 @@ public class Event implements Encounterable {
 
     @Override
     public Controller getEncounterController() {
-        // LastAdventures.swap(new EventController(this));
         return new EventController(this);
     }
 

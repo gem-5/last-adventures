@@ -84,7 +84,6 @@ public class Trader extends NPC implements Traderable {
      */
     @Override
     public Controller getEncounterController() {
-        // LastAdventures.swap(new TraderEncounterController(this));
         return new TraderEncounterController(this);
     }
 
