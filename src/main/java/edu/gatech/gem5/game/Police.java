@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.EncounterController;
+import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.NameGenerator;
 import java.util.Random;
 
@@ -82,8 +83,10 @@ public class Police extends NPC {
     //     }
     // }
     @Override
-    public void processEncounter() {
-        LastAdventures.swap(new EncounterController(this));
+    public Controller getEncounterController() {
+        // LastAdventures.swap(new EncounterController(this));
+        return new EncounterController(this);
+
     }
 
 

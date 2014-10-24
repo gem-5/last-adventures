@@ -191,6 +191,7 @@ public class Ship {
         return false;
     }
 
+    @Override
     public String toString() {
         String result = "Ship: ";
         result += this.type.getName();

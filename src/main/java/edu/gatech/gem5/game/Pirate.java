@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game;
 
-import edu.gatech.gem5.game.controllers.EncounterController;
+import edu.gatech.gem5.game.controllers.PirateEncounterController;
+import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.NameGenerator;
 import java.util.Random;
 
@@ -89,14 +90,13 @@ public class Pirate extends NPC {
     @Override
     public String getEncounterMessage() {
         String msg = super.getEncounterMessage();
-        msg += this.toString();
-        // msg += "\n\nHowever combat is not yet implemented, so the Pirate flees in confusion.";
+        msg += this.getName();
         msg += "\n\n The Pirate attacks, prepare for battle!";
         return msg;
     }
     @Override
-    public void processEncounter() {
-        LastAdventures.swap(new EncounterController(this));
+    public Controller getEncounterController() {
+        return new PirateEncounterController(this);
     }
 
     @Override

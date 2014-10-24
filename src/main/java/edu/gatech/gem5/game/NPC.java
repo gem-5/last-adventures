@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.EncounterController;
+import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.EncounterManager;
 import edu.gatech.gem5.game.data.WeaponType;
 import edu.gatech.gem5.game.data.ShieldType;
@@ -34,8 +35,8 @@ public abstract class NPC extends Human implements Encounterable {
     }
 
     @Override
-    public void processEncounter() {
-        LastAdventures.swap(new EncounterController(this));
+    public Controller getEncounterController() {
+        return new EncounterController(this);
     }
 
     @Override

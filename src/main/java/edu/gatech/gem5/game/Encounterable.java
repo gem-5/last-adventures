@@ -5,6 +5,7 @@
  */
 package edu.gatech.gem5.game;
 
+import edu.gatech.gem5.game.controllers.Controller;
 /**
  *
  * @author Jack Mueller
@@ -13,7 +14,7 @@ public interface Encounterable {
     public EncounterManager getManager();
     public void setManager(EncounterManager manager);
     public String getEncounterMessage();
-    public void processEncounter();
+    public Controller getEncounterController();
     public String getViewFile();
 
 

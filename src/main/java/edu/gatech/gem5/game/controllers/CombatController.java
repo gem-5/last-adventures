@@ -67,7 +67,7 @@ public class CombatController extends Controller {
     }
 
     private void enactCombat() {
-        String result = "";
+        String result = String.format("%s:%n", player.getName());
         result += this.player.attackShip(enemy.getShip());
         if (enemy.getShip().isDestroyed()) {
             result += String.format("The enemy, %s, has been defeated!%n"
@@ -78,6 +78,7 @@ public class CombatController extends Controller {
             flee.setVisible(false);
             cont.setVisible(true);
         } else {
+            result += String.format("%n%s:%n", enemy.getName());
             result += this.enemy.attackShip(player.getShip());
             if (player.getShip().isDestroyed()) {
                 result += String.format("With that last blow, the enemy, %s, has destroyed your Ship.%n"
