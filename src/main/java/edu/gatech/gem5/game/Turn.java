@@ -25,7 +25,7 @@ public class Turn {
                 //update planet's stock
                 planet.increaseStock();
                 //set the condition every turn
-                planet.setCondition();
+                planet.getNewCondition();
             }
         }
     }

@@ -32,7 +32,7 @@ public abstract class AbstractNPC extends AbstractHuman implements Encounterable
      * @param trader trader skill
      * @param engineer engineer skill
      * @param investor investor skill
-     * @param ship ship used by the NPC during fights
+     * @param ship ship used by the NPC during encounters
      * @param loot amount of money given on defeat
      */
     protected AbstractNPC(String name, int pilot, int fighter, int trader, 
