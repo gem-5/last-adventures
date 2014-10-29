@@ -177,9 +177,9 @@ public class Ship {
      * @param s the Shield being added to the ship
      * @return true if successfully added, false otherwise
      */
-    public boolean addUpgrade(Shield s) {
+    public boolean addUpgrade(ShieldType st) {
         if (shieldList.size() < type.getShieldSlots()) {
-            return shieldList.add(s);
+            return shieldList.add(new Shield (st));
         }
         return false;
     }
