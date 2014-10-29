@@ -33,7 +33,7 @@
                                     <GridPane id="service-grid">
                                         <vgap>10.0</vgap>
                                        <children>
-                                    <Button id="shipyard" onAction="#changeScenes" text="Shipyard" GridPane.rowIndex="1" />
+                                    <Button fx:id="shipyard" onAction="#changeScenes" text="Shipyard" GridPane.rowIndex="1" />
                                     <Button id="dock" onAction="#changeScenes" text="Dock" GridPane.rowIndex="2" />
                                            <Button id="market" onAction="#changeScenes" text="Market Place" GridPane.columnIndex="0" />
                                            <Button id="news" onAction="#changeScenes" text="News" GridPane.rowIndex="4" />

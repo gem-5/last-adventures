@@ -37,7 +37,8 @@ public class TitleController extends Controller {
      */
     @FXML
     private void startNewGame(ActionEvent event) throws Exception {
-        LastAdventures.swap(new CharacterCreateController());
+        // LastAdventures.swap(new CharacterCreateController());
+        transitionTo(new CharacterCreateController());
     }
 
     /**
@@ -47,7 +48,8 @@ public class TitleController extends Controller {
      */
     @FXML
     private void continueGame(ActionEvent event) throws Exception {
-        LastAdventures.swap(this); // go nowhere
+        // LastAdventures.swap(this); // go nowhere
+        transitionTo(this);
     }
 
     /**
@@ -57,6 +59,7 @@ public class TitleController extends Controller {
      */
     @FXML
     private void loadGame(ActionEvent event) throws Exception {
-       LastAdventures.swap(new LoadGameController());
+       // LastAdventures.swap(new LoadGameController());
+        transitionTo(new LoadGameController());
     }
 }

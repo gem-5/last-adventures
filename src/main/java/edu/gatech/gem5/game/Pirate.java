@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game;
 
-import edu.gatech.gem5.game.controllers.EncounterController;
+import edu.gatech.gem5.game.controllers.PirateEncounterController;
+import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.NameGenerator;
 import java.util.Random;
 
@@ -13,8 +14,8 @@ import java.util.Random;
 
 public class Pirate extends NPC {
 
-    public final String VIEW_FILE = "/fxml/encounter.fxml";
-    
+    public final String VIEW_FILE = "/fxml/pirateencounter.fxml";
+
     private Pirate(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
@@ -36,7 +37,7 @@ public class Pirate extends NPC {
      * @return a new instance of the Pirate class
      */
 
-    public static Pirate createPirate(int seed, Ship ship) {
+    public static Pirate createPirate(int seed) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
 
@@ -64,6 +65,9 @@ public class Pirate extends NPC {
 
         String name = title + " " + rand.newHumanName();
 
+        // create the ship
+        Ship ship = createShip(seed, 7500, 10000, 15000, 20000, false);
+
         return new Pirate(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
 
@@ -86,22 +90,22 @@ public class Pirate extends NPC {
     @Override
     public String getEncounterMessage() {
         String msg = super.getEncounterMessage();
-        msg += this.toString();
-        msg += "\n\nHowever combat is not yet implemented, so the Pirate flees in confusion.";
+        msg += this.getName();
+        msg += "\n\n The Pirate attacks, prepare for battle!";
         return msg;
     }
     @Override
-    public void processEncounter() {
-        LastAdventures.swap(new EncounterController(this));
+    public Controller getEncounterController() {
+        return new PirateEncounterController(this);
     }
 
     @Override
     public String toString() {
         return "*PIRATE*\n" + super.toString();
     }
-    
+
     /**
-     * 
+     *
      * @return The FXML to be shown that is specific to this type of encounter
      * after the initial encounter screen.
      */

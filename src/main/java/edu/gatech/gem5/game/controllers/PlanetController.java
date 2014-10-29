@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
@@ -43,6 +44,8 @@ public class PlanetController extends Controller {
     private Button btnSave;
     @FXML
     private Button refuelButton;
+    @FXML
+    private Button shipyard;
 
 
     Planet planet;
@@ -70,6 +73,11 @@ public class PlanetController extends Controller {
         this.refuelButton.setText("Refuel " +(ship.getType().getRange() -
                 ship.getFuel()) * ship.getType().getFuelCost());
 
+        if (planet.getShips().isEmpty()) {
+//            ((Pane) this.shipyard.getParent()).getChildren()
+//                    .remove(this.shipyard);
+            this.shipyard.setDisable(true);
+        }
         //set hotkey for saving to Control + S
         root.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (new KeyCodeCombination(KeyCode.S,
@@ -99,16 +107,20 @@ public class PlanetController extends Controller {
         //loads the create FXML file into root
         switch (id) {
             case "market":
-                LastAdventures.swap(new MarketController());
+                // LastAdventures.swap(new MarketController());
+                transitionTo(new MarketController());
                 break;
             case "travel":
-                LastAdventures.swap(new DisplayUniverseController());
+                // LastAdventures.swap(new DisplayUniverseController());
+                transitionTo(new DisplayUniverseController());
                 break;
             case "shipyard":
-                LastAdventures.swap(new ShipyardController());
+                // LastAdventures.swap(new ShipyardController());
+                transitionTo(new ShipyardController());
                 break;
             case "dock":
-                LastAdventures.swap(new DockController());
+                // LastAdventures.swap(new DockController());
+                transitionTo(new DockController());
                 break;
         }
     }
@@ -141,12 +153,15 @@ public class PlanetController extends Controller {
                         .showConfirm();
             if (response == Dialog.ACTION_YES) {
                 save();
-                LastAdventures.swap(new TitleController());
+                // LastAdventures.swap(new TitleController());
+                transitionTo(new TitleController());
             } else if (response == Dialog.ACTION_NO) {
-                LastAdventures.swap(new TitleController());
+                // LastAdventures.swap(new TitleController());
+                transitionTo(new TitleController());
             }
         } else {
-            LastAdventures.swap(new TitleController());
+            // LastAdventures.swap(new TitleController());
+            transitionTo(new TitleController());
         }
     }
 
@@ -174,4 +189,3 @@ public class PlanetController extends Controller {
         }
     }
 }
-

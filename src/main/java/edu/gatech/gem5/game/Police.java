@@ -1,6 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.EncounterController;
+import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.NameGenerator;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ import java.util.Random;
 public class Police extends NPC {
 
     public final String VIEW_FILE = "/fxml/encounter.fxml";
-    
+
     private Police(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
@@ -35,7 +36,7 @@ public class Police extends NPC {
      * @param ship The ship that the new police will spawn with
      * @return a new instance of the Police class
      */
-    public static Police createPolice(int seed, Ship ship) {
+    public static Police createPolice(int seed) {
         Random r = new Random();
         NameGenerator rand = new NameGenerator();
 
@@ -63,6 +64,9 @@ public class Police extends NPC {
 
         String name = title + " " + rand.newHumanName();
 
+        // Now let's create and load the ship
+        Ship ship = createShip(seed, 5000, 15000, 10000, 20000, false);
+
         return new Police(name, stats[0], stats[1], stats[2], stats[3], stats[4], ship, loot);
     }
 
@@ -79,10 +83,12 @@ public class Police extends NPC {
     //     }
     // }
     @Override
-    public void processEncounter() {
-        LastAdventures.swap(new EncounterController(this));
+    public Controller getEncounterController() {
+        // LastAdventures.swap(new EncounterController(this));
+        return new EncounterController(this);
+
     }
-    
+
 
     @Override
         public String getEncounterMessage() {

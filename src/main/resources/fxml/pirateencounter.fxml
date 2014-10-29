@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane
+    prefWidth="1280"
+    prefHeight="720"
+    xmlns:fx="http://javafx.com/fxml/1"
+>
+    <top>
+        <HBox><Region HBox.Hgrow="always"/>
+            <Label
+                fx:id="title"
+                text="A Pirate Attacks!"
+            />
+        <Region HBox.Hgrow="always" /></HBox>
+    </top>
+
+    <center>
+        <VBox>
+            <padding><Insets left="250" /></padding>
+            <Region VBox.Vgrow="always"/>
+            <TextFlow>
+                <Text styleClass="blocktext" fx:id="dialog" />
+            </TextFlow>
+            <Region VBox.Vgrow="always"/>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox>
+            <Region HBox.Hgrow="always" />
+                <Button mnemonicParsing="false" onAction="#attackEnemy" text="To Battle!" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <Region minWidth="50" />
+                <!-- <Button cancelButton="true" mnemonicParsing="false" onAction="#goBack" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="7" /> -->
+            <Region HBox.Hgrow="always" />
+        </HBox>
+    </bottom>
+    <stylesheets>
+        <URL value="@/css/main.css"/>
+    </stylesheets>
+</BorderPane>

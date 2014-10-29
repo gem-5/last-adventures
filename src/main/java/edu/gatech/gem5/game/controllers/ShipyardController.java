@@ -69,7 +69,7 @@ public class ShipyardController extends Controller {
             if (bar.isSelected()) {
                 ShipType ship = ships.get(bar.getKey());
                 int playerCash = save.getCharacter().getMoney();
-                int price = ship.getPrice();
+                int price = ship.getPrice() - currentShip.getNetWorth();
                 if (playerCash < price) {
                     // TODO: warning: not enough money
                 } else {
@@ -80,6 +80,9 @@ public class ShipyardController extends Controller {
                     save.getCharacter().setMoney(playerCash - price);
                     // update labels
                     fillLabels();
+                    // rebuild ships list (?)
+                    currentShip = save.getCharacter().getShip();
+                    buildShipsList();
                 }
                 // TODO: don't use a for loop here (see above)
                 break;
@@ -89,7 +92,8 @@ public class ShipyardController extends Controller {
 
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        LastAdventures.swap(new PlanetController());
+        // LastAdventures.swap(new PlanetController());
+        transitionTo(new PlanetController());
     }
 
     private void fillLabels() {

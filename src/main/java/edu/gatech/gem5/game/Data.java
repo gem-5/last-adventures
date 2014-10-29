@@ -1,9 +1,20 @@
 package edu.gatech.gem5.game;
 
-import java.util.HashMap;
-import java.util.Map;
+import edu.gatech.gem5.game.readers.CompanyReader;
+import edu.gatech.gem5.game.readers.ConditionReader;
+import edu.gatech.gem5.game.readers.EnvironmentReader;
+import edu.gatech.gem5.game.readers.EventReader;
+import edu.gatech.gem5.game.readers.GadgetReader;
+import edu.gatech.gem5.game.readers.GoodReader;
+import edu.gatech.gem5.game.readers.GovernmentReader;
+import edu.gatech.gem5.game.readers.ShieldReader;
+import edu.gatech.gem5.game.readers.ShipReader;
+import edu.gatech.gem5.game.readers.StarReader;
+import edu.gatech.gem5.game.readers.StoryReader;
+import edu.gatech.gem5.game.readers.TechReader;
+import edu.gatech.gem5.game.readers.WeaponReader;
 
-import edu.gatech.gem5.game.readers.*;
+
 
 /**
  * A class for static access to data files for the game.

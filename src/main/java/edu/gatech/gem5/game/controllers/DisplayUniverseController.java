@@ -95,7 +95,8 @@ public class DisplayUniverseController extends Controller {
     @FXML
     public void goBack(ActionEvent event) throws Exception {
         removeListeners();
-        LastAdventures.swap(new DisplaySystemController());
+        // LastAdventures.swap(new DisplaySystemController());
+        transitionTo(new DisplaySystemController());
     }
 
     private void addListeners() {
@@ -127,7 +128,8 @@ public class DisplayUniverseController extends Controller {
             Ship ship = save.getCharacter().getShip();
             int range = ship.getFuel();
             if (distance() <= range) {
-                LastAdventures.swap(new DisplaySystemController(sys));
+                // LastAdventures.swap(new DisplaySystemController(sys));
+                transitionTo(new DisplaySystemController(sys));
             } else {
                 errorLabel.setText("Out of Range");
             }
