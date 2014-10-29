@@ -21,8 +21,8 @@
     <center>
         <HBox>
             <VBox HBox.Hgrow="always">
-                <Label id="title">Ships</Label>
-                <ListView fx:id="buyShips" VBox.Vgrow="always"/>
+                <Label id="title">Upgrade List</Label>
+                <ListView fx:id="buyUpgradeBarList" VBox.Vgrow="always"/>
             </VBox>
             <VBox HBox.Hgrow="always">
                 <Label id="title">Your Ship</Label>
@@ -33,7 +33,6 @@
     <bottom>
         <VBox>
             <HBox>
-                <Button id="buyShip" onAction="#makeSale" text="Buy"/>
                 <Region HBox.Hgrow="always" />
                 <Button onAction="#goBack" text="Back" />
             </HBox>
