@@ -142,7 +142,7 @@ public class DockController extends Controller {
             Ship playerShip = player.getShip();
 
             // Check for weapon slot availability for a player's ship (edge case)
-            if (playerShip.getType().getWeaponSlots() <= playerShip.getWeaponList().size()) {
+            if (playerShip.getOpenWeaponSlots() == 0) {
                 errorLabel.setText("No more weapon slots remaining for the ship.");
                 return;
             }
@@ -151,7 +151,7 @@ public class DockController extends Controller {
                 errorLabel.setText("You don't have enough money.");
                 return;
             }
-            
+
             // Process weapon purchase
             playerShip.addUpgrade(weaponType);
             player.setMoney(player.getMoney() - weaponType.getPrice());
@@ -184,7 +184,7 @@ public class DockController extends Controller {
             Ship playerShip = player.getShip();
 
             // Check for weapon slot availability for a player's ship (edge case)
-            if (playerShip.getType().getShieldSlots() <= playerShip.getShieldList().size()) {
+            if (playerShip.getOpenShieldSlots() == 0) {
                 errorLabel.setText("No more shield slots remaining for the ship.");
                 return;
             }
@@ -193,7 +193,7 @@ public class DockController extends Controller {
                 errorLabel.setText("You don't have enough money.");
                 return;
             }
-            
+
             // Process shield purchase
             playerShip.addUpgrade(new Shield(shieldType));
             player.setMoney(player.getMoney() - shieldType.getPrice());
