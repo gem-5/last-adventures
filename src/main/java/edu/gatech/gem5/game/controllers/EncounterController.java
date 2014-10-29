@@ -2,7 +2,7 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Encounterable;
 import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.NPC;
+import edu.gatech.gem5.game.AbstractNPC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -66,7 +66,7 @@ public class EncounterController extends Controller {
         // LastAdventures.swap(new CombatController(LastAdventures.getCurrentSaveFile().getCharacter(),
         //                                          (NPC) encounter));
         transitionTo(new CombatController(LastAdventures.getCurrentSaveFile().getCharacter(),
-                                          (NPC) encounter));
+                                          (AbstractNPC) encounter));
     }
 
 }

@@ -1,8 +1,8 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.NPC;
-import edu.gatech.gem5.game.Human;
+import edu.gatech.gem5.game.AbstractNPC;
+import edu.gatech.gem5.game.AbstractHuman;
 import edu.gatech.gem5.game.Character;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,7 +30,7 @@ public class CombatController extends Controller {
     Button cont;
 
     Character player;
-    NPC enemy;
+    AbstractNPC enemy;
 
 
     @FXML
@@ -43,7 +43,7 @@ public class CombatController extends Controller {
      * @param p the Character involved in combat
      * @param e the enemy NPC involved in combat
      */
-    public CombatController(Character p, NPC e) {
+    public CombatController(Character p, AbstractNPC e) {
         super(COMBAT_VIEW_FILE);
         this.player = p;
         this.enemy = e;
@@ -92,7 +92,7 @@ public class CombatController extends Controller {
         dialog.setText(result);
     }
 
-    private boolean fleeAttempt(Human h1, Human h2) {
+    private boolean fleeAttempt(AbstractHuman h1, AbstractHuman h2) {
         Random r = new Random();
         int variation = r.nextInt(h1.getPilot() / 10) - h1.getPilot() / 20;
         variation += r.nextInt(h2.getPilot() / 10) - h2.getPilot() / 20;

@@ -4,7 +4,7 @@ package edu.gatech.gem5.game;
  * Class implementation of Player Character in Last Adventures.
  * @author Sam Blumenthal
  */
-public class Character extends Human {
+public class Character extends AbstractHuman {
 
     /**
      * Constructor for character with a ship, starts with 1000 credits.

@@ -12,7 +12,7 @@ import java.util.Random;
  *
  */
 
-public class Pirate extends NPC {
+public class Pirate extends AbstractNPC {
 
     public final String VIEW_FILE = "/fxml/pirateencounter.fxml";
 

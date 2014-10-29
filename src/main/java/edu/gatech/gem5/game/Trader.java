@@ -18,7 +18,7 @@ import java.util.TreeMap;
  *
  */
 
-public class Trader extends NPC implements Traderable {
+public class Trader extends AbstractNPC implements Traderable {
 
     public final String VIEW_FILE = "/fxml/traderencounter.fxml";
 

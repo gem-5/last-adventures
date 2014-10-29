@@ -12,7 +12,7 @@ import java.util.Random;
  *
  */
 
-public class Police extends NPC {
+public class Police extends AbstractNPC {
 
     public final String VIEW_FILE = "/fxml/encounter.fxml";
 

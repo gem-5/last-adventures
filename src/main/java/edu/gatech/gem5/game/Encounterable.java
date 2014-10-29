@@ -39,5 +39,5 @@ public interface Encounterable {
     * Dispatch method to move control to the correct FXController.
     * @return ???
     */
-    public Controller getEncounterController();
+    Controller getEncounterController();
 }
