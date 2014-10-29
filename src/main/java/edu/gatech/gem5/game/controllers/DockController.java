@@ -1,10 +1,11 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.Character;
+import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.Shield;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.WeaponType;
@@ -145,9 +146,14 @@ public class DockController extends Controller {
                 errorLabel.setText("No more weapon slots remaining for the ship.");
                 return;
             }
-
+            // Check for player money count (edge case)
+            if (player.getMoney() < weaponType.getPrice()) {
+                errorLabel.setText("You don't have enough money.");
+                return;
+            }
+            
             // Process weapon purchase
-            playerShip.getWeaponList().add(weaponType);
+            playerShip.addUpgrade(weaponType);
             player.setMoney(player.getMoney() - weaponType.getPrice());
 
             // Refresh list & money count
@@ -179,12 +185,17 @@ public class DockController extends Controller {
 
             // Check for weapon slot availability for a player's ship (edge case)
             if (playerShip.getType().getShieldSlots() <= playerShip.getShieldList().size()) {
-                errorLabel.setText("No more weapon slots remaining for the ship.");
+                errorLabel.setText("No more shield slots remaining for the ship.");
                 return;
             }
-
+            // Check for player money count (edge case)
+            if (player.getMoney() < shieldType.getPrice()) {
+                errorLabel.setText("You don't have enough money.");
+                return;
+            }
+            
             // Process shield purchase
-            playerShip.getShieldList().add(shieldType);
+            playerShip.addUpgrade(new Shield(shieldType));
             player.setMoney(player.getMoney() - shieldType.getPrice());
 
             // Refresh list & money count
