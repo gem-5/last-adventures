@@ -1,20 +1,7 @@
 package edu.gatech.gem5.game.ui;
 
-import java.io.IOException;
-import java.util.Map;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.beans.property.StringProperty;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
-
 import edu.gatech.gem5.game.SaveFile;
 
 /**

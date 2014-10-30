@@ -2,14 +2,10 @@ package edu.gatech.gem5.game.ui;
 
 import java.io.IOException;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.input.MouseEvent;
-
 
 /**
  * Save box custom UI element for the load game screen.
@@ -18,9 +14,15 @@ import javafx.scene.input.MouseEvent;
  */
 public class SaveBox extends HBox {
 
+    /**
+     * The name of the savebox
+     */
     @FXML
     private Label name;
 
+    /**
+     * The path of a SaveGame file.
+     */
     private String path;
 
     /**

@@ -1,20 +1,9 @@
 package edu.gatech.gem5.game.ui;
 
-import java.io.IOException;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.beans.property.StringProperty;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.input.MouseEvent;
 
 /**
- * SolarSystemDisplay custom FXML element controller class
+ * SolarSystemDisplay custom FXML element controller class.
  *
  * @author Creston Bunch
  */
@@ -34,9 +23,9 @@ public class SolarSystemDisplay extends ExplorableDisplay {
     }
 
     @Override
-    public void addNode(int x, int y, Node n) {
-        x += gridWidth / 2;
-        y += gridHeight / 2;
-        super.addNode(x, y, n);
+    public void addNode(int xCoord, int yCoord, Node n) {
+        xCoord += gridWidth / 2;
+        yCoord += gridHeight / 2;
+        super.addNode(xCoord, yCoord, n);
     }
 }

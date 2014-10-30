@@ -1,20 +1,12 @@
 package edu.gatech.gem5.game.ui;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.Color;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
-import javafx.scene.text.Font;
 
 import edu.gatech.gem5.game.SolarSystem;
 
