@@ -27,7 +27,7 @@ public class SolarIcon extends Region {
      * Construct and set the root of this custom control.
      */
     public SolarIcon(SolarSystem sys) {
-        image = new ImageView(sys.getType().getSystemImage());;
+        image = new ImageView(sys.getType().getSystemImage());
         image.fitWidthProperty().bind(this.widthProperty());
         image.fitHeightProperty().bind(this.heightProperty());
         setPrefWidth(2 * sys.getPlanets().size());

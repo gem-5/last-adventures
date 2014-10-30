@@ -43,7 +43,7 @@ public class StarIcon extends Region {
         content.setVgap(5);
 
         Map<String, String> attrs = new HashMap();
-        attrs.put("Planets", new Integer(sys.getPlanets().size()).toString());
+        attrs.put("Planets", Integer.toString(sys.getPlanets().size()));
 
         int row = 0;
         for (Map.Entry<String, String> e : attrs.entrySet()) {

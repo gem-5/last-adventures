@@ -240,10 +240,10 @@ public abstract class ExplorableDisplay extends Pane {
             double rX = p.x + n.getBoundsInLocal().getWidth(); // rightmost x point
             double tY = p.y; // topmost y point
             double bY = p.y + n.getBoundsInLocal().getHeight(); // bottommost y point
-            return (   rX > this.x - getWidth() / 2
+            return rX > this.x - getWidth() / 2
                     && bY > this.y - getHeight() / 2
                     && lX < this.x + getWidth() / 2
-                    && tY < this.y + getHeight() / 2);
+                    && tY < this.y + getHeight() / 2;
         }
 
         /**
@@ -423,18 +423,17 @@ public abstract class ExplorableDisplay extends Pane {
                 prevX = -1;
                 prevY = -1;
                 setCursor(Cursor.DEFAULT);
-            } else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-                if (dragging) {
-                    if (prevX >= 0 && prevY >= 0) {
-                        double dx = (e.getX() - prevX) / camera.getZoom();
-                        double dy = (e.getY() - prevY) / camera.getZoom();
-                        camera.pan(-dx, -dy);
-                    }
-                    this.prevX = e.getX();
-                    this.prevY = e.getY();
+            } else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED && dragging) {
+
+                if (prevX >= 0 && prevY >= 0) {
+                    double dx = (e.getX() - prevX) / camera.getZoom();
+                    double dy = (e.getY() - prevY) / camera.getZoom();
+                    camera.pan(-dx, -dy);
                 }
-                //update();
+                this.prevX = e.getX();
+                this.prevY = e.getY();
             }
+
         }
     }
 }

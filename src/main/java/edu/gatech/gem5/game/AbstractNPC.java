@@ -2,7 +2,6 @@ package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.EncounterController;
 import edu.gatech.gem5.game.controllers.Controller;
-import edu.gatech.gem5.game.EncounterManager;
 import edu.gatech.gem5.game.data.WeaponType;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
@@ -15,14 +14,29 @@ import java.util.List;
 
 
 /**
- * An abstract superclass for all NPCs in the game
+ * An abstract superclass for all NPCs in the game.
  * @author Sam Blumenthal
  */
-public abstract class NPC extends Human implements Encounterable {
+public abstract class AbstractNPC extends AbstractHuman implements Encounterable {
 
+    /**
+     * The manager that this encounter will notify when it has been resolved.
+     */
     EncounterManager manager;
 
-    protected NPC(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
+    /**
+     *
+     * @param name NPC's name
+     * @param pilot pilot skill
+     * @param fighter fighter skill
+     * @param trader trader skill
+     * @param engineer engineer skill
+     * @param investor investor skill
+     * @param ship ship used by the NPC during encounters
+     * @param loot amount of money given on defeat
+     */
+    protected AbstractNPC(String name, int pilot, int fighter, int trader,
+            int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
 
@@ -45,21 +59,22 @@ public abstract class NPC extends Human implements Encounterable {
     }
 
     @Override
-    public void setManager(EncounterManager manager) {
-        this.manager = manager;
+    public void setManager(EncounterManager m) {
+        this.manager = m;
     }
 
     /**
-     * Method to create ships loaded with various weapons and other items
+     * Method to create ships loaded with various weapons and other items.
      * @param seed the seed used to generate everything
-     * @param ship_divider divider used to determine the ship (smaller divider = better ship)
-     * @param weapon_divider divider used to determine the number of weapons (smaller divider = more on the ship)
-     * @param shield_divider divider used to determine the number of shields (smaller divider = more on the ship)
-     * @param gadget_divider divider used to determine the number of gadgets (smaller divider = more on the ship)
+     * @param shipDivider divider used to determine the ship (smaller divider = better ship)
+     * @param weaponDivider divider used to determine the number of weapons (smaller divider = more on the ship)
+     * @param shieldDivider divider used to determine the number of shields (smaller divider = more on the ship)
+     * @param gadgetDivider divider used to determine the number of gadgets (smaller divider = more on the ship)
+     * @param cargo if cargo needs to be generated for this NPC
      * @return the newly created ship
      */
-    protected static Ship createShip(int seed, int ship_divider, int weapon_divider,
-                                     int shield_divider, int gadget_divider, boolean cargo) {
+    protected static Ship createShip(int seed, int shipDivider, int weaponDivider,
+                                     int shieldDivider, int gadgetDivider, boolean cargo) {
         Random r = new Random();
         ShipType[] ships = Data.SHIPS.get().values().toArray(new ShipType[0]);
         WeaponType[] weapons = Data.WEAPONS.get().values().toArray(new WeaponType[0]);
@@ -67,24 +82,24 @@ public abstract class NPC extends Human implements Encounterable {
         GadgetType[] gadgets = Data.GADGETS.get().values().toArray(new GadgetType[0]);
 
         // create the ship
-        int shipIndex = Math.min(r.nextInt(seed) / ship_divider, ships.length - 1);
+        int shipIndex = Math.min(r.nextInt(seed) / shipDivider, ships.length - 1);
         ShipType shipT = ships[shipIndex];
         Ship ship = new Ship(shipT);
 
         // add some weapons
-        int weaponsNum = Math.min(r.nextInt(seed) / weapon_divider, shipT.getWeaponSlots() - 1);
+        int weaponsNum = Math.min(r.nextInt(seed) / weaponDivider, shipT.getWeaponSlots() - 1);
         for (int i = 0; i < weaponsNum; i++) {
             ship.addUpgrade(weapons[i]);
         }
 
         // add some shields
-        int shieldsNum = Math.min(r.nextInt(seed) / shield_divider, shipT.getShieldSlots() - 1);
+        int shieldsNum = Math.min(r.nextInt(seed) / shieldDivider, shipT.getShieldSlots() - 1);
         for (int i = 0; i < shieldsNum; i++) {
             ship.addUpgrade((shields[i]));
         }
 
         // add some gadgets
-        int gadgetsNum = Math.min(r.nextInt(seed) / gadget_divider, shipT.getGadgetSlots() - 1);
+        int gadgetsNum = Math.min(r.nextInt(seed) / gadgetDivider, shipT.getGadgetSlots() - 1);
         for (int i = 0; i < gadgetsNum; i++) {
             ship.addUpgrade(gadgets[i]);
         }
@@ -101,7 +116,7 @@ public abstract class NPC extends Human implements Encounterable {
             }
 
             // sort goods by price
-            legalGoods.sort(new Comparator<GoodType>(){
+            legalGoods.sort(new Comparator<GoodType>() {
                     public int compare(GoodType g1, GoodType g2) {
                         return g1.getValue() - g2.getValue();
                     }

@@ -1,33 +1,20 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.Encounter;
-import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
-import edu.gatech.gem5.game.Character;
-import edu.gatech.gem5.game.Turn;
 import edu.gatech.gem5.game.ui.UniverseDisplay;
 import edu.gatech.gem5.game.ui.ExplorableDisplay;
 import edu.gatech.gem5.game.ui.StarIcon;
-import java.util.List;
-import java.util.Map;
-
-import java.util.Random;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.Cursor;
-import javafx.scene.control.Tooltip;
-
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -46,10 +33,10 @@ public class DisplayUniverseController extends Controller {
     @FXML
     private Pane root;
 
-    private ExplorableDisplay map;
-    private Universe universe;
-    private SaveFile save;
-    private UpdateListener updateListener;
+    private final ExplorableDisplay map;
+    private final Universe universe;
+    private final SaveFile save;
+    private final UpdateListener updateListener;
 
     public static final String UNIVERSE_VIEW_FILE = "/fxml/travel.fxml";
 
@@ -69,6 +56,7 @@ public class DisplayUniverseController extends Controller {
         addListeners();
     }
 
+    @Override
     public void finish() {
         // populate the universe display
         for (SolarSystem s : universe.getUniverse().values()) {
@@ -103,21 +91,25 @@ public class DisplayUniverseController extends Controller {
         LastAdventures.getScene().widthProperty().addListener(updateListener);
         LastAdventures.getScene().heightProperty().addListener(updateListener);
     }
+
     private void removeListeners() {
         LastAdventures.getScene().widthProperty().addListener(updateListener);
         LastAdventures.getScene().heightProperty().addListener(updateListener);
     }
+
     private class UpdateListener implements ChangeListener<Object> {
+
         @Override
         public void changed(ObservableValue<? extends Object> obs,
-                            Object oldValue,
-                            Object newValue) {
+                Object oldValue,
+                Object newValue) {
             map.update();
         }
     };
 
     private class TravelHandler implements EventHandler<MouseEvent> {
-        private SolarSystem sys;
+
+        private final SolarSystem sys;
 
         public TravelHandler(SolarSystem sys) {
             this.sys = sys;
@@ -140,7 +132,7 @@ public class DisplayUniverseController extends Controller {
             SolarSystem there = sys;
             int dx = there.getXCoordinate() - here.getXCoordinate();
             int dy = there.getYCoordinate() - here.getYCoordinate();
-            return Math.sqrt(dx*dx + dy*dy);
+            return Math.sqrt(dx * dx + dy * dy);
         }
     }
 

@@ -1,12 +1,10 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.NPC;
-import edu.gatech.gem5.game.Human;
+import edu.gatech.gem5.game.AbstractNPC;
+import edu.gatech.gem5.game.AbstractHuman;
 import edu.gatech.gem5.game.Character;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import java.util.Random;
@@ -20,7 +18,6 @@ import java.util.Random;
  */
 public class CombatController extends Controller {
 
-
     @FXML
     Button attack;
     @FXML
@@ -30,8 +27,7 @@ public class CombatController extends Controller {
     Button cont;
 
     Character player;
-    NPC enemy;
-
+    AbstractNPC enemy;
 
     @FXML
     Text dialog;
@@ -40,10 +36,11 @@ public class CombatController extends Controller {
 
     /**
      * Contruct the combat controller
+     *
      * @param p the Character involved in combat
      * @param e the enemy NPC involved in combat
      */
-    public CombatController(Character p, NPC e) {
+    public CombatController(Character p, AbstractNPC e) {
         super(COMBAT_VIEW_FILE);
         this.player = p;
         this.enemy = e;
@@ -53,17 +50,18 @@ public class CombatController extends Controller {
         enactCombat();
     }
 
-
     public void attackEnemy(ActionEvent event) throws Exception {
         enactCombat();
     }
 
     public void flee(ActionEvent event) throws Exception {
-        if (fleeAttempt(player, enemy)) {
+        //TODO functionality
+        
+        /*if (fleeAttempt(player, enemy)) {
             // player flees battle
         } else {
             // player fails, enemy attacks during the attempt
-        }
+        }*/
     }
 
     private void enactCombat() {
@@ -71,8 +69,8 @@ public class CombatController extends Controller {
         result += this.player.attackShip(enemy.getShip());
         if (enemy.getShip().isDestroyed()) {
             result += String.format("The enemy, %s, has been defeated!%n"
-                                    + "You loot %d off their corpse.",
-                                    enemy.getName(), enemy.getMoney());
+                    + "You loot %d off their corpse.",
+                    enemy.getName(), enemy.getMoney());
             player.setMoney(player.getMoney() + enemy.getMoney());
             attack.setVisible(false);
             flee.setVisible(false);
@@ -82,8 +80,8 @@ public class CombatController extends Controller {
             result += this.enemy.attackShip(player.getShip());
             if (player.getShip().isDestroyed()) {
                 result += String.format("With that last blow, the enemy, %s, has destroyed your Ship.%n"
-                                        + "You escape to the planet, but without a Ship or any cargo.",
-                                        enemy.getName());
+                        + "You escape to the planet, but without a Ship or any cargo.",
+                        enemy.getName());
                 attack.setVisible(false);
                 flee.setVisible(false);
                 cont.setVisible(true);
@@ -92,7 +90,7 @@ public class CombatController extends Controller {
         dialog.setText(result);
     }
 
-    private boolean fleeAttempt(Human h1, Human h2) {
+    private boolean fleeAttempt(AbstractHuman h1, AbstractHuman h2) {
         Random r = new Random();
         int variation = r.nextInt(h1.getPilot() / 10) - h1.getPilot() / 20;
         variation += r.nextInt(h2.getPilot() / 10) - h2.getPilot() / 20;

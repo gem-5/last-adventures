@@ -13,10 +13,25 @@ import edu.gatech.gem5.game.data.StarType;
  * @author Creston Bunch
  */
 public class SolarSystem {
+    /**
+     * The name of a SolarSystem.
+     */
     private final String name;
+    /**
+     * A Star key that corresponds to a star type defined in the JSON files.
+     */
     private final String type;
+    /**
+     * The x coordinate of a system in its universe.
+     */
     private final int xCoordinate;
+    /**
+     * The y coordinate of a system in its universe.
+     */
     private final int yCoordinate;
+    /**
+     * A list of planets that exist in a solar system.
+     */
     private List<Planet> planets;
 
     /**
@@ -24,12 +39,12 @@ public class SolarSystem {
      *
      * Creates a random number of planets.
      *
-     * @param name The name of the system.
+     * @param n The name of the system.
      * @param x The x coordinate.
      * @param y The y coordinate.
      */
-    public SolarSystem (String name, int x, int y) {
-        this.name = name;
+    public SolarSystem (String n, int x, int y) {
+        this.name = n;
         this.xCoordinate = x;
         this.yCoordinate = y;
         this.type = determineType();
@@ -93,12 +108,13 @@ public class SolarSystem {
     /**
      * Return this system as a string for debugging, etc.
      *
-     * @return A human-readable string representation.
+     * @return A human-readable string representation of the system including
+     * the name, the location in the universe, and a description of each planet.
      */
     @Override
     public String toString() {
         String result = getName();
-        result += "\nLocation: (" + getXCoordinate() + ", " + getYCoordinate() +")";
+        result += "\nLocation: (" + getXCoordinate() + ", " + getYCoordinate() + ")";
         for (Planet p : getPlanets()) {
             result += "\n\t" + p.toString().replace("\n", "\n\t");
         }
@@ -107,6 +123,7 @@ public class SolarSystem {
 
     /**
      * Choose the type of this solar system.
+     * @return the key for the type of star that was determined
      */
     private String determineType() {
         Map<String, StarType> stars = Data.STARS.get();
@@ -115,7 +132,9 @@ public class SolarSystem {
         double sum = 0;
         for (Map.Entry<String, StarType> t : stars.entrySet()) {
             sum += t.getValue().getOccurrence();
-            if (roll <= sum) return t.getKey();
+            if (roll <= sum) {
+                return t.getKey();
+            }
         }
 
         // this should never happen unless max(sum) < 1.0
@@ -124,6 +143,10 @@ public class SolarSystem {
 
     /**
      * Randomly creates a list of planets based on factors.
+     * 
+     * @return The list of planets that the solar system was determined to have.
+     * How many planets were determined is based on probabilities define in the
+     * star type JSON file.
      */
     private List<Planet> determinePlanets() {
         Random random = new Random();
@@ -135,8 +158,11 @@ public class SolarSystem {
         for (int i = 0; i < probs.length; i++) {
             double p = probs[i];
             double roll = random.nextDouble();
-            if (roll <= p) num++;
-            else break; // stop generating planets as soon as a roll fails
+            if (roll <= p) {
+                num++;
+            } else {
+                break; // stop generating planets as soon as a roll fails
+            }
         }
         // gives each planet a proper name based on the system name
         String[] names = nameGen.planetNames(num, this.name);

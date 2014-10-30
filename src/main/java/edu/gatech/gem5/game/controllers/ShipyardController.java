@@ -7,7 +7,6 @@ import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.ui.ShipBar;
-import java.util.List;
 import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
  * @author Alex
  */
 public class ShipyardController extends Controller {
+
     @FXML
     AnchorPane root;
     @FXML
@@ -37,9 +37,9 @@ public class ShipyardController extends Controller {
     @FXML
     private ListView<ShipBar> buyShips;
 
-    private ToggleGroup shipGroup;
+    private final ToggleGroup shipGroup;
 
-    private Planet planet;
+    private final Planet planet;
     private Ship currentShip;
 
     public static final String SHIPYARD_VIEW_FILE = "/fxml/shipyard.fxml";
@@ -70,9 +70,7 @@ public class ShipyardController extends Controller {
                 ShipType ship = ships.get(bar.getKey());
                 int playerCash = save.getCharacter().getMoney();
                 int price = ship.getPrice() - currentShip.getNetWorth();
-                if (playerCash < price) {
-                    // TODO: warning: not enough money
-                } else {
+                if (!(playerCash < price)) {
                     // TODO: use a dedicated class to facilitate ship upgrades
                     // the same way Transaction  is used for goods
                     Ship newShip = new Ship(ship);
@@ -83,7 +81,11 @@ public class ShipyardController extends Controller {
                     // rebuild ships list (?)
                     currentShip = save.getCharacter().getShip();
                     buildShipsList();
-                }
+                } 
+                /*else {
+                // TODO: warning: not enough money
+
+                }*/
                 // TODO: don't use a for loop here (see above)
                 break;
             }

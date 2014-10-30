@@ -1,9 +1,6 @@
 package edu.gatech.gem5.game;
 
-import edu.gatech.gem5.game.data.ConditionType;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  *
@@ -11,21 +8,30 @@ import java.util.Random;
  */
 public class Turn {
 
+    /**
+     * A universe in which time, therefore turns, can pass.
+     */
     private Universe universe;
     
+    /**
+     * Creates an instance of Turn with a universe which can be updated by a
+     * turn passing.
+     */
     public Turn() {
         universe = LastAdventures.getCurrentSaveFile().getUniverse();
     }
     
+    /**
+     * Handles all changes that a universe undergoes when a turn passes.
+     */
     public void pass() {
-        Random random = new Random();
         Map<String, SolarSystem> systems = universe.getUniverse();
         for (SolarSystem system : systems.values()) {
             for (Planet planet : system.getPlanets()) {
                 //update planet's stock
                 planet.increaseStock();
                 //set the condition every turn
-                planet.setCondition();
+                planet.getNewCondition();
             }
         }
     }

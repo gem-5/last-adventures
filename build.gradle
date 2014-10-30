@@ -2,6 +2,8 @@ defaultTasks 'run'
 
 apply plugin: 'java'
 apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
 
 repositories {
 	mavenCentral()
@@ -34,4 +36,13 @@ task run(type:JavaExec, dependsOn: [build]) {
 	main = "edu.gatech.gem5.game.LastAdventures"
 	classpath =
 		files("${libsDir}${File.separator}${archivesBaseName}-${version}.jar")
+}
+
+pmd.ruleSetFiles = files("config/pmd/Cs2340.pmd.rules")
+
+findbugsMain {
+  reports {
+    xml.enabled = false
+    html.enabled = true
+  }
 }

@@ -9,9 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.io.PrintWriter;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonSerializer;
-import com.google.gson.JsonSerializationContext;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.annotations.SerializedName;
 import java.lang.reflect.Type;
@@ -24,22 +21,49 @@ import java.lang.reflect.Type;
  */
 public class SaveFile {
 
+    /**
+     * The player that the user controls in a save file.
+     */
     @SerializedName("player")
     private Character player;
+    /**
+     * The universe the player in which the player exists.
+     */
     @SerializedName("universe")
     private Universe universe;
+    /**
+     * The last planet the player landed on.
+     */
     @SerializedName("planet_index")
     private int currentPlanetIndex;
-    @SerializedName("sys_x") //x and y are no longer needed to be saved
+    /**
+     * The x coordinate of the current Solar System in its universe.
+     */
+    @SerializedName("sys_x")
     private int currentSystemX;
+    /**
+     * The y coordinate of the current Solar System in its universe.
+     */
     @SerializedName("sys_y")
     private int currentSystemY;
+    /**
+     * The name of the the last Solar System the player entered.
+     */
     @SerializedName("sys_name")
     private String currentSystemName;
 
-    public static final String SAVE_DIR = System.getProperty("user.dir") +
-                                          "/saves";
+    /**
+     * The directory to put save files in.
+     */
+    public static final String SAVE_DIR = System.getProperty("user.dir") 
+            + "/saves";
+    /**
+     * The extension that save files for Last Adventures have.
+     */
     public static final String SAVE_EXT = ".save.json";
+    /**
+     * The encoding that save files for Last Adventures uses.
+     */
     public static final String SAVE_ENC = "UTF-8";
 
     /**
@@ -73,19 +97,19 @@ public class SaveFile {
     /**
      * Add a character to the save file.
      *
-     * @param player The player to save.
+     * @param p The player to save.
      */
-    public void addCharacter(Character player) {
-        this.player = player;
+    public void addCharacter(Character p) {
+        this.player = p;
     }
 
     /**
      * Add a universe to the save file.
      *
-     * @param universe The universe to save.
+     * @param u The universe to save.
      */
-    public void addUniverse(Universe universe) {
-        this.universe = universe;
+    public void addUniverse(Universe u) {
+        this.universe = u;
     }
 
     /**
@@ -98,7 +122,7 @@ public class SaveFile {
     }
 
     /**
-     * Get the saved universe
+     * Get the saved universe.
      *
      * @return the universe
      */
@@ -159,21 +183,18 @@ public class SaveFile {
         dict.put("sys_x", currentSystemX);
         dict.put("sys_y", currentSystemY);
         dict.put("sys_name", currentSystemName);
-        Type collectionType = new TypeToken<
-            Map<String, Object>
-        >(){}.getType();
+        Type collectionType = new TypeToken<Map<String, Object>>() {
+        } .getType();
         Gson gson = new Gson();
-        String json = gson.toJson(dict, collectionType);	
+        String json = gson.toJson(dict, collectionType);
         // The name of the file is the character name.
         // This will overwrite files with the same name.
         String name = getCharacter().getName() + SAVE_EXT;
         String path = SAVE_DIR + "/" + name;
         try {
             File saveDirectory = new File(SAVE_DIR);
-            if (!saveDirectory.exists()) {
-                if (!saveDirectory.mkdir()) {
+            if (!saveDirectory.exists() && !saveDirectory.mkdir()) {
                     throw new RuntimeException("Unable to create save directory.");
-                }
             }
             PrintWriter writer = new PrintWriter(path, SAVE_ENC);
             writer.write(json);
@@ -187,9 +208,9 @@ public class SaveFile {
 
     @Override
     public String toString() {
-        return String.format("Player:%n%1s\nPilot: %d%nFighter: %d%nEngineer: "+
-                "%d%nTrader: %d%nInvestor: %d", player.getName(),
+        return String.format("Player:%n%1s\nPilot: %d%nFighter: %d%nEngineer: "
+                + "%d%nTrader: %d%nInvestor: %d", player.getName(),
                 player.getPilot(), player.getFighter(), player.getEngineer(),
-                player.getTrader(), player.getInvestor()) + "\n" +  universe.toString();
+                player.getTrader(), player.getInvestor()) + "\n" + universe.toString();
     }
 }
