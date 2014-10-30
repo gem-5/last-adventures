@@ -13,14 +13,33 @@ import java.util.Random;
  * @author James
  */
 public class Universe {
+    /**
+     * A map of names to the instance of a Solar System of that name.
+     */
     private final Map<String, SolarSystem> universe;
 
+    /**
+     * Number of columns where a solar system can be located in the universe.
+     */
     private final int width;
+    /**
+     * Number of rows where a solar system can be located in the universe.
+     */
     private final int height;
+    /**
+     * The capacity of this universe in terms of solar systems that it will
+     * hold.
+     */
     private final int numberOfPlanets;
+    /**
+     * The name generator a Universe uses for its names.
+     */
     private final NameGenerator nameGen;
 
-   public Universe() {
+    /**
+     * Creates a universe of default width, height, and number of planets.
+     */
+    public Universe() {
         this.width = 500;
         this.height = 500;
         this.numberOfPlanets = 250;
@@ -35,11 +54,19 @@ public class Universe {
                     name,
                     p.xCoordinate,
                     p.yCoordinate
-                )
+            )
             );
         }
     }
 
+    /**
+     * This method contains the logic to layout solar system in a logically 
+     * manner in the universe.
+     * 
+     * @param num the number of planets to include in a universe
+     * @return a list of Points that define where Solar Systems are in a given
+     * universe.
+     */
     private List<Point> layoutUniverse(int num) {
         Random rng = new Random();
         ArrayList<Point> locations = new ArrayList<>();
@@ -62,8 +89,8 @@ public class Universe {
                 double rv = 2 * rVariance * rng.nextDouble() - rVariance;
                 double rt = 2 * tVariance * rng.nextGaussian() - tVariance;
                 theta = (1 / b) * Math.log(r / rMax) + tOffset + rt;
-                int x = (int) Math.round((r+rv) * Math.cos(theta)) + width / 2;
-                int y = (int) Math.round((r+rv) * Math.sin(theta)) + height / 2;
+                int x = (int) Math.round((r + rv) * Math.cos(theta)) + width / 2;
+                int y = (int) Math.round((r + rv) * Math.sin(theta)) + height / 2;
 
                 Point p = new Point(x, y);
                 locations.add(p);
@@ -107,7 +134,7 @@ public class Universe {
      * @return a solar system with a matching name
      */
     public SolarSystem getSolarSystemByName(String name) {
-       return universe.get(name);
+        return universe.get(name);
     }
 
     /**
@@ -128,13 +155,18 @@ public class Universe {
         return Optional.empty();
     }
 
+    /**
+     * 
+     * @return a 2 dimensional array containing solar systems where there should
+     * be ones in a universe, and null where there shouldn't be.
+     */
     private SolarSystem[][] getSolarSystemField() {
         SolarSystem[][] field = new SolarSystem[width][height];
         for (SolarSystem system : universe.values()) {
             int xCoordinate = system.getXCoordinate();
             int yCoordinate = system.getYCoordinate();
-            if(xCoordinate >= 0 && yCoordinate >= 0 &&
-               xCoordinate < width && yCoordinate < height) {
+            if (xCoordinate >= 0 && yCoordinate >= 0
+                    && xCoordinate < width && yCoordinate < height) {
                 // @TODO the above check shouldn't be necessary, universe
                 //generation is creating some invalid system locations
                 field[xCoordinate][yCoordinate] = system;
@@ -165,12 +197,12 @@ public class Universe {
             //directions, snaps to integer grid, so there are redundant checks
             //unless the radius expands too far
             for (double theta = thetaStart;
-                    theta < thetaStart + 2*Math.PI;theta += 2 * Math.PI / 180) {
+                    theta < thetaStart + 2 * Math.PI; theta += 2 * Math.PI / 180) {
                 int xCheck = x + (int) (radius * Math.cos(theta));
                 int yCheck = y + (int) (radius * Math.sin(theta));
                 check = field[xCheck][yCheck];
 
-                if(check != null) {
+                if (check != null) {
                     close = check;
                 }
             }
@@ -185,42 +217,79 @@ public class Universe {
     public String toString() {
         String result = "";
         for (SolarSystem system : universe.values()) {
-           result += system.toString() + "\n";
+            result += system.toString() + "\n";
         }
         return result;
     }
-    /*
-    * This is a simple class to couple an x and y coordinate together
-    */
+    /**
+     * This is a simple class to couple an x and y coordinate together.
+     */
     private class Point {
-        //location
+
+        /**
+         * A point's x coordinate.
+         */
         private int xCoordinate;
+        /**
+         * A point's y coordinate.
+         */
         private int yCoordinate;
 
-        public Point (int x, int y) {
+        /**
+         * 
+         * @param x x coordinate
+         * @param y y coordinate
+         */
+        public Point(int x, int y) {
             this.xCoordinate = x;
             this.yCoordinate = y;
         }
 
+        /**
+         * 
+         * @return the x coordinate of a point
+         */
         public int getX() {
             return this.xCoordinate;
         }
 
+        /**
+         * 
+         * @return the y coordinate of a point
+         */
         public int getY() {
             return this.yCoordinate;
         }
 
+        /**
+         * 
+         * @param o the other point
+         * @return Euclidean distance between two points
+         */
         public double distance(Point o) {
             int dx = o.getX() - getX();
             int dy = o.getY() - getY();
-            return Math.sqrt(dx*dx + dy*dy);
+            return Math.sqrt(dx * dx + dy * dy);
         }
 
         @Override
         public boolean equals(Object o) {
-            if (o == this) return true;
-            if (o instanceof Point == false) return false;
-            return ((Point) o).getX() == getX() && ((Point) o).getY() == getY();
+            if (o == this) {
+                return true;
+            }
+            else if (!(o instanceof Point) ) {
+                return false;
+            } else {
+                return ((Point) o).getX() == getX() && ((Point) o).getY() == getY();
+            }
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 97 * hash + this.xCoordinate;
+            hash = 97 * hash + this.yCoordinate;
+            return hash;
         }
 
         @Override

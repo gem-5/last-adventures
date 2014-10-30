@@ -2,17 +2,14 @@ package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.TraderEncounterController;
 import edu.gatech.gem5.game.controllers.Controller;
-import edu.gatech.gem5.game.NameGenerator;
 import edu.gatech.gem5.game.data.GoodType;
 import java.util.Random;
 import java.util.Set;
 import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 /**
- * A class representation of trader encounters while travelling
+ * A class representation of trader encounters while traveling.
  *
  * @author Sam Blumenthal
  *
@@ -20,29 +17,44 @@ import java.util.TreeMap;
 
 public class Trader extends AbstractNPC implements Traderable {
 
-    public final String VIEW_FILE = "/fxml/traderencounter.fxml";
+    /**
+     * The initial FXML view for a police encounter.
+     */
+    public final String viewFile = "/fxml/traderencounter.fxml";
 
-
+    /**
+     * 
+     * @param name Trader's name
+     * @param pilot pilot skill
+     * @param fighter fighter skill
+     * @param trader trader skill
+     * @param engineer engineer skill
+     * @param investor investor skill
+     * @param ship ship used by the trader during encounters
+     * @param loot amount of money given on defeat
+     */
     private Trader(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
     }
 
-    private static final String[] titles = { "Peddler",
-                                      "Traveling Salesman",
-                                      "Space Trader",
-                                      "Merchant",
-                                      "Investor",
-                                      "Cargo Captain",
-                                      "Freighter Captain",
-                                      "Guild Chief",
-                                      "Senior Guild Chief"
+    /**
+     * Possible titles for traders.
+     */
+    private static final String[] TITLES = {"Peddler",
+        "Traveling Salesman",
+        "Space Trader",
+        "Merchant",
+        "Investor",
+        "Cargo Captain",
+        "Freighter Captain",
+        "Guild Chief",
+        "Senior Guild Chief"
 
     };
 
     /**
      * A factory function used to create new traders.
      * @param seed The seed used to determine trader stats and rank
-     * @param ship The ship that the new trader will spawn with
      * @return a new instance of the Trader class
      */
     public static Trader createTrader(int seed) {
@@ -53,21 +65,22 @@ public class Trader extends AbstractNPC implements Traderable {
         int statTotal = (r.nextInt(seed) + 1) / 1500;
         int loot = r.nextInt(seed) / 20;
         int[] stats = {1, 1, 1, 1, 1};
-        int titleIndex = Math.min((int) Math.sqrt(statTotal), titles.length - 1);
-        String title = titles[titleIndex];
+        int titleIndex = Math.min((int) Math.sqrt(statTotal), TITLES.length - 1);
+        String title = TITLES[titleIndex];
 
         for (int i = 0; i < statTotal; i++) {
             int n = r.nextInt(100);
-            if (n < 30)
+            if (n < 30) {
                 stats[4]++;
-            else if (n < 70)
+            } else if (n < 70) {
                 stats[2]++;
-            else if (n < 80)
+            } else if (n < 80) {
                 stats[1]++;
-            else if (n < 90)
+            } else if (n < 90) {
                 stats[2]++;
-            else
+            } else {
                 stats[3]++;
+            }
 
         }
 
@@ -81,6 +94,7 @@ public class Trader extends AbstractNPC implements Traderable {
 
     /**
      * Avoids the generic encounter controller so functionality can be added.
+     * @return An encounter controller specific to Traders
      */
     @Override
     public Controller getEncounterController() {
@@ -140,6 +154,6 @@ public class Trader extends AbstractNPC implements Traderable {
      */
     @Override
     public String getViewFile() {
-        return VIEW_FILE;
+        return viewFile;
     }
 }
