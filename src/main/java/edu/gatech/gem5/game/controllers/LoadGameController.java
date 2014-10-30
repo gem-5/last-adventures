@@ -1,6 +1,5 @@
 package edu.gatech.gem5.game.controllers;
 
-import com.sun.prism.paint.Color;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.animation.FadeHandler;
@@ -34,13 +33,13 @@ import java.util.List;
 public class LoadGameController extends Controller {
 
     @FXML
-    private TilePane           tileGames;
+    private TilePane tileGames;
 
     @FXML
-    private Button             delete, back;
+    private Button delete, back;
 
-    private boolean            deleting;
-    private List<SaveBox>      deleteList;
+    private boolean deleting;
+    private final List<SaveBox> deleteList;
 
     public static final String LOAD_GAME_VIEW_FILE = "/fxml/load.fxml";
 
@@ -67,8 +66,7 @@ public class LoadGameController extends Controller {
     /**
      * Load the selected game.
      *
-     * @param event
-     *            a button press
+     * @param event a button press
      */
     @FXML
     private void loadGame(SaveBox box) {
@@ -121,7 +119,7 @@ public class LoadGameController extends Controller {
         // Create fade-in animation
         int x = 0;
         for (Node n : tileGames.getChildren()) {
-            new FadeHandler(n, x / 8.0);
+            FadeHandler fadeHandler = new FadeHandler(n, x / 8.0);
             x++;
         }
     }

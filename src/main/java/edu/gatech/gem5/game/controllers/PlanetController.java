@@ -1,4 +1,3 @@
-
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
@@ -14,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
@@ -25,7 +23,6 @@ import org.controlsfx.dialog.Dialogs;
  * @author James Park
  */
 public class PlanetController extends Controller {
-
 
     @FXML
     private Label title;
@@ -46,7 +43,6 @@ public class PlanetController extends Controller {
     private Button refuelButton;
     @FXML
     private Button shipyard;
-
 
     Planet planet;
 
@@ -70,8 +66,8 @@ public class PlanetController extends Controller {
         this.lblTechnology.setText(planet.getTechLevel().getName());
         Ship ship = save.getCharacter().getShip();
         //sets the number to the amount of credits needed to fully refuel
-        this.refuelButton.setText("Refuel " +(ship.getType().getRange() -
-                ship.getFuel()) * ship.getType().getFuelCost());
+        this.refuelButton.setText("Refuel " + (ship.getType().getRange()
+                - ship.getFuel()) * ship.getType().getFuelCost());
 
         if (planet.getShips().isEmpty()) {
 //            ((Pane) this.shipyard.getParent()).getChildren()
@@ -144,13 +140,13 @@ public class PlanetController extends Controller {
      */
     @FXML
     private void quit() {
-        if(!btnSave.disabledProperty().get()) {
+        if (!btnSave.disabledProperty().get()) {
             Action response = Dialogs.create()
-                        .owner(root)
-                        .title("Warning")
-                        .masthead("Warning")
-                        .message("Save before quiting?")
-                        .showConfirm();
+                    .owner(root)
+                    .title("Warning")
+                    .masthead("Warning")
+                    .message("Save before quiting?")
+                    .showConfirm();
             if (response == Dialog.ACTION_YES) {
                 save();
                 // LastAdventures.swap(new TitleController());
@@ -182,7 +178,7 @@ public class PlanetController extends Controller {
      * @throws Exception
      */
     public void refuel(ActionEvent event) throws Exception {
-        if(LastAdventures.getCurrentSaveFile().getCharacter().refuel()) {
+        if (LastAdventures.getCurrentSaveFile().getCharacter().refuel()) {
             refuelButton.setText("Refuel 0");
         } else {
             refuelButton.setText("Not enough credits");

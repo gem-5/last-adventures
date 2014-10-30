@@ -1,12 +1,10 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.AbstractNPC;
 import edu.gatech.gem5.game.AbstractHuman;
 import edu.gatech.gem5.game.Character;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import java.util.Random;
@@ -20,7 +18,6 @@ import java.util.Random;
  */
 public class CombatController extends Controller {
 
-
     @FXML
     Button attack;
     @FXML
@@ -32,7 +29,6 @@ public class CombatController extends Controller {
     Character player;
     AbstractNPC enemy;
 
-
     @FXML
     Text dialog;
 
@@ -40,6 +36,7 @@ public class CombatController extends Controller {
 
     /**
      * Contruct the combat controller
+     *
      * @param p the Character involved in combat
      * @param e the enemy NPC involved in combat
      */
@@ -52,7 +49,6 @@ public class CombatController extends Controller {
 
         enactCombat();
     }
-
 
     public void attackEnemy(ActionEvent event) throws Exception {
         enactCombat();
@@ -73,8 +69,8 @@ public class CombatController extends Controller {
         result += this.player.attackShip(enemy.getShip());
         if (enemy.getShip().isDestroyed()) {
             result += String.format("The enemy, %s, has been defeated!%n"
-                                    + "You loot %d off their corpse.",
-                                    enemy.getName(), enemy.getMoney());
+                    + "You loot %d off their corpse.",
+                    enemy.getName(), enemy.getMoney());
             player.setMoney(player.getMoney() + enemy.getMoney());
             attack.setVisible(false);
             flee.setVisible(false);
@@ -84,8 +80,8 @@ public class CombatController extends Controller {
             result += this.enemy.attackShip(player.getShip());
             if (player.getShip().isDestroyed()) {
                 result += String.format("With that last blow, the enemy, %s, has destroyed your Ship.%n"
-                                        + "You escape to the planet, but without a Ship or any cargo.",
-                                        enemy.getName());
+                        + "You escape to the planet, but without a Ship or any cargo.",
+                        enemy.getName());
                 attack.setVisible(false);
                 flee.setVisible(false);
                 cont.setVisible(true);
