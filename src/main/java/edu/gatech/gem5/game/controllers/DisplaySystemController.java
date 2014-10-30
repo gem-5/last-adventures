@@ -35,9 +35,6 @@ public class DisplaySystemController extends Controller {
     private SaveFile save;
 
     @FXML
-    Pane root;
-
-    @FXML
     Pane content;
 
     @FXML

@@ -33,7 +33,10 @@ public class SolarSystem {
      * A list of planets that exist in a solar system.
      */
     private List<Planet> planets;
-
+    /**
+     * A random number generator for this class
+     */
+    private static final Random random = new Random();
     /**
      * Construct a solar system with a name, x, and y coordinate.
      *
@@ -128,7 +131,7 @@ public class SolarSystem {
     private String determineType() {
         Map<String, StarType> stars = Data.STARS.get();
 
-        double roll = new Random().nextDouble();
+        double roll = random.nextDouble();
         double sum = 0;
         for (Map.Entry<String, StarType> t : stars.entrySet()) {
             sum += t.getValue().getOccurrence();
@@ -149,7 +152,6 @@ public class SolarSystem {
      * star type JSON file.
      */
     private List<Planet> determinePlanets() {
-        Random random = new Random();
         NameGenerator nameGen = new NameGenerator(true);
         List<Planet> orbits = new ArrayList<>();
         int num = 0;

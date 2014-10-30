@@ -35,7 +35,11 @@ public class Universe {
      * The name generator a Universe uses for its names.
      */
     private final NameGenerator nameGen;
-
+    /**
+     * The random number generator for this class.
+     */
+    private static final Random random = new Random();
+    
     /**
      * Creates a universe of default width, height, and number of planets.
      */
@@ -68,7 +72,6 @@ public class Universe {
      * universe.
      */
     private List<Point> layoutUniverse(int num) {
-        Random rng = new Random();
         ArrayList<Point> locations = new ArrayList<>();
 
         int numArms = 4;
@@ -86,8 +89,8 @@ public class Universe {
             double theta = 0;
             double tOffset = (2 * Math.PI / numArms) * j;
             for (int i = 0; i < armCapacity; i++) {
-                double rv = 2 * rVariance * rng.nextDouble() - rVariance;
-                double rt = 2 * tVariance * rng.nextGaussian() - tVariance;
+                double rv = 2 * rVariance * random.nextDouble() - rVariance;
+                double rt = 2 * tVariance * random.nextGaussian() - tVariance;
                 theta = (1 / b) * Math.log(r / rMax) + tOffset + rt;
                 int x = (int) Math.round((r + rv) * Math.cos(theta)) + width / 2;
                 int y = (int) Math.round((r + rv) * Math.sin(theta)) + height / 2;
@@ -188,7 +191,7 @@ public class Universe {
             int y) {
         SolarSystem[][] field = universe.getSolarSystemField();
         int radius = 1;
-        double thetaStart = new Random().nextDouble() * 2 * Math.PI;
+        double thetaStart = random.nextDouble() * 2 * Math.PI;
         SolarSystem close = null;
 
         while (close == null) {
@@ -224,7 +227,7 @@ public class Universe {
     /**
      * This is a simple class to couple an x and y coordinate together.
      */
-    private class Point {
+    private static class Point {
 
         /**
          * A point's x coordinate.

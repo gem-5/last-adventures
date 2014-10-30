@@ -140,11 +140,11 @@ public class MarketController extends Controller {
     private void fillLabels() {
         SaveFile save = LastAdventures.getCurrentSaveFile();
         this.lblCash.setText(
-                ((Integer) save.getCharacter().getMoney()).toString()
+                Integer.toString(save.getCharacter().getMoney())
         );
         Ship s = save.getCharacter().getShip();
         this.lblSlots.setText(
-                ((Integer) s.getOpenBays()).toString()
+                Integer.toString(s.getOpenBays())
         );
         errorLabel.setText("");
     }

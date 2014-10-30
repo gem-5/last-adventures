@@ -27,10 +27,9 @@ public abstract class Reader<K, T> {
     protected Map<K, T> map;
 
     public Reader(String path, Type collectionType) {
-        Map<K, T> map = new HashMap<>();
-        InputStream stream = getClass().getResourceAsStream(path);
+        InputStream stream = Reader.class.getResourceAsStream(path);
         String json = readStream(stream);
-        this.map = new Gson().fromJson(json, collectionType);
+        map = new Gson().fromJson(json, collectionType);
     }
 
     /**
@@ -39,7 +38,7 @@ public abstract class Reader<K, T> {
      * @return the data map
      */
     public Map<K, T> get() {
-        return this.map;
+        return map;
     }
 
     /**
@@ -60,7 +59,8 @@ public abstract class Reader<K, T> {
      */
     private String readStream(InputStream stream) {
         String out = "";
-        Scanner scanner = new Scanner(stream);
+        
+        Scanner scanner = new Scanner(stream, Charset.defaultCharset().displayName());
         while (scanner.hasNext()) {
             out += scanner.nextLine() + "\n";
         }

@@ -63,7 +63,7 @@ public class DockController extends Controller {
     private void fillLabels() {
         SaveFile save = LastAdventures.getCurrentSaveFile();
         this.lblCash.setText(
-                ((Integer) save.getCharacter().getMoney()).toString()
+                Integer.toString(save.getCharacter().getMoney())
         );
 
         // Pull the ship's information

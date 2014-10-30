@@ -208,9 +208,9 @@ public class SaveFile {
 
     @Override
     public String toString() {
-        return String.format("Player:%n%1s\nPilot: %d%nFighter: %d%nEngineer: "
+        return String.format("Player:%n%1s%nPilot: %d%nFighter: %d%nEngineer: "
                 + "%d%nTrader: %d%nInvestor: %d", player.getName(),
                 player.getPilot(), player.getFighter(), player.getEngineer(),
-                player.getTrader(), player.getInvestor()) + "\n" + universe.toString();
+                player.getTrader(), player.getInvestor()) + "%n" + universe.toString();
     }
 }

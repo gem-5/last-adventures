@@ -36,6 +36,20 @@ public class LastAdventures extends Application {
     private static Stage stage;
 
     /**
+     * A random number generator for this class.
+     */
+    private static final Random random = new Random();
+    
+    /**
+     * A private constructor for the singleton LastAdventures. Having this
+     * constructor also renders the default public no-args constructor
+     * unusable, which is what a singleton wants.
+     */
+    public LastAdventures() {
+        
+    }
+    
+    /**
      * Start the game.
      *
      * @param fxStage The stage to start with
@@ -53,7 +67,8 @@ public class LastAdventures extends Application {
      *
      * @param c The new controller to load.
      */
-    public  static void swap(Controller c) {
+    public static void swap(Controller c) {
+        
         Pane oldRoot = (Pane) getRoot();
         Scene scene = stage.getScene();
         root = c.getRoot();
@@ -142,8 +157,7 @@ public class LastAdventures extends Application {
         final SaveFile currentSaveFile = LastAdventures.getCurrentSaveFile();
         currentSaveFile.addCharacter(player);
         currentSaveFile.addUniverse(uni);
-
-        Random random = new Random();
+        
         int randomX = random.nextInt(16) - 8;
         int randomY = random.nextInt(16) - 8;
         //for now, easiest to start near middle of the universe

@@ -1,5 +1,7 @@
 package edu.gatech.gem5.game.data;
 
+import java.util.Objects;
+
 /**
  * A container class for data of the various good types.
  *
@@ -79,6 +81,23 @@ public class GoodType extends DataType implements Comparable {
     @Override
     public int compareTo(Object o) {
         return this.getName().compareTo(((GoodType) o).getName());
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if (!(o instanceof GoodType) ) {
+                return false;
+        }
+        return getName().equals(((GoodType) o).getName());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.name);
+        return hash;
     }
 
 }

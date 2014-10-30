@@ -118,9 +118,8 @@ public class Encounter {
      */
     public static void main(String[] args) {
         Encounter e = new Encounter(new EncounterManager());
-        for (int i = 1; i < 20; i++) {
-            e.getType(100000 * i, null);
+        for (int i = 1; i < 20; i++) {            
+            e.getType(100000 * i, new Planet("null"));
         }
-
     }
 }

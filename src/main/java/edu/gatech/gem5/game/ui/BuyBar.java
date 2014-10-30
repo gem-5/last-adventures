@@ -67,7 +67,7 @@ public class BuyBar extends HBox {
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
-                lblQuantity.setText(((Integer) newValue.intValue()).toString());
+                lblQuantity.setText(Integer.toString(newValue.intValue()));
             }
         });
     }
@@ -101,7 +101,7 @@ public class BuyBar extends HBox {
         sldQuantity.setMin(0);
         sldQuantity.setMax(q);
         lblQuantity.setText("0");
-        lblMax.setText(((Integer) q).toString());
+        lblMax.setText(Integer.toString(q));
     }
 
     /**

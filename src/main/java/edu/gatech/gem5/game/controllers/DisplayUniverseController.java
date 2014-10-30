@@ -30,8 +30,6 @@ public class DisplayUniverseController extends Controller {
 
     @FXML
     TextField errorLabel;
-    @FXML
-    private Pane root;
 
     private final ExplorableDisplay map;
     private final Universe universe;

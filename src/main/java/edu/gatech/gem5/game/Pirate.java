@@ -16,7 +16,7 @@ public class Pirate extends AbstractNPC {
     /**
      * The initial FXML view for a pirate encounter.
      */
-    public static String viewFile = "/fxml/pirateencounter.fxml";
+    public static final String viewFile = "/fxml/pirateencounter.fxml";
 
     /**
      * 

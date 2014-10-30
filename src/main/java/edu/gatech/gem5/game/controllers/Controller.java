@@ -31,12 +31,13 @@ public abstract class Controller implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(file)
+                    Controller.class.getResource(file)
+                    
             );
+            
 
             loader.setController(this);
             this.root = (Parent) loader.load();
-            this.game = game;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

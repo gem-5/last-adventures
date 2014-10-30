@@ -101,7 +101,7 @@ public class ShipyardController extends Controller {
     private void fillLabels() {
         SaveFile save = LastAdventures.getCurrentSaveFile();
         this.lblCash.setText(
-                ((Integer) save.getCharacter().getMoney()).toString()
+                Integer.toString(save.getCharacter().getMoney())
         );
         Ship s = save.getCharacter().getShip();
         this.shipInfo.setText(s.toString());

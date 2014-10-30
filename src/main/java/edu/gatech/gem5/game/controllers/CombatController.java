@@ -35,7 +35,7 @@ public class CombatController extends Controller {
     public static final String COMBAT_VIEW_FILE = "/fxml/combat.fxml";
 
     /**
-     * Contruct the combat controller
+     * Construct the combat controller
      *
      * @param p the Character involved in combat
      * @param e the enemy NPC involved in combat

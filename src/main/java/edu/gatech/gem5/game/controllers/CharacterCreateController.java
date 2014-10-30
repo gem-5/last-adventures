@@ -25,7 +25,6 @@ import org.controlsfx.dialog.Dialogs;
  */
 public class CharacterCreateController extends Controller {
 
-    Parent root;
     @FXML
     Button pilotInc;
     @FXML

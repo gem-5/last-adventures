@@ -315,7 +315,7 @@ public abstract class ExplorableDisplay extends Pane {
      *
      * @author Creston Bunch
      */
-    public class Point extends Parent {
+    private static class Point extends Parent {
         public final int x;
         public final int y;
         private Node n;
@@ -350,7 +350,7 @@ public abstract class ExplorableDisplay extends Pane {
      *
      * @author Creston Bunch
      */
-    public class ScrollHandler implements EventHandler<ScrollEvent> {
+    private class ScrollHandler implements EventHandler<ScrollEvent> {
         // amount to zoom each click
         private static final double ZOOM_FACTOR = 0.5;
 
@@ -368,7 +368,7 @@ public abstract class ExplorableDisplay extends Pane {
      *
      * @author Creston Bunch
      */
-    public class MoveHandler implements EventHandler<MouseEvent> {
+    private class MoveHandler implements EventHandler<MouseEvent> {
         private double xPos;
         private double yPos;
 
@@ -392,7 +392,7 @@ public abstract class ExplorableDisplay extends Pane {
      *
      * @author Creston Bunch
      */
-    public class DragHandler implements EventHandler<MouseEvent> {
+    private class DragHandler implements EventHandler<MouseEvent> {
         private boolean dragging = false;
         private double prevX = -1;
         private double prevY = -1;
