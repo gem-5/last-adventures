@@ -59,11 +59,13 @@ public class CombatController extends Controller {
     }
 
     public void flee(ActionEvent event) throws Exception {
-        if (fleeAttempt(player, enemy)) {
+        //TODO functionality
+        
+        /*if (fleeAttempt(player, enemy)) {
             // player flees battle
         } else {
             // player fails, enemy attacks during the attempt
-        }
+        }*/
     }
 
     private void enactCombat() {

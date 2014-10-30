@@ -70,9 +70,7 @@ public class ShipyardController extends Controller {
                 ShipType ship = ships.get(bar.getKey());
                 int playerCash = save.getCharacter().getMoney();
                 int price = ship.getPrice() - currentShip.getNetWorth();
-                if (playerCash < price) {
-                    // TODO: warning: not enough money
-                } else {
+                if (!(playerCash < price)) {
                     // TODO: use a dedicated class to facilitate ship upgrades
                     // the same way Transaction  is used for goods
                     Ship newShip = new Ship(ship);
@@ -83,7 +81,11 @@ public class ShipyardController extends Controller {
                     // rebuild ships list (?)
                     currentShip = save.getCharacter().getShip();
                     buildShipsList();
-                }
+                } 
+                /*else {
+                // TODO: warning: not enough money
+
+                }*/
                 // TODO: don't use a for loop here (see above)
                 break;
             }

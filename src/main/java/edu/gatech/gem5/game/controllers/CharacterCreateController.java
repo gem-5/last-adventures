@@ -131,12 +131,10 @@ public class CharacterCreateController extends Controller {
                         .message(
                                 "Are you sure that you want to continue without allocating all points?")
                         .showConfirm();
-                if (response == Dialog.ACTION_YES) {
-                    if (validate(name.getText().trim())) {
+                if (response == Dialog.ACTION_YES && validate(name.getText().trim())) {
                         LastAdventures.initializeGame(createCharacter(), createUniverse());
                         // LastAdventures.swap(new CharacterStatusController());
                         transitionTo(new CharacterStatusController());
-                    }
                 }
             } else {
                 LastAdventures.initializeGame(createCharacter(), createUniverse());
