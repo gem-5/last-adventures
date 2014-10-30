@@ -1,7 +1,8 @@
 defaultTasks 'run'
 
 apply plugin: 'java'
-apply plugin: 'checkstyle'
+//apply plugin: 'checkstyle'
+apply plugin: 'pmd'
 
 repositories {
 	mavenCentral()
@@ -35,3 +36,5 @@ task run(type:JavaExec, dependsOn: [build]) {
 	classpath =
 		files("${libsDir}${File.separator}${archivesBaseName}-${version}.jar")
 }
+
+pmd.ruleSetFiles = files("config/pmd/Cs2340.pmd.rules")

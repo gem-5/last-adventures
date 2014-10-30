@@ -74,7 +74,7 @@ public class Mercenary extends AbstractHuman {
     public static void main(String[] args) {
 
         for (int i = 1; i < 100; i++) {
-            Mercenary bob = createMercenary((1000 * i % 50000) + 1);
+            Mercenary bob = createMercenary(1000 * i % 50000 + 1);
             System.out.println(bob);
         }
     }

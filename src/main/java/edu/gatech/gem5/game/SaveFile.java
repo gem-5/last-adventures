@@ -193,10 +193,8 @@ public class SaveFile {
         String path = SAVE_DIR + "/" + name;
         try {
             File saveDirectory = new File(SAVE_DIR);
-            if (!saveDirectory.exists()) {
-                if (!saveDirectory.mkdir()) {
+            if (!saveDirectory.exists() && !saveDirectory.mkdir()) {
                     throw new RuntimeException("Unable to create save directory.");
-                }
             }
             PrintWriter writer = new PrintWriter(path, SAVE_ENC);
             writer.write(json);

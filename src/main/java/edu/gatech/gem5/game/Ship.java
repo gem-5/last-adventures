@@ -241,7 +241,7 @@ public class Ship {
         String delim = "%n\t%s";
         for (Map.Entry<String, Integer> kv: this.cargoList.entrySet()) {
             String goodName =
-                (Data.GOODS.get(kv.getKey())).getName();
+                Data.GOODS.get(kv.getKey()).getName();
             result += String.format(delim + "  %d", goodName, kv.getValue());
         }
         result += "\n  Weapons:";
