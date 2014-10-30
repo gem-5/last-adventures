@@ -1,19 +1,14 @@
 package edu.gatech.gem5.game.readers;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Scanner;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
-import java.util.HashMap;
-
 import com.google.gson.Gson;
-import java.lang.reflect.Type;
 
 import edu.gatech.gem5.game.data.*;
+
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * An abstract class for parsing JSON dictionary data files into Java Maps.

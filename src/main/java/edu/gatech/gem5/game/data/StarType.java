@@ -1,6 +1,5 @@
 package edu.gatech.gem5.game.data;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.annotations.Expose;
 import javafx.scene.image.Image;
 
 /**

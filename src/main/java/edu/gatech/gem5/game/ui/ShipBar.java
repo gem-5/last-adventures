@@ -1,23 +1,12 @@
 package edu.gatech.gem5.game.ui;
 
-import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.Planet;
-import edu.gatech.gem5.game.SaveFile;
-import edu.gatech.gem5.game.Ship;
-import edu.gatech.gem5.game.data.ShipType;
-
 import java.io.IOException;
-import java.util.Map;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
-
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 
 /**
  * ShipBar custom FXML element controller class

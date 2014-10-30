@@ -1,18 +1,9 @@
 package edu.gatech.gem5.game.ui;
 
-import java.io.IOException;
-
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Region;
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.Color;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
-import javafx.scene.text.Font;
 
 import edu.gatech.gem5.game.SolarSystem;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 
 /**
  * An icon representing a solar system in the universe map.
