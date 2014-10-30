@@ -3,9 +3,7 @@ package edu.gatech.gem5.game;
 import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.data.WeaponType;
-import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
-import java.util.Stack;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.ArrayList;
@@ -21,32 +19,56 @@ import java.util.Random;
 
 public class Ship {
 
+    /**
+     * The Ship flyweight that determines certain final properties of each ship.
+     */
     private final ShipType type;
+    /**
+     * Amount of remaining hull strength a ship has.
+     */
     private double health;
-    private boolean destroyed;
+    /**
+     * Amount of remaining fuel a ship has.
+     */
     private int fuel;
 
+    /**
+     * A map of Good keys to the number of that good carried by a ship.
+     */
     private Map<String, Integer> cargoList;
+    /**
+     * A list of objects that hold properties of weapons that the ship can use.
+     */
     private List<WeaponType> weaponList;
+    /**
+     * A list of shield objects that the ship can use.
+     */
     private List<Shield> shieldList;
+    /**
+     * A list of objects that hold properties of gadgets that the ship can use.
+     */
     private List<GadgetType> gadgetList;
 
+    /**
+     * An array of mercenaries that can override the ship captain's (the
+     * player's) skill points for their calculations.
+     */
     private Mercenary[] crewList;
 
     /**
      * Construct the ship from a given ship type.
      *
-     * @param type The ShipType to use
+     * @param t The ShipType to use
      */
-    public Ship(ShipType type) {
-        this.type = type;
-        this.fuel = type.getRange(); // range == max fuel
+    public Ship(ShipType t) {
+        this.type = t;
+        this.fuel = t.getRange(); // range == max fuel
         this.cargoList = new TreeMap<>();
-        this.weaponList = new ArrayList<>(type.getWeaponSlots());
-        this.shieldList = new ArrayList<>(type.getShieldSlots());
-        this.gadgetList = new ArrayList<>(type.getGadgetSlots());
-        this.crewList = new Mercenary[type.getCrewSlots()];
-        this.health = (double) type.getHullStrength();
+        this.weaponList = new ArrayList<>(t.getWeaponSlots());
+        this.shieldList = new ArrayList<>(t.getShieldSlots());
+        this.gadgetList = new ArrayList<>(t.getGadgetSlots());
+        this.crewList = new Mercenary[t.getCrewSlots()];
+        this.health = (double) t.getHullStrength();
     }
 
     /**
@@ -64,7 +86,7 @@ public class Ship {
     }
 
     /**
-     * Add cargo to this ship
+     * Add cargo to this ship.
      *
      * @param good the key of the good to add
      * @param quantity the amount to add
@@ -77,7 +99,7 @@ public class Ship {
     }
 
     /**
-     * Take cargo from this ship
+     * Take cargo from this ship.
      *
      * @param good the key of the good to take
      * @param quantity the amount to take
@@ -89,7 +111,7 @@ public class Ship {
     /**
      * Return the number of available cargo slots.
      *
-     * @return int the number of slots available
+     * @return the number of slots available
      */
     public int getOpenBays() {
         int sum = 0;
@@ -101,7 +123,7 @@ public class Ship {
 
     /**
      * Method to find the net worth of a ship, takes into account ship price and all
-     * wep/shield/gadget prices
+     * wep/shield/gadget prices.
      * @return the net worth of the ship
      */
     public int getNetWorth() {
@@ -125,22 +147,18 @@ public class Ship {
         }
 
         return worth;
-
     }
 
-    // public List<WeaponType> getWeaponList() {
-    //     List<WeaponType> out = new ArrayList<>();
-    //     Map weps = LastAdventures.data.get(WeaponType.KEY);
-    //     for (String s : this.weaponList) {
-    //         out.add((WeaponType) weps.get(s));
-    //     }
-    //     return out;
-    // }
+    /**
+     * 
+     * @return A list of objects that hold properties of weapons that the ship
+     * can use
+     */
     public List<WeaponType> getWeaponList() {
         return this.weaponList;
     }
     /**
-     * Adds a weapon to the ship's weapon list
+     * Adds a weapon to the ship's weapon list.
      * @param wt the Weapon Type being added to the ship
      * @return true if successfully added, false otherwise
      */
@@ -152,28 +170,23 @@ public class Ship {
     }
 
     /**
-     * Method to find the number of available slots for new weapons
+     * Method to find the number of available slots for new weapons.
      * @return the number of free weapon slots
      */
     public int getOpenWeaponSlots() {
         return type.getWeaponSlots() - weaponList.size();
     }
 
-    // public List<ShieldType> getShieldList() {
-    //     List<ShieldType> out = new ArrayList<>();
-    //     Map shields = LastAdventures.data.get(ShieldType.KEY);
-    //     for (String s : this.shieldList) {
-    //         out.add((ShieldType) shields.get(s));
-    //     }
-    //     return out;
-    // }
-
+    /**
+     * 
+     * @return A list of shield objects that the ship can use
+     */
     public List<Shield> getShieldList() {
         return this.shieldList;
     }
 
     /**
-     * Adds a shield to the ship's shield list
+     * Adds a shield to the ship's shield list.
      * @param s the Shield being added to the ship
      * @return true if successfully added, false otherwise
      */
@@ -185,26 +198,23 @@ public class Ship {
     }
 
     /**
-     * Method to find the number of available slots for new shields
+     * Method to find the number of available slots for new shields.
      * @return the number of free shield slots
      */
     public int getOpenShieldSlots() {
         return type.getShieldSlots() - shieldList.size();
     }
 
-    // public List<GadgetType> getGadgetList() {
-    //     List<GadgetType> out = new ArrayList<>();
-    //     Map gadgets = LastAdventures.data.get(GadgetType.KEY);
-    //     for (String s : this.gadgetList) {
-    //         out.add((GadgetType) gadgets.get(s));
-    //     }
-    //     return out;
-    // }
+    /**
+     * 
+     * @return A list of objects that hold properties of gadgets that the ship
+     * can use.
+     */
     public List<GadgetType> getGadgetList() {
         return this.gadgetList;
     }
     /**
-     * Adds a gadget to the ship's gadget list
+     * Adds a gadget to the ship's gadget list.
      * @param gt the Gadget Type being added to the ship
      * @return true if successfully added, false otherwise
      */
@@ -216,7 +226,7 @@ public class Ship {
     }
 
     /**
-     * Method to find the number of available slots for new gadgets
+     * Method to find the number of available slots for new gadgets.
      * @return the number of free gadget slots
      */
     public int getOpenGadgetSlots() {
@@ -228,45 +238,61 @@ public class Ship {
         String result = "Ship: ";
         result += this.type.getName();
         result += "\n  Cargo:";
+        String delim = "%n\t%s";
         for (Map.Entry<String, Integer> kv: this.cargoList.entrySet()) {
             String goodName =
                 (Data.GOODS.get(kv.getKey())).getName();
-            result += String.format("%n\t%s  %d", goodName, kv.getValue());
+            result += String.format(delim + "  %d", goodName, kv.getValue());
         }
         result += "\n  Weapons:";
         for (WeaponType w: getWeaponList()) {
             if (w != null) {
-                result += String.format("%n\t%s", w.getName());
+                result += String.format(delim, w.getName());
             }
         }
         result += "\n  Shields:";
         for (Shield s: getShieldList()) {
             if (s != null) {
-                result += String.format("%n\t%s", s.getType().getName());
+                result += String.format(delim, s.getType().getName());
             }
         }
         result += "\n  Gadgets:";
         for (GadgetType g: getGadgetList()) {
             if (g != null) {
-                result += String.format("%n\t%s", g.getName());
+                result += String.format(delim, g.getName());
             }
         }
         return result;
-
     }
 
-    public void setFuel(int fuel) {
-        this.fuel = fuel;
+    /**
+     * 
+     * @param f the amount of fuel a ship should now have
+     */
+    public void setFuel(int f) {
+        this.fuel = f;
     }
 
+    /**
+     * 
+     * @return the amount of fuel a ship currently has
+     */
     public int getFuel() {
         return this.fuel;
     }
 
+    /**
+     * 
+     * @return true if a ship's health is 0, false otherwise
+     */
     public boolean isDestroyed() {
-        return this.destroyed;
+        return health == 0;
     }
 
+    /**
+     * TODO: include fighter skill in calculation.
+     * @return the amount of damage to do to based on weapons and chance.
+     */
     public double calcWeaponDamage() {
         double damage = 0;
         Random r = new Random();
@@ -279,16 +305,21 @@ public class Ship {
                 }
             }
         }
-        // You can do some minimal damage without a ship
-        if (getWeaponList().size() == 0) {
+        // You can do some minimal damage without weapons
+        if (getWeaponList().isEmpty()) {
             damage = 50 * r.nextInt(2);
         }
         return damage;
-
     }
 
-    public String receiveDamage(double damage) {
+    /**
+     * 
+     * @param damageReceived amount of damage to be dealt to a ship
+     * @return A description of the result of a ship after dealing the damage
+     */
+    public String receiveDamage(double damageReceived) {
         String result = "";
+        double damage = damageReceived;
         for (Shield s: getShieldList()) {
             if (s.getHealth() != 0 && damage > 0.01) {
                 double newDamage = damage - s.getHealth();
@@ -305,9 +336,6 @@ public class Ship {
                                     + "Remaining Hull Strength: %.2f / %d%n", damage,
                                     this.health, this.type.getHullStrength());
         }
-        this.destroyed = this.health == 0;
-
         return result;
     }
-
 }
