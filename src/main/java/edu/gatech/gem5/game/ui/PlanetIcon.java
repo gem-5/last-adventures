@@ -1,16 +1,12 @@
 package edu.gatech.gem5.game.ui;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Paint;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Text;
@@ -26,10 +22,13 @@ import edu.gatech.gem5.game.Planet;
  */
 public class PlanetIcon extends Pane {
 
+    /**
+     * The Shape of the PlanetIcon.
+     */
     private Ellipse shape;
 
     /**
-     * No arg constructor
+     * No arg constructor.
      */
     public PlanetIcon() {
         shape = new Ellipse();
@@ -43,6 +42,7 @@ public class PlanetIcon extends Pane {
 
     /**
      * Construct and set the root of this custom control.
+     * @param p The planet associated with the icon.
      */
     public PlanetIcon(Planet p) {
         this();

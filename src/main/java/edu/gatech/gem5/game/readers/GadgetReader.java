@@ -19,6 +19,6 @@ public class GadgetReader extends Reader<String, GadgetType> {
     public GadgetReader(String path) {
         super(path, new TypeToken<
             Map<String, GadgetType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

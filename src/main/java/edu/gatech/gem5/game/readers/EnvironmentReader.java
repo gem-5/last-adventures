@@ -19,6 +19,6 @@ public class EnvironmentReader extends Reader<String, EnvironmentType> {
     public EnvironmentReader(String path) {
         super(path, new TypeToken<
             Map<String, EnvironmentType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

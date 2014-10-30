@@ -19,6 +19,6 @@ public class WeaponReader extends Reader<String, WeaponType> {
     public WeaponReader(String path) {
         super(path, new TypeToken<
             Map<String, WeaponType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

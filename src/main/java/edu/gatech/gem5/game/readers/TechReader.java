@@ -19,6 +19,6 @@ public class TechReader extends Reader<Integer, TechType> {
     public TechReader(String path) {
         super(path, new TypeToken<
             Map<Integer, TechType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

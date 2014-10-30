@@ -1,19 +1,18 @@
 package edu.gatech.gem5.game.ui;
 
+
 import java.io.IOException;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.beans.property.StringProperty;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.HBox;
-import javafx.scene.input.MouseEvent;
 
-import edu.gatech.gem5.game.data.DataType;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 /**
  * BuyBar custom FXML element controller class

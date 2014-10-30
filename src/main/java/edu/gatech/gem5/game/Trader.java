@@ -18,12 +18,7 @@ import java.util.TreeMap;
 public class Trader extends AbstractNPC implements Traderable {
 
     /**
-     * The initial FXML view for a police encounter.
-     */
-    public final String viewFile = "/fxml/traderencounter.fxml";
-
-    /**
-     * 
+     *
      * @param name Trader's name
      * @param pilot pilot skill
      * @param fighter fighter skill
@@ -34,7 +29,7 @@ public class Trader extends AbstractNPC implements Traderable {
      * @param loot amount of money given on defeat
      */
     private Trader(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
-        super(name, pilot, fighter, trader, engineer, investor, ship, loot);
+        super(name, pilot, fighter, trader, engineer, investor, ship, loot, "/fxml/traderencounter.fxml");
     }
 
     /**
@@ -147,13 +142,4 @@ public class Trader extends AbstractNPC implements Traderable {
         return "*TRADER*\n" + super.toString();
     }
 
-    /**
-     *
-     * @return The FXML to be shown that is specific to this type of encounter
-     * after the initial encounter screen.
-     */
-    @Override
-    public String getViewFile() {
-        return viewFile;
-    }
 }

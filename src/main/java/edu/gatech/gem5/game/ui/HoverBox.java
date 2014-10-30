@@ -2,14 +2,11 @@ package edu.gatech.gem5.game.ui;
 
 import java.io.IOException;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.Label;
 import javafx.stage.PopupWindow;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

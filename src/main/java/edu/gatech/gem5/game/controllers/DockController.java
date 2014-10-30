@@ -141,19 +141,17 @@ public class DockController extends Controller {
             Character player = LastAdventures.getCurrentSaveFile().getCharacter();
             Ship playerShip = player.getShip();
 
-            // Check for weapon slot availability for a player's ship (edge case)
-            if (playerShip.getType().getWeaponSlots() <= playerShip.getWeaponList().size()) {
-                errorLabel.setText("No more weapon slots remaining for the ship.");
-                return;
-            }
             // Check for player money count (edge case)
             if (player.getMoney() < weaponType.getPrice()) {
                 errorLabel.setText("You don't have enough money.");
                 return;
             }
 
-            // Process weapon purchase
-            playerShip.addUpgrade(weaponType);
+            // Process weapon purchase if space, otherwise display an error
+            if (!playerShip.addUpgrade(weaponType)) {
+                errorLabel.setText("No more weapon slots remaining for the ship.");
+                return;
+            }
             player.setMoney(player.getMoney() - weaponType.getPrice());
 
             // Refresh list & money count
@@ -183,19 +181,18 @@ public class DockController extends Controller {
             Character player = LastAdventures.getCurrentSaveFile().getCharacter();
             Ship playerShip = player.getShip();
 
-            // Check for weapon slot availability for a player's ship (edge case)
-            if (playerShip.getType().getShieldSlots() <= playerShip.getShieldList().size()) {
-                errorLabel.setText("No more shield slots remaining for the ship.");
-                return;
-            }
             // Check for player money count (edge case)
             if (player.getMoney() < shieldType.getPrice()) {
                 errorLabel.setText("You don't have enough money.");
                 return;
             }
 
-            // Process shield purchase
-            playerShip.addUpgrade(new Shield(shieldType));
+            // Process shield purchase if space, otherwise display an error
+            if (!playerShip.addUpgrade(shieldType)) {
+                errorLabel.setText("No more shield slots remaining for the ship.");
+                return;
+            }
+
             player.setMoney(player.getMoney() - shieldType.getPrice());
 
             // Refresh list & money count

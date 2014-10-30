@@ -17,6 +17,6 @@ public class EventReader extends Reader<String, EventType> {
     public EventReader(String path) {
         super(path, new TypeToken<
             Map<String, EventType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

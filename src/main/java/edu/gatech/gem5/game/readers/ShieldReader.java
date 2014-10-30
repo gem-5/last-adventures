@@ -19,6 +19,6 @@ public class ShieldReader extends Reader<String, ShieldType> {
     public ShieldReader(String path) {
         super(path, new TypeToken<
             Map<String, ShieldType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

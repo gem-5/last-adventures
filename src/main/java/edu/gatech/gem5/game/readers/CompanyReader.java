@@ -19,6 +19,6 @@ public class CompanyReader extends Reader<String, CompanyType> {
     public CompanyReader(String path) {
         super(path, new TypeToken<
             Map<String, CompanyType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

@@ -12,14 +12,9 @@ import java.util.Random;
  */
 
 public class Police extends AbstractNPC {
-    
-    /**
-     * The initial FXML view for a police encounter.
-     */
-    public final String viewFile = "/fxml/encounter.fxml";
 
     /**
-     * 
+     *
      * @param name Police's name
      * @param pilot pilot skill
      * @param fighter fighter skill
@@ -30,7 +25,7 @@ public class Police extends AbstractNPC {
      * @param loot amount of money given on defeat
      */
     private Police(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
-        super(name, pilot, fighter, trader, engineer, investor, ship, loot);
+        super(name, pilot, fighter, trader, engineer, investor, ship, loot, "/fxml/encounter.fxml");
     }
 
     /**
@@ -46,7 +41,7 @@ public class Police extends AbstractNPC {
         "Deputy Sheriff",
         "Sheriff"
     };
-    
+
     /**
      * A factory function used to create new police.
      * @param seed The seed used to determine police stats and rank
@@ -104,8 +99,4 @@ public class Police extends AbstractNPC {
         return "*POLICE*\n" + super.toString();
     }
 
-    @Override
-    public String getViewFile() {
-        return viewFile;
-    }
 }

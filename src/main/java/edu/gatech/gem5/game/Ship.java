@@ -4,6 +4,7 @@ import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.data.WeaponType;
 import edu.gatech.gem5.game.data.GadgetType;
+import edu.gatech.gem5.game.data.ShieldType;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.ArrayList;
@@ -150,7 +151,7 @@ public class Ship {
     }
 
     /**
-     * 
+     *
      * @return A list of objects that hold properties of weapons that the ship
      * can use
      */
@@ -178,7 +179,7 @@ public class Ship {
     }
 
     /**
-     * 
+     *
      * @return A list of shield objects that the ship can use
      */
     public List<Shield> getShieldList() {
@@ -190,9 +191,9 @@ public class Ship {
      * @param s the Shield being added to the ship
      * @return true if successfully added, false otherwise
      */
-    public boolean addUpgrade(Shield s) {
+    public boolean addUpgrade(ShieldType st) {
         if (shieldList.size() < type.getShieldSlots()) {
-            return shieldList.add(s);
+            return shieldList.add(new Shield (st));
         }
         return false;
     }
@@ -206,7 +207,7 @@ public class Ship {
     }
 
     /**
-     * 
+     *
      * @return A list of objects that hold properties of gadgets that the ship
      * can use.
      */
@@ -266,7 +267,7 @@ public class Ship {
     }
 
     /**
-     * 
+     *
      * @param f the amount of fuel a ship should now have
      */
     public void setFuel(int f) {
@@ -274,7 +275,7 @@ public class Ship {
     }
 
     /**
-     * 
+     *
      * @return the amount of fuel a ship currently has
      */
     public int getFuel() {
@@ -282,7 +283,7 @@ public class Ship {
     }
 
     /**
-     * 
+     *
      * @return true if a ship's health is 0, false otherwise
      */
     public boolean isDestroyed() {
@@ -313,7 +314,7 @@ public class Ship {
     }
 
     /**
-     * 
+     *
      * @param damageReceived amount of damage to be dealt to a ship
      * @return A description of the result of a ship after dealing the damage
      */
