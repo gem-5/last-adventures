@@ -19,6 +19,6 @@ public class ShipReader extends Reader<String, ShipType> {
     public ShipReader(String path) {
         super(path, new TypeToken<
             Map<String, ShipType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

@@ -19,6 +19,6 @@ public class GovernmentReader extends Reader<String, GovernmentType> {
     public GovernmentReader(String path) {
         super(path, new TypeToken<
             Map<String, GovernmentType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

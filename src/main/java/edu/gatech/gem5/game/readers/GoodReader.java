@@ -19,6 +19,6 @@ public class GoodReader extends Reader<String, GoodType> {
     public GoodReader(String path) {
         super(path, new TypeToken<
             Map<String, GoodType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

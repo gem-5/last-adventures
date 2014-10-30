@@ -19,6 +19,6 @@ public class ConditionReader extends Reader<String, ConditionType> {
     public ConditionReader(String path) {
         super(path, new TypeToken<
             Map<String, ConditionType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }

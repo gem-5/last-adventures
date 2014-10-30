@@ -19,6 +19,6 @@ public class StarReader extends Reader<String, StarType> {
     public StarReader(String path) {
         super(path, new TypeToken<
             Map<String, StarType>
-        >(){}.getType());
+        >() {} .getType());
     }
 }
