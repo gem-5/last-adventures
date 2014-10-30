@@ -35,9 +35,14 @@ public abstract class AbstractNPC extends AbstractHuman implements Encounterable
      * @param ship ship used by the NPC during encounters
      * @param loot amount of money given on defeat
      */
+
+    private final String viewFile;
+
+
     protected AbstractNPC(String name, int pilot, int fighter, int trader,
-            int engineer, int investor, Ship ship, int loot) {
+                          int engineer, int investor, Ship ship, int loot, String viewFile) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
+        this.viewFile = viewFile;
     }
 
     /**
@@ -133,5 +138,15 @@ public abstract class AbstractNPC extends AbstractHuman implements Encounterable
         }
 
         return ship;
+    }
+
+    /**
+     *
+     * @return The FXML to be shown that is specific to this type of encounter
+     * after the initial encounter screen.
+     */
+    @Override
+    public String getViewFile() {
+        return viewFile;
     }
 }

@@ -14,13 +14,8 @@ import java.util.Random;
 public class Pirate extends AbstractNPC {
 
     /**
-     * The initial FXML view for a pirate encounter.
-     */
-    public static String viewFile = "/fxml/pirateencounter.fxml";
-
-    /**
-     * 
-     * 
+     *
+     *
      * @param name Pirate's name
      * @param pilot pilot skill
      * @param fighter fighter skill
@@ -31,9 +26,9 @@ public class Pirate extends AbstractNPC {
      * @param loot amount of money given on defeat
      */
     private Pirate(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
-        super(name, pilot, fighter, trader, engineer, investor, ship, loot);
+        super(name, pilot, fighter, trader, engineer, investor, ship, loot, "/fxml/pirateencounter.fxml");
     }
-    
+
     /**
      * Possible titles for pirates.
      */
@@ -107,13 +102,4 @@ public class Pirate extends AbstractNPC {
         return "*PIRATE*\n" + super.toString();
     }
 
-    /**
-     *
-     * @return The FXML to be shown that is specific to this type of encounter
-     * after the initial encounter screen.
-     */
-    @Override
-    public String getViewFile() {
-        return viewFile;
-    }
 }
