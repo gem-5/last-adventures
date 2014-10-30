@@ -1,13 +1,7 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.animation.FadeHandler;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -20,7 +14,7 @@ public class TitleController extends Controller {
     @FXML
     private GridPane gridPane;
 
-    public static final String TITLE_VIEW_FILE = "/fxml/title.fxml" ;
+    public static final String TITLE_VIEW_FILE = "/fxml/title.fxml";
 
     /**
      * Construct the title controller.
@@ -59,7 +53,7 @@ public class TitleController extends Controller {
      */
     @FXML
     private void loadGame(ActionEvent event) throws Exception {
-       // LastAdventures.swap(new LoadGameController());
+        // LastAdventures.swap(new LoadGameController());
         transitionTo(new LoadGameController());
     }
 }

@@ -1,10 +1,5 @@
 package edu.gatech.gem5.game.controllers;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.util.Map;
 import java.util.HashMap;
 import javafx.fxml.FXML;
@@ -13,31 +8,17 @@ import javafx.scene.control.Label;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
-import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.SaveFile;
-import edu.gatech.gem5.game.Character;
-import edu.gatech.gem5.game.Good;
 import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Trader;
 import edu.gatech.gem5.game.ui.BuyBar;
-import edu.gatech.gem5.game.ui.UpgradeBar;
-import edu.gatech.gem5.game.data.DataType;
 import edu.gatech.gem5.game.data.GoodType;
-import edu.gatech.gem5.game.data.ShipType;
-import edu.gatech.gem5.game.data.WeaponType;
-import edu.gatech.gem5.game.data.ShieldType;
-import edu.gatech.gem5.game.data.GadgetType;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -45,6 +26,7 @@ import javafx.stage.Stage;
  * @author James
  */
 public class TraderController extends Controller {
+
     @FXML
     AnchorPane root;
     @FXML
@@ -61,18 +43,17 @@ public class TraderController extends Controller {
 
     // @FXML
     // private Button refuelButton;
-
     @FXML
     private ListView<BuyBar> buyGoods;
     @FXML
     private ListView<BuyBar> sellGoods;
 
-
-    private Trader trader;
+    private final Trader trader;
     public static final String MARKET_VIEW_FILE = "/fxml/trader.fxml";
 
     /**
      * Construct the trader controller.
+     * @param trader
      */
     public TraderController(Trader trader) {
         // load the view or throw an exception
@@ -103,8 +84,8 @@ public class TraderController extends Controller {
         }
         // construct a transaction between a player and a trader
         Transaction t = new Transaction(
-            LastAdventures.getCurrentSaveFile().getCharacter(),
-            this.trader
+                LastAdventures.getCurrentSaveFile().getCharacter(),
+                this.trader
         );
         // attempt the purchase
         if (t.validateBuy(purchases)) {
@@ -125,7 +106,7 @@ public class TraderController extends Controller {
      */
     @FXML
     public void makeSale(ActionEvent event) throws Exception {
-         // enumerate sales
+        // enumerate sales
         Map<String, Integer> sales = new HashMap<>();
         for (BuyBar bar : sellGoods.getItems()) {
             String productKey = bar.getProduct();
@@ -134,9 +115,9 @@ public class TraderController extends Controller {
         }
         // construct a transaction between a player and a trader
         Transaction t = new Transaction(
-            LastAdventures.getCurrentSaveFile().getCharacter(),
-            // LastAdventures.getCurrentSaveFile().getPlanet()
-            this.trader
+                LastAdventures.getCurrentSaveFile().getCharacter(),
+                // LastAdventures.getCurrentSaveFile().getPlanet()
+                this.trader
         );
         // attempt the sale
         if (t.validateSell(sales)) {
@@ -165,7 +146,6 @@ public class TraderController extends Controller {
     //     ship.setFuel(ship.getType().getRange());
     //     fillLabels();
     // }
-
     /**
      * Continue to the planet screen.
      *
@@ -185,58 +165,58 @@ public class TraderController extends Controller {
         );
         Ship s = save.getCharacter().getShip();
         this.lblSlots.setText(
-            ((Integer) s.getOpenBays()).toString()
+                ((Integer) s.getOpenBays()).toString()
         );
         errorLabel.setText("");
     }
     /*
-    private void buildShipList() {
-        // this is the tab for ships that the planet sells
-        ObservableList<UpgradeBar> lstShips
-                = FXCollections.observableArrayList();
-        Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
-        for (String x : planet.getShips()) {
-            UpgradeBar b = new UpgradeBar();
-            ShipType ship = (ShipType) ships.get(x);
-            b.setKey(x);
-            b.setPrice(ship.getPrice());
-            b.setText(ship.getName());
-            lstShips.add(b);
-        }
-        upShips.setItems(lstShips);
-    }
+     private void buildShipList() {
+     // this is the tab for ships that the planet sells
+     ObservableList<UpgradeBar> lstShips
+     = FXCollections.observableArrayList();
+     Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
+     for (String x : planet.getShips()) {
+     UpgradeBar b = new UpgradeBar();
+     ShipType ship = (ShipType) ships.get(x);
+     b.setKey(x);
+     b.setPrice(ship.getPrice());
+     b.setText(ship.getName());
+     lstShips.add(b);
+     }
+     upShips.setItems(lstShips);
+     }
 
-    private void buildWeaponList() {
-        // this is the tab for weapons that the planet sells
-        ObservableList<UpgradeBar> lstWeapons
-                = FXCollections.observableArrayList();
-        Map<String, WeaponType> weps = LastAdventures.data.get(WeaponType.KEY);
-        for (String x : planet.getWeapons()) {
-            UpgradeBar b = new UpgradeBar();
-            WeaponType weapon = (WeaponType) weps.get(x);
-            b.setKey(x);
-            b.setPrice(weapon.getPrice());
-            b.setText(weapon.getName());
-            lstWeapons.add(b);
-        }
-        upWeapons.setItems(lstWeapons);
-    }
+     private void buildWeaponList() {
+     // this is the tab for weapons that the planet sells
+     ObservableList<UpgradeBar> lstWeapons
+     = FXCollections.observableArrayList();
+     Map<String, WeaponType> weps = LastAdventures.data.get(WeaponType.KEY);
+     for (String x : planet.getWeapons()) {
+     UpgradeBar b = new UpgradeBar();
+     WeaponType weapon = (WeaponType) weps.get(x);
+     b.setKey(x);
+     b.setPrice(weapon.getPrice());
+     b.setText(weapon.getName());
+     lstWeapons.add(b);
+     }
+     upWeapons.setItems(lstWeapons);
+     }
 
-    private void buildShieldList() {
-        // this is the tab for shields that the planet sells
-        ObservableList<UpgradeBar> lstShields
-                = FXCollections.observableArrayList();
-        Map<String, ShieldType> shilds = LastAdventures.data.get(ShieldType.KEY);
-        for (String x : planet.getShields()) {
-            UpgradeBar b = new UpgradeBar();
-            ShieldType shield = (ShieldType) shilds.get(x);
-            b.setKey(x);
-            b.setPrice(shield.getPrice());
-            b.setText(shield.getName());
-            lstShields.add(b);
-        }
-        upShields.setItems(lstShields);
-    }*/
+     private void buildShieldList() {
+     // this is the tab for shields that the planet sells
+     ObservableList<UpgradeBar> lstShields
+     = FXCollections.observableArrayList();
+     Map<String, ShieldType> shilds = LastAdventures.data.get(ShieldType.KEY);
+     for (String x : planet.getShields()) {
+     UpgradeBar b = new UpgradeBar();
+     ShieldType shield = (ShieldType) shilds.get(x);
+     b.setKey(x);
+     b.setPrice(shield.getPrice());
+     b.setText(shield.getName());
+     lstShields.add(b);
+     }
+     upShields.setItems(lstShields);
+     }*/
 
     private void buildBuyGoodsList() {
         // this is the tab for goods that the trader sells
@@ -259,7 +239,9 @@ public class TraderController extends Controller {
         ObservableList<BuyBar> listGoods = FXCollections.observableArrayList();
         Map<String, Integer> playerGoods = LastAdventures.getCurrentSaveFile().getCharacter().getShip().getCargoList();
         for (Map.Entry<String, Integer> s : playerGoods.entrySet()) {
-            if (s.getValue() == 0) continue; // don't bother with these
+            if (s.getValue() == 0) {
+                continue; // don't bother with these
+            }
             GoodType g = (GoodType) Data.GOODS.get(s.getKey());
             BuyBar b = new BuyBar();
             b.setKey(s.getKey());

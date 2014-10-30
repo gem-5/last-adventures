@@ -7,7 +7,6 @@ import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.ui.ShipBar;
-import java.util.List;
 import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
  * @author Alex
  */
 public class ShipyardController extends Controller {
+
     @FXML
     AnchorPane root;
     @FXML
@@ -37,9 +37,9 @@ public class ShipyardController extends Controller {
     @FXML
     private ListView<ShipBar> buyShips;
 
-    private ToggleGroup shipGroup;
+    private final ToggleGroup shipGroup;
 
-    private Planet planet;
+    private final Planet planet;
     private Ship currentShip;
 
     public static final String SHIPYARD_VIEW_FILE = "/fxml/shipyard.fxml";

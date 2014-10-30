@@ -1,37 +1,24 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.Encounter;
 import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
-import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
-import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.EncounterManager;
-import edu.gatech.gem5.game.Encounterable;
 import edu.gatech.gem5.game.Turn;
 import edu.gatech.gem5.game.ui.SolarSystemDisplay;
 import edu.gatech.gem5.game.ui.ExplorableDisplay;
 import edu.gatech.gem5.game.ui.SolarIcon;
 import edu.gatech.gem5.game.ui.PlanetIcon;
-import edu.gatech.gem5.game.ui.HoverBox;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -57,7 +44,6 @@ public class DisplaySystemController extends Controller {
     Label title;
 
     public static final String SYSTEM_VIEW_FILE = "/fxml/system.fxml";
-
 
     /**
      * No arg constructor
@@ -91,7 +77,7 @@ public class DisplaySystemController extends Controller {
         SolarIcon sun = new SolarIcon(sys);
         sun.setPrefWidth(100);
         sun.setPrefHeight(100);
-        map.addNode(0,0, sun);
+        map.addNode(0, 0, sun);
         // add planets
         double theta = 0;
         double r = 60;
@@ -125,44 +111,45 @@ public class DisplaySystemController extends Controller {
         // LastAdventures.swap(new DisplayUniverseController());
         transitionTo(new DisplayUniverseController());
     }
+
     /**
-     * Sets the current planet and solar system to the save file, then changes to
-     * the PlanetController scene
+     * Sets the current planet and solar system to the save file, then changes
+     * to the PlanetController scene
      *
      */
     @FXML
     private void travelTo() {
         /*
-        Ship ship = save.getCharacter().getShip();
-        int range = ship.getFuel();
-        SolarSystem curSS = save.getSolarSystem();
-        int x1 = curSS.getXCoordinate();
-        int y1 = curSS.getYCoordinate();
-        int x2 = selected.getXCoordinate();
-        int y2 = selected.getYCoordinate();
+         Ship ship = save.getCharacter().getShip();
+         int range = ship.getFuel();
+         SolarSystem curSS = save.getSolarSystem();
+         int x1 = curSS.getXCoordinate();
+         int y1 = curSS.getYCoordinate();
+         int x2 = selected.getXCoordinate();
+         int y2 = selected.getYCoordinate();
 
 
-        int distance = distance(x1, y1, x2, y2);
-        if ( distance <= range && selected != curSS) {
-            save.setSolarSystem(selected);
-            ship.setFuel(ship.getFuel() - distance);
-            // PSA: save.setSolarSystem() updates the current planet to the
-            // first one in the solar system
+         int distance = distance(x1, y1, x2, y2);
+         if ( distance <= range && selected != curSS) {
+         save.setSolarSystem(selected);
+         ship.setFuel(ship.getFuel() - distance);
+         // PSA: save.setSolarSystem() updates the current planet to the
+         // first one in the solar system
 
-            Encounter e = new Encounter();
+         Encounter e = new Encounter();
 
-            Turn turn = new Turn();
-            turn.pass();
+         Turn turn = new Turn();
+         turn.pass();
 
-            e.getEncounter(save.getPlanet());
+         e.getEncounter(save.getPlanet());
 
-        } else if (curSS == selected) {
-            //no need to take a turn, we're already here
-            LastAdventures.swap(new PlanetController());
-        } else {
-           errorLabel.setText("Out of Range");
-        }
-        */
+         } else if (curSS == selected) {
+         //no need to take a turn, we're already here
+         LastAdventures.swap(new PlanetController());
+         } else {
+         errorLabel.setText("Out of Range");
+         }
+         */
     }
 
     private void addListeners() {
@@ -174,11 +161,13 @@ public class DisplaySystemController extends Controller {
         LastAdventures.getScene().widthProperty().addListener(updateListener);
         LastAdventures.getScene().heightProperty().addListener(updateListener);
     }
+
     private class UpdateListener implements ChangeListener<Object> {
+
         @Override
         public void changed(ObservableValue<? extends Object> obs,
-                            Object oldValue,
-                            Object newValue) {
+                Object oldValue,
+                Object newValue) {
             map.update();
         }
     };
@@ -202,7 +191,7 @@ public class DisplaySystemController extends Controller {
             ship.setFuel(ship.getFuel() - cost);
 
             // cache current solar system in this snazzy variable
-            SolarSystem here =  save.getSolarSystem();
+            SolarSystem here = save.getSolarSystem();
 
             // update save file
             save.setSolarSystem(sys);
@@ -226,7 +215,7 @@ public class DisplaySystemController extends Controller {
             SolarSystem there = save.getSolarSystem();
             int dx = there.getXCoordinate() - here.getXCoordinate();
             int dy = there.getYCoordinate() - here.getYCoordinate();
-            return Math.sqrt(dx*dx + dy*dy);
+            return Math.sqrt(dx * dx + dy * dy);
         }
     }
 

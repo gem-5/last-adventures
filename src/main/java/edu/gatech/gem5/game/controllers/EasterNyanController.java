@@ -1,6 +1,5 @@
 package edu.gatech.gem5.game.controllers;
 
-import static java.lang.Math.random;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -27,9 +26,6 @@ public class EasterNyanController implements Initializable {
     @FXML
     AnchorPane root;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

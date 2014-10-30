@@ -151,7 +151,7 @@ public class DockController extends Controller {
                 errorLabel.setText("You don't have enough money.");
                 return;
             }
-            
+
             // Process weapon purchase
             playerShip.addUpgrade(weaponType);
             player.setMoney(player.getMoney() - weaponType.getPrice());
@@ -193,7 +193,7 @@ public class DockController extends Controller {
                 errorLabel.setText("You don't have enough money.");
                 return;
             }
-            
+
             // Process shield purchase
             playerShip.addUpgrade(new Shield(shieldType));
             player.setMoney(player.getMoney() - shieldType.getPrice());

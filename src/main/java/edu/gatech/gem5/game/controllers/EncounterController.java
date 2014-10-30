@@ -5,12 +5,9 @@ import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.AbstractNPC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-
 
 /**
  * FXML Controller Class
@@ -35,9 +32,9 @@ public class EncounterController extends Controller {
     Button attack;
 
     // public static final String ENCOUNTER_VIEW_FILE = "/fxml/encounter.fxml";
-
     /**
      * Construct the encounter controller.
+     *
      * @param encounter the NPC that the Character has encountered.
      */
     public EncounterController(Encounterable encounter) {
@@ -47,7 +44,6 @@ public class EncounterController extends Controller {
         String msg = encounter.getEncounterMessage();
         dialog.setText(msg);
     }
-
 
     /**
      * Continue to the new planet screen.
@@ -66,7 +62,7 @@ public class EncounterController extends Controller {
         // LastAdventures.swap(new CombatController(LastAdventures.getCurrentSaveFile().getCharacter(),
         //                                          (NPC) encounter));
         transitionTo(new CombatController(LastAdventures.getCurrentSaveFile().getCharacter(),
-                                          (AbstractNPC) encounter));
+                (AbstractNPC) encounter));
     }
 
 }

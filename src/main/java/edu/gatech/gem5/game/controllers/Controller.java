@@ -17,7 +17,6 @@ import edu.gatech.gem5.game.LastAdventures;
  *
  * @author Creston Bunch
  */
-
 public abstract class Controller implements Initializable {
 
     LastAdventures game;
@@ -28,15 +27,15 @@ public abstract class Controller implements Initializable {
      *
      * @param file The fxml file to load.
      */
-    public Controller (String file) {
+    public Controller(String file) {
 
         try {
             FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(file)
+                    getClass().getResource(file)
             );
 
             loader.setController(this);
-            this.root = loader.load();
+            this.root = (Parent) loader.load();
             this.game = game;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -68,7 +67,8 @@ public abstract class Controller implements Initializable {
      * Run this after the scene has been updated. Useful when you need to know
      * node sizes.
      */
-    public void finish() { }
+    public void finish() {
+    }
 
     /**
      * Transition to a new Controller
@@ -76,11 +76,13 @@ public abstract class Controller implements Initializable {
      * @param c The new Controller to load.
      */
     protected void transitionTo(Controller c) {
+
         Pane oldRoot = (Pane) LastAdventures.getRoot();
         Stage stage = LastAdventures.getStage();
         Scene scene = stage.getScene();
+
         // LastAdventures.setRoot(c.getRoot());
-        Parent root = c.getRoot();
+        root = c.getRoot();
 
         // make the new scene the same size
         if (oldRoot != null) {

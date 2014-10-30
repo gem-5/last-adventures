@@ -3,14 +3,11 @@ package edu.gatech.gem5.game.controllers;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Data;
-import edu.gatech.gem5.game.data.StoryText;
-import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
-
 
 /**
  * FXML Controller Class
@@ -44,6 +41,7 @@ public class CharacterStatusController extends Controller {
     Text dialog;
 
     public static final String STATUS_VIEW_FILE = "/fxml/status.fxml";
+
     /**
      * Construct the character status controller.
      */

@@ -3,16 +3,8 @@ package edu.gatech.gem5.game.controllers;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Data;
-import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
-import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
-import edu.gatech.gem5.game.animation.FadeHandler;
-import edu.gatech.gem5.game.animation.TranslateHandler;
-import edu.gatech.gem5.game.data.ShipType;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -100,23 +92,21 @@ public class CharacterCreateController extends Controller {
         game.createNewSaveFile();
         addTextLimiter(name, MAX_NAME_LENGTH);
 
-        values = new Label[] { pilotValue, fighterValue, traderValue,
-                engineerValue, investorValue };
-        incButtons = new Button[] { pilotInc, fighterInc, traderInc,
-                engineerInc, investorInc };
-        decButtons = new Button[] { pilotDec, fighterDec, traderDec,
-                engineerDec, investorDec };
-        skillNames = new Label[] { pilot, fighter, trader, engineer, investor,
-                remaining };
+        values = new Label[]{pilotValue, fighterValue, traderValue,
+            engineerValue, investorValue};
+        incButtons = new Button[]{pilotInc, fighterInc, traderInc,
+            engineerInc, investorInc};
+        decButtons = new Button[]{pilotDec, fighterDec, traderDec,
+            engineerDec, investorDec};
+        skillNames = new Label[]{pilot, fighter, trader, engineer, investor,
+            remaining};
     }
 
     /**
      * Move to the confirm screen.
      *
-     * @param event
-     *            a button press
-     * @throws Exception
-     *             propagates any JavaFX Exception
+     * @param event a button press
+     * @throws Exception propagates any JavaFX Exception
      */
     @FXML
     public void confirmCharacter(ActionEvent event) throws Exception {
@@ -150,10 +140,8 @@ public class CharacterCreateController extends Controller {
     /**
      * Go back to the title screen.
      *
-     * @param event
-     *            a button press
-     * @throws Exception
-     *             propagates any JavaFX Exception
+     * @param event a button press
+     * @throws Exception propagates any JavaFX Exception
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -184,8 +172,7 @@ public class CharacterCreateController extends Controller {
     }
 
     /**
-     * @param event
-     *            a incrementor button press
+     * @param event a incrementor button press
      */
     @FXML
     public void increment(ActionEvent event) {
@@ -205,8 +192,7 @@ public class CharacterCreateController extends Controller {
     }
 
     /**
-     * @param event
-     *            a decrementor button press
+     * @param event a decrementor button press
      */
     @FXML
     public void decrement(ActionEvent event) {
@@ -226,10 +212,8 @@ public class CharacterCreateController extends Controller {
     /**
      * Limits the length of a text field
      *
-     * @param tf
-     *            A text field
-     * @param maxLength
-     *            The maximum number of characters allowed
+     * @param tf A text field
+     * @param maxLength The maximum number of characters allowed
      */
     public static void addTextLimiter(final TextField tf, final int maxLength) {
         tf.textProperty().addListener(new ChangeListener<String>() {
