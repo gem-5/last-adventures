@@ -3,7 +3,7 @@ package edu.gatech.gem5.game;
 import java.util.Map;
 
 /**
- * Interface to define interactions between classes that can trader w/ the Character
+ * Interface to define interactions between classes that can trader with the Character.
  * @author Sam Blumenthal
  */
 
@@ -14,19 +14,19 @@ public interface Traderable {
      *
      * @return the map
      */
-    public Map<String, Integer> getSupply();
+    Map<String, Integer> getSupply();
 
     /**
      * Get a map of goods and their prices bought by this trader.
      *
      * @return the map
      */
-    public Map<String, Integer> getDemand();
+    Map<String, Integer> getDemand();
 
     /**
      * Get a map of goods and their quantities sold by this trader.
      *
      * @return the map
      */
-    public Map<String, Integer> getStock();
+    Map<String, Integer> getStock();
 }

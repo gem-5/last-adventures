@@ -1,11 +1,6 @@
 package edu.gatech.gem5.game;
 
 import java.util.Map;
-import java.util.Stack;
-
-import edu.gatech.gem5.game.data.GoodType;
-import java.util.TreeMap;
-import java.util.stream.IntStream;
 
 /**
  * This class handles all exchanges between the player character and a planet's
@@ -15,25 +10,33 @@ import java.util.stream.IntStream;
  */
 public class Transaction {
 
+    /**
+     * Reference to the player doing a transaction.
+     */
     private Character player;
-    //the trader that this character is doing business with
+    /**
+     * The trader that this character is doing business with.
+     */
     private Traderable trader;
+    /**
+     * A message saved after transactions describing their failure (or success).
+     */
     private String errorMessage;
 
     /**
-     * This transaction is between a player and a trader
+     * This transaction is between a player and a trader.
      *
-     * @param player The player making the transaction.
-     * @param trader The trader making the transaction.
+     * @param p The player making the transaction.
+     * @param t The trader making the transaction.
      */
-    public Transaction(Character player, Traderable trader) {
-        this.player = player;
-        this.trader = trader;
+    public Transaction(Character p, Traderable t) {
+        this.player = p;
+        this.trader = t;
         this.errorMessage = "";
     }
 
     /**
-     * Purchase a number of goods
+     * Purchase a number of goods.
      *
      * @param purchases A map of goods and their quantities to purchase.
      */
@@ -51,12 +54,12 @@ public class Transaction {
     }
 
     /**
-     * Sell a number of goods
+     * Sell a number of goods.
      *
      * @param sales A map of goods and their quantities to sell.
      */
     public void sell(Map<String, Integer> sales) {
-        for(Map.Entry<String, Integer> s : sales.entrySet()) {
+        for (Map.Entry<String, Integer> s : sales.entrySet()) {
             int unitPrice = trader.getDemand().get(s.getKey());
             int sumTotal = unitPrice * s.getValue();
             // trader loses money, player gains money
