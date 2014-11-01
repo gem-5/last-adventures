@@ -41,15 +41,6 @@ public class LastAdventures extends Application {
     private static final Random random = new Random();
     
     /**
-     * A private constructor for the singleton LastAdventures. Having this
-     * constructor also renders the default public no-args constructor
-     * unusable, which is what a singleton wants.
-     */
-    public LastAdventures() {
-        
-    }
-    
-    /**
      * Start the game.
      *
      * @param fxStage The stage to start with
