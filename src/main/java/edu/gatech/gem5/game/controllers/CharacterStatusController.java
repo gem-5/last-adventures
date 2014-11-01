@@ -51,8 +51,6 @@ public class CharacterStatusController extends Controller {
 
         Character player = LastAdventures.getCurrentSaveFile().getCharacter();
 
-        Label[] labels = {playerName, pilotValue, fighterValue, traderValue, engineerValue, investorValue};
-
         playerName.setText("Name: " + player.getName());
         pilotValue.setText("Pilot: " + player.getPilot());
         fighterValue.setText("Fighter: " + player.getFighter());

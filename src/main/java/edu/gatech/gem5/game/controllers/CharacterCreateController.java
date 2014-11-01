@@ -26,57 +26,18 @@ import org.controlsfx.dialog.Dialogs;
 public class CharacterCreateController extends Controller {
 
     @FXML
-    Button pilotInc;
+    Button pilotInc, fighterInc, traderInc, engineerInc, investorInc;
     @FXML
-    Button fighterInc;
+    Button pilotDec, fighterDec, traderDec, engineerDec, investorDec;
     @FXML
-    Button traderInc;
-    @FXML
-    Button engineerInc;
-    @FXML
-    Button investorInc;
-    @FXML
-    Button pilotDec;
-    @FXML
-    Button fighterDec;
-    @FXML
-    Button traderDec;
-    @FXML
-    Button engineerDec;
-    @FXML
-    Button investorDec;
-    @FXML
-    Label pilotValue;
-    @FXML
-    Label fighterValue;
-    @FXML
-    Label traderValue;
-    @FXML
-    Label engineerValue;
-    @FXML
-    Label investorValue;
+    Label pilotValue, fighterValue, traderValue, engineerValue, investorValue;
     @FXML
     Label remainingValue;
     @FXML
     TextField name;
 
-    @FXML
-    Label pilot;
-    @FXML
-    Label fighter;
-    @FXML
-    Label trader;
-    @FXML
-    Label engineer;
-    @FXML
-    Label investor;
-    @FXML
-    Button confirm;
-    @FXML
-    Label remaining;
-
     private Button[] incButtons, decButtons;
-    private Label[] values, skillNames;
+    private Label[] values;
 
     public static final String CREATE_VIEW_FILE = "/fxml/create.fxml";
     public static final int MAX_NAME_LENGTH = 8;

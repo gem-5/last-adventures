@@ -59,7 +59,6 @@ public class TraderController extends Controller {
         // load the view or throw an exception
         super(MARKET_VIEW_FILE);
 
-        SaveFile save = LastAdventures.getCurrentSaveFile();
         this.trader = trader;
 
         fillLabels();

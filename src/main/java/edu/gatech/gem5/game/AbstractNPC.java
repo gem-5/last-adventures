@@ -111,7 +111,6 @@ public abstract class AbstractNPC extends AbstractHuman implements Encounterable
 
         if (cargo) {
             GoodType[] goods = Data.GOODS.get().values().toArray(new GoodType[0]);
-            int cargoSize = shipT.getCargoSlots();
 
             List<GoodType> legalGoods = new ArrayList<>(); // Traders only carry legal goods
             for (GoodType g: goods) {
