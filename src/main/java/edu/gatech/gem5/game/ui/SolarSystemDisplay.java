@@ -19,7 +19,7 @@ public class SolarSystemDisplay extends ExplorableDisplay {
         super();
         this.gridWidth = w;
         this.gridHeight = h;
-        this.camera = new Camera(gridWidth / 2, gridHeight / 2, 1.0);
+        this.camera = new Camera(gridWidth / 2.0, gridHeight / 2.0, 1.0);
     }
 
     @Override

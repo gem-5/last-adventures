@@ -76,7 +76,7 @@ public class Universe {
 
         int numArms = 4;
         int armCapacity = num / numArms;
-        double rMax = Math.min(this.width, this.height) / 2;
+        double rMax = Math.min(this.width, this.height) / 2.0;
         double dr = rMax / armCapacity;
 
         double b = 0.3;

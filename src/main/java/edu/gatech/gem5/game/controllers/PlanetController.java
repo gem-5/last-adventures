@@ -118,6 +118,7 @@ public class PlanetController extends Controller {
                 // LastAdventures.swap(new DockController());
                 transitionTo(new DockController());
                 break;
+            default: break;
         }
     }
 

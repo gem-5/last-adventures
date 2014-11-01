@@ -31,7 +31,7 @@ public abstract class ExplorableDisplay extends Pane {
     protected int gridWidth;
     protected int gridHeight;
     protected Camera camera;
-    protected List<Point> nodes;
+    private List<Point> nodes;
     protected ScrollHandler scrollHandler;
     protected DragHandler dragHandler;
     protected MoveHandler moveHandler;
