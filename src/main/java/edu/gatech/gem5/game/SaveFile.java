@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.annotations.SerializedName;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 
 /**
  * A class for keeping track of persistent game data.
@@ -64,7 +65,7 @@ public class SaveFile {
     /**
      * The encoding that save files for Last Adventures uses.
      */
-    public static final String SAVE_ENC = "UTF-8";
+    public static final String SAVE_ENC = Charset.defaultCharset().displayName();//"UTF-8";
 
     /**
      * Construct the save file with nothing.

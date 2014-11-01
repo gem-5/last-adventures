@@ -1,5 +1,6 @@
 package edu.gatech.gem5.game.data;
 import com.google.gson.annotations.SerializedName;
+import java.util.Arrays;
 import javafx.scene.image.Image;
 
 /**
@@ -56,7 +57,7 @@ public class StarType extends DataType {
      * @return the probability list
      */
     public double[] getPlanetProbabilities() {
-        return planetProbabilities;
+        return Arrays.copyOf(planetProbabilities, planetProbabilities.length);
     }
 
     /**
