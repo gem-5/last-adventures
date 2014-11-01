@@ -218,11 +218,11 @@ public class Universe {
 
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (SolarSystem system : universe.values()) {
-            result += system.toString() + "\n";
+            result.append(system.toString()).append("\n");
         }
-        return result;
+        return result.toString();
     }
     /**
      * This is a simple class to couple an x and y coordinate together.

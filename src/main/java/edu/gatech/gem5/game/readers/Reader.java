@@ -54,13 +54,13 @@ public abstract class Reader<K, T> {
      * @return The contents of the stream as a string.
      */
     private String readStream(InputStream stream) {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         
         Scanner scanner = new Scanner(stream, Charset.defaultCharset().displayName());
         while (scanner.hasNext()) {
-            out += scanner.nextLine() + "\n";
+            out.append(scanner.nextLine()).append("\n");
         }
-        return out;
+        return out.toString();
     }
 
 }

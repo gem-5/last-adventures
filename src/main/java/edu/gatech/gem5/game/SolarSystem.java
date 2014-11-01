@@ -116,12 +116,16 @@ public class SolarSystem {
      */
     @Override
     public String toString() {
-        String result = getName();
-        result += "\nLocation: (" + getXCoordinate() + ", " + getYCoordinate() + ")";
+        StringBuilder result = new StringBuilder(getName());
+        result.append("\nLocation: (")
+                .append(getXCoordinate())
+                .append(", ")
+                .append(getYCoordinate())
+                .append(")");
         for (Planet p : getPlanets()) {
-            result += "\n\t" + p.toString().replace("\n", "\n\t");
+            result.append("\n\t").append(p.toString().replace("\n", "\n\t"));
         }
-        return result;
+        return result.toString();
     }
 
     /**

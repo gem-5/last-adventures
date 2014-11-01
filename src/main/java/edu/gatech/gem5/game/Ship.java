@@ -236,34 +236,34 @@ public class Ship {
 
     @Override
     public String toString() {
-        String result = "Ship: ";
-        result += this.type.getName();
-        result += "\n  Cargo:";
+        StringBuilder result = new StringBuilder("Ship: ");
+        result.append(this.type.getName());
+        result.append("\n Cargo:");
         String delim = "%n\t%s";
         for (Map.Entry<String, Integer> kv: this.cargoList.entrySet()) {
             String goodName =
                 Data.GOODS.get(kv.getKey()).getName();
-            result += String.format(delim + "  %d", goodName, kv.getValue());
+            result.append(String.format(delim + "  %d", goodName, kv.getValue())); 
         }
-        result += "\n  Weapons:";
+        result.append("\n Weapons:");
         for (WeaponType w: getWeaponList()) {
             if (w != null) {
-                result += String.format(delim, w.getName());
+                result.append(String.format(delim, w.getName()));
             }
         }
-        result += "\n  Shields:";
+        result.append("\n Shields:");
         for (Shield s: getShieldList()) {
             if (s != null) {
-                result += String.format(delim, s.getType().getName());
+                result.append(String.format(delim, s.getType().getName()));
             }
         }
-        result += "\n  Gadgets:";
+        result.append("\n Gadjets:");
         for (GadgetType g: getGadgetList()) {
             if (g != null) {
-                result += String.format(delim, g.getName());
+                result.append(String.format(delim, g.getName()));
             }
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -319,24 +319,24 @@ public class Ship {
      * @return A description of the result of a ship after dealing the damage
      */
     public String receiveDamage(double damageReceived) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         double damage = damageReceived;
         for (Shield s: getShieldList()) {
             if (s.getHealth() != 0 && damage > 0.01) {
                 double newDamage = damage - s.getHealth();
                 s.decrementHealth(damage);
-                result += String.format("Shield: %s absorbs the blow, %.2f / %.2f health remains.%n",
-                                        s.getType().getName(), s.getHealth(), s.maxHealth());
+                result.append(String.format("Shield: %s absorbs the blow, %.2f / %.2f health remains.%n",
+                        s.getType().getName(), s.getHealth(), s.maxHealth()));
                 damage = Math.max(newDamage, 0);
             }
         }
         this.health = Math.max(0, this.health - damage);
         // this.health = this.health - damage;
         if (damage > 0.01) {
-            result += String.format("The attack pierces the hull, dealing %.2f damage.%n"
-                                    + "Remaining Hull Strength: %.2f / %d%n", damage,
-                                    this.health, this.type.getHullStrength());
+            result.append(String.format("The attack pierces the hull, dealing %.2f damage.%n"
+                    + "Remaining Hull Strength: %.2f / %d%n", damage,
+                    this.health, this.type.getHullStrength()));
         }
-        return result;
+        return result.toString();
     }
 }

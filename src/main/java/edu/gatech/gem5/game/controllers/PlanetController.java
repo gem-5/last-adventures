@@ -84,11 +84,11 @@ public class PlanetController extends Controller {
     }
 
     private String buildCompanyString() {
-        String companies = "";
+        StringBuilder companies = new StringBuilder();
         for (CompanyType c : planet.getCompanies()) {
-            companies += c.getName() + "\n";
+            companies.append(c.getName()).append("\n");
         }
-        return companies;
+        return companies.toString();
     }
 
     /**

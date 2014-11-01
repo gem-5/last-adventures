@@ -81,12 +81,12 @@ public class NameGenerator {
     public String newName(int minLength, int maxLength) {
         int length = rand.nextInt(maxLength - minLength) + minLength;
         boolean vowel = rand.nextBoolean();
-        String name = "";
+        StringBuilder name = new StringBuilder();
         while (name.length() < length) {
             if (vowel) {
-                name += CONSONANTS[rand.nextInt(CONSONANTS.length)];
+                name.append(CONSONANTS[rand.nextInt(CONSONANTS.length)]);
             } else {
-                name += VOWELS[rand.nextInt(VOWELS.length)];
+                name.append(VOWELS[rand.nextInt(VOWELS.length)]);
             }
             vowel = !vowel;
         }
