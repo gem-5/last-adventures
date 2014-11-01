@@ -22,8 +22,6 @@ import javafx.scene.layout.HBox;
 public class BuyBar extends HBox {
 
     private String product;
-    private int quantity;
-    private int price;
 
     @FXML
     private Label lblItem;
@@ -96,7 +94,6 @@ public class BuyBar extends HBox {
      * @param q the quantity
      */
     public void setQuantity(int q) {
-        this.quantity = q;
         sldQuantity.setMin(0);
         sldQuantity.setMax(q);
         lblQuantity.setText("0");
@@ -109,7 +106,6 @@ public class BuyBar extends HBox {
      * @param p the price
      */
     public void setPrice(int p) {
-        this.price = p;
         this.lblPrice.setText("($" + p + ")");
     }
 

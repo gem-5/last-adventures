@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 public class ShipBar extends HBox {
 
     private String product;
-    private int price;
 
     @FXML
     private Label lblItem;
@@ -68,7 +67,6 @@ public class ShipBar extends HBox {
      * @param p the price
      */
     public void setPrice(int p) {
-        this.price = p;
         this.lblPrice.setText("($" + p + ")");
     }
 

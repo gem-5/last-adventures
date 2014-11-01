@@ -17,8 +17,6 @@ import javafx.scene.layout.HBox;
  */
 public class UpgradeBar extends HBox {
 
-    private String product;
-    private int price;
 
     @FXML
     private Label lblItem;
@@ -53,21 +51,11 @@ public class UpgradeBar extends HBox {
     }
 
     /**
-     * Set the key for the item sold.
-     *
-     * @param key the key
-     */
-    public void setKey(String key) {
-        this.product = key;
-    }
-
-    /**
      * Set the price of the item sold.
      *
      * @param p the price
      */
     public void setPrice(int p) {
-        this.price = p;
         this.lblPrice.setText("($" + p + ")");
     }
 

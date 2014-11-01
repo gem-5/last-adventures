@@ -97,8 +97,6 @@ public class CharacterCreateController extends Controller {
             engineerInc, investorInc};
         decButtons = new Button[]{pilotDec, fighterDec, traderDec,
             engineerDec, investorDec};
-        skillNames = new Label[]{pilot, fighter, trader, engineer, investor,
-            remaining};
     }
 
     /**

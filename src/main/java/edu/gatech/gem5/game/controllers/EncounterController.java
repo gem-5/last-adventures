@@ -18,8 +18,6 @@ import javafx.scene.text.Text;
  */
 public class EncounterController extends Controller {
 
-    Parent root;
-
     @FXML
     Button cont;
 

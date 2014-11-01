@@ -87,7 +87,6 @@ public class DockController extends Controller {
         for (String s : planet.getWeapons()) {
             WeaponType weapon = weapons.get(s);
             UpgradeBar upgradeWeaponBar = new UpgradeBar();
-            upgradeWeaponBar.setKey(s);
             upgradeWeaponBar.setText(weapon.getName());
             upgradeWeaponBar.setPrice(weapon.getPrice());
             upgradeWeaponBar.setOnAction(new BuyWeaponHandler(weapon));
@@ -98,7 +97,6 @@ public class DockController extends Controller {
         for (String s : planet.getShields()) {
             ShieldType shield = shields.get(s);
             UpgradeBar shieldUpgradeBar = new UpgradeBar();
-            shieldUpgradeBar.setKey(s);
             shieldUpgradeBar.setText(shield.getName());
             shieldUpgradeBar.setPrice(shield.getPrice());
             shieldUpgradeBar.setOnAction(new BuyShieldHandler(shield));

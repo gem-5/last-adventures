@@ -31,7 +31,6 @@ public abstract class ExplorableDisplay extends Pane {
     protected int gridWidth;
     protected int gridHeight;
     protected Camera camera;
-    private List<Point> nodes;
     protected ScrollHandler scrollHandler;
     protected DragHandler dragHandler;
     protected MoveHandler moveHandler;
@@ -52,7 +51,6 @@ public abstract class ExplorableDisplay extends Pane {
             throw new RuntimeException(exception);
         }
 
-        this.nodes = new ArrayList<>();
         this.camera = new Camera();
 
         this.scrollHandler = new ScrollHandler();
