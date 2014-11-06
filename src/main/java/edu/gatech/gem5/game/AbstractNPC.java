@@ -100,7 +100,7 @@ public abstract class AbstractNPC extends AbstractHuman implements Encounterable
         // add some shields
         int shieldsNum = Math.min(r.nextInt(seed) / shieldDivider, shipT.getShieldSlots() - 1);
         for (int i = 0; i < shieldsNum; i++) {
-            ship.addUpgrade((shields[i]));
+            ship.addUpgrade(shields[i]);
         }
 
         // add some gadgets

@@ -11,7 +11,7 @@ import java.util.Random;
 public class Encounter {
 
     /**
-     * The class' random number generator.
+     * The class's random number generator.
      */
     private static final Random RANDOM_NUMBERS = new Random();
 

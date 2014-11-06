@@ -28,19 +28,18 @@ public class ReaderTest {
     public void testShips() {
         ShipReader r = new ShipReader("/data/Ships.json");
         //assertEquals(2, r.size());
-        assertEquals("Tester", r.get("tester").getName());
-        assertEquals("This is a test ship.",
-                r.get("tester").getDescription());
-        assertEquals(10, r.get("tester").getCargoSlots());
-        assertEquals(1, r.get("tester").getWeaponSlots());
-        assertEquals(2, r.get("tester").getShieldSlots());
-        assertEquals(3, r.get("tester").getGadgetSlots());
-        assertEquals(4, r.get("tester").getCrewSlots());
-        assertEquals(11, r.get("tester").getRange());
-        assertEquals(1, r.get("tester").getFuelCost());
-        assertEquals(800, r.get("tester").getPrice());
-        assertEquals(5, r.get("tester").getBounty());
-        assertEquals(25, r.get("tester").getHullStrength());
+        assertEquals("Bolt", r.get("bolt").getName());
+        assertEquals("", r.get("bolt").getDescription());
+        assertEquals(10, r.get("bolt").getCargoSlots());
+        assertEquals(0, r.get("bolt").getWeaponSlots());
+        assertEquals(0, r.get("bolt").getShieldSlots());
+        assertEquals(0, r.get("bolt").getGadgetSlots());
+        assertEquals(1, r.get("bolt").getCrewSlots());
+        assertEquals(61, r.get("bolt").getRange());
+        assertEquals(1, r.get("bolt").getFuelCost());
+        assertEquals(800, r.get("bolt").getPrice());
+        assertEquals(5, r.get("bolt").getBounty());
+        assertEquals(25, r.get("bolt").getHullStrength());
     }
 
     @Test
@@ -154,8 +153,6 @@ public class ReaderTest {
         assertEquals(0.1, (double) r.get("anarchy").getTraders(), 0.0);
         assertEquals(0.9, (double) r.get("anarchy").getPirates(), 0.0);
         assertEquals(1.0, (double) r.get("anarchy").getCorruption(), 0.0);
-        assertEquals(0, r.get("anarchy").getMinTech());
-        assertEquals(4, r.get("anarchy").getMaxTech());
         assertEquals(0.1, (double) r.get("anarchy").getWealth(), 0.0);
         assertEquals(
             1.25, (double) r.get("anarchy").getDemand().get("food"), 0.0
@@ -168,9 +165,6 @@ public class ReaderTest {
         );
         assertEquals(
             "firearms", r.get("cybernetic").getForbidden().get(1)
-        );
-        assertEquals(
-            0.08823529, (double) r.get("cybernetic").getOccurrence(), 0.0
         );
     }
 
@@ -207,7 +201,7 @@ public class ReaderTest {
     public void testTechLevels() {
         TechReader r = new TechReader("/data/TechLevels.json");
         //assertEquals(8, r.size());
-        assertEquals("Pre-agriculture", r.get(0).getName());
+        assertEquals("Pre-agricultural", r.get(0).getName());
         assertEquals(0, r.get(0).getRank());
         assertEquals(0.3, r.get(0).getOccurrence(), 0.0);
         assertEquals(0.3, r.get(0).getWealth(), 0.0);
