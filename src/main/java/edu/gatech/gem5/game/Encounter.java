@@ -1,10 +1,5 @@
 package edu.gatech.gem5.game;
 
-import edu.gatech.gem5.game.data.ShipType;
-import edu.gatech.gem5.game.data.WeaponType;
-import edu.gatech.gem5.game.data.ShieldType;
-import edu.gatech.gem5.game.data.GadgetType;
-import edu.gatech.gem5.game.data.GoodType;
 import edu.gatech.gem5.game.data.GovernmentType;
 import edu.gatech.gem5.game.data.EventType;
 import java.util.Random;
@@ -14,15 +9,8 @@ import java.util.Random;
  *
  */
 public class Encounter {
-
-    private static final ShipType[] SHIPS = Data.SHIPS.get().values().toArray(new ShipType[0]);
-    private static final WeaponType[] WEAPONS = Data.WEAPONS.get().values().toArray(new WeaponType[0]);
-    private static final ShieldType[] SHIELDS = Data.SHIELDS.get().values().toArray(new ShieldType[0]);
-    private static final GadgetType[] GADGETS = Data.GADGETS.get().values().toArray(new GadgetType[0]);
-    private static final GoodType[] GOODS = Data.GOODS.get().values().toArray(new GoodType[0]);
-
     /**
-     * The class' random number generator.
+     * The class's random number generator.
      */
     private static final Random RANDOM_NUMBERS = new Random();
 
@@ -114,7 +102,7 @@ public class Encounter {
 
     /**
      * Test function to test spawning encounters.
-     * @param args commandline arguments.
+     * @param args command line arguments.
      */
     public static void main(String[] args) {
         Encounter e = new Encounter(new EncounterManager());

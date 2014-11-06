@@ -34,7 +34,7 @@
                                         <vgap>10.0</vgap>
                                        <children>
                                     <Button fx:id="shipyard" onAction="#changeScenes" text="Shipyard" GridPane.rowIndex="1" />
-                                    <Button id="dock" onAction="#changeScenes" text="Dock" GridPane.rowIndex="2" />
+                                    <Button fx:id="dock" onAction="#changeScenes" text="Dock" GridPane.rowIndex="2" />
                                            <Button id="market" onAction="#changeScenes" text="Market Place" GridPane.columnIndex="0" />
                                            <Button id="news" onAction="#changeScenes" text="News" GridPane.rowIndex="4" />
                                            <Button id="stock" onAction="#changeScenes" text="Stock Exchange" GridPane.rowIndex="5" />

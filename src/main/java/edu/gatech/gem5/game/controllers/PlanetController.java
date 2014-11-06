@@ -43,6 +43,8 @@ public class PlanetController extends Controller {
     private Button refuelButton;
     @FXML
     private Button shipyard;
+    @FXML
+    private Button dock;
 
     Planet planet;
 
@@ -70,9 +72,12 @@ public class PlanetController extends Controller {
                 - ship.getFuel()) * ship.getType().getFuelCost());
 
         if (planet.getShips().isEmpty()) {
-//            ((Pane) this.shipyard.getParent()).getChildren()
-//                    .remove(this.shipyard);
             this.shipyard.setDisable(true);
+        }
+
+        if (planet.getShields().isEmpty() && planet.getWeapons().isEmpty()) {
+            // Note: planet.getGadgets() returns null, so nothing here for now
+            this.dock.setDisable(true);
         }
         //set hotkey for saving to Control + S
         root.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {

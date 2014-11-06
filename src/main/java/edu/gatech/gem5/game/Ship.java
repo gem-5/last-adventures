@@ -257,7 +257,7 @@ public class Ship {
                 result.append(String.format(delim, s.getType().getName()));
             }
         }
-        result.append("\n Gadjets:");
+        result.append("\n Gadgets:");
         for (GadgetType g: getGadgetList()) {
             if (g != null) {
                 result.append(String.format(delim, g.getName()));
