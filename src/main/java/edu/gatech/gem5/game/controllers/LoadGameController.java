@@ -1,6 +1,5 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.animation.FadeHandler;
 import edu.gatech.gem5.game.ui.SaveBox;
@@ -70,19 +69,20 @@ public class LoadGameController extends Controller {
      */
     @FXML
     private void loadGame(SaveBox box) {
-        // TODO: move this logic to the SaveBox class.
         File sel = new File(box.getPath());
         if (sel != null) {
             SaveFile save = SaveFile.load(sel);
-            LastAdventures.setSaveFile(save);
-            // LastAdventures.swap(new PlanetController());
+            universe = save.getUniverse();
+            system = save.getSolarSystem();
+            planet = save.getPlanet();
+            player = save.getPlayer();
+
             transitionTo(new PlanetController());
         }
     }
 
     @FXML
     private void goBack() {
-        // LastAdventures.swap(new TitleController());
         transitionTo(new TitleController());
     }
 

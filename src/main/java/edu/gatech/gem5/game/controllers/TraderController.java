@@ -29,8 +29,6 @@ public class TraderController extends Controller {
 
     @FXML
     AnchorPane root;
-    @FXML
-    Button universe;
 
     @FXML
     private Label lblCash;
@@ -82,10 +80,8 @@ public class TraderController extends Controller {
             purchases.put(productKey, quantity);
         }
         // construct a transaction between a player and a trader
-        Transaction t = new Transaction(
-                LastAdventures.getCurrentSaveFile().getCharacter(),
-                this.trader
-        );
+        Transaction t = new Transaction(player, this.trader);
+
         // attempt the purchase
         if (t.validateBuy(purchases)) {
             t.buy(purchases);
@@ -113,11 +109,8 @@ public class TraderController extends Controller {
             sales.put(productKey, quantity);
         }
         // construct a transaction between a player and a trader
-        Transaction t = new Transaction(
-                LastAdventures.getCurrentSaveFile().getCharacter(),
-                // LastAdventures.getCurrentSaveFile().getPlanet()
-                this.trader
-        );
+        Transaction t = new Transaction(player, this.trader);
+
         // attempt the sale
         if (t.validateSell(sales)) {
             t.sell(sales);
@@ -130,21 +123,6 @@ public class TraderController extends Controller {
         }
     }
 
-    // @FXML
-    // /**
-    //  * Max out the fuel in your ship.
-    //  *
-    //  * @param event A button press attempting to refuel
-    //  * @throws Exception
-    //  */
-    // public void refuel(ActionEvent event) throws Exception {
-    //     Character player = LastAdventures.getCurrentSaveFile().getCharacter();
-    //     Ship ship = player.getShip();
-    //     player.setMoney(player.getMoney() -  (ship.getType().getRange() -
-    //             ship.getFuel()) * ship.getType().getFuelCost() );
-    //     ship.setFuel(ship.getType().getRange());
-    //     fillLabels();
-    // }
     /**
      * Continue to the planet screen.
      *
@@ -158,64 +136,13 @@ public class TraderController extends Controller {
     }
 
     private void fillLabels() {
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        this.lblCash.setText(
-                Integer.toString(save.getCharacter().getMoney())
-        );
-        Ship s = save.getCharacter().getShip();
+        this.lblCash.setText(((Integer) player.getMoney()).toString());
+        Ship s = player.getShip();
         this.lblSlots.setText(
                 Integer.toString(s.getOpenBays())
         );
         errorLabel.setText("");
     }
-    /*
-     private void buildShipList() {
-     // this is the tab for ships that the planet sells
-     ObservableList<UpgradeBar> lstShips
-     = FXCollections.observableArrayList();
-     Map<String, ShipType> ships = LastAdventures.data.get(ShipType.KEY);
-     for (String x : planet.getShips()) {
-     UpgradeBar b = new UpgradeBar();
-     ShipType ship = (ShipType) ships.get(x);
-     b.setKey(x);
-     b.setPrice(ship.getPrice());
-     b.setText(ship.getName());
-     lstShips.add(b);
-     }
-     upShips.setItems(lstShips);
-     }
-
-     private void buildWeaponList() {
-     // this is the tab for weapons that the planet sells
-     ObservableList<UpgradeBar> lstWeapons
-     = FXCollections.observableArrayList();
-     Map<String, WeaponType> weps = LastAdventures.data.get(WeaponType.KEY);
-     for (String x : planet.getWeapons()) {
-     UpgradeBar b = new UpgradeBar();
-     WeaponType weapon = (WeaponType) weps.get(x);
-     b.setKey(x);
-     b.setPrice(weapon.getPrice());
-     b.setText(weapon.getName());
-     lstWeapons.add(b);
-     }
-     upWeapons.setItems(lstWeapons);
-     }
-
-     private void buildShieldList() {
-     // this is the tab for shields that the planet sells
-     ObservableList<UpgradeBar> lstShields
-     = FXCollections.observableArrayList();
-     Map<String, ShieldType> shilds = LastAdventures.data.get(ShieldType.KEY);
-     for (String x : planet.getShields()) {
-     UpgradeBar b = new UpgradeBar();
-     ShieldType shield = (ShieldType) shilds.get(x);
-     b.setKey(x);
-     b.setPrice(shield.getPrice());
-     b.setText(shield.getName());
-     lstShields.add(b);
-     }
-     upShields.setItems(lstShields);
-     }*/
 
     private void buildBuyGoodsList() {
         // this is the tab for goods that the trader sells
@@ -236,7 +163,8 @@ public class TraderController extends Controller {
 
     private void buildSellGoodsList() {
         ObservableList<BuyBar> listGoods = FXCollections.observableArrayList();
-        Map<String, Integer> playerGoods = LastAdventures.getCurrentSaveFile().getCharacter().getShip().getCargoList();
+        Map<String, Integer> playerGoods = player.getShip().getCargoList();
+        Map<String, Integer> prices = trader.getDemand(playerGoods.keySet());
         for (Map.Entry<String, Integer> s : playerGoods.entrySet()) {
             if (s.getValue() == 0) {
                 continue; // don't bother with these
@@ -245,7 +173,7 @@ public class TraderController extends Controller {
             BuyBar b = new BuyBar();
             b.setKey(s.getKey());
             b.setQuantity(s.getValue());
-            b.setPrice(trader.getDemand().get(s.getKey()));
+            b.setPrice(prices.get(s.getKey()));
             b.setText(g.getName());
             listGoods.add(b);
         }

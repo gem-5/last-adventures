@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Collection;
 
 /**
  * A class representation of trader encounters while traveling.
@@ -113,25 +114,23 @@ public class Trader extends AbstractNPC implements Traderable {
     public Map<String, Integer> getSupply() {
         Map<String, Integer> out = new TreeMap<>();
         Set<String> cargo = this.getShip().getCargoList().keySet();
-        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
-        double multiplier = (this.getTrader() - player.getTrader() + 100) / 100.0;
+        //Character player = LastAdventures.getCurrentSaveFile().getCharacter();
+        //double multiplier = (this.getTrader() - player.getTrader() + 100) / 100.0;
         for (String s: cargo) {
             GoodType g = Data.GOODS.get(s);
-            double value = g.getValue() * multiplier;
+            double value = g.getValue();
             out.put(s, (int) Math.round(value));
         }
         return out;
     }
 
     @Override
-    public Map<String, Integer> getDemand() {
+    public Map<String, Integer> getDemand(Collection<String> goods) {
         Map<String, Integer> in = new TreeMap<>();
-        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
-        Ship playerShip = player.getShip();
-        double multiplier = (player.getTrader() - this.getTrader() + 100) / 100.0;
-        for (String g : playerShip.getCargoList().keySet()) {
+        //double multiplier = (player.getTrader() - this.getTrader() + 100) / 100.0;
+        for (String g : goods) {
             GoodType gt = Data.GOODS.get(g);
-            double value = gt.getValue() * multiplier;
+            double value = gt.getValue();
             in.put(g, (int) Math.round(value));
         }
         return in;

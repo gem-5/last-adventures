@@ -1,9 +1,7 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.Planet;
-import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.ui.ShipBar;
@@ -27,8 +25,6 @@ public class ShipyardController extends Controller {
     @FXML
     AnchorPane root;
     @FXML
-    Button universe;
-    @FXML
     private Label errorLabel;
     @FXML
     private Label lblCash;
@@ -39,7 +35,6 @@ public class ShipyardController extends Controller {
 
     private final ToggleGroup shipGroup;
 
-    private final Planet planet;
     private Ship currentShip;
 
     public static final String SHIPYARD_VIEW_FILE = "/fxml/shipyard.fxml";
@@ -47,9 +42,7 @@ public class ShipyardController extends Controller {
     public ShipyardController() {
         super(SHIPYARD_VIEW_FILE);
 
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        planet = save.getPlanet();
-        currentShip = save.getCharacter().getShip();
+        currentShip = player.getShip();
         shipGroup = new ToggleGroup();
 
         fillLabels();
@@ -63,25 +56,24 @@ public class ShipyardController extends Controller {
         // ShipBar needs to extend javafx.scene.control.Toggle,
         // and then we can use ToggleGroup.getSelectedToggle()
         // rather than this shit
-        SaveFile save = LastAdventures.getCurrentSaveFile();
         Map<String, ShipType> ships = Data.SHIPS.get();
         for (ShipBar bar : buyShips.getItems()) {
             if (bar.isSelected()) {
                 ShipType ship = ships.get(bar.getKey());
-                int playerCash = save.getCharacter().getMoney();
+                int playerCash = player.getMoney();
                 int price = ship.getPrice() - currentShip.getNetWorth();
                 if (!(playerCash < price)) {
                     // TODO: use a dedicated class to facilitate ship upgrades
                     // the same way Transaction  is used for goods
                     Ship newShip = new Ship(ship);
-                    save.getCharacter().setShip(newShip);
-                    save.getCharacter().setMoney(playerCash - price);
+                    player.setShip(newShip);
+                    player.setMoney(playerCash - price);
                     // update labels
                     fillLabels();
                     // rebuild ships list (?)
-                    currentShip = save.getCharacter().getShip();
+                    currentShip = player.getShip();
                     buildShipsList();
-                } 
+                }
                 /*else {
                 // TODO: warning: not enough money
 
@@ -94,16 +86,12 @@ public class ShipyardController extends Controller {
 
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        // LastAdventures.swap(new PlanetController());
         transitionTo(new PlanetController());
     }
 
     private void fillLabels() {
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        this.lblCash.setText(
-                Integer.toString(save.getCharacter().getMoney())
-        );
-        Ship s = save.getCharacter().getShip();
+        this.lblCash.setText(Integer.toString(player.getMoney()));
+        Ship s = player.getShip();
         this.shipInfo.setText(s.toString());
         errorLabel.setText("");
     }

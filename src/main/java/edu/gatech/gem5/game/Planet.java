@@ -13,6 +13,7 @@ import edu.gatech.gem5.game.data.GovernmentType;
 import edu.gatech.gem5.game.data.CompanyType;
 import edu.gatech.gem5.game.data.ConditionType;
 import java.util.TreeMap;
+import java.util.Collection;
 
 /**
  * Represents a planet in a system.
@@ -21,6 +22,11 @@ import java.util.TreeMap;
  * @author Creston
  */
 public class Planet implements Traderable {
+
+    /**
+     * The orbit of this planet around its star.
+     */
+    private int orbit;
 
     /**
      * Tech level of planet.
@@ -59,7 +65,7 @@ public class Planet implements Traderable {
      * Competition factor between companies selling the same good on a planet.
      */
     private static final double COMPETITION_FACTOR = 0.75;
-    
+
     /**
      * A random number generator for this class.
      */
@@ -70,8 +76,9 @@ public class Planet implements Traderable {
      * and list of companies based on the data files.
      *
      * @param n the name of the Planet
+     * @param orb the orbit number around the star
      */
-    public Planet(String n) {
+    public Planet(String n, int orb) {
         this.techLevel = chooseTechLevel();
         this.environment = chooseEnvironment();
         this.government = chooseGovernment();
@@ -80,6 +87,7 @@ public class Planet implements Traderable {
         this.currentStock = maxStock;
         this.condition = getNewCondition();
         this.name = n;
+        this.orbit = orb;
     }
 
    /**
@@ -193,8 +201,8 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
-     * @return the max stock that a planet can have at any time based on the 
+     *
+     * @return the max stock that a planet can have at any time based on the
      * companies that are on it. If a planet does not know this about itself,
      * it is calculated here.
      */
@@ -223,7 +231,7 @@ public class Planet implements Traderable {
     public void increaseStock() {
         for (Map.Entry<String, Integer> entry : currentStock.entrySet() ) {
             int maxOfGood = maxStock.get(entry.getKey());
-            
+
             currentStock.put(entry.getKey(), Math.max(
                     entry.getValue() + random.nextInt(4), maxOfGood));
         }
@@ -262,11 +270,16 @@ public class Planet implements Traderable {
         return out;
     }
 
+    /**
+     * Get the prices (demand) for buying goods from this planet.
+     *
+     * @param goods The collection of goods to ask about.
+     * @return A map of goods/prices to buy.
+     */
     @Override
-    public Map<String, Integer> getDemand() {
+    public Map<String, Integer> getDemand(Collection<String> goods) {
         Map<String, Integer> in = new TreeMap<>();
-        Ship playerShip = LastAdventures.getCurrentSaveFile().getCharacter().getShip();
-        for (String g : playerShip.getCargoList().keySet()) {
+        for (String g : goods) {
             GoodType gt = Data.GOODS.get(g);
             double value = gt.getValue();
             String s = gt.getKey();
@@ -296,7 +309,7 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return A map of goods sold on the planet to the amount of companies
      * offering the good.
      */
@@ -316,7 +329,7 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return a tech level for the planet based on its government's weights
      * in the JSON data files.
      */
@@ -335,7 +348,7 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return An environment based on weights in the JSON data files.
      */
     private String chooseEnvironment() {
@@ -353,7 +366,7 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return A government key based on weights in the JSON data files.
      */
     private String chooseGovernment() {
@@ -371,7 +384,7 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return A list of Company keys based on weights in the JSON data files.
      */
     private List<String> chooseCompanies() {
@@ -401,13 +414,20 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return a planet's name.
      */
     public String getName() {
         return this.name;
     }
 
+    /**
+     *
+     * @return a planet's orbit.
+     */
+    public int getOrbit() {
+        return this.orbit;
+    }
 
     @Override
     public String toString() {
@@ -421,7 +441,7 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return a key of a condition for a planet based on weights in the JSON
      * files.
      */

@@ -1,7 +1,6 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Character;
-import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Data;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,8 +47,6 @@ public class CharacterStatusController extends Controller {
     public CharacterStatusController() {
         // load the view or throw an exception
         super(STATUS_VIEW_FILE);
-
-        Character player = LastAdventures.getCurrentSaveFile().getCharacter();
 
         playerName.setText("Name: " + player.getName());
         pilotValue.setText("Pilot: " + player.getPilot());

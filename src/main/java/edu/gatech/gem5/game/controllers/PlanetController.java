@@ -1,6 +1,5 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Ship;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,8 +45,6 @@ public class PlanetController extends Controller {
     @FXML
     private Button dock;
 
-    Planet planet;
-
     public static final String PLANET_VIEW_FILE = "/fxml/planet.fxml";
 
     /**
@@ -57,16 +54,13 @@ public class PlanetController extends Controller {
         // load the view or throw an exception
         super(PLANET_VIEW_FILE);
 
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        planet = save.getPlanet();
-
         this.title.setText(planet.getName());
         this.lblCompanies.setText(buildCompanyString());
         this.lblEnvironment.setText(planet.getEnvironment().getName());
         this.lblGovernment.setText(planet.getGovernment().getName());
         this.lblCondition.setText(planet.getCondition().getName());
         this.lblTechnology.setText(planet.getTechLevel().getName());
-        Ship ship = save.getCharacter().getShip();
+        Ship ship = player.getShip();
         //sets the number to the amount of credits needed to fully refuel
         this.refuelButton.setText("Refuel " + (ship.getType().getRange()
                 - ship.getFuel()) * ship.getType().getFuelCost());
@@ -135,7 +129,13 @@ public class PlanetController extends Controller {
      */
     @FXML
     private void save() {
-        LastAdventures.getCurrentSaveFile().save();
+        SaveFile save = new SaveFile(
+            universe,
+            system,
+            planet,
+            player
+        );
+        save.write();
         btnSave.setDisable(true); // don't save again...
     }
 
@@ -155,14 +155,11 @@ public class PlanetController extends Controller {
                     .showConfirm();
             if (response == Dialog.ACTION_YES) {
                 save();
-                // LastAdventures.swap(new TitleController());
                 transitionTo(new TitleController());
             } else if (response == Dialog.ACTION_NO) {
-                // LastAdventures.swap(new TitleController());
                 transitionTo(new TitleController());
             }
         } else {
-            // LastAdventures.swap(new TitleController());
             transitionTo(new TitleController());
         }
     }
@@ -184,7 +181,7 @@ public class PlanetController extends Controller {
      * @throws Exception
      */
     public void refuel(ActionEvent event) throws Exception {
-        if (LastAdventures.getCurrentSaveFile().getCharacter().refuel()) {
+        if (player.refuel()) {
             refuelButton.setText("Refuel 0");
         } else {
             refuelButton.setText("Not enough credits");

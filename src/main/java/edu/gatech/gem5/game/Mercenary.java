@@ -16,7 +16,7 @@ public class Mercenary extends AbstractHuman {
      */
     /**
      * Construct the mercenary with the given stats.
-     * 
+     *
      * @param n name of the mercenary
      * @param pilotSkill pilot skill that can override the employer's skill
      * @param fighterSkill fighter skill that can override the employer's skill
@@ -24,7 +24,7 @@ public class Mercenary extends AbstractHuman {
      * @param engineerSkill engineer skill that can override the employer's skill
      * @param investorSkill investor skill that can override the employer's skill
      */
-    private Mercenary(String n, int pilotSkill, int fighterSkill, 
+    private Mercenary(String n, int pilotSkill, int fighterSkill,
             int traderSkill, int engineerSkill, int investorSkill) {
 
         // Mercenaries don't have a ship of their own
@@ -34,7 +34,7 @@ public class Mercenary extends AbstractHuman {
     }
 
     /**
-     * 
+     *
      * @param seed seed for random generator to use
      * @return A new mercenary based on the given seed
      */
@@ -58,12 +58,13 @@ public class Mercenary extends AbstractHuman {
     }
 
     /**
-     * 
+     *
      * @return default method of creating mercenary, which uses the player's
      * net worth as the seed for random generation
      */
     public static Mercenary createMercenary() {
-        int seed = LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth();
+        //int seed = LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth();
+        int seed = 1;
         return createMercenary(seed);
     }
 

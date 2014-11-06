@@ -10,7 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+
 import edu.gatech.gem5.game.LastAdventures;
+import edu.gatech.gem5.game.Universe;
+import edu.gatech.gem5.game.Character;
+import edu.gatech.gem5.game.SolarSystem;
+import edu.gatech.gem5.game.Planet;
 
 /**
  * An abstract class that all controllers must inherit from.
@@ -19,8 +24,11 @@ import edu.gatech.gem5.game.LastAdventures;
  */
 public abstract class Controller implements Initializable {
 
-    LastAdventures game;
-    Parent root;
+    protected Parent root;
+    protected static Universe universe;
+    protected static Character player;
+    protected static SolarSystem system;
+    protected static Planet planet;
 
     /**
      * Base constructor that loads the view from an FXML file.
@@ -28,13 +36,10 @@ public abstract class Controller implements Initializable {
      * @param file The fxml file to load.
      */
     public Controller(String file) {
-
         try {
             FXMLLoader loader = new FXMLLoader(
-                    Controller.class.getResource(file)
-                    
+                Controller.class.getResource(file)
             );
-            
 
             loader.setController(this);
             this.root = (Parent) loader.load();
