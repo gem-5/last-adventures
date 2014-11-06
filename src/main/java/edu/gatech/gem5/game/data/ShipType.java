@@ -15,7 +15,7 @@ public class ShipType extends DataType {
     private int weaponSlots;
     private int shieldSlots;
     private int gadgetSlots;
-    private int crewSlots;
+    private int crew;
     private int range;
     private int fuelCost;
     private int price;
@@ -83,7 +83,7 @@ public class ShipType extends DataType {
      * @return the number of crew slots
      */
     public int getCrewSlots() {
-        return this.crewSlots;
+        return this.crew;
     }
 
     /**
