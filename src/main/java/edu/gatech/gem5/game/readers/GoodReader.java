@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.readers;
 
 import com.google.gson.reflect.TypeToken;
 
-import edu.gatech.gem5.game.readers.Reader;
 import edu.gatech.gem5.game.data.GoodType;
 
 import java.util.Map;
@@ -14,11 +13,11 @@ import java.util.Map;
  * @version 1.1.0
  */
 
-public class GoodReader extends Reader<String, GoodType> {
+public class GoodReader extends AbstractReader<String, GoodType> {
 
     public GoodReader(String path) {
         super(path, new TypeToken<
-            Map<String, GoodType>
-        >() {} .getType());
+            Map<String, GoodType>>() {
+        } .getType());
     }
 }

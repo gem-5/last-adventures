@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.readers;
 
 import com.google.gson.reflect.TypeToken;
 
-import edu.gatech.gem5.game.readers.Reader;
 import edu.gatech.gem5.game.data.GovernmentType;
 
 import java.util.Map;
@@ -14,11 +13,11 @@ import java.util.Map;
  * @version 1.1.0
  */
 
-public class GovernmentReader extends Reader<String, GovernmentType> {
+public class GovernmentReader extends AbstractReader<String, GovernmentType> {
 
     public GovernmentReader(String path) {
         super(path, new TypeToken<
-            Map<String, GovernmentType>
-        >() {} .getType());
+            Map<String, GovernmentType>>() {
+        } .getType());
     }
 }

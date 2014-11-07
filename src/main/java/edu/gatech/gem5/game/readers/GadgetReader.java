@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.readers;
 
 import com.google.gson.reflect.TypeToken;
 
-import edu.gatech.gem5.game.readers.Reader;
 import edu.gatech.gem5.game.data.GadgetType;
 
 import java.util.Map;
@@ -14,11 +13,11 @@ import java.util.Map;
  * @version 1.1.0
  */
 
-public class GadgetReader extends Reader<String, GadgetType> {
+public class GadgetReader extends AbstractReader<String, GadgetType> {
 
     public GadgetReader(String path) {
         super(path, new TypeToken<
-            Map<String, GadgetType>
-        >() {} .getType());
+            Map<String, GadgetType>>() {
+        } .getType());
     }
 }

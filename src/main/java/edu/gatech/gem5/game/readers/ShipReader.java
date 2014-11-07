@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.readers;
 
 import com.google.gson.reflect.TypeToken;
 
-import edu.gatech.gem5.game.readers.Reader;
 import edu.gatech.gem5.game.data.ShipType;
 
 import java.util.Map;
@@ -14,9 +13,9 @@ import java.util.Map;
  * @version 1.1.0
  */
 
-public class ShipReader extends Reader<String, ShipType> {
+public class ShipReader extends AbstractReader<String, ShipType> {
 
-    public final static String SHIP_DATA_PATH = "/data/Ships.json";
+    public  static final String SHIP_DATA_PATH = "/data/Ships.json";
 
     public ShipReader() {
         this(SHIP_DATA_PATH);
@@ -24,7 +23,7 @@ public class ShipReader extends Reader<String, ShipType> {
 
     public ShipReader(String path) {
         super(path, new TypeToken<
-            Map<String, ShipType>
-        >() {} .getType());
+            Map<String, ShipType>>() {
+        } .getType());
     }
 }
