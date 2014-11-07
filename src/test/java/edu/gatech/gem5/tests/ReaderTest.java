@@ -28,18 +28,18 @@ public class ReaderTest {
     public void testShips() {
         ShipReader r = new ShipReader("/data/Ships.json");
         //assertEquals(2, r.size());
-        assertEquals("Bolt", r.get("bolt").getName());
-        assertEquals("", r.get("bolt").getDescription());
-        assertEquals(10, r.get("bolt").getCargoSlots());
-        assertEquals(0, r.get("bolt").getWeaponSlots());
-        assertEquals(0, r.get("bolt").getShieldSlots());
-        assertEquals(0, r.get("bolt").getGadgetSlots());
-        assertEquals(1, r.get("bolt").getCrewSlots());
-        assertEquals(61, r.get("bolt").getRange());
-        assertEquals(1, r.get("bolt").getFuelCost());
-        assertEquals(800, r.get("bolt").getPrice());
-        assertEquals(5, r.get("bolt").getBounty());
-        assertEquals(25, r.get("bolt").getHullStrength());
+        assertEquals("Tester", r.get("tester").getName());
+        assertEquals("This is a test ship.", r.get("tester").getDescription());
+        assertEquals(10, r.get("tester").getCargoSlots());
+        assertEquals(1, r.get("tester").getWeaponSlots());
+        assertEquals(2, r.get("tester").getShieldSlots());
+        assertEquals(3, r.get("tester").getGadgetSlots());
+        assertEquals(4, r.get("tester").getCrewSlots());
+        assertEquals(11, r.get("tester").getRange());
+        assertEquals(1, r.get("tester").getFuelCost());
+        assertEquals(800, r.get("tester").getPrice());
+        assertEquals(5, r.get("tester").getBounty());
+        assertEquals(25, r.get("tester").getHullStrength());
     }
 
     @Test

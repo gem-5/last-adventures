@@ -1,73 +1,109 @@
 {
     "water" : {
+        "key" : "water",
         "name" : "Water",
         "value" : 40,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 10,
+        "maxStock" : 40
     },
 
     "furs" : {
+        "key" : "furs",
         "name" : "Furs",
         "value" : 280,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 5,
+        "maxStock" : 20
     },
 
     "food" : {
+        "key" : "food",
         "name" : "Food",
         "value" : 110,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 10,
+        "maxStock" : 40
     },
 
     "ore" : {
+        "key" : "ore",
         "name" : "Ore",
         "value" : 430,
-        "legal" : true
-    }, 
+        "legal" : true,
+        "minStock" : 15,
+        "maxStock" : 20
+    },
 
     "textiles" : {
+        "key" : "textiles",
         "name" : "Textiles",
         "value" : 400,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 10,
+        "maxStock" : 20
     },
 
     "gems" : {
+        "key" : "gems",
         "name" : "Gems",
         "value" : 800,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 1,
+        "maxStock" : 10
     },
 
     "games" : {
+        "key" : "games",
         "name" : "Games",
         "value" : 210,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 5,
+        "maxStock" : 15
     },
 
     "firearms" : {
+        "key" : "firearms",
         "name" : "Firearms",
         "value" : 900,
-        "legal" : false
+        "legal" : false,
+        "minStock" : 1,
+        "maxStock" : 10
     },
 
     "medicine" : {
+        "key" : "medicine",
         "name" : "Medicine",
         "value" : 550,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 1,
+        "maxStock" : 10
     },
 
     "drugs" : {
+        "key" : "drugs",
         "name" : "Drugs",
         "value" : 3000,
-        "legal" : false
+        "legal" : false,
+        "minStock" : 1,
+        "maxStock" : 20
     },
 
     "machines" : {
+        "key" : "machines",
         "name" : "Machines",
         "value" : 750,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 1,
+        "maxStock" : 10
     },
 
     "robots" : {
+        "key" : "robots",
         "name" : "Robots",
         "value" : 4000,
-        "legal" : true
+        "legal" : true,
+        "minStock" : 1,
+        "maxStock" : 5
     }
 }
