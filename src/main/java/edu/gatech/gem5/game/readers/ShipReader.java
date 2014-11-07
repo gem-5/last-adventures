@@ -16,6 +16,12 @@ import java.util.Map;
 
 public class ShipReader extends Reader<String, ShipType> {
 
+    public final static String SHIP_DATA_PATH = "/data/Ships.json";
+
+    public ShipReader() {
+        this(SHIP_DATA_PATH);
+    }
+
     public ShipReader(String path) {
         super(path, new TypeToken<
             Map<String, ShipType>

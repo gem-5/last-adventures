@@ -9,6 +9,7 @@ import java.util.Random;
  *
  */
 public class Encounter {
+
     /**
      * The class's random number generator.
      */
@@ -18,9 +19,9 @@ public class Encounter {
      * The EncounterManager that is managing this encounter.
      */
     private EncounterManager trip;
-    
+
     /**
-     * 
+     *
      * @param manager This encounter's manager.
      */
     public Encounter(EncounterManager manager) {
@@ -28,26 +29,15 @@ public class Encounter {
     }
 
     /**
-     * Randomly generates a pirate, police, or trader encounter.
-     * @param p The planet the player is currently traveling to.
-     * @return any type of object encounterable on a trip
-     *
-     */
-    public Encounterable getType(Planet p) {
-        int seed = Math.max(LastAdventures.getCurrentSaveFile().getCharacter().getNetWorth(), 1);
-        return getType(seed, p);
-    }
-
-    /**
      * Determines and returns the type of this encounter.
      * @TODO this method should probably not generate another encounterable
      * if it is called from the same Encounter instance twice
-     * 
+     *
      * @param seed the random seed for determining the type of encounter
      * @param p the planet with data on its distribution of encounterable NPC's
      * @return the type of encounter this is
      */
-    private Encounterable getType(int seed, Planet p) {
+    public Encounterable getType(int seed, Planet p) {
         Encounterable spawn = null;
         GovernmentType gov = p.getGovernment();
         //@TODO come up with a better way to randomly select something
@@ -92,22 +82,11 @@ public class Encounter {
     }
 
     /**
-     * 
+     *
      * @param eventKey the key of any possible Event
      * @return the corresponding EventType
      */
     private EventType eventEncounter(String eventKey) {
         return Data.EVENT.get().get(eventKey);
-    }
-
-    /**
-     * Test function to test spawning encounters.
-     * @param args command line arguments.
-     */
-    public static void main(String[] args) {
-        Encounter e = new Encounter(new EncounterManager());
-        for (int i = 1; i < 20; i++) {            
-            e.getType(100000 * i, new Planet("null"));
-        }
     }
 }

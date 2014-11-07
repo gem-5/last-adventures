@@ -150,7 +150,7 @@ public class SolarSystem {
 
     /**
      * Randomly creates a list of planets based on factors.
-     * 
+     *
      * @return The list of planets that the solar system was determined to have.
      * How many planets were determined is based on probabilities define in the
      * star type JSON file.
@@ -173,7 +173,7 @@ public class SolarSystem {
         // gives each planet a proper name based on the system name
         String[] names = nameGen.planetNames(num, this.name);
         for (int i = 0; i < num; i++) {
-            orbits.add(new Planet(names[i]));
+            orbits.add(new Planet(names[i], i));
         }
         return orbits;
     }

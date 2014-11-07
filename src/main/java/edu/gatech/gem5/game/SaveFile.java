@@ -56,7 +56,7 @@ public class SaveFile {
     /**
      * The directory to put save files in.
      */
-    public static final String SAVE_DIR = System.getProperty("user.dir") 
+    public static final String SAVE_DIR = System.getProperty("user.dir")
             + "/saves";
     /**
      * The extension that save files for Last Adventures have.
@@ -68,15 +68,17 @@ public class SaveFile {
     public static final String SAVE_ENC = Charset.defaultCharset().displayName();//"UTF-8";
 
     /**
-     * Construct the save file with nothing.
+     * Construct the save file
+     *
+     * @param uni The universe
+     * @param sys The solar system
+     * @param pnt The planet
+     * @param pyr The player
      */
-    public SaveFile() {
-        this.player = null;
-        this.universe = null;
-        this.currentPlanetIndex = 0;
-        this.currentSystemX = 0;
-        this.currentSystemY = 0;
-        this.currentSystemName = null;
+    public SaveFile(Universe uni, SolarSystem sys, Planet pnt, Character pyr) {
+        this.setUniverse(uni);
+        this.setSolarSystem(sys);
+        this.setPlayer(pyr);
     }
 
     /**
@@ -100,7 +102,7 @@ public class SaveFile {
      *
      * @param p The player to save.
      */
-    public void addCharacter(Character p) {
+    public void setPlayer(Character p) {
         this.player = p;
     }
 
@@ -109,8 +111,28 @@ public class SaveFile {
      *
      * @param u The universe to save.
      */
-    public void addUniverse(Universe u) {
+    public void setUniverse(Universe u) {
         this.universe = u;
+    }
+
+    /**
+     * Sets the currently visited solar system to the new solar system.
+     *
+     * @param sys The solar system
+     */
+    public void setSolarSystem(SolarSystem sys) {
+        this.currentSystemX = sys.getXCoordinate();
+        this.currentSystemY = sys.getYCoordinate();
+        this.currentSystemName = sys.getName();
+    }
+
+    /**
+     * Sets the currently visited planet in the solar system.
+     *
+     * @param planet The planet the player is docked at.
+     */
+    public void setPlanet(Planet planet) {
+        currentPlanetIndex = planet.getOrbit();
     }
 
     /**
@@ -118,7 +140,7 @@ public class SaveFile {
      *
      * @return the character
      */
-    public Character getCharacter() {
+    public Character getPlayer() {
         return player;
     }
 
@@ -151,32 +173,9 @@ public class SaveFile {
     }
 
     /**
-     * Sets the currently visited planet in the solar system.
-     *
-     * @param index The planet's index in the solar system.
-     */
-    public void setCurrentPlanet(int index) {
-        currentPlanetIndex = index;
-    }
-
-    /**
-     * Sets the currently visited solar system to the new solar system,
-     * and makes the currently visited planet the first one in the
-     * solar system.
-     *
-     * @param sys The solar system
-     */
-    public void setSolarSystem(SolarSystem sys) {
-        this.currentSystemX = sys.getXCoordinate();
-        this.currentSystemY = sys.getYCoordinate();
-        this.currentSystemName = sys.getName();
-        setCurrentPlanet(0);
-    }
-
-    /**
      * Writes the save game to a file.
      */
-    public void save() {
+    public void write() {
         Map<String, Object> dict = new HashMap<>();
         dict.put("player", this.player);
         dict.put("universe", this.universe);
@@ -190,7 +189,7 @@ public class SaveFile {
         String json = gson.toJson(dict, collectionType);
         // The name of the file is the character name.
         // This will overwrite files with the same name.
-        String name = getCharacter().getName() + SAVE_EXT;
+        String name = getPlayer().getName() + SAVE_EXT;
         String path = SAVE_DIR + "/" + name;
         try {
             File saveDirectory = new File(SAVE_DIR);

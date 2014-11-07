@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Event;
-import edu.gatech.gem5.game.LastAdventures;
 import java.util.Map;
 import java.util.Map.Entry;
 import javafx.event.ActionEvent;
@@ -53,9 +52,8 @@ public class EventController extends Controller {
             // System.out.println("hello" + entry.getKey());
             message.setText(event.getSuccessMessage());
             if (entry.getKey().equals("money")) {
-                Character character = LastAdventures.getCurrentSaveFile().getCharacter();
                 double themoney = (double) (Double) (entry.getValue().get("min"));
-                character.setMoney(Math.max(0, character.getMoney() + (int) themoney));
+                player.setMoney(Math.max(0, player.getMoney() + (int) themoney));
             }
         }
     }

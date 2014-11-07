@@ -1,21 +1,24 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.Data;
+import edu.gatech.gem5.game.SaveFile;
+import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Universe;
+import edu.gatech.gem5.game.SolarSystem;
+import edu.gatech.gem5.game.Planet;
+import edu.gatech.gem5.game.data.ShipType;
+import edu.gatech.gem5.game.readers.ShipReader;
+import edu.gatech.gem5.game.ui.Incrementor;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * FXML Controller class
@@ -26,162 +29,147 @@ import org.controlsfx.dialog.Dialogs;
 public class CharacterCreateController extends Controller {
 
     @FXML
-    Button pilotInc, fighterInc, traderInc, engineerInc, investorInc;
+    TextField txtName;
     @FXML
-    Button pilotDec, fighterDec, traderDec, engineerDec, investorDec;
+    Incrementor incPilot;
     @FXML
-    Label pilotValue, fighterValue, traderValue, engineerValue, investorValue;
+    Incrementor incFighter;
     @FXML
-    Label remainingValue;
+    Incrementor incTrader;
     @FXML
-    TextField name;
+    Incrementor incEngineer;
+    @FXML
+    Incrementor incInvestor;
 
-    private Button[] incButtons, decButtons;
-    private Label[] values;
+    @FXML
+    Label lblSkillPoints;
+    @FXML
+    Label lblError;
+
+    private IntegerProperty skillPoints;
 
     public static final String CREATE_VIEW_FILE = "/fxml/create.fxml";
+    public static final String DEFAULT_SHIP = "vagabond";
     public static final int MAX_NAME_LENGTH = 8;
+    public static final int SKILL_POINTS = 20;
 
     /**
-     * Construct the character creation controller.
+     * Initialize the character creation controller.
+     *
+     * @param sm The state manager.
      */
     public CharacterCreateController() {
-        // load the view or throw an exception
         super(CREATE_VIEW_FILE);
-        // Create a new save file
-        game.createNewSaveFile();
-        addTextLimiter(name, MAX_NAME_LENGTH);
 
-        values = new Label[]{pilotValue, fighterValue, traderValue,
-            engineerValue, investorValue};
-        incButtons = new Button[]{pilotInc, fighterInc, traderInc,
-            engineerInc, investorInc};
-        decButtons = new Button[]{pilotDec, fighterDec, traderDec,
-            engineerDec, investorDec};
-    }
+        // initialize available skill points
+        skillPoints = new SimpleIntegerProperty(SKILL_POINTS);
 
-    /**
-     * Move to the confirm screen.
-     *
-     * @param event a button press
-     * @throws Exception propagates any JavaFX Exception
-     */
-    @FXML
-    public void confirmCharacter(ActionEvent event) throws Exception {
-        if (validate(name.getText().trim())) {
-            // If not all points are allotcated, show warning message.
-            if (Integer.parseInt(remainingValue.getText()) > 0) {
-                Action response = Dialogs
-                        .create()
-                        .owner(root)
-                        .title("Warning")
-                        .masthead("Warning")
-                        .message(
-                                "Are you sure that you want to continue without allocating all points?")
-                        .showConfirm();
-                if (response == Dialog.ACTION_YES && validate(name.getText().trim())) {
-                        LastAdventures.initializeGame(createCharacter(), createUniverse());
-                        // LastAdventures.swap(new CharacterStatusController());
-                        transitionTo(new CharacterStatusController());
-                }
-            } else {
-                LastAdventures.initializeGame(createCharacter(), createUniverse());
-                // LastAdventures.swap(new CharacterStatusController());
-                transitionTo(new CharacterStatusController());
-            }
-        }
+        // set maximum value constraints
+        incPilot.maxProperty().bind(incPilot.valueProperty().add(skillPoints));
+        incFighter.maxProperty().bind(incFighter.valueProperty().add(skillPoints));
+        incTrader.maxProperty().bind(incTrader.valueProperty().add(skillPoints));
+        incEngineer.maxProperty().bind(incEngineer.valueProperty().add(skillPoints));
+        incInvestor.maxProperty().bind(incInvestor.valueProperty().add(skillPoints));
+        // set minimum value constraints
+        incPilot.setMin(1);
+        incFighter.setMin(1);
+        incTrader.setMin(1);
+        incEngineer.setMin(1);
+        incInvestor.setMin(1);
 
-    }
+        // add listeners to the incrementors
+        incPilot.valueProperty().addListener(new SkillPointListener());
+        incFighter.valueProperty().addListener(new SkillPointListener());
+        incTrader.valueProperty().addListener(new SkillPointListener());
+        incEngineer.valueProperty().addListener(new SkillPointListener());
+        incInvestor.valueProperty().addListener(new SkillPointListener());
 
-    /**
-     * Go back to the title screen.
-     *
-     * @param event a button press
-     * @throws Exception propagates any JavaFX Exception
-     */
-    @FXML
-    public void goBack(ActionEvent event) throws Exception {
-        // LastAdventures.swap(new TitleController());
-        transitionTo(new TitleController());
-    }
+        // bind the skill point label text to the remaining skill points
+        lblSkillPoints.textProperty().bind(skillPoints.asString());
 
-    private boolean validate(String str) {
-        if (str.isEmpty()) {
-            name.setPromptText("Name");
-            return false;
-        }
-        return true;
-    }
-
-    private Character createCharacter() {
-        return new Character(name.getText().trim(), Integer.parseInt(pilotValue
-                .getText()), Integer.parseInt(fighterValue.getText()),
-                Integer.parseInt(traderValue.getText()),
-                Integer.parseInt(engineerValue.getText()),
-                Integer.parseInt(investorValue.getText()),
-                // default ship
-                new Ship(Data.SHIPS.get("vagabond")));
-    }
-
-    private Universe createUniverse() {
-        return new Universe();
-    }
-
-    /**
-     * @param event a incrementor button press
-     */
-    @FXML
-    public void increment(ActionEvent event) {
-        Button buttonName = (Button) event.getSource();
-
-        if (Integer.parseInt(remainingValue.getText()) != 0) {
-
-            for (int count = 0; count < incButtons.length; count++) {
-                if (incButtons[count] == buttonName) {
-                    values[count].setText(""
-                            + (Integer.parseInt(values[count].getText()) + 1));
-                }
-            }
-            remainingValue.setText(""
-                    + (Integer.parseInt(remainingValue.getText()) - 1));
-        }
-    }
-
-    /**
-     * @param event a decrementor button press
-     */
-    @FXML
-    public void decrement(ActionEvent event) {
-        Button buttonName = (Button) event.getSource();
-
-        for (int count = 0; count < decButtons.length; count++) {
-            if (decButtons[count] == buttonName
-                    && Integer.parseInt(values[count].getText()) != 1) {
-                values[count].setText(""
-                        + (Integer.parseInt(values[count].getText()) - 1));
-                remainingValue.setText(""
-                        + (Integer.parseInt(remainingValue.getText()) + 1));
-            }
-        }
-    }
-
-    /**
-     * Limits the length of a text field
-     *
-     * @param tf A text field
-     * @param maxLength The maximum number of characters allowed
-     */
-    public static void addTextLimiter(final TextField tf, final int maxLength) {
-        tf.textProperty().addListener(new ChangeListener<String>() {
+        // limit the length of the character name
+        txtName.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(final ObservableValue<? extends String> ov,
-                    final String oldValue, final String newValue) {
-                if (tf.getText().length() > maxLength) {
-                    String s = tf.getText().substring(0, maxLength);
-                    tf.setText(s);
+            public void changed(ObservableValue<? extends String> obs,
+                               String oldValue,
+                               String newValue) {
+                if (newValue.length() > MAX_NAME_LENGTH) {
+                    txtName.setText(oldValue);
                 }
             }
         });
     }
 
+    /**
+     * Move to the confirm screen.
+     *
+     * @param event The button press.
+     */
+    @FXML
+    public void confirm(ActionEvent event) {
+        String name = txtName.getText().trim();
+
+        if (name.isEmpty()) {
+            lblError.setText("Please enter a name.");
+            return;
+        }
+
+        if (skillPoints.getValue() > 0) {
+            lblError.setText("Please allocate all your skill points.");
+            return;
+        }
+
+        // Set static controller properties for all future controllers
+        ShipType defaultShipType = new ShipReader().get(DEFAULT_SHIP);
+        this.universe = new Universe();
+        this.player = new Character(
+            name,
+            incPilot.getValue(),
+            incFighter.getValue(),
+            incTrader.getValue(),
+            incEngineer.getValue(),
+            incInvestor.getValue(),
+            new Ship(defaultShipType)
+        );
+        this.system = universe.getSolarSystemNear(
+            universe,
+            universe.getWidth() / 2,
+            universe.getHeight() / 2
+        );
+        this.planet = system.getPlanetAt(0);
+
+        // go to next controller
+        transitionTo(new CharacterStatusController());
+    }
+
+    /**
+     * Go back to the title screen.
+     *
+     * @param event
+     *            a button press
+     * @throws Exception
+     *             propagates any JavaFX Exception
+     */
+    @FXML
+    public void goBack(ActionEvent event) throws Exception {
+        transitionTo(new TitleController());
+    }
+
+    /**
+     * A listener for limiting the skill points you can spend.
+     *
+     * @author Creston Bunch
+     */
+    private class SkillPointListener implements ChangeListener<Number> {
+        @Override
+        public void changed(ObservableValue<? extends Number> obs,
+                            Number oldValue,
+                            Number newValue) {
+            skillPoints.setValue(
+                skillPoints.getValue() -
+                newValue.intValue() +
+                oldValue.intValue()
+            );
+        }
+    }
 }

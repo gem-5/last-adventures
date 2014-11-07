@@ -9,6 +9,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import edu.gatech.gem5.game.ui.*?>
 
 <BorderPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
@@ -29,44 +30,46 @@
             <Region VBox.Vgrow="always"/>
             <HBox>
                 <Region HBox.Hgrow="always" />
-                <GridPane>
-                    <vgap>10.0</vgap>
-                    <hgap>10.0</hgap>
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10" prefWidth="50" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10" prefWidth="35" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="10" prefWidth="50" />
-                    </columnConstraints>
-                    <children>
-                        <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <TextField fx:id="name" prefHeight="24.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0">
-                        </TextField>
-                        <Label fx:id="pilot" text="Pilot" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <Button id="pilot" fx:id="pilotDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="pilotValue" text="1"    GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Button id="pilot" fx:id="pilotInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Label fx:id="fighter" text="Fighter" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <Button id="fighter" fx:id="fighterDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="fighterValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Button id="fighter" fx:id="fighterInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Label fx:id="trader" text="Trader" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <Button id="trader" fx:id="traderDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="traderValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Button id="trader" fx:id="traderInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                        <Label fx:id="engineer" text="Engineer" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                        <Button id="engineer" fx:id="engineerDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="engineerValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <Button id="engineer" fx:id="engineerInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                        <Label fx:id="investor" text="Investor" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                        <Button id="investor" fx:id="investorDec" onAction="#decrement" text="-" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label fx:id="investorValue" text="1" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                        <Button id="investor" fx:id="investorInc" onAction="#increment" text="+" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                        <Label fx:id="remaining" text="Skill Points:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                        <Label fx:id="remainingValue" text="20" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label fx:id="errorMessage" text="" GridPane.columnIndex="5" GridPane.rowIndex="0" />
-                    </children>
-                </GridPane>
+                <VBox>
+                    <GridPane>
+                        <Label text="Name"
+                            GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtName"
+                            GridPane.rowIndex="0" GridPane.columnIndex="1"
+                            prefHeight="24.0" prefWidth="270.0" />
+
+                        <Label text="Pilot"
+                            GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <Incrementor fx:id="incPilot"
+                            GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Fighter"
+                            GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <Incrementor fx:id="incFighter"
+                            GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                        <Label text="Trader"
+                            GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <Incrementor fx:id="incTrader"
+                            GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                        <Label text="Engineer"
+                            GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                        <Incrementor fx:id="incEngineer"
+                            GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                        <Label text="Investor"
+                            GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                        <Incrementor fx:id="incInvestor"
+                            GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                        <Label text="Skill Points:"
+                            GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                        <Label fx:id="lblSkillPoints"
+                            GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                    </GridPane>
+                    <Label fx:id="lblError" text="" />
+                </VBox>
                 <Region HBox.Hgrow="always" />
             </HBox>
             <Region VBox.Vgrow="always"/>
@@ -75,9 +78,9 @@
     <bottom>
         <HBox>
             <Region HBox.Hgrow="always" />
-                <Button fx:id="confirm" mnemonicParsing="false" onAction="#confirmCharacter" text="Confirm" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-                <Region minWidth="50" />
-                <Button id="back" cancelButton="true" mnemonicParsing="false" onAction="#goBack" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button onAction="#confirm" text="Confirm" />
+            <Region minWidth="50" />
+            <Button id="back" cancelButton="true" onAction="#goBack" text="Back" />
             <Region HBox.Hgrow="always" />
         </HBox>
     </bottom>

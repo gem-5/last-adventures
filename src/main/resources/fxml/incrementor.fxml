@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" prefWidth="200">
+    <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="100" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="20" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="60" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="20" />
+        </columnConstraints>
+        <Label fx:id="lblText"
+            GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+
+        <Button onAction="#decrement" text="-"
+            GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <HBox GridPane.rowIndex="0" GridPane.columnIndex="2">
+            <Region HBox.Hgrow="ALWAYS" />
+            <Label fx:id="lblValue" />
+            <Region HBox.Hgrow="ALWAYS" />
+        </HBox>
+
+        <Button id="pilot" onAction="#increment" text="+"
+            GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+    </GridPane>
+</fx:root>
