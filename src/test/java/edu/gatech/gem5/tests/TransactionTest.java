@@ -73,9 +73,9 @@ public class TransactionTest {
         ships.put("fullButOne", fullButOne);
         
         partners = new HashMap<>();
-        Planet p = new Planet("0ne");
+        Planet p = new Planet("0ne", 1);
         
-        Traderable dummy = new Planet("one");
+        Traderable dummy = new Planet("one", 1);
         partners.put("dummy", dummy);
         
     }

@@ -16,6 +16,7 @@ public class Turn {
     /**
      * Creates an instance of Turn with a universe which can be updated by a
      * turn passing.
+     * @param uni the universe that will advance a turn
      */
     public Turn(Universe uni) {
         universe = uni;

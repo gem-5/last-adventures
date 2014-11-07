@@ -27,7 +27,6 @@ public class Planet implements Traderable {
      * The orbit of this planet around its star.
      */
     private int orbit;
-
     /**
      * Tech level of planet.
      */
@@ -69,7 +68,7 @@ public class Planet implements Traderable {
     /**
      * A random number generator for this class.
      */
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     /**
      * Construct a planet with a random tech level, environment, government,
@@ -233,7 +232,7 @@ public class Planet implements Traderable {
             int maxOfGood = maxStock.get(entry.getKey());
 
             currentStock.put(entry.getKey(), Math.max(
-                    entry.getValue() + random.nextInt(4), maxOfGood));
+                    entry.getValue() + RANDOM.nextInt(4), maxOfGood));
         }
     }
 
@@ -335,7 +334,7 @@ public class Planet implements Traderable {
      */
     private int chooseTechLevel() {
         Map<Integer, TechType> levels = Data.TECHS.get();
-        double roll = random.nextDouble();
+        double roll = RANDOM.nextDouble();
         double sum = 0;
         for (Map.Entry<Integer, TechType> t : levels.entrySet()) {
             sum += t.getValue().getOccurrence();
@@ -353,7 +352,7 @@ public class Planet implements Traderable {
      */
     private String chooseEnvironment() {
         Map<String, EnvironmentType> list = Data.ENVIRONMENTS.get();
-        double roll = random.nextDouble();
+        double roll = RANDOM.nextDouble();
         double sum = 0;
         for (Map.Entry<String, EnvironmentType> t : list.entrySet()) {
             sum += t.getValue().getOccurrence();
@@ -371,7 +370,7 @@ public class Planet implements Traderable {
      */
     private String chooseGovernment() {
         Map<String, Double> govs = getTechLevel().getGovernments();
-        double roll = random.nextDouble();
+        double roll = RANDOM.nextDouble();
         double sum = 0;
         for (Map.Entry<String, Double> t : govs.entrySet()) {
             sum += t.getValue();
@@ -404,7 +403,7 @@ public class Planet implements Traderable {
                 p *= t.getValue().getGovernments().get(this.government);
             }
 
-            double roll = random.nextDouble();
+            double roll = RANDOM.nextDouble();
 
             if (roll <= p) {
                 out.add(t.getKey());
@@ -447,7 +446,7 @@ public class Planet implements Traderable {
      */
     public String getNewCondition() {
         //set new condition
-        double conditionNumber = random.nextDouble();
+        double conditionNumber = RANDOM.nextDouble();
         Map<String, ConditionType> conditions = Data.CONDITIONS.get();
         for (Map.Entry<String, ConditionType> entry : conditions.entrySet()) {
             conditionNumber -= entry.getValue().getOccurrence();

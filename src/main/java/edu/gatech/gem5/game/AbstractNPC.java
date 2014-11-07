@@ -24,7 +24,14 @@ public abstract class AbstractNPC extends AbstractHuman implements Encounterable
      */
     EncounterManager manager;
 
+   
+
     /**
+     * The fxml file path on this NPC's encounter.
+     */
+    private final String viewFile;
+
+     /**
      *
      * @param name NPC's name
      * @param pilot pilot skill
@@ -34,15 +41,12 @@ public abstract class AbstractNPC extends AbstractHuman implements Encounterable
      * @param investor investor skill
      * @param ship ship used by the NPC during encounters
      * @param loot amount of money given on defeat
+     * @param vF fxml view file path on this NPC's encounter
      */
-
-    private final String viewFile;
-
-
     protected AbstractNPC(String name, int pilot, int fighter, int trader,
-                          int engineer, int investor, Ship ship, int loot, String viewFile) {
+                          int engineer, int investor, Ship ship, int loot, String vF) {
         super(name, pilot, fighter, trader, engineer, investor, ship, loot);
-        this.viewFile = viewFile;
+        this.viewFile = vF;
     }
 
     /**

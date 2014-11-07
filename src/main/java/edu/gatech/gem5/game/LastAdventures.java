@@ -1,6 +1,5 @@
 package edu.gatech.gem5.game;
 
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,9 +8,7 @@ import javafx.stage.Stage;
 
 import edu.gatech.gem5.game.controllers.Controller;
 import edu.gatech.gem5.game.controllers.TitleController;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Random;
+
 /**
  *
  * @author Jack
@@ -28,11 +25,6 @@ public class LastAdventures extends Application {
      * The FXML Stage that the application uses.
      */
     private static Stage stage;
-
-    /**
-     * A random number generator for this class.
-     */
-    private static final Random random = new Random();
 
     /**
      * Start the game.

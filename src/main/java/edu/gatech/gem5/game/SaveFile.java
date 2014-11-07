@@ -65,10 +65,10 @@ public class SaveFile {
     /**
      * The encoding that save files for Last Adventures uses.
      */
-    public static final String SAVE_ENC = Charset.defaultCharset().displayName();//"UTF-8";
+    public static final String SAVE_ENC = Charset.defaultCharset().displayName();
 
     /**
-     * Construct the save file
+     * Construct the save file.
      *
      * @param uni The universe
      * @param sys The solar system
@@ -194,7 +194,7 @@ public class SaveFile {
         try {
             File saveDirectory = new File(SAVE_DIR);
             if (!saveDirectory.exists() && !saveDirectory.mkdir()) {
-                    throw new RuntimeException("Unable to create save directory.");
+                throw new RuntimeException("Unable to create save directory.");
             }
             PrintWriter writer = new PrintWriter(path, SAVE_ENC);
             writer.write(json);

@@ -16,7 +16,7 @@ public class Pirate extends AbstractNPC {
     /**
      * The initial FXML view for a pirate encounter.
      */
-    public static final String viewFile = "/fxml/pirateencounter.fxml";
+    public static final String VIEW_FILE = "/fxml/pirateencounter.fxml";
 
     /**
      * 
@@ -30,7 +30,7 @@ public class Pirate extends AbstractNPC {
      * @param loot amount of money given on defeat
      */
     private Pirate(String name, int pilot, int fighter, int trader, int engineer, int investor, Ship ship, int loot) {
-        super(name, pilot, fighter, trader, engineer, investor, ship, loot, viewFile);
+        super(name, pilot, fighter, trader, engineer, investor, ship, loot, VIEW_FILE);
     }
 
     /**
