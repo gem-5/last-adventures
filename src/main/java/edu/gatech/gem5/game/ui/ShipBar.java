@@ -9,20 +9,32 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 
 /**
- * ShipBar custom FXML element controller class
+ * ShipBar custom FXML element controller class.
  *
  * @author Creston Bunch
  */
 public class ShipBar extends HBox {
 
+    /**
+     * The key of the ship this bar is holding.
+     */
     private String product;
 
+    /**
+     * The label for the ship name.
+     */
     @FXML
     private Label lblItem;
 
+    /**
+     * The label for the ship price.
+     */
     @FXML
     private Label lblPrice;
 
+    /**
+     * A radio button to select this ship.
+     */
     @FXML
     private RadioButton rdbSelect;
 

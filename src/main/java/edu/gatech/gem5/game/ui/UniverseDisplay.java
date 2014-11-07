@@ -7,23 +7,40 @@ import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Ship;
 
 /**
- * UniverseDisplay custom FXML element controller class
+ * UniverseDisplay custom FXML element controller class.
  *
  * @author Creston Bunch
  */
 public class UniverseDisplay extends ExplorableDisplay {
 
+    /**
+     * The x location of the player.
+     */
     private int locX;
+    /**
+     * The y location of the player.
+     */
     private int locY;
+    /**
+     * The range of the player's ship.
+     */
     private int range;
+    /**
+     * The marker marking the player's location and range.
+     */
     private ImageView marker;
 
+    /**
+     * Path to the marker image file.
+     */
     public static final String MARKER_PATH = "/img/marker.png";
 
     /**
      * Update the universe display.
      *
-     * @param save The save file with the universe to display.
+     * @param uni The universe to display.
+     * @param sys The solar system the player is at.
+     * @param ship The player's ship.
      */
     public UniverseDisplay(Universe uni, SolarSystem sys, Ship ship) {
         super();

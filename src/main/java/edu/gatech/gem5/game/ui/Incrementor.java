@@ -20,24 +20,51 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
- * Incrementor custom FXML element controller class
+ * Incrementor custom FXML element controller class.
  *
  * @author Creston Bunch
  */
 public class Incrementor extends HBox {
 
+    /**
+     * Label for a description.
+     */
     @FXML
     private Label lblText;
 
+    /**
+     * Label to show the value.
+     */
     @FXML
     private Label lblValue;
 
+    /**
+     * I honestly can't remember what this is for.
+     */
     public WritableStringValue text;
+    /**
+     * Holds the value of the incrementor.
+     */
     private IntegerProperty value;
+    /**
+     * How much a single click should increment.
+     */
     private IntegerProperty incrementAmount;
+    /**
+     * The maximum value.
+     */
     private IntegerProperty max;
+    /**
+     * The minimum value.
+     */
     private IntegerProperty min;
+    /**
+     * Allow incrementing.
+     */
     private BooleanProperty allowIncrement;
+    /**
+     * Allow decrementing.
+     */
     private BooleanProperty allowDecrement;
 
     /**
@@ -207,30 +234,30 @@ public class Incrementor extends HBox {
     /**
      * Set the value of this incrementor.
      *
-     * @param value The value to set.
+     * @param val The value to set.
      */
-    public final void setValue(int value) {
-        valueProperty().setValue(value);
+    public final void setValue(int val) {
+        valueProperty().setValue(val);
     }
 
     /**
      * Set the max value of this incrementor.
      *
-     * @param max The max value to set.
+     * @param mx The max value to set.
      */
-    public final void setMax(int max) {
-        maxProperty().set(max);
-        setValue(Math.min(max, getValue()));
+    public final void setMax(int mx) {
+        maxProperty().set(mx);
+        setValue(Math.min(mx, getValue()));
     }
 
     /**
      * Set the min value of this incrementor.
      *
-     * @param min The min value to set.
+     * @param mn The min value to set.
      */
-    public final void setMin(int min) {
-        minProperty().set(min);
-        setValue(Math.max(min, getValue()));
+    public final void setMin(int mn) {
+        minProperty().set(mn);
+        setValue(Math.max(mn, getValue()));
     }
 
     /**
@@ -263,14 +290,14 @@ public class Incrementor extends HBox {
     /**
      * Set the text label of this incrementor.
      *
-     * @param text The text to set.
+     * @param txt The text to set.
      */
-    public final void setText(String text) {
-        this.lblText.setText(text);
+    public final void setText(String txt) {
+        this.lblText.setText(txt);
     }
 
     /**
-     * Increment this incrementor
+     * Increment this incrementor.
      *
      * @param event a button press
      */
@@ -282,7 +309,7 @@ public class Incrementor extends HBox {
     }
 
     /**
-     * Decrement the incrementor
+     * Decrement the incrementor.
      *
      * @param event a button press
      */

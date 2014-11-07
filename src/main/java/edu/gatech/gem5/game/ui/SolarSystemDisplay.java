@@ -24,8 +24,8 @@ public class SolarSystemDisplay extends ExplorableDisplay {
 
     @Override
     public void addNode(int xCoord, int yCoord, Node n) {
-        xCoord += gridWidth / 2;
-        yCoord += gridHeight / 2;
-        super.addNode(xCoord, yCoord, n);
+        int x = xCoord + gridWidth / 2;
+        int y = yCoord + gridHeight / 2;
+        super.addNode(x, y, n);
     }
 }
