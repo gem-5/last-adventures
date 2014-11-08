@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class TechReader extends AbstractReader<Integer, TechType> {
 
+    /**
+     * Construct a TechReader given the path.
+     * 
+     * @param path 
+     */
     public TechReader(String path) {
         super(path, new TypeToken<
             Map<Integer, TechType>>() {

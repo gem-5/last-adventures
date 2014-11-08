@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class StarReader extends AbstractReader<String, StarType> {
 
+    /**
+     * Construct a StarReader given the path.
+     * 
+     * @param path 
+     */
     public StarReader(String path) {
         super(path, new TypeToken<
             Map<String, StarType>>() {

@@ -15,12 +15,24 @@ import java.util.Map;
 
 public class ShipReader extends AbstractReader<String, ShipType> {
 
-    public  static final String SHIP_DATA_PATH = "/data/Ships.json";
+    /**
+     * The default path for the ShipReader constructor to take if no other
+     * path is given.
+     */
+    public static final String SHIP_DATA_PATH = "/data/Ships.json";
 
+    /**
+     * Construct a ShipReader with the default path.
+     */
     public ShipReader() {
         this(SHIP_DATA_PATH);
     }
 
+    /**
+     * Construct a ShipReader given the path.
+     * 
+     * @param path 
+     */
     public ShipReader(String path) {
         super(path, new TypeToken<
             Map<String, ShipType>>() {

@@ -14,6 +14,11 @@ import java.util.Map;
 
 public class EventReader extends AbstractReader<String, EventType> {
 
+    /**
+     * Construct the EventReader given the path.
+     * 
+     * @param path 
+     */
     public EventReader(String path) {
         super(path, new TypeToken<
             Map<String, EventType>>() {

@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class GovernmentReader extends AbstractReader<String, GovernmentType> {
 
+    /**
+     * Construct the GovernmentReader given the path.
+     * 
+     * @param path 
+     */
     public GovernmentReader(String path) {
         super(path, new TypeToken<
             Map<String, GovernmentType>>() {
