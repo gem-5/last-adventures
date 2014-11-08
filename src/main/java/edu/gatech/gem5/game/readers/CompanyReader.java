@@ -14,6 +14,11 @@ import java.util.Map;
  */
 public class CompanyReader extends AbstractReader<String, CompanyType> {
 
+    /**
+     * Construct the CompanyReader given the path string.
+     * 
+     * @param path 
+     */
     public CompanyReader(String path) {
         super(path, new TypeToken<
             Map<String, CompanyType>>() {

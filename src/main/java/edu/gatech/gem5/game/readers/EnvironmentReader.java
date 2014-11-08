@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class EnvironmentReader extends AbstractReader<String, EnvironmentType> {
 
+    /**
+     * Construct the Environment reader given the path.
+     * 
+     * @param path 
+     */
     public EnvironmentReader(String path) {
         super(path, new TypeToken<
             Map<String, EnvironmentType>>() {

@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class GoodReader extends AbstractReader<String, GoodType> {
 
+    /**
+     * Construct the GoodReader given the path.
+     * 
+     * @param path 
+     */
     public GoodReader(String path) {
         super(path, new TypeToken<
             Map<String, GoodType>>() {

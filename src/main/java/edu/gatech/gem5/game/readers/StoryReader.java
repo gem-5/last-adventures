@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class StoryReader extends AbstractReader<String, StoryText> {
 
+    /**
+     * Construct a StoryReader given the path.
+     * 
+     * @param path 
+     */
     public StoryReader(String path) {
         super(path, new TypeToken<
             Map<String, StoryText>>() {

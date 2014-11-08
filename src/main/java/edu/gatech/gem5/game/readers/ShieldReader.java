@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class ShieldReader extends AbstractReader<String, ShieldType> {
 
+    /**
+     * Construct the ShieldReader given the path.
+     * 
+     * @param path 
+     */
     public ShieldReader(String path) {
         super(path, new TypeToken<
             Map<String, ShieldType>>() {

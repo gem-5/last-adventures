@@ -19,8 +19,17 @@ import java.util.Scanner;
 
 public abstract class AbstractReader<K, T> {
 
+    /**
+     * Map that will hold Gson data.
+     */
     protected Map<K, T> map;
 
+    /**
+     * Construct the Abstract reader given the path and the Type.
+     * 
+     * @param path the path
+     * @param collectionType the Type to be paired with the path
+     */
     public AbstractReader(String path, Type collectionType) {
         InputStream stream = AbstractReader.class.getResourceAsStream(path);
         String json = readStream(stream);

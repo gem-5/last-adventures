@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class ConditionReader extends AbstractReader<String, ConditionType> {
 
+    /**
+     * Construct the ConditionReader given the path.
+     * 
+     * @param path 
+     */
     public ConditionReader(String path) {
         super(path, new TypeToken<
             Map<String, ConditionType>>() {
