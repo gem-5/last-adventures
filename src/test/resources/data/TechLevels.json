@@ -1,57 +1,133 @@
 {
     "0":{
-        "name" : "Pre-agriculture",
+        "name" : "Pre-agricultural",
         "rank" : 0,
         "occurrence" : 0.3,
-        "wealth" : 0.3
+        "wealth" : 0.3,
+        "governments" : {
+            "anarchy" : 0.4,
+            "confederacy" : 0.1,
+            "satori" : 0.1,
+            "theocracy" : 0.4
+        }
     },
 
     "1":{
-        "name" : "Agriculture",
+        "name" : "Agricultural",
         "rank" : 1,
         "occurrence" : 0.2,
-        "wealth" : 0.4
+        "wealth" : 0.4,
+        "governments" : {
+            "anarchy" : 0.1,
+            "confederacy" : 0.1,
+            "feudal" : 0.4,
+            "monarchy" : 0.1,
+            "satori" : 0.1,
+            "theocracy" : 0.2
+
+        }
     },
 
     "2":{
         "name" : "Medieval",
         "rank" : 2,
         "occurrence" : 0.2,
-        "wealth" : 0.5
+        "wealth" : 0.5,
+        "governments" : {
+            "anarchy" : 0.1,
+            "confederacy" : 0.1,
+            "feudal" : 0.1,
+            "monarchy" : 0.4,
+            "satori" : 0.1,
+            "theocracy" : 0.2
+        }
     },
 
     "3":{
         "name" : "Renaissance",
         "rank" : 3,
         "occurrence" : 0.1,
-        "wealth" : 0.6
+        "wealth" : 0.6,
+        "governments" : {
+            "anarchy" : 0.1,
+            "confederacy" : 0.5,
+            "democracy" : 0.1,
+            "dictatorship" : 0.1,
+            "military" : 0.1,
+            "monarchy" : 0.05,
+            "satori" : 0.05
+        }
     },
 
     "4":{
         "name" : "Early Industrial",
         "rank" : 4,
         "occurrence" : 0.1,
-        "wealth" : 0.7
+        "wealth" : 0.7,
+        "governments" : {
+            "anarchy" : 0.05,
+            "capitalist" : 0.4,
+            "communism" : 0.05,
+            "confederacy" : 0.1,
+            "democracy" : 0.1,
+            "dictatorship" : 0.1,
+            "military" : 0.1,
+            "pacifist" : 0.1
+        }
     },
 
     "5":{
         "name" : "Industrial",
         "rank" : 5,
         "occurrence" : 0.05,
-        "wealth" : 0.8
+        "wealth" : 0.8,
+        "governments" : {
+            "capitalist" : 0.2,
+            "communism" : 0.1,
+            "corporate" : 0.1,
+            "democracy" : 0.1,
+            "dictatorship" : 0.1,
+            "fascist" : 0.1,
+            "military" : 0.1,
+            "pacifist" : 0.1,
+            "socialist" : 0.1
+        }
     },
 
     "6":{
         "name" : "Post-Industrial",
         "rank" : 6,
         "occurrence" : 0.025,
-        "wealth" : 0.9
+        "wealth" : 0.9,
+        "governments" : {
+            "capitalist" : 0.1,
+            "communism" : 0.1,
+            "corporate" : 0.1,
+            "democracy" : 0.1,
+            "dictatorship" : 0.1,
+            "fascist" : 0.1,
+            "military" : 0.1,
+            "pacifist" : 0.1,
+            "socialist" : 0.1,
+            "technocracy" : 0.1
+        }
     },
 
     "7":{
         "name" : "Digital",
         "rank" : 7,
         "occurrence" : 0.025,
-        "wealth" : 1.0
+        "wealth" : 1.0,
+        "governments" : {
+            "capitalist" : 0.1,
+            "communism" : 0.1,
+            "corporate" : 0.1,
+            "cybernetic" : 0.2,
+            "democracy" : 0.1,
+            "dictatorship" : 0.1,
+            "fascist" : 0.1,
+            "military" : 0.1,
+            "technocracy" : 0.1
+        }
     }
 }

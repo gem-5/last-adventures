@@ -2,9 +2,7 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Data;
-import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Planet;
-import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Shield;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.data.ShieldType;
@@ -27,8 +25,6 @@ import javafx.scene.control.ListView;
 public class DockController extends Controller {
 
     @FXML
-    Button universe;
-    @FXML
     private Label errorLabel;
     @FXML
     private Label lblCash;
@@ -36,15 +32,12 @@ public class DockController extends Controller {
     private Label shipInfo;
     @FXML
     private ListView<UpgradeBar> buyUpgradeBarList;
-    private final Planet planet;
 
     public static final String SHIPYARD_VIEW_FILE = "/fxml/dock.fxml";
 
     public DockController() {
         super(SHIPYARD_VIEW_FILE);
 
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        planet = save.getPlanet();
         refreshLabels();
     }
 
@@ -56,18 +49,14 @@ public class DockController extends Controller {
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
-        // LastAdventures.swap(new PlanetController());
         transitionTo(new PlanetController());
     }
 
     private void fillLabels() {
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        this.lblCash.setText(
-                Integer.toString(save.getCharacter().getMoney())
-        );
+        this.lblCash.setText(((Integer) player.getMoney()).toString());
 
         // Pull the ship's information
-        Ship s = save.getCharacter().getShip();
+        Ship s = player.getShip();
         this.shipInfo.setText(s.toString());
 
         // Reset the error label. When this method is called, we assert that there will be no errors..
@@ -136,7 +125,6 @@ public class DockController extends Controller {
         @Override
         public void handle(ActionEvent t) {
 
-            Character player = LastAdventures.getCurrentSaveFile().getCharacter();
             Ship playerShip = player.getShip();
 
             // Check for player money count (edge case)
@@ -176,7 +164,6 @@ public class DockController extends Controller {
         @Override
         public void handle(ActionEvent t) {
 
-            Character player = LastAdventures.getCurrentSaveFile().getCharacter();
             Ship playerShip = player.getShip();
 
             // Check for player money count (edge case)

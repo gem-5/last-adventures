@@ -6,7 +6,7 @@
 		"weaponSlots" : 1,
 		"shieldSlots" : 2,
 		"gadgetSlots" : 3,
-		"crewSlots"	  : 4,
+		"crew"	  : 4,
 		"range"	: 11,
 		"fuelCost" : 1,
 		"price" : 800,

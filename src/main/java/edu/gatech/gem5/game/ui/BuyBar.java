@@ -11,30 +11,47 @@ import javafx.fxml.FXMLLoader;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 /**
- * BuyBar custom FXML element controller class
+ * BuyBar custom FXML element controller class.
  *
  * @author Creston Bunch
  */
 public class BuyBar extends HBox {
 
+    /**
+     * The key for the product being sold.
+     */
     private String product;
 
+    /**
+     * The label for holding the product name.
+     */
     @FXML
     private Label lblItem;
 
+    /**
+     * The label for holding the product price.
+     */
     @FXML
     private Label lblPrice;
 
+    /**
+     * The label for holding the product quantitiy.
+     */
     @FXML
     private Label lblQuantity;
 
+    /**
+     * The slider for selecting a quatitiy.
+     */
     @FXML
     private Slider sldQuantity;
 
+    /**
+     * The label for holding the max number.
+     */
     @FXML
     private Label lblMax;
 
@@ -67,16 +84,6 @@ public class BuyBar extends HBox {
                 lblQuantity.setText(Integer.toString(newValue.intValue()));
             }
         });
-    }
-
-    @FXML
-    public void decrement(MouseEvent event) throws Exception {
-        // not implemented
-    }
-
-    @FXML
-    public void increment(MouseEvent event) throws Exception {
-        // not implemented
     }
 
     /**

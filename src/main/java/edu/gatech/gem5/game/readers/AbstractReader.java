@@ -2,12 +2,9 @@ package edu.gatech.gem5.game.readers;
 
 import com.google.gson.Gson;
 
-import edu.gatech.gem5.game.data.*;
-
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -16,14 +13,25 @@ import java.util.Scanner;
  *
  * @author  Creston Bunch
  * @version 1.1.0
+ * @param <K> A json String.
+ * @param <T> A LastAdventures data type defined by json.
  */
 
-public abstract class Reader<K, T> {
+public abstract class AbstractReader<K, T> {
 
+    /**
+     * Map that will hold Gson data.
+     */
     protected Map<K, T> map;
 
-    public Reader(String path, Type collectionType) {
-        InputStream stream = Reader.class.getResourceAsStream(path);
+    /**
+     * Construct the Abstract reader given the path and the Type.
+     * 
+     * @param path the path
+     * @param collectionType the Type to be paired with the path
+     */
+    public AbstractReader(String path, Type collectionType) {
+        InputStream stream = AbstractReader.class.getResourceAsStream(path);
         String json = readStream(stream);
         map = new Gson().fromJson(json, collectionType);
     }

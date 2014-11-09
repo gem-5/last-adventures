@@ -2,13 +2,12 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Planet;
-import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.EncounterManager;
 import edu.gatech.gem5.game.Turn;
 import edu.gatech.gem5.game.ui.SolarSystemDisplay;
-import edu.gatech.gem5.game.ui.ExplorableDisplay;
+import edu.gatech.gem5.game.ui.AbstractExplorableDisplay;
 import edu.gatech.gem5.game.ui.SolarIcon;
 import edu.gatech.gem5.game.ui.PlanetIcon;
 import javafx.fxml.FXML;
@@ -29,10 +28,9 @@ import javafx.beans.value.ObservableValue;
  */
 public class DisplaySystemController extends Controller {
 
-    private SolarSystem sys;
-    private ExplorableDisplay map;
+    private SolarSystem peek;
+    private AbstractExplorableDisplay map;
     private UpdateListener updateListener;
-    private SaveFile save;
 
     @FXML
     Pane content;
@@ -46,7 +44,7 @@ public class DisplaySystemController extends Controller {
      * No arg constructor
      */
     public DisplaySystemController() {
-        this(LastAdventures.getCurrentSaveFile().getSolarSystem());
+        this(system);
     }
 
     /**
@@ -56,14 +54,13 @@ public class DisplaySystemController extends Controller {
      */
     public DisplaySystemController(SolarSystem sys) {
         super(SYSTEM_VIEW_FILE);
-        this.sys = sys;
-        this.save = LastAdventures.getCurrentSaveFile();
+        this.peek = sys;
         // construct a solar system display
         map = new SolarSystemDisplay(200, 200);
         // add the map to the scene
         ((BorderPane) root).setCenter(map);
 
-        title.setText(this.sys.getName());
+        title.setText(this.peek.getName());
 
         updateListener = new UpdateListener();
         addListeners();
@@ -71,7 +68,7 @@ public class DisplaySystemController extends Controller {
 
     public void finish() {
         // add a sun
-        SolarIcon sun = new SolarIcon(sys);
+        SolarIcon sun = new SolarIcon(peek);
         sun.setPrefWidth(100);
         sun.setPrefHeight(100);
         map.addNode(0, 0, sun);
@@ -79,15 +76,15 @@ public class DisplaySystemController extends Controller {
         double theta = 0;
         double r = 60;
         int i = 0;
-        for (Planet s : sys.getPlanets()) {
+        for (Planet s : peek.getPlanets()) {
             // add the planets in a circle
-            theta += 2 * Math.PI / sys.getPlanets().size();
+            theta += 2 * Math.PI / peek.getPlanets().size();
             r += 15;
             int x = (int) Math.round(Math.cos(theta) * r);
             int y = (int) Math.round(Math.sin(theta) * r);
             // create the visual planet representation
             PlanetIcon p = new PlanetIcon(s);
-            p.setOnMouseClicked(new TravelHandler(sys, i));
+            p.setOnMouseClicked(new TravelHandler(peek, i));
 
             // add it to the map
             map.addNode(x, y, p);
@@ -105,7 +102,6 @@ public class DisplaySystemController extends Controller {
     @FXML
     public void goBack(ActionEvent event) throws Exception {
         removeListeners();
-        // LastAdventures.swap(new DisplayUniverseController());
         transitionTo(new DisplayUniverseController());
     }
 
@@ -181,35 +177,34 @@ public class DisplaySystemController extends Controller {
 
         @Override
         public void handle(MouseEvent e) {
-            SaveFile save = LastAdventures.getCurrentSaveFile();
-            Ship ship = save.getCharacter().getShip();
+            Ship ship = player.getShip();
             // deduct fuel
             int cost = (int) Math.floor(distance());
             ship.setFuel(ship.getFuel() - cost);
 
             // cache current solar system in this snazzy variable
-            SolarSystem here = save.getSolarSystem();
+            SolarSystem here = system;
 
-            // update save file
-            save.setSolarSystem(sys);
-            save.setCurrentPlanet(p);
+            // update global controller vars
+            system = peek;
+            planet = system.getPlanetAt(p);
 
-            SolarSystem there = save.getSolarSystem();
+            // this is our new solar system location
+            SolarSystem there = system;
             // only make a turn when switching solar systems
             if (here != there) {
-                Turn turn = new Turn();
+                Turn turn = new Turn(universe);
                 turn.pass();
-                EncounterManager trip = new EncounterManager();
+                EncounterManager trip = new EncounterManager(player, planet);
                 trip.nextEncounter();
             } else {
-                // LastAdventures.swap(new PlanetController());
                 transitionTo(new PlanetController());
             }
         }
 
         private double distance() {
-            SolarSystem here = DisplaySystemController.this.sys;
-            SolarSystem there = save.getSolarSystem();
+            SolarSystem here = DisplaySystemController.this.peek;
+            SolarSystem there = system;
             int dx = there.getXCoordinate() - here.getXCoordinate();
             int dy = there.getYCoordinate() - here.getYCoordinate();
             return Math.sqrt(dx * dx + dy * dy);

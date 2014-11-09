@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.readers;
 
 import com.google.gson.reflect.TypeToken;
 
-import edu.gatech.gem5.game.readers.Reader;
 import edu.gatech.gem5.game.data.CompanyType;
 
 import java.util.Map;
@@ -13,12 +12,16 @@ import java.util.Map;
  * @author  Creston Bunch
  * @version 1.1.0
  */
+public class CompanyReader extends AbstractReader<String, CompanyType> {
 
-public class CompanyReader extends Reader<String, CompanyType> {
-
+    /**
+     * Construct the CompanyReader given the path string.
+     * 
+     * @param path 
+     */
     public CompanyReader(String path) {
         super(path, new TypeToken<
-            Map<String, CompanyType>
-        >() {} .getType());
+            Map<String, CompanyType>>() {
+        } .getType());
     }
 }

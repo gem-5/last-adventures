@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.readers;
 
 import com.google.gson.reflect.TypeToken;
 
-import edu.gatech.gem5.game.readers.Reader;
 import edu.gatech.gem5.game.data.StarType;
 
 import java.util.Map;
@@ -14,11 +13,16 @@ import java.util.Map;
  * @version 1.1.0
  */
 
-public class StarReader extends Reader<String, StarType> {
+public class StarReader extends AbstractReader<String, StarType> {
 
+    /**
+     * Construct a StarReader given the path.
+     * 
+     * @param path 
+     */
     public StarReader(String path) {
         super(path, new TypeToken<
-            Map<String, StarType>
-        >() {} .getType());
+            Map<String, StarType>>() {
+        } .getType());
     }
 }

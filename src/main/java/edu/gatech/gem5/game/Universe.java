@@ -38,7 +38,7 @@ public class Universe {
     /**
      * The random number generator for this class.
      */
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
     
     /**
      * Creates a universe of default width, height, and number of planets.
@@ -89,8 +89,8 @@ public class Universe {
             double theta = 0;
             double tOffset = (2 * Math.PI / numArms) * j;
             for (int i = 0; i < armCapacity; i++) {
-                double rv = 2 * rVariance * random.nextDouble() - rVariance;
-                double rt = 2 * tVariance * random.nextGaussian() - tVariance;
+                double rv = 2 * rVariance * RANDOM.nextDouble() - rVariance;
+                double rt = 2 * tVariance * RANDOM.nextGaussian() - tVariance;
                 theta = (1 / b) * Math.log(r / rMax) + tOffset + rt;
                 int x = (int) Math.round((r + rv) * Math.cos(theta)) + width / 2;
                 int y = (int) Math.round((r + rv) * Math.sin(theta)) + height / 2;
@@ -191,7 +191,7 @@ public class Universe {
             int y) {
         SolarSystem[][] field = universe.getSolarSystemField();
         int radius = 1;
-        double thetaStart = random.nextDouble() * 2 * Math.PI;
+        double thetaStart = RANDOM.nextDouble() * 2 * Math.PI;
         SolarSystem close = null;
 
         while (close == null) {

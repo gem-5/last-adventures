@@ -1,12 +1,11 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.ui.UniverseDisplay;
-import edu.gatech.gem5.game.ui.ExplorableDisplay;
+import edu.gatech.gem5.game.ui.AbstractExplorableDisplay;
 import edu.gatech.gem5.game.ui.StarIcon;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
@@ -31,9 +30,7 @@ public class DisplayUniverseController extends Controller {
     @FXML
     TextField errorLabel;
 
-    private final ExplorableDisplay map;
-    private final Universe universe;
-    private final SaveFile save;
+    private final AbstractExplorableDisplay map;
     private final UpdateListener updateListener;
 
     public static final String UNIVERSE_VIEW_FILE = "/fxml/travel.fxml";
@@ -43,10 +40,9 @@ public class DisplayUniverseController extends Controller {
      */
     public DisplayUniverseController() {
         super(UNIVERSE_VIEW_FILE);
-        save = LastAdventures.getCurrentSaveFile();
-        universe = save.getUniverse();
+
         // construct a universe display
-        map = new UniverseDisplay(save);
+        map = new UniverseDisplay(universe, system, player.getShip());
         // add the map to the scene
         ((BorderPane) root).setCenter(map);
 
@@ -81,7 +77,6 @@ public class DisplayUniverseController extends Controller {
     @FXML
     public void goBack(ActionEvent event) throws Exception {
         removeListeners();
-        // LastAdventures.swap(new DisplaySystemController());
         transitionTo(new DisplaySystemController());
     }
 
@@ -115,10 +110,9 @@ public class DisplayUniverseController extends Controller {
 
         @Override
         public void handle(MouseEvent e) {
-            Ship ship = save.getCharacter().getShip();
+            Ship ship = player.getShip();
             int range = ship.getFuel();
             if (distance() <= range) {
-                // LastAdventures.swap(new DisplaySystemController(sys));
                 transitionTo(new DisplaySystemController(sys));
             } else {
                 errorLabel.setText("Out of Range");
@@ -126,7 +120,7 @@ public class DisplayUniverseController extends Controller {
         }
 
         private double distance() {
-            SolarSystem here = save.getSolarSystem();
+            SolarSystem here = system;
             SolarSystem there = sys;
             int dx = there.getXCoordinate() - here.getXCoordinate();
             int dy = there.getYCoordinate() - here.getYCoordinate();

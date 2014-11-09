@@ -13,6 +13,7 @@ import edu.gatech.gem5.game.data.GovernmentType;
 import edu.gatech.gem5.game.data.CompanyType;
 import edu.gatech.gem5.game.data.ConditionType;
 import java.util.TreeMap;
+import java.util.Collection;
 
 /**
  * Represents a planet in a system.
@@ -22,6 +23,10 @@ import java.util.TreeMap;
  */
 public class Planet implements Traderable {
 
+    /**
+     * The orbit of this planet around its star.
+     */
+    private int orbit;
     /**
      * Tech level of planet.
      */
@@ -59,19 +64,20 @@ public class Planet implements Traderable {
      * Competition factor between companies selling the same good on a planet.
      */
     private static final double COMPETITION_FACTOR = 0.75;
-    
+
     /**
      * A random number generator for this class.
      */
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     /**
      * Construct a planet with a random tech level, environment, government,
      * and list of companies based on the data files.
      *
      * @param n the name of the Planet
+     * @param orb the orbit number around the star
      */
-    public Planet(String n) {
+    public Planet(String n, int orb) {
         this.techLevel = chooseTechLevel();
         this.environment = chooseEnvironment();
         this.government = chooseGovernment();
@@ -80,6 +86,7 @@ public class Planet implements Traderable {
         this.currentStock = maxStock;
         this.condition = getNewCondition();
         this.name = n;
+        this.orbit = orb;
     }
 
    /**
@@ -193,8 +200,8 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
-     * @return the max stock that a planet can have at any time based on the 
+     *
+     * @return the max stock that a planet can have at any time based on the
      * companies that are on it. If a planet does not know this about itself,
      * it is calculated here.
      */
@@ -223,9 +230,9 @@ public class Planet implements Traderable {
     public void increaseStock() {
         for (Map.Entry<String, Integer> entry : currentStock.entrySet() ) {
             int maxOfGood = maxStock.get(entry.getKey());
-            
+
             currentStock.put(entry.getKey(), Math.max(
-                    entry.getValue() + random.nextInt(4), maxOfGood));
+                    entry.getValue() + RANDOM.nextInt(4), maxOfGood));
         }
     }
 
@@ -262,11 +269,16 @@ public class Planet implements Traderable {
         return out;
     }
 
+    /**
+     * Get the prices (demand) for buying goods from this planet.
+     *
+     * @param goods The collection of goods to ask about.
+     * @return A map of goods/prices to buy.
+     */
     @Override
-    public Map<String, Integer> getDemand() {
+    public Map<String, Integer> getDemand(Collection<String> goods) {
         Map<String, Integer> in = new TreeMap<>();
-        Ship playerShip = LastAdventures.getCurrentSaveFile().getCharacter().getShip();
-        for (String g : playerShip.getCargoList().keySet()) {
+        for (String g : goods) {
             GoodType gt = Data.GOODS.get(g);
             double value = gt.getValue();
             String s = gt.getKey();
@@ -296,7 +308,7 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return A map of goods sold on the planet to the amount of companies
      * offering the good.
      */
@@ -316,13 +328,13 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return a tech level for the planet based on its government's weights
      * in the JSON data files.
      */
     private int chooseTechLevel() {
         Map<Integer, TechType> levels = Data.TECHS.get();
-        double roll = random.nextDouble();
+        double roll = RANDOM.nextDouble();
         double sum = 0;
         for (Map.Entry<Integer, TechType> t : levels.entrySet()) {
             sum += t.getValue().getOccurrence();
@@ -335,12 +347,12 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return An environment based on weights in the JSON data files.
      */
     private String chooseEnvironment() {
         Map<String, EnvironmentType> list = Data.ENVIRONMENTS.get();
-        double roll = random.nextDouble();
+        double roll = RANDOM.nextDouble();
         double sum = 0;
         for (Map.Entry<String, EnvironmentType> t : list.entrySet()) {
             sum += t.getValue().getOccurrence();
@@ -353,12 +365,12 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return A government key based on weights in the JSON data files.
      */
     private String chooseGovernment() {
         Map<String, Double> govs = getTechLevel().getGovernments();
-        double roll = random.nextDouble();
+        double roll = RANDOM.nextDouble();
         double sum = 0;
         for (Map.Entry<String, Double> t : govs.entrySet()) {
             sum += t.getValue();
@@ -371,7 +383,7 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return A list of Company keys based on weights in the JSON data files.
      */
     private List<String> chooseCompanies() {
@@ -391,7 +403,7 @@ public class Planet implements Traderable {
                 p *= t.getValue().getGovernments().get(this.government);
             }
 
-            double roll = random.nextDouble();
+            double roll = RANDOM.nextDouble();
 
             if (roll <= p) {
                 out.add(t.getKey());
@@ -401,13 +413,20 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return a planet's name.
      */
     public String getName() {
         return this.name;
     }
 
+    /**
+     *
+     * @return a planet's orbit.
+     */
+    public int getOrbit() {
+        return this.orbit;
+    }
 
     @Override
     public String toString() {
@@ -421,13 +440,13 @@ public class Planet implements Traderable {
     }
 
     /**
-     * 
+     *
      * @return a key of a condition for a planet based on weights in the JSON
      * files.
      */
     public String getNewCondition() {
         //set new condition
-        double conditionNumber = random.nextDouble();
+        double conditionNumber = RANDOM.nextDouble();
         Map<String, ConditionType> conditions = Data.CONDITIONS.get();
         for (Map.Entry<String, ConditionType> entry : conditions.entrySet()) {
             conditionNumber -= entry.getValue().getOccurrence();

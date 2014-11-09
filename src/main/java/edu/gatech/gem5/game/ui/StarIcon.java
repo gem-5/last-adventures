@@ -17,10 +17,15 @@ import edu.gatech.gem5.game.SolarSystem;
  */
 public class StarIcon extends Region {
 
+    /**
+     * The image to show for this icon.
+     */
     private ImageView image;
 
     /**
      * Construct and set the root of this custom control.
+     *
+     * @param sys The solar system this star represents.
      */
     public StarIcon(SolarSystem sys) {
         image = new ImageView(sys.getType().getUniverseImage());

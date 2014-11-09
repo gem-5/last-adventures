@@ -1,14 +1,10 @@
 package edu.gatech.gem5.game.ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -26,19 +22,37 @@ import javafx.util.Duration;
  *
  * @author Creston Bunch
  */
-public abstract class ExplorableDisplay extends Pane {
+public abstract class AbstractExplorableDisplay extends Pane {
 
+    /**
+     * The width of the grid being shown.
+     */
     protected int gridWidth;
+    /**
+     * The height of thi grid being shown.
+     */
     protected int gridHeight;
+    /**
+     * The camera for panning/zooming the display.
+     */
     protected Camera camera;
+    /**
+     * A handler for zooming on scroll.
+     */
     protected ScrollHandler scrollHandler;
+    /**
+     * A handler for panning on drag.
+     */
     protected DragHandler dragHandler;
+    /**
+     * A handler for moving while dragging.
+     */
     protected MoveHandler moveHandler;
 
     /**
      * Construct and set the root of this custom control.
      */
-    public ExplorableDisplay() {
+    public AbstractExplorableDisplay() {
         FXMLLoader loader = new FXMLLoader(
             getClass().getResource("/fxml/explorable.fxml")
         );
@@ -74,12 +88,12 @@ public abstract class ExplorableDisplay extends Pane {
     /**
      * Add a node to the explorable display.
      *
-     * @param x The x coordinate of this node.
-     * @param y The y coordinate of this node.
-     * @param n The node to add.
+     * @param nx The x coordinate of this node.
+     * @param ny The y coordinate of this node.
+     * @param node The node to add.
      */
-    public void addNode(int x, int y, Node n) {
-        this.getChildren().add(new Point(x, y, n));
+    public void addNode(int nx, int ny, Node node) {
+        this.getChildren().add(new Point(nx, ny, node));
     }
 
     /**
@@ -90,7 +104,7 @@ public abstract class ExplorableDisplay extends Pane {
         updateSizes();
     }
 
-    /** Update node positions only **/
+    /** Update node positions only. **/
     protected void updatePositions() {
         for (Node child : this.getChildren()) {
             Point p = (Point) child;
@@ -102,7 +116,7 @@ public abstract class ExplorableDisplay extends Pane {
         }
     }
 
-    /** Update node sizes only **/
+    /** Update node sizes only. **/
     protected void updateSizes() {
         for (Node child : this.getChildren()) {
             Point p = (Point) child;
@@ -119,25 +133,40 @@ public abstract class ExplorableDisplay extends Pane {
      * @author Creston Bunch
      */
     public class Camera {
+
+        /**
+         * x position of the camera.
+         */
         private double x;
+        /**
+         * y position of the camera.
+         */
         private double y;
+        /**
+         * zoom factor of the camera.
+         */
         private double zoom;
 
-
+        /**
+         * Maximum zoom a camera can achieve.
+         */
         private static final double MAX_ZOOM = 20.0;
+        /**
+         * Minimum zoom a camera can achieve.
+         */
         private static final double MIN_ZOOM = 1.0;
 
         /**
          * Construct the camera with initial x, y coordinates and zoom factor.
          *
-         * @param x The x coordinate
-         * @param y The y coordinate
-         * @param zoom The amount to scale nodes.
+         * @param startX The x coordinate
+         * @param startY The y coordinate
+         * @param startZ The amount to scale nodes.
          */
-        public Camera(double x, double y, double zoom) {
-            this.x = x;
-            this.y = y;
-            this.zoom = zoom;
+        public Camera(double startX, double startY, double startZ) {
+            this.x = startX;
+            this.y = startY;
+            this.zoom = startZ;
         }
 
         /**
@@ -150,12 +179,12 @@ public abstract class ExplorableDisplay extends Pane {
         /**
          * Move the camera to an absolute position.
          *
-         * @param x The new x coordinate.
-         * @param y The new y coordinate.
+         * @param newX The new x coordinate.
+         * @param newY The new y coordinate.
          */
-        public void move(double x, double y) {
-            this.x = Math.min(Math.max(x, 0), gridWidth);
-            this.y = Math.min(Math.max(y, 0), gridHeight);
+        public void move(double newX, double newY) {
+            this.x = Math.min(Math.max(newX, 0), gridWidth);
+            this.y = Math.min(Math.max(newY, 0), gridHeight);
         }
 
         /**
@@ -171,16 +200,16 @@ public abstract class ExplorableDisplay extends Pane {
         /**
          * Zoom the camera to an absolute number.
          *
-         * @param zoom The zoom factor to set.
+         * @param newZ The zoom factor to set.
          */
-        public void setZoom(double zoom) {
-            this.zoom = Math.max(Math.min(zoom, MAX_ZOOM), MIN_ZOOM);
+        public void setZoom(double newZ) {
+            this.zoom = Math.max(Math.min(newZ, MAX_ZOOM), MIN_ZOOM);
         }
 
         /**
          * Get the zoom value.
          *
-         * @param zoom the zoom value
+         * @return the zoom value.
          */
         public double getZoom() {
             return this.zoom * pixelsPerUnit();
@@ -198,25 +227,26 @@ public abstract class ExplorableDisplay extends Pane {
         /**
          * Calculate the current width of the camera based on its zoom factor.
          *
-         * @return the width in arbitrary units
+         * @return the width in arbitrary units.
          */
         public double getWidth() {
-            return ExplorableDisplay.this.getWidth() / pixelsPerUnit() / zoom;
+            return AbstractExplorableDisplay.this.getWidth() / pixelsPerUnit() / zoom;
         }
 
         /**
          * Calculate the current height of the camera based on its zoom factor.
          *
-         * @return the height in arbitrary units
+         * @return the height in arbitrary units.
          */
         public double getHeight() {
-            return ExplorableDisplay.this.getHeight() / pixelsPerUnit() / zoom;
+            return AbstractExplorableDisplay.this.getHeight() / pixelsPerUnit() / zoom;
         }
 
         /**
          * Check if a point is within the viewport of the camera.
          *
-         * @return true if it is, false otherwise
+         * @param p The point to check.
+         * @return true if it is, false otherwise.
          */
         public boolean inView(Point p) {
             Node n = p.getNode();
@@ -233,60 +263,60 @@ public abstract class ExplorableDisplay extends Pane {
         /**
          * Convert a grid x-coordinate to an x-coordinate in the camera.
          *
-         * @param x the x coordinate to convert
+         * @param gridX the x coordinate to convert
          * @return The x coordinate in pixels relative to the camera origin
          */
-        public int translateX(double x) {
+        public int translateX(double gridX) {
             double centerX = getWidth() / 2;
-            double newX = x - this.x + centerX;
+            double newX = gridX - this.x + centerX;
             return (int) Math.round(newX * pixelsPerUnit() * zoom);
         }
 
         /**
          * Convert a grid y-coordinate to a y-coordinate in the camera.
          *
-         * @param y the y coordinate to convert
+         * @param gridY the y coordinate to convert
          * @return The y coordinate in pixels relative to the camera origin
          */
-        public int translateY(double y) {
+        public int translateY(double gridY) {
             double centerY = getHeight() / 2;
-            double newY = y - this.y + centerY;
+            double newY = gridY - this.y + centerY;
             return (int) Math.round(newY * pixelsPerUnit() * zoom);
         }
 
         /**
          * Convert an x-coordinate in the camera to an x-coordinate in the grid.
          *
-         * @param x the x coordinate to convert
-         * @param The x coordinate in arbitrary units
+         * @param cameraX the x coordinate to convert
+         * @return The x coordinate in arbitrary units
          */
-        public double unTranslateX(double x) {
+        public double unTranslateX(double cameraX) {
             double centerX = getWidth() / 2;
-            double newX = x / pixelsPerUnit() / zoom;
+            double newX = cameraX / pixelsPerUnit() / zoom;
             return newX + this.x - centerX;
         }
 
         /**
          * Convert a y-coordinate in the camera to a y-coordinate in the grid.
          *
-         * @param y the y coordinate to convert
-         * @param The y coordinate in arbitrary units
+         * @param cameraY the y coordinate to convert
+         * @return The y coordinate in arbitrary units
          */
-        public double unTranslateY(double y) {
+        public double unTranslateY(double cameraY) {
             double centerY = getHeight() / 2;
-            double newY = y / pixelsPerUnit() / zoom;
+            double newY = cameraY / pixelsPerUnit() / zoom;
             return newY + this.y - centerY;
         }
 
         /**
-         * The ratio of pixels per unit at zoom = 1.0
+         * The ratio of pixels per unit at zoom = 1.0.
          *
          * @return The ratio of pixels/units.
          */
         public double pixelsPerUnit() {
             double ratio = Math.min(
-                ExplorableDisplay.this.getWidth() / gridWidth,
-                ExplorableDisplay.this.getHeight() / gridHeight
+                AbstractExplorableDisplay.this.getWidth() / gridWidth,
+                AbstractExplorableDisplay.this.getHeight() / gridHeight
             );
             return ratio;
         }
@@ -300,22 +330,33 @@ public abstract class ExplorableDisplay extends Pane {
      * @author Creston Bunch
      */
     private static class Point extends Parent {
+
+        /**
+         * The x position of this point in the grid.
+         */
         public final int x;
+        /**
+         * The y position of this point in the grid.
+         */
         public final int y;
+
+        /**
+         * The node at this point.
+         */
         private Node n;
 
         /**
          * Construct the point with a given x and y.
          *
-         * @param x The x coordinate
-         * @param y The y coordinate
-         * @param n The node at this coordinate.
+         * @param nx The x coordinate
+         * @param ny The y coordinate
+         * @param node The node at this coordinate.
          */
-        public Point(int x, int y, Node n) {
-            this.x = x;
-            this.y = y;
-            this.n = n;
-            this.getChildren().add(n);
+        public Point(int nx, int ny, Node node) {
+            this.x = nx;
+            this.y = ny;
+            this.n = node;
+            this.getChildren().add(node);
         }
 
         /**
@@ -335,9 +376,17 @@ public abstract class ExplorableDisplay extends Pane {
      * @author Creston Bunch
      */
     private class ScrollHandler implements EventHandler<ScrollEvent> {
-        // amount to zoom each click
+
+        /**
+         * Amount to zoom each tick.
+         */
         private static final double ZOOM_FACTOR = 0.5;
 
+        /**
+         * Handle the scroll event.
+         *
+         * @param e The scroll event.
+         */
         @Override
         public void handle(ScrollEvent e) {
             // TODO: zoom on cursor?
@@ -353,19 +402,41 @@ public abstract class ExplorableDisplay extends Pane {
      * @author Creston Bunch
      */
     private class MoveHandler implements EventHandler<MouseEvent> {
+
+        /**
+         * The x position of the mouse.
+         */
         private double xPos;
+        /**
+         * The y position of the mouse.
+         */
         private double yPos;
 
+        /**
+         * Handle the move event.
+         *
+         * @param e The mouse event.
+         */
         @Override
         public void handle(MouseEvent e) {
             xPos = e.getSceneX() - getLayoutX();
             yPos = e.getSceneY() - getLayoutY();
         }
 
+        /**
+         * Get the x position of the mouse.
+         *
+         * @return the x position.
+         */
         public double getX() {
             return xPos;
         }
 
+        /**
+         * Get the y position of the mouse.
+         *
+         * @return the y position.
+         */
         public double getY() {
             return yPos;
         }
@@ -377,13 +448,32 @@ public abstract class ExplorableDisplay extends Pane {
      * @author Creston Bunch
      */
     private class DragHandler implements EventHandler<MouseEvent> {
+
+        /**
+         * Toggle between dragging/not dragging.
+         */
         private boolean dragging = false;
+        /**
+         * Last x location of the mouse cursor.
+         */
         private double prevX = -1;
+        /**
+         * Last y location of the mouse cursor.
+         */
         private double prevY = -1;
+        /**
+         * Timeline for updating less often.
+         */
         private Timeline t;
-        // how often to update the screen
+
+        /**
+         * How often to update the screen.
+         */
         private static final int RATE = 10; //ms
 
+        /**
+         * Construct the drag handler.
+         */
         public DragHandler() {
             // update the display on a timer to reduce lag
             t = new Timeline(new KeyFrame(new Duration(RATE),
@@ -396,6 +486,12 @@ public abstract class ExplorableDisplay extends Pane {
             t.setCycleCount(Timeline.INDEFINITE);
             t.play();
         }
+
+        /**
+         * Handle the drag event.
+         *
+         * @param e The mouse event.
+         */
         @Override
         public void handle(MouseEvent e) {
             if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {

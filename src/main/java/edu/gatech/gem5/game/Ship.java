@@ -188,7 +188,7 @@ public class Ship {
 
     /**
      * Adds a shield to the ship's shield list.
-     * @param s the Shield being added to the ship
+     * @param st the Shield being added to the ship
      * @return true if successfully added, false otherwise
      */
     public boolean addUpgrade(ShieldType st) {
@@ -257,7 +257,7 @@ public class Ship {
                 result.append(String.format(delim, s.getType().getName()));
             }
         }
-        result.append("\n Gadjets:");
+        result.append("\n Gadgets:");
         for (GadgetType g: getGadgetList()) {
             if (g != null) {
                 result.append(String.format(delim, g.getName()));

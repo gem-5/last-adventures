@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.readers;
 
 import com.google.gson.reflect.TypeToken;
 
-import edu.gatech.gem5.game.readers.Reader;
 import edu.gatech.gem5.game.data.ShieldType;
 
 import java.util.Map;
@@ -14,11 +13,16 @@ import java.util.Map;
  * @version 1.1.0
  */
 
-public class ShieldReader extends Reader<String, ShieldType> {
+public class ShieldReader extends AbstractReader<String, ShieldType> {
 
+    /**
+     * Construct the ShieldReader given the path.
+     * 
+     * @param path 
+     */
     public ShieldReader(String path) {
         super(path, new TypeToken<
-            Map<String, ShieldType>
-        >() {} .getType());
+            Map<String, ShieldType>>() {
+        } .getType());
     }
 }

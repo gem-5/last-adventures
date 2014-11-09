@@ -2,48 +2,56 @@
     "none" : {
         "name" : "None",
         "demand" : {},
+        "supply" : {},
         "occurrence" : 0.5625
     },
 
     "drought" : {
         "name" : "Drought",
         "demand" : {"water" : 2.0},
+        "supply" : {"water" : 3.0},
         "occurrence" : 0.0625
     },
 
     "cold" : {
         "name" : "Cold",
         "demand" : {"furs" : 2.0},
+        "supply" : {"furs" : 3.0},
         "occurrence" : 0.0625
     },
 
     "war" : {
         "name" : "War",
         "demand" : {"firearms" : 2.0, "ore" : 2.0},
+        "supply" : {"firearms" : 3.0, "ore" : 3.0},
         "occurrence" : 0.0625
     },
 
     "plague" : {
         "name" : "Plague",
         "demand" : {"medicine" : 2.0},
+        "supply" : {"medicine" : 3.0},
         "occurrence" : 0.0625
     },
 
     "boredom" : {
         "name" : "Boredom",
         "demand" : {"games" : 2.0, "drugs" : 2.0},
+        "supply" : {"games" : 3.0, "drugs" : 3.0},
         "occurrence" : 0.0625
     },
 
     "crop_failure" : {
         "name" : "Crop Failure",
         "demand" : {"food" : 2.0},
+        "supply" : {"food" : 3.0},
         "occurrence" : 0.0625
     },
 
     "high_employment" : {
         "name" : "High Employment",
         "demand" : {"robots" : 2.0, "machines" : 2.0},
+        "supply" : {"robots" : 3.0, "machines" : 3.0},
         "occurrence" : 0.0625
     }
 }

@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
 import edu.gatech.gem5.game.Planet;
-import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Data;
 import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Transaction;
@@ -28,9 +27,6 @@ import javafx.scene.layout.AnchorPane;
 public class MarketController extends Controller {
 
     @FXML
-    Button universe;
-
-    @FXML
     private Label lblCash;
 
     @FXML
@@ -44,7 +40,6 @@ public class MarketController extends Controller {
     @FXML
     private ListView<BuyBar> sellGoods;
 
-    private Planet planet;
     public static final String MARKET_VIEW_FILE = "/fxml/market.fxml";
 
     /**
@@ -53,9 +48,6 @@ public class MarketController extends Controller {
     public MarketController() {
         // load the view or throw an exception
         super(MARKET_VIEW_FILE);
-
-        SaveFile save = LastAdventures.getCurrentSaveFile();
-        planet = save.getPlanet();
 
         fillLabels();
         buildBuyGoodsList();
@@ -78,10 +70,8 @@ public class MarketController extends Controller {
             purchases.put(productKey, quantity);
         }
         // construct a transaction between a player and a planet
-        Transaction t = new Transaction(
-                LastAdventures.getCurrentSaveFile().getCharacter(),
-                LastAdventures.getCurrentSaveFile().getPlanet()
-        );
+        Transaction t = new Transaction(player, planet);
+
         // attempt the purchase
         if (t.validateBuy(purchases)) {
             t.buy(purchases);
@@ -109,10 +99,8 @@ public class MarketController extends Controller {
             sales.put(productKey, quantity);
         }
         // construct a transaction between a player and a planet
-        Transaction t = new Transaction(
-                LastAdventures.getCurrentSaveFile().getCharacter(),
-                LastAdventures.getCurrentSaveFile().getPlanet()
-        );
+        Transaction t = new Transaction(player, planet);
+
         // attempt the sale
         if (t.validateSell(sales)) {
             t.sell(sales);
@@ -138,48 +126,15 @@ public class MarketController extends Controller {
     }
 
     private void fillLabels() {
-        SaveFile save = LastAdventures.getCurrentSaveFile();
         this.lblCash.setText(
-                Integer.toString(save.getCharacter().getMoney())
+            Integer.toString(player.getMoney())
         );
-        Ship s = save.getCharacter().getShip();
+        Ship s = player.getShip();
         this.lblSlots.setText(
-                Integer.toString(s.getOpenBays())
+            Integer.toString(s.getOpenBays())
         );
         errorLabel.setText("");
     }
-    /*
-     private void buildWeaponList() {
-     // this is the tab for weapons that the planet sells
-     ObservableList<UpgradeBar> lstWeapons
-     = FXCollections.observableArrayList();
-     Map<String, WeaponType> weps = LastAdventures.data.get(WeaponType.KEY);
-     for (String x : planet.getWeapons()) {
-     UpgradeBar b = new UpgradeBar();
-     WeaponType weapon = (WeaponType) weps.get(x);
-     b.setKey(x);
-     b.setPrice(weapon.getPrice());
-     b.setText(weapon.getName());
-     lstWeapons.add(b);
-     }
-     upWeapons.setItems(lstWeapons);
-     }
-
-     private void buildShieldList() {
-     // this is the tab for shields that the planet sells
-     ObservableList<UpgradeBar> lstShields
-     = FXCollections.observableArrayList();
-     Map<String, ShieldType> shilds = LastAdventures.data.get(ShieldType.KEY);
-     for (String x : planet.getShields()) {
-     UpgradeBar b = new UpgradeBar();
-     ShieldType shield = (ShieldType) shilds.get(x);
-     b.setKey(x);
-     b.setPrice(shield.getPrice());
-     b.setText(shield.getName());
-     lstShields.add(b);
-     }
-     upShields.setItems(lstShields);
-     }*/
 
     private void buildBuyGoodsList() {
         // this is the tab for goods that the planet sells
@@ -200,7 +155,8 @@ public class MarketController extends Controller {
 
     private void buildSellGoodsList() {
         ObservableList<BuyBar> listGoods = FXCollections.observableArrayList();
-        Map<String, Integer> playerGoods = LastAdventures.getCurrentSaveFile().getCharacter().getShip().getCargoList();
+        Map<String, Integer> playerGoods = player.getShip().getCargoList();
+        Map<String, Integer> prices = planet.getDemand(playerGoods.keySet());
         for (Map.Entry<String, Integer> s : playerGoods.entrySet()) {
             if (s.getValue() == 0) {
                 continue; // don't bother with these
@@ -209,7 +165,7 @@ public class MarketController extends Controller {
             BuyBar b = new BuyBar();
             b.setKey(s.getKey());
             b.setQuantity(s.getValue());
-            b.setPrice(planet.getDemand().get(s.getKey()));
+            b.setPrice(prices.get(s.getKey()));
             b.setText(g.getName());
             listGoods.add(b);
         }

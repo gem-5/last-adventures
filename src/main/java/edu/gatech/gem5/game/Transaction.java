@@ -14,6 +14,12 @@ public class Transaction {
      * Reference to the player doing a transaction.
      */
     private Character player;
+
+    /**
+     * The player's ship.
+     */
+    private Ship ship;
+
     /**
      * The trader that this character is doing business with.
      */
@@ -31,6 +37,7 @@ public class Transaction {
      */
     public Transaction(Character p, Traderable t) {
         this.player = p;
+        this.ship = player.getShip();
         this.trader = t;
         this.errorMessage = "";
     }
@@ -59,8 +66,9 @@ public class Transaction {
      * @param sales A map of goods and their quantities to sell.
      */
     public void sell(Map<String, Integer> sales) {
+        Map<String, Integer> prices = trader.getDemand(ship.getCargoList().keySet());
         for (Map.Entry<String, Integer> s : sales.entrySet()) {
-            int unitPrice = trader.getDemand().get(s.getKey());
+            int unitPrice = prices.get(s.getKey());
             int sumTotal = unitPrice * s.getValue();
             // trader loses money, player gains money
             // TODO: take money from the trader

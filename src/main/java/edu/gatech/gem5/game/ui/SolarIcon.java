@@ -12,10 +12,15 @@ import javafx.scene.layout.Region;
  */
 public class SolarIcon extends Region {
 
+    /**
+     * The image representing this icon.
+     */
     private ImageView image;
 
     /**
      * Construct and set the root of this custom control.
+     *
+     * @param sys The solar system this icon represents.
      */
     public SolarIcon(SolarSystem sys) {
         image = new ImageView(sys.getType().getSystemImage());

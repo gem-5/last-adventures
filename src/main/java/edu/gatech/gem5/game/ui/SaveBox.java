@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 public class SaveBox extends HBox {
 
     /**
-     * The name of the savebox
+     * The name of the savebox.
      */
     @FXML
     private Label name;
@@ -55,10 +55,10 @@ public class SaveBox extends HBox {
     /**
      * Set the path of the save game file.
      *
-     * @param path The path
+     * @param aPath The path
      */
-    public void setPath(String path) {
-        this.path = path;
+    public void setPath(String aPath) {
+        this.path = aPath;
     }
 
     /**

@@ -12,11 +12,16 @@ import java.util.Map;
  * @author  Jack Mueller
  */
 
-public class EventReader extends Reader<String, EventType> {
+public class EventReader extends AbstractReader<String, EventType> {
 
+    /**
+     * Construct the EventReader given the path.
+     * 
+     * @param path 
+     */
     public EventReader(String path) {
         super(path, new TypeToken<
-            Map<String, EventType>
-        >() {} .getType());
+            Map<String, EventType>>() {
+        } .getType());
     }
 }
