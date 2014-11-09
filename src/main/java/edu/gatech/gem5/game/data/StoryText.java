@@ -8,8 +8,14 @@ package edu.gatech.gem5.game.data;
 
 public class StoryText extends DataType {
 
+    /**
+     * The text of the Story.
+     */
     private String text;
 
+    /**
+     * They key used for accessing the StoryText class.
+     */
     public static final String KEY = "story";
 
     /**
@@ -22,7 +28,7 @@ public class StoryText extends DataType {
     }
 
     /**
-     * Get the text
+     * Get the text.
      *
      * @return the text
      */

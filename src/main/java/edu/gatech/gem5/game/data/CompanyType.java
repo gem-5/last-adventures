@@ -11,19 +11,58 @@ import java.util.Map;
 
 public class CompanyType extends DataType {
 
+    /**
+     * The name of the CompanyType.
+     */
     private String name;
+    /**
+     * The description of the CompanyType.
+     */
     private String description;
+    /**
+     * The list of goods sold by the CompanyType.
+     */
     private List<String> sells;
+    /**
+     * The list of ships sold by the CompanyType.
+     */
     private List<String> ships;
+    /**
+     * The list of shields sold by the CompanyType.
+     */
     private List<String> shields;
+    /**
+     * The list of weapons sold by the CompanyType.
+     */
     private List<String> weapons;
+    /**
+     * The min tech level of the CompanyType.
+     */
     private int minTech;
+    /**
+     * The max tech level of the CompanyType.
+     */
     private int maxTech;
+    /**
+     * The occurrence of the CompanyType.
+     */
     private double occurrence;
+    /**
+     * The wealth of the CompanyType.
+     */
     private double wealth;
+    /**
+     * The environments associated with the CompanyType.
+     */
     private Map<String, Double> environments;
+    /**
+     * The governments associated with the CompanyType.
+     */
     private Map<String, Double> governments;
 
+    /**
+     * The CompanyType's key, used for accessing CompanyTypes.
+     */
     public static final String KEY = "company";
 
     /**

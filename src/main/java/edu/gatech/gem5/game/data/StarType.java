@@ -11,20 +11,44 @@ import javafx.scene.image.Image;
 public class StarType extends DataType {
 
 
+    /**
+     * The Image name of the Star in Universe display.
+     */
     @SerializedName("universe_image")
     private String universeImage;
+    /**
+     * The Image name of the Star in Solar System display.
+     */
     @SerializedName("system_image")
     private String systemImage;
+    /**
+     * The array of planet probabilities.
+     */
     @SerializedName("planets")
     private double[] planetProbabilities;
+    /**
+     * The occurence probability of this StarType.
+     */
     @SerializedName("occurrence")
     private double occurrence;
+    /**
+     * The size of the StarType.
+     */
     @SerializedName("size")
     private double size;
 
+    /**
+     * Image of Star in Universe Display.
+     */
     private transient Image uniImgCache;
+    /**
+     * Image of Star in SolarSystem Display.
+     */
     private transient Image sysImgCache;
 
+    /**
+     * The Key of StarType, used for accessing StarTypes.
+     */
     public static final String KEY = "star";
 
     /**
@@ -52,7 +76,7 @@ public class StarType extends DataType {
     }
 
     /**
-     * Get the probability list of planets
+     * Get the probability list of planets.
      *
      * @return the probability list
      */

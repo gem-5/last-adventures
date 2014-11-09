@@ -11,20 +11,62 @@ import java.util.List;
 
 public class GovernmentType extends DataType {
 
+    /**
+     * The name of the GovernmentType.
+     */
     private String name;
+    /**
+     * The description of the GovernmentType.
+     */
     private String description;
+    /**
+     * The police rate of the GovernmentType.
+     */
     private double police;
+    /**
+     * The trader rate of the GovernmentType.
+     */
     private double traders;
+    /**
+     * The pirate rate of the GovernmentType.
+     */
     private double pirates;
+    /**
+     * The corruption rate of the GovernmentType.
+     */
     private double corruption;
+    /**
+     * The min tech level of the GovernmentType.
+     */
     private int minTech;
+    /**
+     * The max tech level of the GovernmentType.
+     */
     private int maxTech;
+    /**
+     * The wealth of the GovernmentType.
+     */
     private double wealth;
+    /**
+     * The demand map of the GovernmentType.
+     */
     private Map<String, Double> demand;
+    /**
+     * The supply map of the GovernmentType.
+     */
     private Map<String, Double> supply;
+    /**
+     * The forbidden goods list of the GovernmentType.
+     */
     private List<String> forbidden;
+    /**
+     * The occurence of the GovernmentType.
+     */
     private double occurrence;
 
+    /**
+     * The Key of the GovernmentType, used for accessing GovernmentTypes.
+     */
     public static final String KEY = "government";
 
     /**

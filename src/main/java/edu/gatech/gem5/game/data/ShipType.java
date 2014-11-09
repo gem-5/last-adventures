@@ -9,19 +9,58 @@ package edu.gatech.gem5.game.data;
 public class ShipType extends DataType {
 
     // List of all parameters given by the table in Project Description
+    /**
+     * The name of the ShipType.
+     */
     private String name;
+    /**
+     * The ship description.
+     */
     private String description;
+    /**
+     * The number of cargo slots of the ShipType.
+     */
     private int cargoBay;
+    /**
+     * The number of weapon slots of the ShipType.
+     */
     private int weaponSlots;
+    /**
+     * The number of shield slots of the ShipType.
+     */
     private int shieldSlots;
+    /**
+     * The number of gadget slots of the ShipType.
+     */
     private int gadgetSlots;
+    /**
+     * The number of crew slots of the ShipType.
+     */
     private int crew;
+    /**
+     * The maximum range of the ShipType.
+     */
     private int range;
+    /**
+     * The cost of fuel of the ShipType.
+     */
     private int fuelCost;
+    /**
+     * The price of the ShipType.
+     */
     private int price;
+    /**
+     * The bounty of the ShipType.
+     */
     private int bounty;
+    /**
+     * The hullstrength of the ShipType.
+     */
     private int hullStrength;
 
+    /**
+     * The key of the ShipType, used for accessing ShipTypes.
+     */
     public static final String KEY = "ship";
 
     /**
@@ -132,7 +171,7 @@ public class ShipType extends DataType {
     }
 
     /**
-     * Prints out a string representation of a Ship
+     * Prints out a string representation of a Ship.
      * @return a string representing the Ship
      */
     public String toString() {

@@ -9,13 +9,31 @@ import java.util.Map;
  */
 
 public class EnvironmentType extends DataType {
-    
+
+    /**
+     * The name of the EnvironmentType.
+     */
     private String name;
+    /**
+     * The supply of the EnvironmentType.
+     */
     private Map<String, Double> supply;
+    /**
+     * The demand of the EnvironmentType.
+     */
     private Map<String, Double> demand;
+    /**
+     * The occurrence of the EnvironmentType.
+     */
     private double occurrence;
+    /**
+     * The wealth of the EnvironmentType.
+     */
     private double wealth;
 
+    /**
+     * The EnviromentType's key, used for accessing EnvironmentTypes.
+     */
     public static final String KEY = "environment";
 
     /**

@@ -10,12 +10,33 @@ import java.util.Objects;
 
 public class GoodType extends DataType implements Comparable {
 
+    /**
+     * The key of the GoodType, used for recognition.
+     */
     private String key;
+    /**
+     * The name of the GoodType.
+     */
     private String name;
+    /**
+     * The value of the GoodType.
+     */
     private int value;
+    /**
+     * The min stock a planet will have of the GoodType.
+     */
     private int minStock;
+    /**
+     * The max stock a planet will have of the GoodType.
+     */
     private int maxStock;
+    /**
+     * The legality of the GoodType.
+     */
     private boolean legal;
+    /**
+     * The Key of the GoodType, used for accessing GoodTypes.
+     */
 
     public static final String KEY = "good";
 
@@ -73,8 +94,8 @@ public class GoodType extends DataType implements Comparable {
     }
 
     /**
-     * An GoodType is sorted in alphabetical order
-     * 
+     * An GoodType is sorted in alphabetical order.
+     *
      * @param o the other object
      * @return A negative, zero, or positive integer
      */
@@ -82,13 +103,13 @@ public class GoodType extends DataType implements Comparable {
     public int compareTo(Object o) {
         return this.getName().compareTo(((GoodType) o).getName());
     }
-    
+
     @Override
     public boolean equals(Object o) {
-        if(this == o) {
+        if (this == o) {
             return true;
         } else if (!(o instanceof GoodType) ) {
-                return false;
+            return false;
         }
         return getName().equals(((GoodType) o).getName());
     }

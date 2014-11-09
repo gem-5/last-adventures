@@ -8,17 +8,38 @@ package edu.gatech.gem5.game.data;
 
 public class ShieldType extends DataType {
 
+    /**
+     * The Key used for accessing info of the ShieldType.
+     */
     private String key;
+    /**
+     * The name of the ShieldType.
+     */
     private String name = "";
+    /**
+     * The description of the ShieldType.
+     */
     private String description = "";
+    /**
+     * The price of the ShieldType.
+     */
     private int price;
+    /**
+     * The defense factor of the ShieldType.
+     */
     private double factor;
+    /**
+     * The integrity of the ShieldType.
+     */
     private int integrity;
 
+    /**
+     * The Key of the ShieldType, used for accessing ShieldType information.
+     */
     public static final String KEY = "shield";
 
     /**
-     * Get the key of this shield type
+     * Get the key of this shield type.
      * @return the key
      */
     public String getKey() {

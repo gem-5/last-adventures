@@ -10,12 +10,30 @@ import java.util.Map;
 
 public class TechType extends DataType {
 
+    /**
+     * The TechType's name, used for human identification.
+     */
     private String name;
+    /**
+     * The TechType's rank, used for determining the tech level of a planet.
+     */
     private int rank;
+    /**
+     * The TechType's occurrence, used for determining the occurrence of the tech level.
+     */
     private double occurrence;
+    /**
+     * The TechType's wealth, used for determining the Planet wealth associated with the TechType.
+     */
     private double wealth;
+    /**
+     * The TechType's String, used for determining which governments are associated with this TechType.
+     */
     private Map<String, Double> governments;
 
+    /**
+     * The key used for accessing TechType information.
+     */
     public static final String KEY = "tech";
 
     /**

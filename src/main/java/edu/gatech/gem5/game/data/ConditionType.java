@@ -10,11 +10,26 @@ import java.util.Map;
 
 public class ConditionType extends DataType {
 
+    /**
+     * The name of the ConditionType.
+     */
     private String name;
+    /**
+     * The demand of the ConditionType.
+     */
     private Map<String, Double> demand;
+    /**
+     * The supply of the ConditionType.
+     */
     private Map<String, Double> supply;
+    /**
+     * The occurrence of the ConditionType.
+     */
     private double occurrence;
 
+    /**
+     * The ConditionType's key, used for accessing ConditionTypes.
+     */
     public static final String KEY = "condition";
 
     /**

@@ -11,16 +11,34 @@ import java.util.Map;
 
 public class GadgetType {
 
+    /**
+     * The key of the GadgetType, used for recognition.
+     */
     private String key;
+    /**
+     * The name of the GadgetType.
+     */
     private String name;
+    /**
+     * The description of the GadgetType.
+     */
     private String description;
+    /**
+     * The price of the GadgetType.
+     */
     private int price;
+    /**
+     * The awarded bonus of the GadgetType.
+     */
     private Map<String, Double> bonus;
 
+    /**
+     * The GadgetType key, used for accessing GadgetTypes.
+     */
     public static final String KEY = "gadget";
 
     /**
-     * Get the key of this gadget
+     * Get the key of this gadget.
      * @return the key
      */
     public String getKey() {
@@ -44,6 +62,10 @@ public class GadgetType {
         return this.description;
     }
 
+    /**
+     * Get the price of this gadget.
+     * @return the price
+     */
     public int getPrice() {
         return this.price;
     }
