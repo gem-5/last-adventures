@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class GadgetReader extends AbstractReader<String, GadgetType> {
 
+    /**
+     * Construct the GadgetReader given the path.
+     * 
+     * @param path 
+     */
     public GadgetReader(String path) {
         super(path, new TypeToken<
             Map<String, GadgetType>>() {

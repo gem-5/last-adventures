@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class WeaponReader extends AbstractReader<String, WeaponType> {
 
+    /**
+     * Construct a WeaponReader given the path.
+     * 
+     * @param path 
+     */
     public WeaponReader(String path) {
         super(path, new TypeToken<
             Map<String, WeaponType>>() {
