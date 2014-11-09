@@ -5,7 +5,7 @@ import edu.gatech.gem5.game.SolarSystem;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.ui.UniverseDisplay;
-import edu.gatech.gem5.game.ui.ExplorableDisplay;
+import edu.gatech.gem5.game.ui.AbstractExplorableDisplay;
 import edu.gatech.gem5.game.ui.StarIcon;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +30,7 @@ public class DisplayUniverseController extends Controller {
     @FXML
     TextField errorLabel;
 
-    private final ExplorableDisplay map;
+    private final AbstractExplorableDisplay map;
     private final UpdateListener updateListener;
 
     public static final String UNIVERSE_VIEW_FILE = "/fxml/travel.fxml";

@@ -17,10 +17,13 @@ import javafx.scene.input.MouseEvent;
  */
 public class HoverBox extends PopupWindow {
 
+    /**
+     * The root pane of the popup.
+     */
     private Pane root;
 
     /**
-     * No arg constructor
+     * No arg constructor.
      */
     public HoverBox() {
         try {
@@ -59,25 +62,39 @@ public class HoverBox extends PopupWindow {
     }
 
      /**
-     * An event handler for showing and hiding a hover box
+     * An event handler for showing and hiding a hover box.
      *
      * @author Creston Bunch
      */
-    public class HoverHandler implements EventHandler<MouseEvent> {
+    private class HoverHandler implements EventHandler<MouseEvent> {
 
+        /**
+         * The node being activated.
+         */
         private Node node;
+        /**
+         * The x offset from the mouse cursor.
+         */
         private static final int OFFSET_X = 10;
+        /**
+         * The y offset from the mouse cursor.
+         */
         private static final int OFFSET_Y = 10;
 
         /**
          * Construct the handler with a box to show.
          *
-         * @param box The box to show.
+         * @param n The node to bind this handler to.
          */
         public HoverHandler(Node n) {
             this.node = n;
         }
 
+        /**
+         * Show the hovermox on a mouseover event.
+         *
+         * @param e A mouse event.
+         */
         @Override
         public void handle(MouseEvent e) {
             if (e.getEventType() == MouseEvent.MOUSE_ENTERED) {

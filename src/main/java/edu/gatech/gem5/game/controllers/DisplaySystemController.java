@@ -7,7 +7,7 @@ import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.EncounterManager;
 import edu.gatech.gem5.game.Turn;
 import edu.gatech.gem5.game.ui.SolarSystemDisplay;
-import edu.gatech.gem5.game.ui.ExplorableDisplay;
+import edu.gatech.gem5.game.ui.AbstractExplorableDisplay;
 import edu.gatech.gem5.game.ui.SolarIcon;
 import edu.gatech.gem5.game.ui.PlanetIcon;
 import javafx.fxml.FXML;
@@ -29,7 +29,7 @@ import javafx.beans.value.ObservableValue;
 public class DisplaySystemController extends Controller {
 
     private SolarSystem peek;
-    private ExplorableDisplay map;
+    private AbstractExplorableDisplay map;
     private UpdateListener updateListener;
 
     @FXML

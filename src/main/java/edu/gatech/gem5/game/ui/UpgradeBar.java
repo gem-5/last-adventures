@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
 /**
- * BuyBar custom FXML element controller class
+ * BuyBar custom FXML element controller class.
  *
  * @author Creston Bunch
  * @author James Park
@@ -18,10 +18,19 @@ import javafx.scene.layout.HBox;
 public class UpgradeBar extends HBox {
 
 
+    /**
+     * The label showing the item name.
+     */
     @FXML
     private Label lblItem;
+    /**
+     * The label showing the price of the item.
+     */
     @FXML
     private Label lblPrice;
+    /**
+     * The button for the user to press.
+     */
     @FXML
     private Button btnUpgrade;
 
@@ -44,7 +53,8 @@ public class UpgradeBar extends HBox {
 
     /**
      * Adds an event when a button is pressed.
-     * @param h 
+     *
+     * @param h Set what to do when the button is clicked.
      */
     public void setOnAction(EventHandler<ActionEvent> h) {
         btnUpgrade.setOnAction(h);

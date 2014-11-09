@@ -7,7 +7,7 @@ import javafx.scene.Node;
  *
  * @author Creston Bunch
  */
-public class SolarSystemDisplay extends ExplorableDisplay {
+public class SolarSystemDisplay extends AbstractExplorableDisplay {
 
     /**
      * Construct and set the root of this custom control.

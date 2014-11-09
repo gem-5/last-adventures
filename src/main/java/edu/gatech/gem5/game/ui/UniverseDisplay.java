@@ -11,7 +11,7 @@ import edu.gatech.gem5.game.Ship;
  *
  * @author Creston Bunch
  */
-public class UniverseDisplay extends ExplorableDisplay {
+public class UniverseDisplay extends AbstractExplorableDisplay {
 
     /**
      * The x location of the player.
