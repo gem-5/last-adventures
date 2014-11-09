@@ -243,7 +243,7 @@ public class Ship {
         for (Map.Entry<String, Integer> kv: this.cargoList.entrySet()) {
             String goodName =
                 Data.GOODS.get(kv.getKey()).getName();
-            result.append(String.format(delim + "  %d", goodName, kv.getValue())); 
+            result.append(String.format(delim + "  %d", goodName, kv.getValue()));
         }
         result.append("\n Weapons:");
         for (WeaponType w: getWeaponList()) {
