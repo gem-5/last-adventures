@@ -1,9 +1,6 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Data;
-import edu.gatech.gem5.game.Planet;
-import edu.gatech.gem5.game.Shield;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.WeaponType;
@@ -14,27 +11,46 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 /**
+ * A controller class for Dock. Features upgrading ship's weapons and shields.
  *
- * @author James Park
+ * @author James Jong Han Park
  */
 public class DockController extends Controller {
 
+    /**
+     * An error message to show if any error occurs.
+     */
     @FXML
     private Label errorLabel;
+    /**
+     * A balance label to show player's current balance.
+     */
     @FXML
     private Label lblCash;
+    /**
+     * A label to show interacting player's ship information.
+     */
     @FXML
     private Label shipInfo;
+    /**
+     * List of UpgradeBars which presents and handles available upgrades to the
+     * player.
+     */
     @FXML
     private ListView<UpgradeBar> buyUpgradeBarList;
 
+    /**
+     * An FXML file that is directly associated with this class.
+     */
     public static final String SHIPYARD_VIEW_FILE = "/fxml/dock.fxml";
 
+    /**
+     * Constructor for DockController.
+     */
     public DockController() {
         super(SHIPYARD_VIEW_FILE);
 

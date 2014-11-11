@@ -1,12 +1,8 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.LastAdventures;
-import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Universe;
-import edu.gatech.gem5.game.SolarSystem;
-import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.readers.ShipReader;
 import edu.gatech.gem5.game.ui.Incrementor;
@@ -21,42 +17,80 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
- * FXML Controller class
+ * FXML Controller class.
  *
  * @author James Jong Han Park
  * @author Jack
  */
 public class CharacterCreateController extends Controller {
 
+    /**
+     * Text field for character name.
+     */
     @FXML
     TextField txtName;
+    /**
+     * Incrementor for player's pilot skill points (See Incrementor class for
+     * more details). It can also have a decrementing feature.
+     */
     @FXML
     Incrementor incPilot;
+    /**
+     * Incrementor for player's fighter skill points.
+     */
     @FXML
     Incrementor incFighter;
+    /**
+     * Incrementor for player's trader skill points.
+     */
     @FXML
     Incrementor incTrader;
+    /**
+     * Incrementor for player's engineer skill points.
+     */
     @FXML
     Incrementor incEngineer;
+    /**
+     * Incrementor for player's investor skill points.
+     */
     @FXML
     Incrementor incInvestor;
 
+    /**
+     * Label to show currently available skill points for the interacting
+     * player.
+     */
     @FXML
     Label lblSkillPoints;
+    /**
+     * Error label used for showing error messages to the interacting player.
+     */
     @FXML
     Label lblError;
-
+    /**
+     * Property for player's skill points.
+     */
     private IntegerProperty skillPoints;
-
+    /**
+     * FXML file that is directly associated with this class.
+     */
     public static final String CREATE_VIEW_FILE = "/fxml/create.fxml";
+
+    /**
+     * Default ship for the player.
+     */
     public static final String DEFAULT_SHIP = "vagabond";
+    /**
+     * Maximum character name length.
+     */
     public static final int MAX_NAME_LENGTH = 8;
+    /**
+     * Starting skill points.
+     */
     public static final int SKILL_POINTS = 20;
 
     /**
      * Initialize the character creation controller.
-     *
-     * @param sm The state manager.
      */
     public CharacterCreateController() {
         super(CREATE_VIEW_FILE);
@@ -91,8 +125,8 @@ public class CharacterCreateController extends Controller {
         txtName.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> obs,
-                               String oldValue,
-                               String newValue) {
+                    String oldValue,
+                    String newValue) {
                 if (newValue.length() > MAX_NAME_LENGTH) {
                     txtName.setText(oldValue);
                 }
@@ -123,18 +157,18 @@ public class CharacterCreateController extends Controller {
         ShipType defaultShipType = new ShipReader().get(DEFAULT_SHIP);
         this.universe = new Universe();
         this.player = new Character(
-            name,
-            incPilot.getValue(),
-            incFighter.getValue(),
-            incTrader.getValue(),
-            incEngineer.getValue(),
-            incInvestor.getValue(),
-            new Ship(defaultShipType)
+                name,
+                incPilot.getValue(),
+                incFighter.getValue(),
+                incTrader.getValue(),
+                incEngineer.getValue(),
+                incInvestor.getValue(),
+                new Ship(defaultShipType)
         );
         this.system = universe.getSolarSystemNear(
-            universe,
-            universe.getWidth() / 2,
-            universe.getHeight() / 2
+                universe,
+                universe.getWidth() / 2,
+                universe.getHeight() / 2
         );
         this.planet = system.getPlanetAt(0);
 
@@ -145,10 +179,8 @@ public class CharacterCreateController extends Controller {
     /**
      * Go back to the title screen.
      *
-     * @param event
-     *            a button press
-     * @throws Exception
-     *             propagates any JavaFX Exception
+     * @param event a button press
+     * @throws Exception propagates any JavaFX Exception
      */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
@@ -161,14 +193,15 @@ public class CharacterCreateController extends Controller {
      * @author Creston Bunch
      */
     private class SkillPointListener implements ChangeListener<Number> {
+
         @Override
         public void changed(ObservableValue<? extends Number> obs,
-                            Number oldValue,
-                            Number newValue) {
+                Number oldValue,
+                Number newValue) {
             skillPoints.setValue(
-                skillPoints.getValue() -
-                newValue.intValue() +
-                oldValue.intValue()
+                    skillPoints.getValue()
+                    - newValue.intValue()
+                    + oldValue.intValue()
             );
         }
     }

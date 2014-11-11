@@ -1,11 +1,9 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Encounterable;
-import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.AbstractNPC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
@@ -15,17 +13,28 @@ import javafx.scene.text.Text;
  * Shows encounter during flight
  *
  * @author Sam Blumenthal
+ * @author James Jong Han Park
  */
 public class EncounterController extends Controller {
 
+    /**
+     * A continue button for a new planet.
+     */
     @FXML
     Button cont;
 
+    /**
+     * The NPC that the Character has encountered.
+     */
     protected Encounterable encounter;
-
+    /**
+     * A message that is shown to the user.
+     */
     @FXML
     Text dialog;
-
+    /**
+     * An attack button for combat.
+     */
     @FXML
     Button attack;
 
@@ -56,6 +65,12 @@ public class EncounterController extends Controller {
 
     }
 
+    /**
+     * Continue to the new combat screen.
+     *
+     * @param event a button press
+     * @throws Exception propogates JavaFX exceptions
+     */
     public void attackEnemy(ActionEvent event) throws Exception {
         transitionTo(new CombatController(player, (AbstractNPC) encounter));
     }

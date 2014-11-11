@@ -10,32 +10,51 @@ import javafx.scene.text.Text;
 import java.util.Random;
 
 /**
- * FXML Controller Class
+ * FXML Controller Class.
  *
  * Shows trader encounter during flight
  *
  * @author Sam Blumenthal
+ * @author James Jong Han Park
  */
 public class CombatController extends Controller {
 
+    /**
+     * Button for attacking an enemy.
+     */
     @FXML
     Button attack;
+    /**
+     * Button for fleeing an enemy.
+     */
     @FXML
     Button flee;
-
+    /**
+     * Continue button after an enemy has been defeated.
+     */
     @FXML
     Button cont;
 
+    /**
+     * Current interacting player.
+     */
     Character player;
+    /**
+     * An encountered enemy by the interacting player.
+     */
     AbstractNPC enemy;
-
+    /**
+     * A message that is shown after winning a battle.
+     */
     @FXML
     Text dialog;
-
+    /**
+     * An FXML file that is directly associated with this class.
+     */
     public static final String COMBAT_VIEW_FILE = "/fxml/combat.fxml";
 
     /**
-     * Construct the combat controller
+     * Construct the combat controller.
      *
      * @param p the Character involved in combat
      * @param e the enemy NPC involved in combat
@@ -49,19 +68,19 @@ public class CombatController extends Controller {
 
         enactCombat();
     }
-
+    
     public void attackEnemy(ActionEvent event) throws Exception {
         enactCombat();
     }
 
     public void flee(ActionEvent event) throws Exception {
         //TODO functionality
-        
+
         /*if (fleeAttempt(player, enemy)) {
-            // player flees battle
-        } else {
-            // player fails, enemy attacks during the attempt
-        }*/
+         // player flees battle
+         } else {
+         // player fails, enemy attacks during the attempt
+         }*/
     }
 
     private void enactCombat() {

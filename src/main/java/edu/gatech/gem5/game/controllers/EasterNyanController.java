@@ -23,9 +23,19 @@ import javafx.util.Duration;
  */
 public class EasterNyanController implements Initializable {
 
+    /**
+     * FXML's root AnchorPane link.
+     */
     @FXML
     AnchorPane root;
 
+    /**
+     * Initializes Nyan easter egg.
+     *
+     * @param url The location to resolve all relative paths for the root
+     * object.
+     * @param rb The resources used to localize the root object.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

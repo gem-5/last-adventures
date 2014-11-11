@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Character;
@@ -21,13 +20,29 @@ import edu.gatech.gem5.game.Planet;
  * An abstract class that all controllers must inherit from.
  *
  * @author Creston Bunch
+ * @author James Jong Han Park
  */
 public abstract class Controller implements Initializable {
 
+    /**
+     * A root object.
+     */
     protected Parent root;
+    /**
+     * A Universe object that is used in other classes.
+     */
     protected static Universe universe;
+    /**
+     * A Player object that is used in other classes.
+     */
     protected static Character player;
+    /**
+     * A SolarSystem object that is used in other classes.
+     */
     protected static SolarSystem system;
+    /**
+     * A Planet object that is used in other classes.
+     */
     protected static Planet planet;
 
     /**
@@ -38,7 +53,7 @@ public abstract class Controller implements Initializable {
     public Controller(String file) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                Controller.class.getResource(file)
+                    Controller.class.getResource(file)
             );
 
             loader.setController(this);
@@ -77,7 +92,7 @@ public abstract class Controller implements Initializable {
     }
 
     /**
-     * Transition to a new Controller
+     * Transition to a new Controller.
      *
      * @param c The new Controller to load.
      */

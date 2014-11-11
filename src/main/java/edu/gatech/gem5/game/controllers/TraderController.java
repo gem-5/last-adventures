@@ -8,16 +8,13 @@ import javafx.scene.control.Label;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
-import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Data;
-import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Trader;
 import edu.gatech.gem5.game.ui.BuyBar;
 import edu.gatech.gem5.game.data.GoodType;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -51,6 +48,7 @@ public class TraderController extends Controller {
 
     /**
      * Construct the trader controller.
+     *
      * @param trader
      */
     public TraderController(Trader trader) {
