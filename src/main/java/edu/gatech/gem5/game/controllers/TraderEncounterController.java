@@ -27,20 +27,18 @@ public class TraderEncounterController extends EncounterController {
      * 
      * @param encounter The type of encounter
      */
-    // public static final String TRADER_VIEW_FILE = "/fxml/traderencounter.fxml";
     public TraderEncounterController(Encounterable encounter) {
         super(encounter);
     }
 
     /**
      * Transitions the screen to one where the player can trade with a trader.
-     * 
-     * @param event
-     * @throws Exception
+     *
+     * @param event The type of event
+     * @throws Exception 
      */
     @FXML
     public void tradeWithTrader(ActionEvent event) throws Exception {
-        // LastAdventures.swap(new TraderController((Trader) encounter));
         transitionTo(new TraderController((Trader) encounter));
     }
 
