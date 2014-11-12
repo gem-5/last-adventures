@@ -31,19 +31,19 @@ public abstract class AbstractController implements Initializable {
     /**
      * A Universe object that is used in other classes.
      */
-    protected static Universe universe;
+    static Universe universe;
     /**
      * A Player object that is used in other classes.
      */
-    protected static Character player;
+    static Character player;
     /**
      * A SolarSystem object that is used in other classes.
      */
-    protected static SolarSystem system;
+    static SolarSystem system;
     /**
      * A Planet object that is used in other classes.
      */
-    protected static Planet planet;
+    static Planet planet;
 
     /**
      * Base constructor that loads the view from an FXML file.

@@ -54,7 +54,7 @@ public class Ship {
      * An array of mercenaries that can override the ship captain's (the
      * player's) skill points for their calculations.
      */
-    private Mercenary[] crewList;
+    //private Mercenary[] crewList;
 
     /**
      * Construct the ship from a given ship type.
@@ -68,7 +68,7 @@ public class Ship {
         this.weaponList = new ArrayList<>(t.getWeaponSlots());
         this.shieldList = new ArrayList<>(t.getShieldSlots());
         this.gadgetList = new ArrayList<>(t.getGadgetSlots());
-        this.crewList = new Mercenary[t.getCrewSlots()];
+        //this.crewList = new Mercenary[t.getCrewSlots()];
         this.health = (double) t.getHullStrength();
     }
 

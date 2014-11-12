@@ -65,13 +65,13 @@ public class TraderController extends AbstractController {
     /**
      * Construct the trader controller.
      *
-     * @param trader 
+     * @param t 
      */
-    public TraderController(Trader trader) {
+    public TraderController(Trader t) {
         // load the view or throw an exception
         super(MARKET_VIEW_FILE);
 
-        this.trader = trader;
+        this.trader = t;
 
         fillLabels();
         buildBuyGoodsList();
@@ -156,9 +156,7 @@ public class TraderController extends AbstractController {
     private void fillLabels() {
         this.lblCash.setText(((Integer) player.getMoney()).toString());
         Ship s = player.getShip();
-        this.lblSlots.setText(
-                Integer.toString(s.getOpenBays())
-        );
+        this.lblSlots.setText(Integer.toString(s.getOpenBays()));
         errorLabel.setText("");
     }
 

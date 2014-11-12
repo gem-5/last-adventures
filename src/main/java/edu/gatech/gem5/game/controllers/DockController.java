@@ -80,7 +80,7 @@ public class DockController extends AbstractController {
      * a purchase has been made.
      */
     private void fillLabels() {
-        this.lblCash.setText(((Integer) player.getMoney()).toString());
+        this.lblCash.setText(Integer.toString(player.getMoney()));
 
         // Pull the ship's information
         Ship s = player.getShip();

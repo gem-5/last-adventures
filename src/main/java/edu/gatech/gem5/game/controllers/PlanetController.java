@@ -160,15 +160,14 @@ public class PlanetController extends AbstractController {
                 // LastAdventures.swap(new DockController());
                 transitionTo(new DockController());
                 break;
-            default: break;
+            default:
+                break;
         }
     }
 
     /**
      * Saves the game.
      *
-     * @param event pressing the save button
-     * @throws Exception exception with javafx
      */
     @FXML
     private void save() {
@@ -190,10 +189,11 @@ public class PlanetController extends AbstractController {
     @FXML
     private void quit() {
         if (!btnSave.disabledProperty().get()) {
+            String warning = "Warning";
             Action response = Dialogs.create()
                     .owner(root)
-                    .title("Warning")
-                    .masthead("Warning")
+                    .title(warning)
+                    .masthead(warning)
                     .message("Save before quiting?")
                     .showConfirm();
             if (response == Dialog.ACTION_YES) {
@@ -214,15 +214,14 @@ public class PlanetController extends AbstractController {
     private void saveAndQuit() {
         save();
         quit();
-    }
-
-    @FXML
-    /**
-     * Max out the fuel in your ship.
-     *
+    }    
+    
+    /**Max out the fuel in your ship.
+     * 
      * @param event A button press attempting to refuel
-     * @throws Exception
+     * @throws Exception from javafx
      */
+    @FXML
     public void refuel(ActionEvent event) throws Exception {
         if (player.refuel()) {
             refuelButton.setText("Refuel 0");

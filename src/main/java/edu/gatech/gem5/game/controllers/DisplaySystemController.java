@@ -105,7 +105,7 @@ public class DisplaySystemController extends AbstractController {
             int y = (int) Math.round(Math.sin(theta) * r);
             // create the visual planet representation
             PlanetIcon p = new PlanetIcon(s);
-            p.setOnMouseClicked(new TravelHandler(peek, i));
+            p.setOnMouseClicked(new TravelHandler(i));
 
             // add it to the map
             map.addNode(x, y, p);
@@ -164,21 +164,15 @@ public class DisplaySystemController extends AbstractController {
     private class TravelHandler implements EventHandler<MouseEvent> {
 
         /**
-         * The solar system being peeked at in the controller.
-         */
-        private SolarSystem sys;
-        /**
          * The index of the planet that was picked in the SolarSystem.
          */
         private int p;
 
         /**
          * 
-         * @param s the solar system being traveled in
          * @param index the index of the planet that was clicked in sys
          */
-        public TravelHandler(SolarSystem s, int index) {
-            this.sys = s;
+        public TravelHandler( int index) {
             this.p = index;
         }
 
