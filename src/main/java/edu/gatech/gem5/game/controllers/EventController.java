@@ -47,13 +47,13 @@ public class EventController extends AbstractController {
 
     /**
      * Parameter for EventController.
-     * @param event An event object
+     * @param e An event object
      */
-    public EventController(Event event) {
+    public EventController(Event e) {
         super(RANDOM_EVENT_FILE);
-        this.event = event;
-        title.setText(event.getTitle());
-        message.setText(event.getEncounterMessage());
+        this.event = e;
+        title.setText(e.getTitle());
+        message.setText(e.getEncounterMessage());
     }
 
     /**

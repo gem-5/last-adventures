@@ -23,28 +23,62 @@ import org.controlsfx.dialog.Dialogs;
  */
 public class PlanetController extends AbstractController {
 
+    /**
+     * Title of the planet.
+     */
     @FXML
     private Label title;
 
+    /**
+     * Shows a list of companies for this planet.
+     */
     @FXML
     private Label lblCompanies;
+    /**
+     * Shows the environment of this planet.
+     */
     @FXML
     private Label lblEnvironment;
+    /**
+     * Shows the government of this planet.
+     */
     @FXML
     private Label lblGovernment;
+    /**
+     * Shows the tech level of this planet.
+     */
     @FXML
     private Label lblTechnology;
+    /**
+     * Shows the current condition of this planet.
+     */
     @FXML
     private Label lblCondition;
+    /**
+     * The button for saving, once clicked, it becomes disabled until the next
+     * PlantController.
+     */
     @FXML
     private Button btnSave;
+    /**
+     * The button to refuel the ship which also shows how much that would cost.
+     */
     @FXML
     private Button refuelButton;
+    /**
+     * A button to go to the shipyard, disabled if there are no ships.
+     */
     @FXML
     private Button shipyard;
+    /**
+     * A button to go to the dock, disabled if there are not upgrades.
+     */
     @FXML
     private Button dock;
 
+    /**
+     * The fxml view file associated with this controller.
+     */
     public static final String PLANET_VIEW_FILE = "/fxml/planet.fxml";
 
     /**
@@ -86,6 +120,11 @@ public class PlanetController extends AbstractController {
         });
     }
 
+    /**
+     * 
+     * @return a formatted string containing the names of all the companies
+     * on this planet.
+     */
     private String buildCompanyString() {
         StringBuilder companies = new StringBuilder();
         for (CompanyType c : planet.getCompanies()) {
