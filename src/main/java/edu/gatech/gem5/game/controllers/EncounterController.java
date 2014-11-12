@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 /**
- * FXML Controller Class
+ * FXML Controller Class.
  *
  * Shows encounter during flight
  *
@@ -42,13 +42,13 @@ public class EncounterController extends Controller {
     /**
      * Construct the encounter controller.
      *
-     * @param encounter the NPC that the Character has encountered.
+     * @param e the NPC that the Character has encountered.
      */
-    public EncounterController(Encounterable encounter) {
+    public EncounterController(Encounterable e) {
         // load the view or throw an exception
-        super(encounter.getViewFile());
-        this.encounter = encounter;
-        String msg = encounter.getEncounterMessage();
+        super(e.getViewFile());
+        this.encounter = e;
+        String msg = e.getEncounterMessage();
         dialog.setText(msg);
     }
 

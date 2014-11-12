@@ -17,7 +17,7 @@ import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 
 /**
- * Nyan Cat Easter Egg
+ * Nyan Cat Easter Egg.
  *
  * @author James Jong Han Park
  */
@@ -62,47 +62,47 @@ public class EasterNyanController implements Initializable {
                     new KeyFrame(Duration.ZERO,
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(1000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(2000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(3000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(4000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(5000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(6000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(7000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(8000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(9000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    ),
+                ),
                     new KeyFrame(new Duration(10000),
                             new KeyValue(nyans.translateXProperty(), r.nextInt(640 + 640 + 1) - 640),
                             new KeyValue(nyans.translateYProperty(), r.nextInt(360 + 360 + 1) - 360)
-                    )
+                )
             );
         }
         timeline.setAutoReverse(true);

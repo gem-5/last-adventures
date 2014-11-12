@@ -27,6 +27,13 @@ public class DockController extends Controller {
     @FXML
     private Label errorLabel;
     /**
+     * This string didn't pass checkstyle because it was identical when used in
+     * the weapon/shield/gadget buyhandlers. This can be fixed by giving
+     * weapon/shield/gadget a common interface or superclass.
+     */
+    String moneyError = "You don't have enough money.";
+    
+    /**
      * A balance label to show player's current balance.
      */
     @FXML
@@ -68,6 +75,10 @@ public class DockController extends Controller {
         transitionTo(new PlanetController());
     }
 
+    /**
+     * Fills the changeable labels on the screen with their new values once 
+     * a purchase has been made.
+     */
     private void fillLabels() {
         this.lblCash.setText(((Integer) player.getMoney()).toString());
 
@@ -80,6 +91,11 @@ public class DockController extends Controller {
     }
 
     // TODO Prevent players from purchasing, when slots are full.
+    /**
+     * Populates the buyUpgradeBarList member with the upgrades on the planet.
+     * The upgrades on a planet are determined by the companies that are on the
+     * planet.
+     */
     private void buildBuyUpgradesList() {
 
         ObservableList<UpgradeBar> upgradeItemsList = FXCollections.observableArrayList();
@@ -127,10 +143,17 @@ public class DockController extends Controller {
      */
     private class BuyWeaponHandler implements EventHandler<ActionEvent> {
 
+        /**
+         * The flyweight for the weapon that is being bought.
+         */
         private final WeaponType weaponType;
-
-        public BuyWeaponHandler(WeaponType weaponType) {
-            this.weaponType = weaponType;
+        
+        /**
+         * 
+         * @param wT the weapon type chosen by the user 
+         */
+        public BuyWeaponHandler(WeaponType wT) {
+            this.weaponType = wT;
         }
 
         /**
@@ -145,7 +168,8 @@ public class DockController extends Controller {
 
             // Check for player money count (edge case)
             if (player.getMoney() < weaponType.getPrice()) {
-                errorLabel.setText("You don't have enough money.");
+
+                errorLabel.setText(moneyError);
                 return;
             }
 
@@ -166,10 +190,17 @@ public class DockController extends Controller {
      */
     private class BuyShieldHandler implements EventHandler<ActionEvent> {
 
+        /**
+         * The flyweight for the shield that is being bought.
+         */
         private final ShieldType shieldType;
 
-        public BuyShieldHandler(ShieldType shieldType) {
-            this.shieldType = shieldType;
+        /**
+         * 
+         * @param sT the shieldType chosen by the user
+         */
+        public BuyShieldHandler(ShieldType sT) {
+            this.shieldType = sT;
         }
 
         /**
@@ -184,7 +215,7 @@ public class DockController extends Controller {
 
             // Check for player money count (edge case)
             if (player.getMoney() < shieldType.getPrice()) {
-                errorLabel.setText("You don't have enough money.");
+                errorLabel.setText(moneyError);
                 return;
             }
 
