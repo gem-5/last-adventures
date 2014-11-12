@@ -8,6 +8,7 @@ import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.readers.GoodReader;
 import edu.gatech.gem5.game.readers.ShipReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -63,10 +64,14 @@ public class TransactionTest {
         //an empty ship
         Ship empty = new Ship(type);
         ships.put("empty", empty);
+        
+        //an empty ship with > 40 chargo slots for buying out a planet
+        Ship largeEmpty = new Ship(shipTypes.get("tester3"));
+        ships.put("largeEmpty", largeEmpty);
 
         //a full ship
         Ship full = new Ship(shipTypes.get("tester"));
-        full.addCargo("water", full.getOpenBays());
+        full.addCargo("water", 10);
         ships.put("full", full);
 
         //a ship that can still buy things, one more cargo bay open
@@ -75,12 +80,14 @@ public class TransactionTest {
         ships.put("fullButOne", fullButOne);
 
         partners = new HashMap<>();
-        Planet p = new Planet("0ne", 1);
-        Traderable dummy = new Planet("one", 1);
+        List<String> comp = new ArrayList<>();
+        comp.add("terraceco"); //terraceco guarentees food/water
+        Planet p = new Planet("0ne", 1, comp);
+        Traderable generalTrader = new Planet("one", 1, comp);
         p.getSupply();
-        dummy.getStock();
+        generalTrader.getStock();
 
-        partners.put("dummy", dummy);
+        partners.put("generalTrader", generalTrader);
         p.getStock();
         //p.get
     }
@@ -104,14 +111,46 @@ public class TransactionTest {
     public void testValidateBuy() {
         System.out.println("validateBuy");
 
-        //Happy Path, reaches the end
+        //Happy Path, reaches the end -- teturns true
         Map<String, Integer> purchases = new HashMap<>();
         purchases.put("water", 1);
-        player.setShip(ships.get("empty"));
-        Traderable partner = partners.get("dummy");
+        player.setShip(ships.get("empty")); //plenty of chargo slots
+        player.setMoney(100000); //plenty of money for 1 water
+        Traderable partner = partners.get("generalTrader"); //has water
         Transaction instance = new Transaction(player, partner);
         boolean result = instance.validateBuy(purchases);
         assertTrue(result);
+        
+        //Not enough money -- returns false
+        purchases = new HashMap<>();
+        purchases.put("water", 1);
+        player.setShip(ships.get("empty")); //plenty of space
+        player.setMoney(0); //not enough money 
+        partner = partners.get("generalTrader");
+        instance = new Transaction(player, partner);
+        result = instance.validateBuy(purchases);
+        assertFalse(result);
+        
+        //Not enough cargo slots -- returns false
+        purchases = new HashMap<>();
+        purchases.put("water", 10);
+        Ship asdf = ships.get("full");
+        player.setShip(asdf); //no more space
+        player.setMoney(100000); //plenty of money
+        partner = partners.get("generalTrader");
+        instance = new Transaction(player, partner);
+        result = instance.validateBuy(purchases);
+        assertFalse(result);
+        
+        //Not enough of the good on a planet -- returns false
+        purchases = new HashMap<>();
+        purchases.put("water", 41); //buying more than max on a planet
+        player.setShip(ships.get("largeEmpty")); //too much space
+        player.setMoney(1000000); //plenty of money
+        partner = partners.get("generalTrader");
+        instance = new Transaction(player, partner);
+        result = instance.validateBuy(purchases);
+        assertFalse(result);
     }
 
     /**
