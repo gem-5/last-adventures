@@ -48,7 +48,11 @@ public class Transaction {
      * @param purchases A map of goods and their quantities to purchase.
      */
     public void buy(Map<String, Integer> purchases) {
+        if (purchases == null)
+            throw new IllegalArgumentException();
         for (Map.Entry<String, Integer> p : purchases.entrySet()) {
+            if (p.getKey() == null || p.getValue() == null)
+                throw new IllegalArgumentException();
             int unitPrice = trader.getSupply().get(p.getKey());
             int sumTotal = unitPrice * p.getValue();
             // player loses money, gains cargo
