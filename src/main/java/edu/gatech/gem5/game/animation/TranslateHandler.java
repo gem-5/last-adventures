@@ -12,13 +12,17 @@ import javafx.util.Duration;
  */
 public class TranslateHandler {
 
+    /**
+     * A TranslateTransition object to create and play.
+     */
     private TranslateTransition translateTransition;
 
     /**
      * Default constructor for TranslateHandler. Sets default animation duration
      * to 0.5 seconds. Applies translate animation.
      *
-     * @param object Object to apply animation
+     * @param object
+     *            Object to apply animation
      */
     public TranslateHandler(Node object) {
         this(object, 0);
@@ -28,8 +32,10 @@ public class TranslateHandler {
      * Constructor for TranslateHandler with delay parameter. Sets default
      * animation duration to 0.5 seconds. Applies translate animation to right.
      *
-     * @param object Object to apply animation
-     * @param delay The delay before playing the animation in seconds
+     * @param object
+     *            Object to apply animation
+     * @param delay
+     *            The delay before playing the animation in seconds
      */
     public TranslateHandler(Node object, double delay) {
         this(object, delay, 0, 10, 0);
@@ -38,13 +44,19 @@ public class TranslateHandler {
     /**
      * Customizable constructor for translate animation.
      *
-     * @param object Object to apply animation
-     * @param delay The delay before playing the animation in seconds
-     * @param duration The duration of the animation in seconds
-     * @param setToX (Transition amount) Sets the value of the property toX
-     * @param setToY (Transition amount) Sets the value of the property toY
+     * @param object
+     *            Object to apply animation
+     * @param delay
+     *            The delay before playing the animation in seconds
+     * @param duration
+     *            The duration of the animation in seconds
+     * @param setToX
+     *            (Transition amount) Sets the value of the property toX
+     * @param setToY
+     *            (Transition amount) Sets the value of the property toY
      */
-    public TranslateHandler(Node object, double delay, double duration, double setToX, double setToY) {
+    public TranslateHandler(Node object, double delay, double duration,
+            double setToX, double setToY) {
 
         this(object, delay, duration, setToX, setToY, 0, 0);
     }
@@ -52,17 +64,26 @@ public class TranslateHandler {
     /**
      * Customizable constructor for translate animation.
      *
-     * @param object Object to apply animation
-     * @param delay The delay before playing the animation in seconds
-     * @param duration The duration of the animation in seconds
-     * @param setToX (Transition amount) Sets the value of the property toX
-     * @param setToY (Transition amount) Sets the value of the property toY
-     * @param setFromX "start from" x-value
-     * @param setFromY "start from" y-value
+     * @param object
+     *            Object to apply animation
+     * @param delay
+     *            The delay before playing the animation in seconds
+     * @param duration
+     *            The duration of the animation in seconds
+     * @param setToX
+     *            (Transition amount) Sets the value of the property toX
+     * @param setToY
+     *            (Transition amount) Sets the value of the property toY
+     * @param setFromX
+     *            "start from" x-value
+     * @param setFromY
+     *            "start from" y-value
      */
-    public TranslateHandler(Node object, double delay, double duration, double setToX, double setToY, double setFromX, double setFromY) {
-        
-        translateTransition = new TranslateTransition(Duration.seconds(duration), object);
+    public TranslateHandler(Node object, double delay, double duration,
+            double setToX, double setToY, double setFromX, double setFromY) {
+
+        translateTransition = new TranslateTransition(
+                Duration.seconds(duration), object);
         translateTransition.setDelay(Duration.seconds(delay));
         translateTransition.setFromX(setFromX);
         translateTransition.setFromY(setFromY);
