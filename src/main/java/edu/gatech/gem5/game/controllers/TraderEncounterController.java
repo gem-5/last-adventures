@@ -22,19 +22,22 @@ public class TraderEncounterController extends EncounterController {
     @FXML
     Button trade;
 
+    /**
+     * Construct the trader encounter controller.
+     * 
+     * @param encounter The type of encounter
+     */
     // public static final String TRADER_VIEW_FILE = "/fxml/traderencounter.fxml";
     public TraderEncounterController(Encounterable encounter) {
         super(encounter);
     }
 
     /**
-     * Construct the trader encounter controller.
-     *
-     * @param the Trader that the Character has encountered.
+     * Transitions the screen to one where the player can trade with a trader.
+     * 
+     * @param event
+     * @throws Exception
      */
-    //public TraderEncounterController(Trader t) {
-    //super(t, TRADER_VIEW_FILE);
-    //}
     @FXML
     public void tradeWithTrader(ActionEvent event) throws Exception {
         // LastAdventures.swap(new TraderController((Trader) encounter));
