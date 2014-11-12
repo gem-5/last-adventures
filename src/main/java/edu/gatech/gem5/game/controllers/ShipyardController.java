@@ -74,7 +74,7 @@ public class ShipyardController extends Controller {
      * Buys the selected ship, replaces the player's current ship, adds/deducts
      * the correct amount of funds.
      *
-     * @param event
+     * @param event A button press
      * @throws Exception 
      */
     @FXML
@@ -115,7 +115,7 @@ public class ShipyardController extends Controller {
     /**
      * Returns to the planet info screen.
      *
-     * @param event
+     * @param event A button press
      * @throws Exception 
      */
     @FXML

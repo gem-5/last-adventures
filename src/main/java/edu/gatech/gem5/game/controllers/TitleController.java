@@ -24,37 +24,34 @@ public class TitleController extends Controller {
 
     /**
      * Move to the new game scene.
-     *
-     * @param event a button press
-     * @throws Exception
+     * 
+     * @param event A button press
+     * @throws Exception 
      */
     @FXML
     private void startNewGame(ActionEvent event) throws Exception {
-        // LastAdventures.swap(new CharacterCreateController());
         transitionTo(new CharacterCreateController());
     }
 
     /**
      * Move to the continue game scene.
-     *
-     * @param event a button press
-     * @throws Exception
+     * 
+     * @param event A button press
+     * @throws Exception 
      */
     @FXML
     private void continueGame(ActionEvent event) throws Exception {
-        // LastAdventures.swap(this); // go nowhere
         transitionTo(this);
     }
 
     /**
      * Move to the load game scene.
      *
-     * @param event a button press
-     * @throws Exception
+     * @param event A button press
+     * @throws Exception 
      */
     @FXML
     private void loadGame(ActionEvent event) throws Exception {
-        // LastAdventures.swap(new LoadGameController());
         transitionTo(new LoadGameController());
     }
 }
