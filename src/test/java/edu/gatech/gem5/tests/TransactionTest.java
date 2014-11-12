@@ -8,16 +8,15 @@ import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.readers.ShipReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 
 /**
  *
@@ -40,17 +39,13 @@ public class TransactionTest {
      */
     static Map<String, Traderable> partners;
     /**
-     * A member variable to hold transaction instances.
-     */
-    static Transaction trans;
-    /**
      * A reader for ship types.
      */
     static ShipReader shipTypes = new ShipReader("/data/Ships.json");
 
-    public TransactionTest() {
-    }
-
+    /**
+     * Initialize all the reusable resources.
+     */
     @BeforeClass
     public static void setUpClass() {
         //initialize the player
@@ -89,18 +84,6 @@ public class TransactionTest {
         partners.put("generalTrader", generalTrader);
         p.getStock();
         //p.get
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     /**
