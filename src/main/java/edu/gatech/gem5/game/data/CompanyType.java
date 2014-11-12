@@ -9,7 +9,7 @@ import java.util.Map;
  * @author Creston Bunch
  */
 
-public class CompanyType extends DataType {
+public class CompanyType extends AbstractDataType {
 
     /**
      * The name of the CompanyType.

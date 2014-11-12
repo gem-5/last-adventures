@@ -1,7 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.TraderEncounterController;
-import edu.gatech.gem5.game.controllers.Controller;
+import edu.gatech.gem5.game.controllers.AbstractController;
 import edu.gatech.gem5.game.data.GoodType;
 import java.util.Random;
 import java.util.Set;
@@ -93,7 +93,7 @@ public class Trader extends AbstractNPC implements Traderable {
      * @return An encounter controller specific to Traders
      */
     @Override
-    public Controller getEncounterController() {
+    public AbstractController getEncounterController() {
         return new TraderEncounterController(this);
     }
 

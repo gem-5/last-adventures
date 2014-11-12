@@ -20,7 +20,7 @@ import javafx.event.ActionEvent;
  *
  * @author James
  */
-public class MarketController extends Controller {
+public class MarketController extends AbstractController {
 
     /**
      * Displays the amount of credits the player has.

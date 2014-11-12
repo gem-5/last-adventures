@@ -6,8 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import edu.gatech.gem5.game.SaveFile;
-import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.data.CompanyType;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -21,7 +21,7 @@ import org.controlsfx.dialog.Dialogs;
  * @author Creston Bunch
  * @author James Park
  */
-public class PlanetController extends Controller {
+public class PlanetController extends AbstractController {
 
     @FXML
     private Label title;
@@ -74,10 +74,14 @@ public class PlanetController extends Controller {
             this.dock.setDisable(true);
         }
         //set hotkey for saving to Control + S
-        root.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (new KeyCodeCombination(KeyCode.S,
-                    KeyCombination.CONTROL_DOWN).match(event)) {
-                saveAndQuit();
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(KeyEvent event) {
+                if (new KeyCodeCombination(KeyCode.S,
+                        KeyCombination.CONTROL_DOWN).match(event)) {
+                    saveAndQuit();
+                }
             }
         });
     }

@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
  * @author Creston Bunch
  * @author James Jong Han Park
  */
-public class TitleController extends Controller {
+public class TitleController extends AbstractController {
     /**
      * The path that the constructor will take.
      */

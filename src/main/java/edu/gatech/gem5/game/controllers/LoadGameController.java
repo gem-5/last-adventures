@@ -29,7 +29,7 @@ import java.util.List;
  * @author Creston Bunch
  * @author James Jong Han Park
  */
-public class LoadGameController extends Controller {
+public class LoadGameController extends AbstractController {
 
     /**
      * A main layout for the corresponding FXML.

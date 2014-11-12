@@ -8,7 +8,7 @@ import java.util.Map;
  * @author Creston Bunch
  */
 
-public class EnvironmentType extends DataType {
+public class EnvironmentType extends AbstractDataType {
 
     /**
      * The name of the EnvironmentType.

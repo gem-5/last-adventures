@@ -1,7 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.EncounterController;
-import edu.gatech.gem5.game.controllers.Controller;
+import edu.gatech.gem5.game.controllers.AbstractController;
 import java.util.Random;
 
 /**
@@ -82,7 +82,7 @@ public class Police extends AbstractNPC {
     }
 
     @Override
-    public Controller getEncounterController() {
+    public AbstractController getEncounterController() {
         return new EncounterController(this);
     }
 

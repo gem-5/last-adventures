@@ -8,7 +8,7 @@ import java.util.Map;
  * @author Creston Bunch
  */
 
-public class TechType extends DataType {
+public class TechType extends AbstractDataType {
 
     /**
      * The TechType's name, used for human identification.

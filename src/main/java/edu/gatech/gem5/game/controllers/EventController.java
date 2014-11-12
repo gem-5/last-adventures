@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
  * @author Jack Mueller
  * @author James Jong Han Park
  */
-public class EventController extends Controller {
+public class EventController extends AbstractController {
 
     /**
      * Label for title of the event.

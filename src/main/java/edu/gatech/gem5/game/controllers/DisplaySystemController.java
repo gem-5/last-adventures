@@ -26,7 +26,7 @@ import javafx.beans.value.ObservableValue;
  *
  * @author Creston Bunch
  */
-public class DisplaySystemController extends Controller {
+public class DisplaySystemController extends AbstractController {
 
     /**
      * The solar system the user is peeking at before they commit to traveling

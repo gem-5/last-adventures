@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
  * @author Sam Blumenthal
  * @author James Jong Han Park
  */
-public class EncounterController extends Controller {
+public class EncounterController extends AbstractController {
 
     /**
      * A continue button for a new planet.

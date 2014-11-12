@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  *
  * @author Creston Bunch
  */
-public class StarType extends DataType {
+public class StarType extends AbstractDataType {
 
 
     /**

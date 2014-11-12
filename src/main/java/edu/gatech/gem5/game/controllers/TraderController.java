@@ -21,7 +21,7 @@ import javafx.event.ActionEvent;
  *
  * @author James
  */
-public class TraderController extends Controller {
+public class TraderController extends AbstractController {
     /**
      * The label containing the amount of credits the player has.
      */

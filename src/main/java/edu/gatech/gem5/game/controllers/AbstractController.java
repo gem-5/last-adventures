@@ -22,7 +22,7 @@ import edu.gatech.gem5.game.Planet;
  * @author Creston Bunch
  * @author James Jong Han Park
  */
-public abstract class Controller implements Initializable {
+public abstract class AbstractController implements Initializable {
 
     /**
      * A root object.
@@ -50,10 +50,10 @@ public abstract class Controller implements Initializable {
      *
      * @param file The fxml file to load.
      */
-    public Controller(String file) {
+    public AbstractController(String file) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    Controller.class.getResource(file)
+                    AbstractController.class.getResource(file)
             );
 
             loader.setController(this);
@@ -96,7 +96,7 @@ public abstract class Controller implements Initializable {
      *
      * @param c The new Controller to load.
      */
-    protected void transitionTo(Controller c) {
+    protected void transitionTo(AbstractController c) {
 
         Pane oldRoot = (Pane) LastAdventures.getRoot();
         Stage stage = LastAdventures.getStage();

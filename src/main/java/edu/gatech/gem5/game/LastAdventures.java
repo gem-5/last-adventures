@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import edu.gatech.gem5.game.controllers.Controller;
+import edu.gatech.gem5.game.controllers.AbstractController;
 import edu.gatech.gem5.game.controllers.TitleController;
 
 /**
@@ -44,7 +44,7 @@ public class LastAdventures extends Application {
      *
      * @param c The new controller to load.
      */
-    public static void swap(Controller c) {
+    public static void swap(AbstractController c) {
 
         Pane oldRoot = (Pane) getRoot();
         Scene scene = stage.getScene();

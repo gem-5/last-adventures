@@ -23,7 +23,7 @@ import javafx.beans.value.ObservableValue;
  * @author Alex Liu
  * @author Creston Bunch
  */
-public class DisplayUniverseController extends Controller {
+public class DisplayUniverseController extends AbstractController {
 
     /**
      * A general field for messages that indicate a desired action was not

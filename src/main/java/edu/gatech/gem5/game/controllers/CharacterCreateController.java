@@ -22,7 +22,7 @@ import javafx.beans.property.SimpleIntegerProperty;
  * @author James Jong Han Park
  * @author Jack
  */
-public class CharacterCreateController extends Controller {
+public class CharacterCreateController extends AbstractController {
 
     /**
      * Text field for character name.

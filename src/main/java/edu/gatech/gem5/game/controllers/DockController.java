@@ -19,7 +19,7 @@ import javafx.scene.control.ListView;
  *
  * @author James Jong Han Park
  */
-public class DockController extends Controller {
+public class DockController extends AbstractController {
 
     /**
      * An error message to show if any error occurs.

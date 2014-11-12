@@ -17,7 +17,7 @@ import javafx.scene.control.ToggleGroup;
  *
  * @author Alex
  */
-public class ShipyardController extends Controller {
+public class ShipyardController extends AbstractController {
     /**
      * Label that will display text if player attempts an illegal action.
      */

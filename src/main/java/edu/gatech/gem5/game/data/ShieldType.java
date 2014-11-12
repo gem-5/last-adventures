@@ -6,7 +6,7 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public class ShieldType extends DataType {
+public class ShieldType extends AbstractDataType {
 
     /**
      * The Key used for accessing info of the ShieldType.

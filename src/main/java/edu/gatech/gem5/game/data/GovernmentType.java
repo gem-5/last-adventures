@@ -9,7 +9,7 @@ import java.util.List;
  * @author Creston Bunch
  */
 
-public class GovernmentType extends DataType {
+public class GovernmentType extends AbstractDataType {
 
     /**
      * The name of the GovernmentType.

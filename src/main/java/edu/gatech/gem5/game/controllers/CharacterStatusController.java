@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
  * @author James Jong Han Park
  * @author Jack Mueller
  */
-public class CharacterStatusController extends Controller {
+public class CharacterStatusController extends AbstractController {
 
     /**
      * Interacting player's name.

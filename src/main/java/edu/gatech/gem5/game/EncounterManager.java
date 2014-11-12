@@ -1,7 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.PlanetController;
-import edu.gatech.gem5.game.controllers.Controller;
+import edu.gatech.gem5.game.controllers.AbstractController;
 
 /**
  *
@@ -46,7 +46,7 @@ public class EncounterManager {
             Encounterable encounter = new Encounter(this).getType(player.getNetWorth(), planet);
             if (encounter != null) {
                 // encounter.processEncounter();
-                Controller c = encounter.getEncounterController();
+                AbstractController c = encounter.getEncounterController();
                 LastAdventures.swap(c);
             }
         } else {

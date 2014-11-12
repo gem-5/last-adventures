@@ -17,7 +17,7 @@ import java.util.Random;
  * @author Sam Blumenthal
  * @author James Jong Han Park
  */
-public class CombatController extends Controller {
+public class CombatController extends AbstractController {
 
     /**
      * Button for attacking an enemy.
