@@ -6,11 +6,8 @@ import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.Traderable;
 import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.data.ShipType;
-import edu.gatech.gem5.game.readers.GoodReader;
 import edu.gatech.gem5.game.readers.ShipReader;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -137,7 +134,7 @@ public class TransactionTest {
         Transaction instance = new Transaction(player, partner);
         instance.buy(purchases);
         assertEquals(player.getMoney(), 0);
-        
+        assertEquals(player.getShip().getCargoList().size(), 1);
     }
 
     /**
@@ -146,7 +143,88 @@ public class TransactionTest {
     @Test(timeout = 250)
     public void testBuyMultiple() {
         Map<String, Integer> purchases = new HashMap<>();
-
+        purchases.put("water", 3);
+        
+        player.setShip(ships.get("empty"));
+        Traderable partner = partners.get("dummy");
+        int unitPrice = partner.getSupply().get("water");
+        player.setMoney(unitPrice * 3);
+        Transaction instance = new Transaction(player, partner);
+        instance.buy(purchases);
+        
+        assertEquals(player.getMoney(), 0);
+        assertEquals(player.getShip().getCargoList().size(), 1);
+    }
+    
+     /**
+     * Tests buying multiple items with multiple map entries.
+     */
+    @Test(timeout = 250)
+    public void testBuyMultipleTwo() {
+        Map<String, Integer> purchases = new HashMap<>();
+        purchases.put("water", 3);
+        purchases.put("water", 2);
+        purchases.put("water", 1);
+        purchases.put("water", 1);
+        purchases.put("water", 1);
+        purchases.put("water", 2);
+        
+        player.setShip(ships.get("empty"));
+        Traderable partner = partners.get("dummy");
+        int unitPrice = partner.getSupply().get("water");
+        player.setMoney(unitPrice * 2);
+        Transaction instance = new Transaction(player, partner);
+        instance.buy(purchases);
+        
+        assertEquals(player.getMoney(), 0);
+        assertEquals(player.getShip().getCargoList().size(), 1);
+    }
+    
+     /**
+     * Tests buying multiple items with multiple map entries.
+     */
+    @Test(expected = IllegalArgumentException.class, timeout = 250)
+    public void testBuyNullMap() {
+        Map<String, Integer> purchases = null;
+        
+        player.setShip(ships.get("empty"));
+        Traderable partner = partners.get("dummy");
+        int unitPrice = partner.getSupply().get("water");
+        player.setMoney(unitPrice * 9);
+        Transaction instance = new Transaction(player, partner);
+        instance.buy(purchases);
+        
+        assertEquals(player.getMoney(), 0);
+        assertEquals(player.getShip().getCargoList().size(), 9);
+    }
+    /**
+     * Tests buying a null item.
+     */
+    @Test(expected = IllegalArgumentException.class, timeout = 250)
+    public void testBuyNullItems() {
+        Map<String, Integer> purchases = new HashMap<>();
+        purchases.put(null, null);
+        player.setShip(ships.get("empty"));
+        Traderable partner = partners.get("dummy");
+        int unitPrice = partner.getSupply().get("water");
+        player.setMoney(unitPrice * 9);
+        Transaction instance = new Transaction(player, partner);
+        instance.buy(purchases);
+    }
+    
+    /**
+     * Tests buying an item with a null value.
+     */
+    @Test(expected = IllegalArgumentException.class, timeout = 250)
+    public void testBuyNullItemsTwo() {
+        Map<String, Integer> purchases = new HashMap<>();
+        purchases.put("water", null);
+        player.setShip(ships.get("empty"));
+        Traderable partner = partners.get("dummy");
+        int unitPrice = partner.getSupply().get("water");
+        player.setMoney(unitPrice * 9);
+        Transaction instance = new Transaction(player, partner);
+        instance.buy(purchases);
     }
 
 }
