@@ -22,13 +22,15 @@ import static org.junit.Assert.*;
 /**
  *
  * @author Jack Mueller
+ * @author James Jong Han Park
  */
 public class TransactionTest {
+
     /**
      * Character to hold all the ships need for trade.
      */
     static Character player;
-    
+
     /**
      * Map to hold ships with different quantities of goods.
      */
@@ -48,16 +50,16 @@ public class TransactionTest {
 
     public TransactionTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
         //initialize the player
-        player = new Character("c1",0,0,0,0,0, null);
-        
+        player = new Character("c1", 0, 0, 0, 0, 0, null);
+
         //initialize the map
         ships = new HashMap<>();
         ShipType type = shipTypes.get("tester");
-        
+
         //an empty ship
         Ship empty = new Ship(type);
         ships.put("empty", empty);
@@ -66,28 +68,31 @@ public class TransactionTest {
         Ship full = new Ship(shipTypes.get("tester"));
         full.addCargo("water", full.getOpenBays());
         ships.put("full", full);
-        
+
         //a ship that can still buy things, one more cargo bay open
         Ship fullButOne = new Ship(shipTypes.get("tester"));
-        full.addCargo("water", full.getOpenBays() -1);
+        full.addCargo("water", full.getOpenBays() - 1);
         ships.put("fullButOne", fullButOne);
-        
+
         partners = new HashMap<>();
         Planet p = new Planet("0ne", 1);
-        
         Traderable dummy = new Planet("one", 1);
+        p.getSupply();
+        dummy.getStock();
+
         partners.put("dummy", dummy);
-        
+        p.getStock();
+        //p.get
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -98,16 +103,50 @@ public class TransactionTest {
     @Test
     public void testValidateBuy() {
         System.out.println("validateBuy");
-        
+
         //Happy Path, reaches the end
         Map<String, Integer> purchases = new HashMap<>();
         purchases.put("water", 1);
         player.setShip(ships.get("empty"));
         Traderable partner = partners.get("dummy");
         Transaction instance = new Transaction(player, partner);
-        boolean expResult = true;
         boolean result = instance.validateBuy(purchases);
-        assertEquals(expResult, result);
+        assertTrue(result);
     }
-    
+
+    /**
+     * Tests setting player's money.
+     */
+    @Test(timeout = 250)
+    public void testSetMoney() {
+        player.setMoney(100000);
+        assertEquals(player.getMoney(), 100000);
+    }
+
+    /**
+     * Tests buying a single item.
+     */
+    @Test(timeout = 250)
+    public void testBuySingle() {
+        Map<String, Integer> purchases = new HashMap<>();
+        purchases.put("water", 1);
+        player.setShip(ships.get("empty"));
+        Traderable partner = partners.get("dummy");
+        int unitPrice = partner.getSupply().get("water");
+        player.setMoney(unitPrice);
+        Transaction instance = new Transaction(player, partner);
+        instance.buy(purchases);
+        assertEquals(player.getMoney(), 0);
+        
+    }
+
+    /**
+     * Tests buying multiple items.
+     */
+    @Test(timeout = 250)
+    public void testBuyMultiple() {
+        Map<String, Integer> purchases = new HashMap<>();
+
+    }
+
 }
