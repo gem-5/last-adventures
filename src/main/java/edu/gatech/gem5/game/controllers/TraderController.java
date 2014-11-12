@@ -154,7 +154,7 @@ public class TraderController extends AbstractController {
      * ship, and the default errorLabel text.
      */
     private void fillLabels() {
-        this.lblCash.setText(((Integer) player.getMoney()).toString());
+        this.lblCash.setText(Integer.toString(player.getMoney()));
         Ship s = player.getShip();
         this.lblSlots.setText(Integer.toString(s.getOpenBays()));
         errorLabel.setText("");

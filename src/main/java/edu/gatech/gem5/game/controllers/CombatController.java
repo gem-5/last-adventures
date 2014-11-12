@@ -88,9 +88,10 @@ public class CombatController extends AbstractController {
 
         if (fleeAttempt(player, enemy)) {
             enemy.getManager().nextEncounter();
-        } else {
+        } 
+        /* else {
             // player fails, enemy attacks during the attempt
-        }
+        } */
     }
 
     /**

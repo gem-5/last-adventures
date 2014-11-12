@@ -123,7 +123,8 @@ public class SolarSystem {
                 .append(getYCoordinate())
                 .append(")");
         for (Planet p : getPlanets()) {
-            result.append("\n\t").append(p.toString().replace("\n", "\n\t"));
+            String delim = "\n\t";
+            result.append(delim).append(p.toString().replace("\n", delim));
         }
         return result.toString();
     }
