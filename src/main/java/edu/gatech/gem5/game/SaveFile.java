@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.annotations.SerializedName;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 
@@ -91,8 +92,12 @@ public class SaveFile {
         try {
             Reader r = new FileReader(file);
             Gson gson = new Gson();
-            return gson.fromJson(r, SaveFile.class);
+            SaveFile fromJson = gson.fromJson(r, SaveFile.class);
+            r.close();
+            return fromJson;
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

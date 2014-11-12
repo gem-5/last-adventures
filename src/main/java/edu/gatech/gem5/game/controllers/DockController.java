@@ -1,9 +1,6 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Data;
-import edu.gatech.gem5.game.Planet;
-import edu.gatech.gem5.game.Shield;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.WeaponType;
@@ -14,27 +11,53 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 /**
+ * A controller class for Dock. Features upgrading ship's weapons and shields.
  *
- * @author James Park
+ * @author James Jong Han Park
  */
-public class DockController extends Controller {
+public class DockController extends AbstractController {
 
+    /**
+     * An error message to show if any error occurs.
+     */
     @FXML
     private Label errorLabel;
+    /**
+     * This string didn't pass checkstyle because it was identical when used in
+     * the weapon/shield/gadget buyhandlers. This can be fixed by giving
+     * weapon/shield/gadget a common interface or superclass.
+     */
+    String moneyError = "You don't have enough money.";
+    
+    /**
+     * A balance label to show player's current balance.
+     */
     @FXML
     private Label lblCash;
+    /**
+     * A label to show interacting player's ship information.
+     */
     @FXML
     private Label shipInfo;
+    /**
+     * List of UpgradeBars which presents and handles available upgrades to the
+     * player.
+     */
     @FXML
     private ListView<UpgradeBar> buyUpgradeBarList;
 
+    /**
+     * An FXML file that is directly associated with this class.
+     */
     public static final String SHIPYARD_VIEW_FILE = "/fxml/dock.fxml";
 
+    /**
+     * Constructor for DockController.
+     */
     public DockController() {
         super(SHIPYARD_VIEW_FILE);
 
@@ -52,8 +75,12 @@ public class DockController extends Controller {
         transitionTo(new PlanetController());
     }
 
+    /**
+     * Fills the changeable labels on the screen with their new values once 
+     * a purchase has been made.
+     */
     private void fillLabels() {
-        this.lblCash.setText(((Integer) player.getMoney()).toString());
+        this.lblCash.setText(Integer.toString(player.getMoney()));
 
         // Pull the ship's information
         Ship s = player.getShip();
@@ -64,6 +91,11 @@ public class DockController extends Controller {
     }
 
     // TODO Prevent players from purchasing, when slots are full.
+    /**
+     * Populates the buyUpgradeBarList member with the upgrades on the planet.
+     * The upgrades on a planet are determined by the companies that are on the
+     * planet.
+     */
     private void buildBuyUpgradesList() {
 
         ObservableList<UpgradeBar> upgradeItemsList = FXCollections.observableArrayList();
@@ -111,10 +143,17 @@ public class DockController extends Controller {
      */
     private class BuyWeaponHandler implements EventHandler<ActionEvent> {
 
+        /**
+         * The flyweight for the weapon that is being bought.
+         */
         private final WeaponType weaponType;
-
-        public BuyWeaponHandler(WeaponType weaponType) {
-            this.weaponType = weaponType;
+        
+        /**
+         * 
+         * @param wT the weapon type chosen by the user 
+         */
+        public BuyWeaponHandler(WeaponType wT) {
+            this.weaponType = wT;
         }
 
         /**
@@ -129,7 +168,8 @@ public class DockController extends Controller {
 
             // Check for player money count (edge case)
             if (player.getMoney() < weaponType.getPrice()) {
-                errorLabel.setText("You don't have enough money.");
+
+                errorLabel.setText(moneyError);
                 return;
             }
 
@@ -150,10 +190,17 @@ public class DockController extends Controller {
      */
     private class BuyShieldHandler implements EventHandler<ActionEvent> {
 
+        /**
+         * The flyweight for the shield that is being bought.
+         */
         private final ShieldType shieldType;
 
-        public BuyShieldHandler(ShieldType shieldType) {
-            this.shieldType = shieldType;
+        /**
+         * 
+         * @param sT the shieldType chosen by the user
+         */
+        public BuyShieldHandler(ShieldType sT) {
+            this.shieldType = sT;
         }
 
         /**
@@ -168,7 +215,7 @@ public class DockController extends Controller {
 
             // Check for player money count (edge case)
             if (player.getMoney() < shieldType.getPrice()) {
-                errorLabel.setText("You don't have enough money.");
+                errorLabel.setText(moneyError);
                 return;
             }
 

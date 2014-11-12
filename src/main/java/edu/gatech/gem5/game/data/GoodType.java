@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Creston Bunch
  */
 
-public class GoodType extends DataType implements Comparable {
+public class GoodType extends AbstractDataType implements Comparable {
 
     /**
      * The key of the GoodType, used for recognition.

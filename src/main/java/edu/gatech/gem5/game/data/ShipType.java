@@ -6,7 +6,7 @@ package edu.gatech.gem5.game.data;
  * @author Sam Blumenthal
  * @author Creston Bunch
  */
-public class ShipType extends DataType {
+public class ShipType extends AbstractDataType {
 
     // List of all parameters given by the table in Project Description
     /**

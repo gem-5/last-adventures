@@ -7,33 +7,38 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 /**
- * FXML Controller Class
+ * FXML Controller Class.
  *
  * Shows trader encounter during flight
  *
  * @author Sam Blumenthal
+ * @author James Jong Han Park
  */
 public class TraderEncounterController extends EncounterController {
 
+    /**
+     * A button to initiate a trade.
+     */
     @FXML
     Button trade;
 
-    // public static final String TRADER_VIEW_FILE = "/fxml/traderencounter.fxml";
+    /**
+     * Construct the trader encounter controller.
+     * 
+     * @param encounter The type of encounter
+     */
     public TraderEncounterController(Encounterable encounter) {
         super(encounter);
     }
 
     /**
-     * Contruct the trader encounter controller
+     * Transitions the screen to one where the player can trade with a trader.
      *
-     * @param t the Trader that the Character has encountered.
+     * @param event The type of event
+     * @throws Exception 
      */
-    //public TraderEncounterController(Trader t) {
-    //super(t, TRADER_VIEW_FILE);
-    //}
     @FXML
     public void tradeWithTrader(ActionEvent event) throws Exception {
-        // LastAdventures.swap(new TraderController((Trader) encounter));
         transitionTo(new TraderController((Trader) encounter));
     }
 

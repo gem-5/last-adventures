@@ -1,6 +1,5 @@
 package edu.gatech.gem5.game.controllers;
 
-import edu.gatech.gem5.game.Character;
 import edu.gatech.gem5.game.Data;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,28 +16,56 @@ import javafx.scene.text.Text;
  * @author James Jong Han Park
  * @author Jack Mueller
  */
-public class CharacterStatusController extends Controller {
+public class CharacterStatusController extends AbstractController {
 
+    /**
+     * Interacting player's name.
+     */
     @FXML
     Label playerName;
+    /**
+     * Interacting player's pilot skill level.
+     */
     @FXML
     Label pilotValue;
+    /**
+     * Interacting player's fighter skill level.
+     */
     @FXML
     Label fighterValue;
+    /**
+     * Interacting player's trader skill level.
+     */
     @FXML
     Label traderValue;
+    /**
+     * Interacting player's engineer skill level.
+     */
     @FXML
     Label engineerValue;
+    /**
+     * Interacting player's investor skill level.
+     */
     @FXML
     Label investorValue;
+    /**
+     * Confirm button for moving onto the next scene.
+     */
     @FXML
     Button confirm;
+    /**
+     * Return button for moving to the previous scene.
+     */
     @FXML
     Button returnToCreate;
-
+    /**
+     * A message for player in this scene.
+     */
     @FXML
     Text dialog;
-
+    /**
+     * FXML file that is directly associated with this class.
+     */
     public static final String STATUS_VIEW_FILE = "/fxml/status.fxml";
 
     /**

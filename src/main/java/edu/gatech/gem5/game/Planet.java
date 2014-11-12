@@ -88,6 +88,27 @@ public class Planet implements Traderable {
         this.name = n;
         this.orbit = orb;
     }
+    
+     /**
+     * Construct a planet with a random tech level, environment, and government,
+     * based on the data files. Companies are passed in to guarantee stock for
+     * testing purposes.
+     *
+     * @param n the name of the Planet
+     * @param orb the orbit number around the star
+     * @param comp the list of company keys passed in
+     */
+    public Planet(String n, int orb, List<String> comp) {
+        this.techLevel = chooseTechLevel();
+        this.environment = chooseEnvironment();
+        this.government = chooseGovernment();
+        this.companyList = comp;
+        this.maxStock = getMaxStock();
+        this.currentStock = maxStock;
+        this.condition = getNewCondition();
+        this.name = n;
+        this.orbit = orb;
+    }
 
    /**
      * Get the tech level.

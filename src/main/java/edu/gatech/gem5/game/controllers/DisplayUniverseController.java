@@ -2,14 +2,12 @@ package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.SolarSystem;
-import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.ui.UniverseDisplay;
 import edu.gatech.gem5.game.ui.AbstractExplorableDisplay;
 import edu.gatech.gem5.game.ui.StarIcon;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -19,20 +17,35 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 /**
- * FXML Controller class
+ * FXML Controller class.
  *
  * @author Jack Mueller
  * @author Alex Liu
  * @author Creston Bunch
  */
-public class DisplayUniverseController extends Controller {
+public class DisplayUniverseController extends AbstractController {
 
+    /**
+     * A general field for messages that indicate a desired action was not
+     * taken due to it being invalid.
+     */
     @FXML
     TextField errorLabel;
 
+    /**
+     * The explorable UI element being used.
+     */
     private final AbstractExplorableDisplay map;
+    
+    /**
+     * Probably does nothing. TODO Investigate. Look in DisplaySystemContoller
+     * for an example.
+     */
     private final UpdateListener updateListener;
 
+    /**
+     * The fxml view file associated with this controller.
+     */
     public static final String UNIVERSE_VIEW_FILE = "/fxml/travel.fxml";
 
     /**
@@ -80,16 +93,27 @@ public class DisplayUniverseController extends Controller {
         transitionTo(new DisplaySystemController());
     }
 
+    /**
+     * Adds the 2 necessary listeners to the scene, width and height of the
+     * scene.
+     */
     private void addListeners() {
         LastAdventures.getScene().widthProperty().addListener(updateListener);
         LastAdventures.getScene().heightProperty().addListener(updateListener);
     }
 
+    /**
+     * Used to remove the listeners when the scene is left, so there will be no
+     * listeners in the scene the next time the scene is shown.
+     */
     private void removeListeners() {
         LastAdventures.getScene().widthProperty().addListener(updateListener);
         LastAdventures.getScene().heightProperty().addListener(updateListener);
     }
 
+    /**
+     * An update listener that does absolutely nothing. TODO remove.
+     */
     private class UpdateListener implements ChangeListener<Object> {
 
         @Override
@@ -100,12 +124,23 @@ public class DisplayUniverseController extends Controller {
         }
     };
 
+    /**
+     * Handles the mouse click of a planet that indicates the desire to travel 
+     * to that planet.
+     */
     private class TravelHandler implements EventHandler<MouseEvent> {
 
+        /**
+         * The solar system clicked on in the controller.
+         */
         private final SolarSystem sys;
 
-        public TravelHandler(SolarSystem sys) {
-            this.sys = sys;
+        /**
+         * 
+         * @param s the solar system being traveled to
+         */
+        public TravelHandler(SolarSystem s) {
+            this.sys = s;
         }
 
         @Override
@@ -119,6 +154,13 @@ public class DisplayUniverseController extends Controller {
             }
         }
 
+        /**
+         * Calculates the Euclidean distance between the solar system being
+         * traveled to and the one currently docked in.
+         *
+         * @return the distance between the player's location and the solar
+         * system being peeked at.
+         */
         private double distance() {
             SolarSystem here = system;
             SolarSystem there = sys;
@@ -127,5 +169,4 @@ public class DisplayUniverseController extends Controller {
             return Math.sqrt(dx * dx + dy * dy);
         }
     }
-
 }

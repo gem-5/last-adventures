@@ -6,8 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import edu.gatech.gem5.game.SaveFile;
-import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.data.CompanyType;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -21,30 +21,64 @@ import org.controlsfx.dialog.Dialogs;
  * @author Creston Bunch
  * @author James Park
  */
-public class PlanetController extends Controller {
+public class PlanetController extends AbstractController {
 
+    /**
+     * Title of the planet.
+     */
     @FXML
     private Label title;
 
+    /**
+     * Shows a list of companies for this planet.
+     */
     @FXML
     private Label lblCompanies;
+    /**
+     * Shows the environment of this planet.
+     */
     @FXML
     private Label lblEnvironment;
+    /**
+     * Shows the government of this planet.
+     */
     @FXML
     private Label lblGovernment;
+    /**
+     * Shows the tech level of this planet.
+     */
     @FXML
     private Label lblTechnology;
+    /**
+     * Shows the current condition of this planet.
+     */
     @FXML
     private Label lblCondition;
+    /**
+     * The button for saving, once clicked, it becomes disabled until the next
+     * PlantController.
+     */
     @FXML
     private Button btnSave;
+    /**
+     * The button to refuel the ship which also shows how much that would cost.
+     */
     @FXML
     private Button refuelButton;
+    /**
+     * A button to go to the shipyard, disabled if there are no ships.
+     */
     @FXML
     private Button shipyard;
+    /**
+     * A button to go to the dock, disabled if there are not upgrades.
+     */
     @FXML
     private Button dock;
 
+    /**
+     * The fxml view file associated with this controller.
+     */
     public static final String PLANET_VIEW_FILE = "/fxml/planet.fxml";
 
     /**
@@ -74,14 +108,23 @@ public class PlanetController extends Controller {
             this.dock.setDisable(true);
         }
         //set hotkey for saving to Control + S
-        root.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (new KeyCodeCombination(KeyCode.S,
-                    KeyCombination.CONTROL_DOWN).match(event)) {
-                saveAndQuit();
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(KeyEvent event) {
+                if (new KeyCodeCombination(KeyCode.S,
+                        KeyCombination.CONTROL_DOWN).match(event)) {
+                    saveAndQuit();
+                }
             }
         });
     }
 
+    /**
+     * 
+     * @return a formatted string containing the names of all the companies
+     * on this planet.
+     */
     private String buildCompanyString() {
         StringBuilder companies = new StringBuilder();
         for (CompanyType c : planet.getCompanies()) {
@@ -117,15 +160,14 @@ public class PlanetController extends Controller {
                 // LastAdventures.swap(new DockController());
                 transitionTo(new DockController());
                 break;
-            default: break;
+            default:
+                break;
         }
     }
 
     /**
      * Saves the game.
      *
-     * @param event pressing the save button
-     * @throws Exception exception with javafx
      */
     @FXML
     private void save() {
@@ -147,10 +189,11 @@ public class PlanetController extends Controller {
     @FXML
     private void quit() {
         if (!btnSave.disabledProperty().get()) {
+            String warning = "Warning";
             Action response = Dialogs.create()
                     .owner(root)
-                    .title("Warning")
-                    .masthead("Warning")
+                    .title(warning)
+                    .masthead(warning)
                     .message("Save before quiting?")
                     .showConfirm();
             if (response == Dialog.ACTION_YES) {
@@ -171,15 +214,14 @@ public class PlanetController extends Controller {
     private void saveAndQuit() {
         save();
         quit();
-    }
-
-    @FXML
-    /**
-     * Max out the fuel in your ship.
-     *
+    }    
+    
+    /**Max out the fuel in your ship.
+     * 
      * @param event A button press attempting to refuel
-     * @throws Exception
+     * @throws Exception from javafx
      */
+    @FXML
     public void refuel(ActionEvent event) throws Exception {
         if (player.refuel()) {
             refuelButton.setText("Refuel 0");

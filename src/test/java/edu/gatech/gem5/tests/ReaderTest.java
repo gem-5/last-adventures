@@ -1,18 +1,19 @@
 package edu.gatech.gem5.tests;
 
+import edu.gatech.gem5.game.readers.CompanyReader;
+import edu.gatech.gem5.game.readers.ConditionReader;
+import edu.gatech.gem5.game.readers.EnvironmentReader;
+import edu.gatech.gem5.game.readers.GadgetReader;
+import edu.gatech.gem5.game.readers.GoodReader;
+import edu.gatech.gem5.game.readers.GovernmentReader;
+import edu.gatech.gem5.game.readers.ShieldReader;
+import edu.gatech.gem5.game.readers.ShipReader;
+import edu.gatech.gem5.game.readers.TechReader;
+import edu.gatech.gem5.game.readers.WeaponReader;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import edu.gatech.gem5.game.readers.*;
-import edu.gatech.gem5.game.data.*;
-import edu.gatech.gem5.game.Ship;
-
-import java.util.Map;
 
 /**
  * Test reader objects.
@@ -24,6 +25,9 @@ import java.util.Map;
 
 public class ReaderTest {
 
+    /**
+     * 
+     */
     @Test
     public void testShips() {
         ShipReader r = new ShipReader("/data/Ships.json");
@@ -42,6 +46,9 @@ public class ReaderTest {
         assertEquals(25, r.get("tester").getHullStrength());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGadgets() {
         GadgetReader r = new GadgetReader("/data/Gadgets.json");
@@ -56,6 +63,9 @@ public class ReaderTest {
         );
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGoods() {
         GoodReader r = new GoodReader("/data/Goods.json");
@@ -64,7 +74,10 @@ public class ReaderTest {
         assertEquals(40, r.get("water").getValue());
         assertEquals(true, r.get("water").isLegal());
     }
-
+    
+    /**
+     * 
+     */
     @Test
     public void testShields() {
         ShieldReader r = new ShieldReader("/data/Shields.json");
@@ -78,6 +91,9 @@ public class ReaderTest {
         assertEquals(100, r.get("kinetic_stabilizers").getIntegrity());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testWeapons() {
         WeaponReader r = new WeaponReader("/data/Weapons.json");
@@ -90,6 +106,9 @@ public class ReaderTest {
         assertEquals(0.75, r.get("pulse1").getRate(), 0.0);
     }
 
+    /**
+     * 
+     */
     @Test
     public void testCompanies() {
         CompanyReader r = new CompanyReader("/data/Companies.json");
@@ -143,6 +162,9 @@ public class ReaderTest {
         );
     }
 
+    /**
+     * 
+     */
     @Test
     public void testGovernments() {
         GovernmentReader r = new GovernmentReader("/data/Governments.json");
@@ -168,6 +190,9 @@ public class ReaderTest {
         );
     }
 
+    /**
+     * 
+     */
     @Test
     public void testConditions() {
         ConditionReader r = new ConditionReader("/data/Conditions.json");
@@ -179,6 +204,9 @@ public class ReaderTest {
         assertEquals(0.5625, (double) r.get("none").getOccurrence(), 0.0);
     }
 
+    /**
+     * 
+     */
     @Test
     public void testEnvironments() {
         EnvironmentReader r = new EnvironmentReader("/data/Environments.json");
@@ -197,6 +225,9 @@ public class ReaderTest {
         assertEquals(1.0, (double) r.get("nothing").getWealth(), 0.0);
     }
 
+    /**
+     * 
+     */
     @Test
     public void testTechLevels() {
         TechReader r = new TechReader("/data/TechLevels.json");

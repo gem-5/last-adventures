@@ -22,26 +22,46 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 /**
- * FXML Controller class
+ * FXML Controller class.
  *
  * @author Creston Bunch
  */
-public class DisplaySystemController extends Controller {
+public class DisplaySystemController extends AbstractController {
 
+    /**
+     * The solar system the user is peeking at before they commit to traveling
+     * there.
+     */
     private SolarSystem peek;
+    /**
+     * The explorable UI element being used.
+     */
     private AbstractExplorableDisplay map;
+    /**
+     * Does absolutely nothing. TODO get rid of.
+     */
     private UpdateListener updateListener;
 
+    /**
+     * Contains every node in the display besides the title. This includes
+     * the sun, planets, and the planets' names.
+     */
     @FXML
     Pane content;
 
+    /**
+     * This label contains the title of the SolarSystem being peeked at.
+     */
     @FXML
     Label title;
 
+    /**
+     * The fxml view file associated with this controller.
+     */
     public static final String SYSTEM_VIEW_FILE = "/fxml/system.fxml";
 
     /**
-     * No arg constructor
+     * No arg constructor.
      */
     public DisplaySystemController() {
         this(system);
@@ -66,6 +86,7 @@ public class DisplaySystemController extends Controller {
         addListeners();
     }
 
+    @Override
     public void finish() {
         // add a sun
         SolarIcon sun = new SolarIcon(peek);
@@ -84,7 +105,7 @@ public class DisplaySystemController extends Controller {
             int y = (int) Math.round(Math.sin(theta) * r);
             // create the visual planet representation
             PlanetIcon p = new PlanetIcon(s);
-            p.setOnMouseClicked(new TravelHandler(peek, i));
+            p.setOnMouseClicked(new TravelHandler(i));
 
             // add it to the map
             map.addNode(x, y, p);
@@ -106,55 +127,26 @@ public class DisplaySystemController extends Controller {
     }
 
     /**
-     * Sets the current planet and solar system to the save file, then changes
-     * to the PlanetController scene
-     *
+     * Adds the 2 necessary listeners to the scene, width and height of the
+     * scene.
      */
-    @FXML
-    private void travelTo() {
-        /*
-         Ship ship = save.getCharacter().getShip();
-         int range = ship.getFuel();
-         SolarSystem curSS = save.getSolarSystem();
-         int x1 = curSS.getXCoordinate();
-         int y1 = curSS.getYCoordinate();
-         int x2 = selected.getXCoordinate();
-         int y2 = selected.getYCoordinate();
-
-
-         int distance = distance(x1, y1, x2, y2);
-         if ( distance <= range && selected != curSS) {
-         save.setSolarSystem(selected);
-         ship.setFuel(ship.getFuel() - distance);
-         // PSA: save.setSolarSystem() updates the current planet to the
-         // first one in the solar system
-
-         Encounter e = new Encounter();
-
-         Turn turn = new Turn();
-         turn.pass();
-
-         e.getEncounter(save.getPlanet());
-
-         } else if (curSS == selected) {
-         //no need to take a turn, we're already here
-         LastAdventures.swap(new PlanetController());
-         } else {
-         errorLabel.setText("Out of Range");
-         }
-         */
-    }
-
     private void addListeners() {
         LastAdventures.getScene().widthProperty().addListener(updateListener);
         LastAdventures.getScene().heightProperty().addListener(updateListener);
     }
 
+    /**
+     * Used to remove the listeners when the scene is left, so there will be no
+     * listeners in the scene the next time the scene is shown.
+     */
     private void removeListeners() {
         LastAdventures.getScene().widthProperty().addListener(updateListener);
         LastAdventures.getScene().heightProperty().addListener(updateListener);
     }
 
+    /**
+     * An update listener that does absolutely nothing. TODO remove.
+     */
     private class UpdateListener implements ChangeListener<Object> {
 
         @Override
@@ -165,14 +157,23 @@ public class DisplaySystemController extends Controller {
         }
     };
 
+    /**
+     * Handles the mouse click of a planet that indicates the desire to travel 
+     * to that planet.
+     */
     private class TravelHandler implements EventHandler<MouseEvent> {
 
-        private SolarSystem sys;
+        /**
+         * The index of the planet that was picked in the SolarSystem.
+         */
         private int p;
 
-        public TravelHandler(SolarSystem sys, int p) {
-            this.sys = sys;
-            this.p = p;
+        /**
+         * 
+         * @param index the index of the planet that was clicked in sys
+         */
+        public TravelHandler( int index) {
+            this.p = index;
         }
 
         @Override
@@ -202,6 +203,13 @@ public class DisplaySystemController extends Controller {
             }
         }
 
+        /**
+         * Calculates the Euclidean distance between the solar system being
+         * traveled to and the one currently docked in.
+         * 
+         * @return the distance between the player's location and the solar
+         * system being peeked at.
+         */
         private double distance() {
             SolarSystem here = DisplaySystemController.this.peek;
             SolarSystem there = system;

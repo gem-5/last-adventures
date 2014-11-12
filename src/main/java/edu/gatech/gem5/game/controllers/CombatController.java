@@ -10,32 +10,51 @@ import javafx.scene.text.Text;
 import java.util.Random;
 
 /**
- * FXML Controller Class
+ * FXML Controller Class.
  *
  * Shows trader encounter during flight
  *
  * @author Sam Blumenthal
+ * @author James Jong Han Park
  */
-public class CombatController extends Controller {
+public class CombatController extends AbstractController {
 
+    /**
+     * Button for attacking an enemy.
+     */
     @FXML
     Button attack;
+    /**
+     * Button for fleeing an enemy.
+     */
     @FXML
     Button flee;
-
+    /**
+     * Continue button after an enemy has been defeated.
+     */
     @FXML
     Button cont;
 
+    /**
+     * Current interacting player.
+     */
     Character player;
+    /**
+     * An encountered enemy by the interacting player.
+     */
     AbstractNPC enemy;
-
+    /**
+     * A message that is shown after winning a battle.
+     */
     @FXML
     Text dialog;
-
+    /**
+     * An FXML file that is directly associated with this class.
+     */
     public static final String COMBAT_VIEW_FILE = "/fxml/combat.fxml";
 
     /**
-     * Construct the combat controller
+     * Construct the combat controller.
      *
      * @param p the Character involved in combat
      * @param e the enemy NPC involved in combat
@@ -50,20 +69,36 @@ public class CombatController extends Controller {
         enactCombat();
     }
 
-    public void attackEnemy(ActionEvent event) throws Exception {
+    /**
+     * 
+     * @param event a press of the button that indicates the desire to fire at
+     * the opposing ship
+     */
+    public void attackEnemy(ActionEvent event)  {
         enactCombat();
     }
 
-    public void flee(ActionEvent event) throws Exception {
+    /**
+     * 
+     * @param event a press of the button that indicates the desire to flee from
+     * the opposing ship
+     */
+    public void flee(ActionEvent event) {
         //TODO functionality
-        
-        /*if (fleeAttempt(player, enemy)) {
-            // player flees battle
-        } else {
+
+        if (fleeAttempt(player, enemy)) {
+            enemy.getManager().nextEncounter();
+        } 
+        /* else {
             // player fails, enemy attacks during the attempt
-        }*/
+        } */
     }
 
+    /**
+     * This method handles the logic involved in attacking another ship, which
+     * also allows that ship to attack you. Cases for defeating and being
+     * defeated are also handled.
+     */
     private void enactCombat() {
         String result = String.format("%s:%n", player.getName());
         result += this.player.attackShip(enemy.getShip());
@@ -89,7 +124,16 @@ public class CombatController extends Controller {
         }
         dialog.setText(result);
     }
-
+    
+    /**
+     * Handles the logic that is involved in fleeing from an enemy. Success
+     * is determined by the 2 combatants pilot skill, as well as random
+     * variation.
+     * 
+     * @param h1 a human that is involved in the combat
+     * @param h2 a human that is involved in the combat
+     * @return the success of the attempt
+     */
     private boolean fleeAttempt(AbstractHuman h1, AbstractHuman h2) {
         Random r = new Random();
         int variation = r.nextInt(h1.getPilot() / 10) - h1.getPilot() / 20;
@@ -98,7 +142,12 @@ public class CombatController extends Controller {
         return h1.getPilot() + variation > h2.getPilot();
     }
 
-    public void continueToPlanet(ActionEvent event) throws Exception {
+    /**
+     * 
+     * @param event the press of a button that indicate the desire to continue
+     * on to the planet the player is en route for.
+     */
+    public void continueToPlanet(ActionEvent event) {
         enemy.getManager().nextEncounter();
     }
 }

@@ -11,6 +11,9 @@ import javafx.util.Duration;
  */
 public class FadeHandler {
 
+    /**
+     * A FadeTransition object to create and play.
+     */
     private FadeTransition fadeTransition;
 
     /**
@@ -45,7 +48,8 @@ public class FadeHandler {
      * @param fromValue 0.0 means transparent and 1.0 means opaque
      * @param toValue 0.0 means transparent and 1.0 means opaque
      */
-    public FadeHandler(Node object, double delay, double duration, double fromValue, double toValue) {
+    public FadeHandler(Node object, double delay, double duration,
+            double fromValue, double toValue) {
 
         fadeTransition = new FadeTransition(Duration.seconds(duration), object);
         fadeTransition.setDelay(Duration.seconds(delay));

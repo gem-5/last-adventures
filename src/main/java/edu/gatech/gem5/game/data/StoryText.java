@@ -6,7 +6,7 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public class StoryText extends DataType {
+public class StoryText extends AbstractDataType {
 
     /**
      * The text of the Story.

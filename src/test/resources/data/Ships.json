@@ -26,5 +26,20 @@
 		"price" : 1000,
 		"bounty" : 15,
 		"hullStrength" : 50
-	}
+	},
+        
+    "tester3" : {
+            "name" : "Tester III",
+            "description" : "This is the third test ship with a large cargo bay.",
+            "cargoBay" : 45,
+            "weaponSlots" : 5,
+            "shieldSlots" : 4,
+            "gadgetSlots" : 3,
+            "crewSlots"	  : 2,
+            "range"	: 15,
+            "fuelCost" : 2,
+            "price" : 1000,
+            "bounty" : 15,
+            "hullStrength" : 50
+    }
 }

@@ -1,7 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.EncounterController;
-import edu.gatech.gem5.game.controllers.Controller;
+import edu.gatech.gem5.game.controllers.AbstractController;
 import edu.gatech.gem5.game.data.WeaponType;
 import edu.gatech.gem5.game.data.ShieldType;
 import edu.gatech.gem5.game.data.GadgetType;
@@ -58,7 +58,7 @@ public abstract class AbstractNPC extends AbstractHuman implements Encounterable
     }
 
     @Override
-    public Controller getEncounterController() {
+    public AbstractController getEncounterController() {
         return new EncounterController(this);
     }
 

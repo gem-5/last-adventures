@@ -1,7 +1,7 @@
 package edu.gatech.gem5.game;
 
 import edu.gatech.gem5.game.controllers.PirateEncounterController;
-import edu.gatech.gem5.game.controllers.Controller;
+import edu.gatech.gem5.game.controllers.AbstractController;
 import java.util.Random;
 
 /**
@@ -97,7 +97,7 @@ public class Pirate extends AbstractNPC {
         return msg;
     }
     @Override
-    public Controller getEncounterController() {
+    public AbstractController getEncounterController() {
         return new PirateEncounterController(this);
     }
 

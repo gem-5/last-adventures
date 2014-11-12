@@ -1,7 +1,6 @@
 package edu.gatech.gem5.game.controllers;
 
 import edu.gatech.gem5.game.Data;
-import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.ui.ShipBar;
@@ -10,35 +9,57 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
 
 /**
  *
  * @author Alex
  */
-public class ShipyardController extends Controller {
-
-    @FXML
-    AnchorPane root;
+public class ShipyardController extends AbstractController {
+    /**
+     * Label that will display text if player attempts an illegal action.
+     */
     @FXML
     private Label errorLabel;
+
+    /**
+     * The amount of credits the player currently has.
+     */
     @FXML
     private Label lblCash;
+
+    /**
+     * Info about the player's current ship.
+     */
     @FXML
     private Label shipInfo;
+
+    /**
+     * The list of ships that the player can buy.
+     */
     @FXML
     private ListView<ShipBar> buyShips;
 
+    /**
+     * The toggle group for the controller's radio buttons.
+     */
     private final ToggleGroup shipGroup;
 
+    /**
+     * The player's current ship.
+     */
     private Ship currentShip;
 
+    /**
+     * The path that the constructor will take.
+     */
     public static final String SHIPYARD_VIEW_FILE = "/fxml/shipyard.fxml";
 
+    /**
+     * Constructor for the ShipyardController.
+     */
     public ShipyardController() {
         super(SHIPYARD_VIEW_FILE);
 
@@ -49,6 +70,13 @@ public class ShipyardController extends Controller {
         buildShipsList();
     }
 
+    /**
+     * Buys the selected ship, replaces the player's current ship, adds/deducts
+     * the correct amount of funds.
+     *
+     * @param event A button press
+     * @throws Exception 
+     */
     @FXML
     public void makeSale(ActionEvent event) throws Exception {
         // TODO:
@@ -84,11 +112,21 @@ public class ShipyardController extends Controller {
         }
     }
 
+    /**
+     * Returns to the planet info screen.
+     *
+     * @param event A button press
+     * @throws Exception 
+     */
     @FXML
     public void goBack(ActionEvent event) throws Exception {
         transitionTo(new PlanetController());
     }
 
+    /**
+     * Fills labels containing info about the player's funds, current ship, and
+     * error info.
+     */
     private void fillLabels() {
         this.lblCash.setText(Integer.toString(player.getMoney()));
         Ship s = player.getShip();
@@ -96,6 +134,9 @@ public class ShipyardController extends Controller {
         errorLabel.setText("");
     }
 
+    /**
+     * Builds the list of ships that the player can buy.
+     */
     private void buildShipsList() {
         ObservableList<ShipBar> lstShips = FXCollections.observableArrayList();
         Map<String, ShipType> ships = Data.SHIPS.get();

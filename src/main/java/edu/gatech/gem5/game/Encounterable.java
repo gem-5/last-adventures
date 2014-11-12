@@ -1,6 +1,6 @@
 package edu.gatech.gem5.game;
 
-import edu.gatech.gem5.game.controllers.Controller;
+import edu.gatech.gem5.game.controllers.AbstractController;
 /**
  * Defines methods that an Encounterable object should have so that 
  * EncounterManager can properly manage it and EncounterController can get
@@ -39,5 +39,5 @@ public interface Encounterable {
     * Dispatch method to move control to the correct FXController.
     * @return ???
     */
-    Controller getEncounterController();
+    AbstractController getEncounterController();
 }

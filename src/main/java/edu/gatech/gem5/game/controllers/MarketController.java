@@ -8,38 +8,53 @@ import javafx.scene.control.Label;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
-import edu.gatech.gem5.game.Planet;
 import edu.gatech.gem5.game.Data;
-import edu.gatech.gem5.game.SaveFile;
 import edu.gatech.gem5.game.Transaction;
 import edu.gatech.gem5.game.Ship;
 import edu.gatech.gem5.game.ui.BuyBar;
 import edu.gatech.gem5.game.data.GoodType;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 
 /**
- * FXML Controller class
+ * FXML Controller class.
  *
  * @author James
  */
-public class MarketController extends Controller {
+public class MarketController extends AbstractController {
 
+    /**
+     * Displays the amount of credits the player has.
+     */
     @FXML
     private Label lblCash;
 
+    /**
+     * Displays number of inventory slots the player has.
+     */
     @FXML
     private Label lblSlots;
 
+    /**
+     * Displays text if player attempts an illegal action.
+     */
     @FXML
     private Label errorLabel;
 
+    /**
+     * The list of goods that the player will be able to buy.
+     */
     @FXML
     private ListView<BuyBar> buyGoods;
+
+    /**
+     * The list of goods that the player will be able to sell.
+     */
     @FXML
     private ListView<BuyBar> sellGoods;
 
+    /**
+     * The path that the constructor will take.
+     */
     public static final String MARKET_VIEW_FILE = "/fxml/market.fxml";
 
     /**
@@ -125,6 +140,10 @@ public class MarketController extends Controller {
         transitionTo(new PlanetController());
     }
 
+    /**
+     * Fills labels containing the player's credits, inventory slots on their
+     * ship, and error info.
+     */
     private void fillLabels() {
         this.lblCash.setText(
             Integer.toString(player.getMoney())
@@ -136,6 +155,9 @@ public class MarketController extends Controller {
         errorLabel.setText("");
     }
 
+    /**
+     * Constructs the list of goods the player can buy.
+     */
     private void buildBuyGoodsList() {
         // this is the tab for goods that the planet sells
         ObservableList<BuyBar> lstGoods = FXCollections.observableArrayList();
@@ -153,6 +175,9 @@ public class MarketController extends Controller {
         buyGoods.setItems(lstGoods);
     }
 
+    /**
+     * Constructs the list of goods the player can sell.
+     */
     private void buildSellGoodsList() {
         ObservableList<BuyBar> listGoods = FXCollections.observableArrayList();
         Map<String, Integer> playerGoods = player.getShip().getCargoList();

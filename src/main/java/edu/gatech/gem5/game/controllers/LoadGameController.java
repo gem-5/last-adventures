@@ -29,17 +29,38 @@ import java.util.List;
  * @author Creston Bunch
  * @author James Jong Han Park
  */
-public class LoadGameController extends Controller {
+public class LoadGameController extends AbstractController {
 
+    /**
+     * A main layout for the corresponding FXML.
+     */
     @FXML
     private TilePane tileGames;
 
+    /**
+     * A button used to turn on deleting options for existing saves.
+     */
     @FXML
-    private Button delete, back;
+    private Button delete;
+    /**
+     * A back button used to return to the main menu.
+     */
+    @FXML
+    private Button back;
 
+    /**
+     * A flag that mimics a deleting existing saves mode.
+     */
     private boolean deleting;
+
+    /**
+     * List of saves to delete.
+     */
     private final List<SaveBox> deleteList;
 
+    /**
+     * An FXML file path that is directly associated with this class.
+     */
     public static final String LOAD_GAME_VIEW_FILE = "/fxml/load.fxml";
 
     /**
@@ -53,6 +74,11 @@ public class LoadGameController extends Controller {
         deleteList = new ArrayList<>();
     }
 
+    /**
+     * Handles SaveBox's press events.
+     *
+     * @param box SaveBox for either loading or queuing deletion.
+     */
     @FXML
     private void select(SaveBox box) {
         if (!deleting) {
@@ -65,7 +91,7 @@ public class LoadGameController extends Controller {
     /**
      * Load the selected game.
      *
-     * @param event a button press
+     * @param box a button press
      */
     @FXML
     private void loadGame(SaveBox box) {
@@ -81,12 +107,17 @@ public class LoadGameController extends Controller {
         }
     }
 
+    /**
+     * Return to the title screen.
+     */
     @FXML
     private void goBack() {
         transitionTo(new TitleController());
     }
 
-    // create a list of saved games
+    /**
+     * Create a list of saved games.
+     */
     private void createList() {
         String dir = SaveFile.SAVE_DIR;
         Path path = Paths.get(dir);
@@ -147,7 +178,7 @@ public class LoadGameController extends Controller {
     }
 
     /**
-     * Returns back, delete, and saveBox buttons to there normal function
+     * Returns back, delete, and saveBox buttons to there normal function.
      */
     private void cancelDelete() {
         deleting = false;
@@ -170,11 +201,19 @@ public class LoadGameController extends Controller {
         createList();
     }
 
+    /**
+     * Queue a save to remove.
+     *
+     * @param box An existing save to delete
+     */
     private void queueForDelete(SaveBox box) {
         deleteList.add(box);
         box.setStyle("-fx-background-color: red;");
     }
 
+    /**
+     * Remove all queued saves for deletion.
+     */
     private void delete() {
         for (SaveBox box : deleteList) {
             try {

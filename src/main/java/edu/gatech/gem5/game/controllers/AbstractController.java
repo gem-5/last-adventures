@@ -10,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
 import edu.gatech.gem5.game.LastAdventures;
 import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.Character;
@@ -21,24 +20,40 @@ import edu.gatech.gem5.game.Planet;
  * An abstract class that all controllers must inherit from.
  *
  * @author Creston Bunch
+ * @author James Jong Han Park
  */
-public abstract class Controller implements Initializable {
+public abstract class AbstractController implements Initializable {
 
+    /**
+     * A root object.
+     */
     protected Parent root;
-    protected static Universe universe;
-    protected static Character player;
-    protected static SolarSystem system;
-    protected static Planet planet;
+    /**
+     * A Universe object that is used in other classes.
+     */
+    static Universe universe;
+    /**
+     * A Player object that is used in other classes.
+     */
+    static Character player;
+    /**
+     * A SolarSystem object that is used in other classes.
+     */
+    static SolarSystem system;
+    /**
+     * A Planet object that is used in other classes.
+     */
+    static Planet planet;
 
     /**
      * Base constructor that loads the view from an FXML file.
      *
      * @param file The fxml file to load.
      */
-    public Controller(String file) {
+    public AbstractController(String file) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                Controller.class.getResource(file)
+                    AbstractController.class.getResource(file)
             );
 
             loader.setController(this);
@@ -77,11 +92,11 @@ public abstract class Controller implements Initializable {
     }
 
     /**
-     * Transition to a new Controller
+     * Transition to a new Controller.
      *
      * @param c The new Controller to load.
      */
-    protected void transitionTo(Controller c) {
+    protected void transitionTo(AbstractController c) {
 
         Pane oldRoot = (Pane) LastAdventures.getRoot();
         Stage stage = LastAdventures.getStage();

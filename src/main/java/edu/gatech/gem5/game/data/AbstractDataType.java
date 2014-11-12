@@ -7,5 +7,5 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public abstract class DataType {
+public abstract class AbstractDataType {
 }

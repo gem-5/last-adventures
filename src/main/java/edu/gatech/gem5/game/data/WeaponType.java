@@ -6,7 +6,7 @@ package edu.gatech.gem5.game.data;
  * @author Creston Bunch
  */
 
-public class WeaponType extends DataType {
+public class WeaponType extends AbstractDataType {
 
     /**
      * The WeaponType's key, used for identification.

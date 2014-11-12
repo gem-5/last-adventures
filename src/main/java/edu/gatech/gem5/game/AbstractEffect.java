@@ -9,7 +9,7 @@ abstract class AbstractEffect {
     /**
      * The property of the game that this object affects.
      */
-    Object property;
+    //Object property;
     /**
      * Get an game variable, and modify it.
      */
