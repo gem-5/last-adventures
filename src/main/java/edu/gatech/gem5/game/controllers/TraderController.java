@@ -15,41 +15,57 @@ import edu.gatech.gem5.game.Trader;
 import edu.gatech.gem5.game.ui.BuyBar;
 import edu.gatech.gem5.game.data.GoodType;
 import javafx.event.ActionEvent;
-import javafx.scene.layout.AnchorPane;
 
 /**
- * FXML Controller class
+ * FXML Controller class.
  *
  * @author James
  */
 public class TraderController extends Controller {
-
-    @FXML
-    AnchorPane root;
-
+    /**
+     * The label containing the amount of credits the player has.
+     */
     @FXML
     private Label lblCash;
 
+    /**
+     * The label telling the player the amount of open slots in their inventory.
+     */
     @FXML
     private Label lblSlots;
 
+    /**
+     * The label that will contain error text if the player attempts to
+     * perform an illegal action.
+     */
     @FXML
     private Label errorLabel;
 
-    // @FXML
-    // private Button refuelButton;
+    /**
+     * The list of goods the player can buy from the trader.
+     */
     @FXML
     private ListView<BuyBar> buyGoods;
+
+    /**
+     * The list of goods that the player can sell to the trader.
+     */
     @FXML
     private ListView<BuyBar> sellGoods;
 
+    /**
+     * The trader the player will be interacting with.
+     */
     private final Trader trader;
+    /**
+     * The path that the constructor will take.
+     */
     public static final String MARKET_VIEW_FILE = "/fxml/trader.fxml";
 
     /**
      * Construct the trader controller.
      *
-     * @param trader
+     * @param trader 
      */
     public TraderController(Trader trader) {
         // load the view or throw an exception
@@ -133,6 +149,10 @@ public class TraderController extends Controller {
         trader.getManager().nextEncounter();
     }
 
+    /**
+     * Fills the labels showing the player's money supply, open bays in their
+     * ship, and the default errorLabel text.
+     */
     private void fillLabels() {
         this.lblCash.setText(((Integer) player.getMoney()).toString());
         Ship s = player.getShip();
@@ -142,6 +162,9 @@ public class TraderController extends Controller {
         errorLabel.setText("");
     }
 
+    /**
+     * Builds the list of goods that can be bought from the trader.
+     */
     private void buildBuyGoodsList() {
         // this is the tab for goods that the trader sells
         ObservableList<BuyBar> lstGoods = FXCollections.observableArrayList();
@@ -159,6 +182,10 @@ public class TraderController extends Controller {
         buyGoods.setItems(lstGoods);
     }
 
+    /**
+     * Builds the list of goods that can be sold from the items in the player's
+     * inventory.
+     */
     private void buildSellGoodsList() {
         ObservableList<BuyBar> listGoods = FXCollections.observableArrayList();
         Map<String, Integer> playerGoods = player.getShip().getCargoList();

@@ -2,7 +2,6 @@ package edu.gatech.gem5.game.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
 
 /**
  *
@@ -10,10 +9,9 @@ import javafx.scene.layout.GridPane;
  * @author James Jong Han Park
  */
 public class TitleController extends Controller {
-
-    @FXML
-    private GridPane gridPane;
-
+    /**
+     * The path that the constructor will take.
+     */
     public static final String TITLE_VIEW_FILE = "/fxml/title.fxml";
 
     /**
@@ -27,7 +25,8 @@ public class TitleController extends Controller {
     /**
      * Move to the new game scene.
      *
-     * @param even a button press
+     * @param event a button press
+     * @throws Exception
      */
     @FXML
     private void startNewGame(ActionEvent event) throws Exception {
@@ -38,7 +37,8 @@ public class TitleController extends Controller {
     /**
      * Move to the continue game scene.
      *
-     * @param even a button press
+     * @param event a button press
+     * @throws Exception
      */
     @FXML
     private void continueGame(ActionEvent event) throws Exception {
@@ -49,7 +49,8 @@ public class TitleController extends Controller {
     /**
      * Move to the load game scene.
      *
-     * @param even a button press
+     * @param event a button press
+     * @throws Exception
      */
     @FXML
     private void loadGame(ActionEvent event) throws Exception {

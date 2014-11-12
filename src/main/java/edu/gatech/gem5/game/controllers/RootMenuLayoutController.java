@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
 /**
- * FXML Controller class
+ * FXML Controller class.
  *
  * @author James
  */
@@ -13,6 +13,9 @@ public class RootMenuLayoutController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * 
+     * @param url The URL
+     * @param rb The ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
