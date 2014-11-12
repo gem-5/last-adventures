@@ -45,4 +45,13 @@ findbugsMain {
     xml.enabled = false
     html.enabled = true
   }
+  ignoreFailures = true
+}
+
+findbugsTest {
+  reports {
+    xml.enabled = false
+    html.enabled = true
+  }
+  ignoreFailures = true
 }

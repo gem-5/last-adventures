@@ -11,11 +11,9 @@ import javafx.event.ActionEvent;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.beans.value.WritableStringValue;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -37,11 +35,6 @@ public class Incrementor extends HBox {
      */
     @FXML
     private Label lblValue;
-
-    /**
-     * I honestly can't remember what this is for.
-     */
-    public WritableStringValue text;
     /**
      * Holds the value of the incrementor.
      */
@@ -102,7 +95,6 @@ public class Incrementor extends HBox {
             value.subtract(incrementAmount).greaterThanOrEqualTo(min)
         );
 
-        text = new SimpleStringProperty();
     }
 
     /**

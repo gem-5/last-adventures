@@ -1,12 +1,15 @@
 package edu.gatech.gem5.game.readers;
 
 import com.google.gson.Gson;
+import java.io.IOException;
 
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * An abstract class for parsing JSON dictionary data files into Java Maps.
@@ -34,6 +37,11 @@ public abstract class AbstractReader<K, T> {
         InputStream stream = AbstractReader.class.getResourceAsStream(path);
         String json = readStream(stream);
         map = new Gson().fromJson(json, collectionType);
+        try {
+            stream.close();
+        } catch (IOException ex) {
+            throw new RuntimeException();
+        }
     }
 
     /**
