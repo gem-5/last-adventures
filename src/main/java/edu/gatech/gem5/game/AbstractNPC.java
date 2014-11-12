@@ -24,7 +24,7 @@ public abstract class AbstractNPC extends AbstractHuman implements Encounterable
      */
     EncounterManager manager;
 
-   
+
 
     /**
      * The fxml file path on this NPC's encounter.

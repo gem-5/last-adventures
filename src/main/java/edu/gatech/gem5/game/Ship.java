@@ -339,4 +339,12 @@ public class Ship {
         }
         return result.toString();
     }
+
+    /**
+     *
+     * @return the Ship's remaining health
+     */
+    public double getHealth() {
+        return this.health;
+    }
 }
