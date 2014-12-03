@@ -6,15 +6,14 @@ import edu.gatech.gem5.game.Universe;
 import edu.gatech.gem5.game.data.ShipType;
 import edu.gatech.gem5.game.readers.ShipReader;
 import edu.gatech.gem5.game.ui.Incrementor;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * FXML Controller class.
@@ -70,7 +69,7 @@ public class CharacterCreateController extends AbstractController {
     /**
      * Property for player's skill points.
      */
-    private IntegerProperty skillPoints;
+    private final IntegerProperty skillPoints;
     /**
      * FXML file that is directly associated with this class.
      */
@@ -173,7 +172,11 @@ public class CharacterCreateController extends AbstractController {
         this.planet = system.getPlanetAt(0);
 
         // go to next controller
+        if (name.equals("Nyan")) {
+            transitionTo(new EasterNyanController());
+        } else {
         transitionTo(new CharacterStatusController());
+        }
     }
 
     /**
