@@ -2,12 +2,11 @@ package edu.gatech.gem5.game.controllers;
 
 import java.net.URL;
 import java.util.Random;
-import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -21,27 +20,42 @@ import javafx.util.Duration;
  *
  * @author James Jong Han Park
  */
-public class EasterNyanController implements Initializable {
+public class EasterNyanController extends AbstractController {
 
     /**
      * FXML's root AnchorPane link.
      */
     @FXML
     AnchorPane root;
+    
+    /**
+     *  Audio link for the screen associated with the controller.
+     */
+    private AudioClip audioClip;
+    /**
+     * Animation of Nyan cats associated with this controller.
+     */
+    private Timeline timeline;
+    /**
+     * FXML file that is directly associated with this class.
+     */
+    public static final String CREATE_VIEW_FILE = "/fxml/easterNyan.fxml";
+    /**
+     * Constructor for EasterNyanController.
+     */
+    public EasterNyanController() {
+        super(CREATE_VIEW_FILE);
+        this.initialize();
+    }
 
     /**
-     * Initializes Nyan easter egg.
-     *
-     * @param url The location to resolve all relative paths for the root
-     * object.
-     * @param rb The resources used to localize the root object.
+     * Initializes Nyan easter egg..
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize() {
 
         // Add Sound
         final URL soundURL = getClass().getResource("/sound/nyan.wav");
-        final AudioClip audioClip = new AudioClip(soundURL.toString());
+        audioClip = new AudioClip(soundURL.toString());
         audioClip.setCycleCount(500);
         audioClip.play(1.0);
 
@@ -55,7 +69,7 @@ public class EasterNyanController implements Initializable {
             nyanCats.getChildren().add(nyanCat);
         }
         root.getChildren().add(nyanCats);
-        Timeline timeline = new Timeline();
+        timeline = new Timeline();
         Random r = new Random();
         for (Node nyans : nyanCats.getChildren()) {
             timeline.getKeyFrames().addAll(
@@ -108,5 +122,17 @@ public class EasterNyanController implements Initializable {
         timeline.setAutoReverse(true);
         timeline.setCycleCount(Integer.MAX_VALUE);
         timeline.play();
+    }
+    
+    /**
+     * Move to the confirm screen.
+     *
+     * @param event The button press.
+     */
+    @FXML
+    public void confirm(ActionEvent event) {
+        audioClip.stop();
+        timeline.stop();
+        transitionTo(new CharacterStatusController());
     }
 }

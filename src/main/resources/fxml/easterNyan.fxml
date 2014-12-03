@@ -7,15 +7,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane
-    fx:id="root"
-    xmlns:fx="http://javafx.com/fxml/1"
-    id="AnchorPane"
-    prefHeight="720"
-    prefWidth="1280"
-    fx:controller="edu.gatech.gem5.game.controllers.EasterNyanController"
->
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="720" prefWidth="1280" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
     <stylesheets>
-        <URL value="@easternyan.css"/>
+        <URL value="@/css/easternyan.css" />
     </stylesheets>
+   <children>
+      <Button onAction="#confirm" text="Continue" layoutX="155.0" layoutY="599.0" />
+   </children>
 </AnchorPane>
